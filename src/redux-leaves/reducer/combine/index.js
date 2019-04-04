@@ -3,9 +3,8 @@ import { combineReducers } from "redux";
 
 export const combineReducerLeaves = (dict = {}) => {
   const reducer = combineReducers(dict)
-  console.log("dict is", dict)
-  _.forEach(dict, (reducer, key) => {
-    _.set(reducer, key, key)
-  })
+  reducer.children = _.mapValues(dict, reducer => (
+    reducer.children ? reducer.children : reducer
+  ))
   return reducer
 }
