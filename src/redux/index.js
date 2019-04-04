@@ -1,4 +1,4 @@
-import { combineReducerLeaves, makeReducerLeaf } from 'redux-utils';
+import { combineReducerLeaves, makeReducerLeaf } from '../redux-leaves';
 import * as todosById from './todosById'
 import * as visibilityFilter from './visibilityFilter'
 

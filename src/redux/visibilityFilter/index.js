@@ -1,5 +1,4 @@
-
-import { makeReducerLeaf, combineReducerLeaves } from 'redux-utils';
+import { makeReducerLeaf, combineReducerLeaves } from '../../redux-leaves';
 
 const prefix = "app/visibilityFilter/"
 
