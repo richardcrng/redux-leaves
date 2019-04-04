@@ -12,7 +12,10 @@ const initialState = {
   },
   more: {
     nesting: {
-      here: false
+      here: false,
+      also: {
+        here: true
+      }
     }
   },
   todos: ["a", "b", "c"],
@@ -46,7 +49,10 @@ export const reducer = combineReducerLeaves({
   }),
   more: {
     nesting: {
-      here: reducerLeaf("more", "nesting", "here")
+      here: reducerLeaf("more", "nesting", "here"),
+      also: {
+        here: reducerLeaf("more", "nesting", "also", "here")
+      }
     }
   },
   todos: reducerLeaf("todos"),
