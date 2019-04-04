@@ -5,6 +5,11 @@ import * as visibilityFilter from './visibilityFilter'
 const prefix = "app/"
 
 const initialState = {
+  arbitrary: {
+    nested: {
+      state: true
+    }
+  },
   todos: ["a", "b", "c"],
   todosById: {
     a: {
@@ -29,6 +34,11 @@ const initialState = {
 const reducerLeaf = makeReducerLeaf(prefix, initialState)
 
 export const reducer = combineReducerLeaves({
+  arbitrary: combineReducerLeaves({
+    nested: combineReducerLeaves({
+      state: reducerLeaf("arbitrary", "nested", "state")
+    })
+  }),
   todos: reducerLeaf("todos"),
   todosById: todosById.reducer,
   visibilityFilter: visibilityFilter.reducer
