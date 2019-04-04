@@ -10,6 +10,11 @@ const initialState = {
       state: true
     }
   },
+  more: {
+    nesting: {
+      here: false
+    }
+  },
   todos: ["a", "b", "c"],
   todosById: {
     a: {
@@ -39,6 +44,11 @@ export const reducer = combineReducerLeaves({
       state: reducerLeaf("arbitrary", "nested", "state")
     })
   }),
+  more: {
+    nesting: {
+      here: reducerLeaf("more", "nesting", "here")
+    }
+  },
   todos: reducerLeaf("todos"),
   todosById: todosById.reducer,
   visibilityFilter: visibilityFilter.reducer
