@@ -4,13 +4,15 @@ import { atomicActions } from '../../actions/atomic/index';
 import { makeActionCreator } from '../../actions/creator/index';
 
 export const makeReducerLeaf = (prefix, initialState) => {
-  return (...route) => reducerLeaf({
-    prefix,
-    route,
-    initialState: (typeof route === "undefined")
-      ? initialState
-      : _.get(initialState, route.join('.'), null)
-  })
+  return (...route) => {
+    return reducerLeaf({
+      prefix,
+      route,
+      initialState: route.length === 0
+        ? initialState
+        : _.get(initialState, route.join('.'), null)
+    })
+  }
 }
 
 const reducerLeaf = ({
