@@ -1,5 +1,5 @@
-import { makeReducerLeaf } from './reducer/index';
-import { combineReducerLeaves } from './reducer/combine/index';
+import { makeReducerLeaf } from './reducer/leaf';
+import { combineReducerLeaves } from './reducer/combine/';
 
 export {
   combineReducerLeaves,

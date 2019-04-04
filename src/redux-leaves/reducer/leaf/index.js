@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import { pathJoin } from '../utils';
-import { atomicActions } from '../actions/atomic/index';
-import { makeActionCreator } from '../actions/creator/index';
+import { pathJoin } from '../../utils';
+import { atomicActions } from '../../actions/atomic/index';
+import { makeActionCreator } from '../../actions/creator/index';
 
 export const makeReducerLeaf = (prefix, initialState) => {
   return (...route) => reducerLeaf({
     prefix,
     route,
-    initialState: (typeof route === "undefined") 
+    initialState: (typeof route === "undefined")
       ? initialState
       : _.get(initialState, route.join('.'), null)
   })
