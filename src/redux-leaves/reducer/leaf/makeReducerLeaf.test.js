@@ -6,6 +6,10 @@ describe("makeReducerLeaf", () => {
     const result = makeReducerLeaf("app", null)
     expect(typeof result).toBe("function")
   })
+
+  describe("returned reducerLeaf function", () => {
+    
+  })
 })
 
 describe("findPathAndModifier helper function", () => {
