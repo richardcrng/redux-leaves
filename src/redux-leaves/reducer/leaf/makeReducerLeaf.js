@@ -17,7 +17,7 @@ export const findActionRouteAndModifier = (pathWithActionString = "example/CLEAR
   }
 }
 
-export const makeReducerLeaf = (prefix, initialState) => {
+export const makeReducerLeaf = (initialState, prefix = "") => {
   return (...route) => {
     return reducerLeaf({
       prefix,

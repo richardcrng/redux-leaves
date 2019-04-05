@@ -7,7 +7,7 @@ const initialState = {
   long: null
 }
 
-const reducerLeaf = makeReducerLeaf(prefix, initialState)
+const reducerLeaf = makeReducerLeaf(initialState, prefix)
 
 export const reducer = combineReducerLeaves({
   completed: reducerLeaf("completed"),

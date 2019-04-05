@@ -8,7 +8,7 @@ describe("makeReducerLeaf", () => {
   })
 
   describe("returned reducerLeaf function", () => {
-    
+    const reducerLeaf = makeReducerLeaf("")
   })
 })
 
