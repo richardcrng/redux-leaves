@@ -6,11 +6,11 @@ import * as utils from '../test.utils'
 
 describe("combining just one level of simple functions", () => {
   const combinedReducers = combineReducerLeaves({
-    bool: utils.boolReducer,
-    counter: utils.counterReducer,
-    foo: utils.fooReducer,
-    type: utils.lastActionTypeReducer,
-    payload: utils.lastActionPayloadReducer
+    bool: utils.reducers.bool,
+    counter: utils.reducers.counter,
+    foo: utils.reducers.foo,
+    type: utils.reducers.type,
+    payload: utils.reducers.payload
   })
 
   it("returns a function", () => {
@@ -69,13 +69,13 @@ describe("combining just one level of simple functions", () => {
 
 describe("with nested reducers", () => {
   const combinedReducers = combineReducerLeaves({
-    bool: utils.boolReducer,
-    counter: utils.counterReducer,
+    bool: utils.reducers.bool,
+    counter: utils.reducers.counter,
     foo: {
-      value: utils.fooReducer,
+      value: utils.reducers.foo,
       action: {
-        type: utils.lastActionTypeReducer,
-        payload: utils.lastActionPayloadReducer
+        type: utils.reducers.type,
+        payload: utils.reducers.payload
       }
     }
   })

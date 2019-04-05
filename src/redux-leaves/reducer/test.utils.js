@@ -10,28 +10,28 @@ export const initialState = {
   type: "",
 }
 
-export const boolReducer = (state = initialState.bool, action) => {
+const boolReducer = (state = initialState.bool, action) => {
   switch (action.type) {
     case ACTION_TYPE_TRUE: return true
     default: return state
   }
 }
 
-export const counterReducer = (state = initialState.counter, action) => {
+const counterReducer = (state = initialState.counter, action) => {
   switch (action.type) {
     case ACTION_TYPE_INCREMENT: return state + 1
     default: return state
   }
 }
 
-export const fooReducer = (state = initialState.foo, action) => {
+const fooReducer = (state = initialState.foo, action) => {
   switch (action.type) {
     case ACTION_TYPE_FOO: return action.payload
     default: return state
   }
 }
 
-export const lastActionPayloadReducer = (state = initialState.payload, action) => {
+const lastActionPayloadReducer = (state = initialState.payload, action) => {
   switch (action.type) {
     case ACTION_TYPE_INCREMENT:
     case ACTION_TYPE_TRUE:
@@ -41,7 +41,7 @@ export const lastActionPayloadReducer = (state = initialState.payload, action) =
   }
 }
 
-export const lastActionTypeReducer = (state = initialState.type, action) => {
+const lastActionTypeReducer = (state = initialState.type, action) => {
   switch (action.type) {
     case ACTION_TYPE_INCREMENT:
     case ACTION_TYPE_TRUE:
@@ -49,4 +49,12 @@ export const lastActionTypeReducer = (state = initialState.type, action) => {
       return action.type
     default: return state
   }
+}
+
+export const reducers = {
+  bool: boolReducer,
+  counter: counterReducer,
+  foo: fooReducer,
+  type: lastActionTypeReducer,
+  payload: lastActionPayloadReducer
 }
