@@ -113,7 +113,18 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
           expect(store.getState()).toBe(initialState)
         })
 
-        describe("AND an action with type 'app/prefix/some/route/INCREMENT' is dispatched", () => {
+        describe("AND an action with type 'app/prefix/other/route/INCREMENT' is dispatched with payload -2", () => {
+          beforeAll(() => {
+            store.dispatch({ type: "app/prefix/other/route/INCREMENT", payload: -2 })
+          })
+
+          test("THEN the store has state of 0", () => {
+            // Reducer should ignore it as it's the wrong type
+            expect(store.getState()).toBe(0)
+          })
+        })
+
+        describe("AND an action with type 'app/prefix/some/route/INCREMENT' is dispatched with no payload", () => {
           beforeAll(() => {
             store.dispatch({ type: "app/prefix/some/route/INCREMENT" })
           })
@@ -137,9 +148,19 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
               store.dispatch({ type: "app/RESET" })
             })
 
-            test("THEN the store has state of 1", () => {
+            test("THEN the store has state of 0", () => {
               expect(store.getState()).toBe(0)
             })
+          })
+        })
+
+        describe("AND an action with type 'app/prefix/some/route/INCREMENT' is dispatched with payload -2", () => {
+          beforeAll(() => {
+            store.dispatch({ type: "app/prefix/some/route/INCREMENT", payload: -2 })
+          })
+
+          test("THEN the store has state of -2", () => {
+            expect(store.getState()).toBe(-2)
           })
         })
       })

@@ -8,8 +8,6 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState }) => {
     state = initialState,
     { type, payload = null, meta = null } = {}
   ) => {
-
-    // const dropPrefixFromType = _.replace(type, prefix, '')
     const { route: actionRoute, modifier } = findActionRouteAndModifier(type, meta);
 
     const actionPath = pathJoin(actionRoute)
