@@ -3,7 +3,7 @@ import { pathJoin } from '../../utils';
 import { atomicActions } from '../../actions/atomic/index';
 import { makeActionCreator } from '../../actions/creator/index';
 
-export const findActionRouteAndModifier = (pathWithActionString = "example/CLEAR", metaPath, separator = '') => {
+export const findActionRouteAndModifier = (pathWithActionString = "example/CLEAR", metaPath, separator = '/') => {
   const arr = pathWithActionString.split(separator)
   // Remove empty strings, e.g. if we've split "/example/CLEAR/"
   const compacted = _.compact(arr)
