@@ -10,7 +10,7 @@ export const findActionRouteAndModifier = (pathWithActionString = "example/CLEAR
   // Pop off the last element - this is the modifier
   const modifier = compacted.pop()
   // Push meta path modifier which action might have
-  if (metaPath) compacted = compacted.concat(metaPath.split(separator))
+  if (metaPath) compacted = compacted.concat(_.compact(metaPath.split(separator)))
   return {
     route: compacted,
     modifier
