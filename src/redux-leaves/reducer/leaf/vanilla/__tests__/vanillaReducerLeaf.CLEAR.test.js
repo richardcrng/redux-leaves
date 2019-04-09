@@ -1,56 +1,32 @@
 import { vanillaReducerLeaf } from "../";
 import { createStore } from "redux";
 
-describe("GIVEN a prefix of 'app/prefix'", () => {
-  const prefix = "app/prefix/"
+describe("GIVEN vanillaReducerLeaf({ prefix: 'app/prefix', route: [some, route] })", () => {
+  const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["some, route"] })
 
-  describe("AND a defined route of [some, route]", () => {
-    const route = ["some", "route"]
+  describe("AND the store is loaded with state of false", () => {
+    let store
+    beforeEach(() => {
+      store = createStore(reducer, false)
+    })
 
-    describe("AND an initial state of false", () => {
-      const initialState = false
-
-      describe("WHEN vanillaReducerLeaf is called with prefix, route and initialState", () => {
-        const reducer = vanillaReducerLeaf({ prefix, route, initialState })
-        const store = createStore(reducer)
-        let prevState = store.getState()
-
-        describe("AND an action with type 'app/prefix/some/route/CLEAR is dispatched", () => {
-          beforeAll(() => {
-            store.dispatch({ type: "app/prefix/some/route/CLEAR" })
-          })
-
-          test("THEN the store has state of null", () => {
-            expect(store.getState()).toBeNull
-          })
-        })
+    describe("WHEN an action with type 'app/prefix/some/route/CLEAR is dispatched", () => {
+      beforeEach(() => {
+        store.dispatch({ type: "app/prefix/some/route" })
       })
 
-      describe("WHEN vanillaReducerLeaf is called with prefix = 'app/prefix' and initialState = false, but no route", () => {
-        const reducer = vanillaReducerLeaf({ prefix, initialState })
-        const store = createStore(reducer)
-        let prevState = store.getState()
+      test("THEN the store has state of null", () => {
+        expect(store.getState()).toBeNull
+      })
+    })
 
-        describe("AND an action with type 'app/prefix/some/route/CLEAR is dispatched", () => {
-          beforeAll(() => {
-            prevState = store.getState()
-            store.dispatch({ type: "app/prefix/some/route/CLEAR" })
-          })
+    describe("WHEN an action with type 'app/prefix/other/route/CLEAR is dispatched", () => {
+      beforeEach(() => {
+        store.dispatch({ type: "app/prefix/other/route" })
+      })
 
-          test("THEN the store still maintains its previous state", () => {
-            expect(store.getState()).toBe(prevState)
-          })
-        })
-
-        describe("AND an action with type 'app/prefix/CLEAR is dispatched", () => {
-          beforeAll(() => {
-            store.dispatch({ type: "app/prefix/ON" })
-          })
-
-          test("THEN the store has state of null", () => {
-            expect(store.getState()).toBeNull
-          })
-        })
+      test("THEN the store has state of null", () => {
+        expect(store.getState()).toBe(false)
       })
     })
   })
