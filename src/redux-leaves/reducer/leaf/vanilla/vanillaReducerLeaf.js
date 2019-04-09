@@ -3,7 +3,7 @@ import { findActionRouteAndModifier } from '../../../actions/route';
 import { pathJoin } from '../../../utils';
 import { atomicActions } from '../../../actions/atomic';
 
-export const vanillaReducerLeaf = ({ prefix = "app", route, initialState }) => {
+export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null }) => {
   return (
     state = initialState,
     { type, payload = null, meta = null } = {}
