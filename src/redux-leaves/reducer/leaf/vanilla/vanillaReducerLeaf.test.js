@@ -13,6 +13,7 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
       describe("WHEN vanillaReducerLeaf is called with prefix, route and initialState", () => {
         const reducer = vanillaReducerLeaf({ prefix, route, initialState })
         const store = createStore(reducer)
+        let prevState = store.getState()
 
         test("THEN it returns a function", () => {
           expect(typeof reducer).toBe("function")
@@ -31,13 +32,24 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
             expect(store.getState()).toBe(true)
           })
 
-          describe("AND an action with type 'app/prefix/RESET is dispatched", () => {
+          describe("AND an action with type 'app/prefix/RESET' is dispatched", () => {
             beforeAll(() => {
               store.dispatch({ type: "app/prefix/RESET" })
             })
 
             test("THEN the store has state of false", () => {
               expect(store.getState()).toBe(false)
+            })
+          })
+
+          describe("AND an action with type 'app/prefix/some/route/TOGGLE' is dispatched", () => {
+            beforeAll(() => {
+              let prevState = store.getState()
+              store.dispatch({ type: "app/prefix/some/route/TOGGLE" })
+            })
+
+            test("THEN the store returns !prevState", () => {
+              expect(store.getState()).toBe(!prevState)
             })
           })
 
@@ -57,6 +69,7 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
       describe("WHEN vanillaReducerLeaf is called with prefix and initialState but no route", () => {
         const reducer = vanillaReducerLeaf({ prefix, initialState })
         const store = createStore(reducer)
+        let prevState = store.getState()
 
         test("THEN it returns a function", () => {
           expect(typeof reducer).toBe("function")
@@ -104,6 +117,7 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
       describe("WHEN vanillaReducerLeaf is called with prefix, route and initialState", () => {
         const reducer = vanillaReducerLeaf({ prefix, route, initialState })
         const store = createStore(reducer)
+        let prevState = store.getState()
 
         test("THEN it returns a function", () => {
           expect(typeof reducer).toBe("function")
@@ -115,11 +129,13 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
 
         describe("AND an action with type 'app/prefix/other/route/INCREMENT' is dispatched with payload -2", () => {
           beforeAll(() => {
+            prevState = store.getState()
             store.dispatch({ type: "app/prefix/other/route/INCREMENT", payload: -2 })
           })
 
-          test("THEN the store has state of 0", () => {
+          test("THEN the store returns its previous state", () => {
             // Reducer should ignore it as it's the wrong type
+            expect(store.getState()).toBe(prevState)
             expect(store.getState()).toBe(0)
           })
         })
@@ -161,6 +177,18 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
 
           test("THEN the store has state of -2", () => {
             expect(store.getState()).toBe(-2)
+          })
+
+          describe("AND an action with type 'app/prefix/other/route/INCREMENT' is dispatched with payload -2", () => {
+            beforeAll(() => {
+              prevState = store.getState()
+              store.dispatch({ type: "app/prefix/other/route/INCREMENT", payload: -2 })
+            })
+
+            test("THEN the store returns its previous state", () => {
+              // Reducer should ignore it as it's the wrong type
+              expect(store.getState()).toBe(prevState)
+            })
           })
         })
       })
