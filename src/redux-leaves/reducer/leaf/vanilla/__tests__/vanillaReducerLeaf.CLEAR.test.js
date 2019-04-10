@@ -62,42 +62,32 @@ describe("**Feature**: created reducer does not return null when an action is di
       })
     })
   })
+
+  describe("GIVEN a reducer from { prefix: 'app/prefix',  initialState: true }", () => {
+    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", initialState: true })
+
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/deep/CLEAR'", () => {
+      const result = reducer(true, { type: "app/prefix/path/deep/CLEAR" })
+
+      test("THEN it does not clear (and returns true)", () => {
+        expect(result).toBe(true)
+      })
+    })
+
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/CLEAR'", () => {
+      const result = reducer(true, { type: "app/prefix/path/CLEAR" })
+
+      test("THEN it returns true", () => {
+        expect(result).toBe(true)
+      })
+    })
+
+    describe("WHEN the reducer is called with state = true and action type 'CLEAR'", () => {
+      const result = reducer(true, { type: "CLEAR" })
+
+      test("THEN it returns null", () => {
+        expect(result).toBeNull()
+      })
+    })
+  })
 })
-
-// describe("FEATURE: behaves as expected when integrated with createStore()", () => {
-//   describe("GIVEN argument { prefix: 'app/prefix', route: ['some', 'route'] }", () => {
-//     const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["some, route"] })
-
-//     describe("WHEN the store is loaded from the reducer with a specific string, 'string'", () => {
-//       const string = "string"
-//       let store
-//       beforeEach(() => {
-//         store = createStore(reducer, string)
-//       })
-
-//       test("THEN the store has state equal to that string", () => {
-//         expect(store.getState()).toBe(string)
-//       })
-
-//       describe("AND an action with type 'app/prefix/some/route/CLEAR is dispatched", () => {
-//         beforeEach(() => {
-//           store.dispatch({ type: "app/prefix/some/route" })
-//         })
-
-//         test("THEN the store has state of null", () => {
-//           expect(store.getState()).toBeNull()
-//         })
-//       })
-
-//       describe("AND an action with type 'app/prefix/other/route/CLEAR is dispatched", () => {
-//         beforeEach(() => {
-//           store.dispatch({ type: "app/prefix/other/route" })
-//         })
-
-//         test("THEN the store has state of the same string", () => {
-//           expect(store.getState()).toBe(string)
-//         })
-//       })
-//     })
-//   })
-// })
