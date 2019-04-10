@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { pathJoin } from "../../utils";
 import { makeActionCreator } from '../creator/';
 import { atomicActions } from '../atomic/';
@@ -10,6 +11,7 @@ const leafActions = (path = "app/", leaf = "leaf") => {
   const leafAction = type => makeActionCreator(pathJoin([path, leaf, type]))
 
   return {
+    apply: leafAction(atomicActions.APPLY),
     clear: leafAction(atomicActions.CLEAR),
     increment: leafAction(atomicActions.INCREMENT),
     off: leafAction(atomicActions.OFF),
