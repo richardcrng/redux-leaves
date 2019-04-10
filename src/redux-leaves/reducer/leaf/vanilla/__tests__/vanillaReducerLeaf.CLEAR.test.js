@@ -9,7 +9,7 @@ describe("**Feature**: created reducer returns null when an action is dispatched
       const result = reducer(true, { type: "app/prefix/route/path/deep/CLEAR" })
 
       test("THEN it returns null", () => {
-        expect(result).toBeNull
+        expect(result).toBeNull()
       })
     })
 
@@ -17,7 +17,7 @@ describe("**Feature**: created reducer returns null when an action is dispatched
       const result = reducer(true, { type: "app/prefix/route/path/CLEAR" })
 
       test("THEN it returns null", () => {
-        expect(result).toBeNull
+        expect(result).toBeNull()
       })
     })
 
@@ -25,7 +25,7 @@ describe("**Feature**: created reducer returns null when an action is dispatched
       const result = reducer(true, { type: "app/prefix/CLEAR" })
 
       test("THEN it returns null", () => {
-        expect(result).toBeNull
+        expect(result).toBeNull()
       })
     })
 
@@ -33,7 +33,7 @@ describe("**Feature**: created reducer returns null when an action is dispatched
       const result = reducer(true, { type: "CLEAR" })
 
       test("THEN it returns null", () => {
-        expect(result).toBeNull
+        expect(result).toBeNull()
       })
     })
   })
@@ -85,7 +85,7 @@ describe("**Feature**: created reducer does not returs null when an action is di
 //         })
 
 //         test("THEN the store has state of null", () => {
-//           expect(store.getState()).toBeNull
+//           expect(store.getState()).toBeNull()
 //         })
 //       })
 
