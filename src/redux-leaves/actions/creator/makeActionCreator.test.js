@@ -1,37 +1,74 @@
 import { makeActionCreator } from ".";
 
-const ACTION_TYPE_CONSTANT = "ACTION_TYPE_CONSTANT"
-const PAYLOAD_DUMMY_STRING = "PAYLOAD_DUMMY_STRING"
-const META_DUMMY_STRING = "META_DUMMY_STRING"
+describe("**Feature**: when provided one argument (type), it returns an action creator function for that type", () => {
 
-it('returns a function with the given type', () => {
-  const result = makeActionCreator(ACTION_TYPE_CONSTANT)
-  expect(typeof result).toBe("function")
-  expect(result.type).toBe(ACTION_TYPE_CONSTANT)
-})
+  describe("GIVEN an action type constant, 'ACTION_TYPE_CONSTANT'", () => {
+    const ACTION_TYPE_CONSTANT = "ACTION_TYPE_CONSTANT"
 
-describe("returned action creator function", () => {
-  const actionCreator = makeActionCreator(ACTION_TYPE_CONSTANT)
-
-  describe("executed with one argument", () => {
-    const action = actionCreator(PAYLOAD_DUMMY_STRING)
-
-    it("returns an action object with given type and argument as payload", () => {
-      expect(action).toEqual({
-        type: ACTION_TYPE_CONSTANT,
-        payload: PAYLOAD_DUMMY_STRING
+    describe("WHEN it is called with that constant", () => {
+      const actionCreator = makeActionCreator(ACTION_TYPE_CONSTANT)
+      
+      test("THEN it returns a function with type 'ACTION_TYPE_CONSTANT'", () => {
+        expect(typeof actionCreator).toBe("function")
+        expect(actionCreator.type).toBe(ACTION_TYPE_CONSTANT)
       })
-    })
-  })
 
-  describe("executed with two arguments", () => {
-    const action = actionCreator(PAYLOAD_DUMMY_STRING, META_DUMMY_STRING)
+      describe("AND the returned function is executed with no arguments", () => {
+        const result = actionCreator()
 
-    it("returns an action object with given type, payload from first argument and meta from second argument", () => {
-      expect(action).toEqual({
-        type: ACTION_TYPE_CONSTANT,
-        payload: PAYLOAD_DUMMY_STRING,
-        meta: META_DUMMY_STRING
+        test("THEN the result is { type: 'ACTION_TYPE_CONSTANT' }", () => {
+          // Check overall object
+          expect(result).toEqual({ type: ACTION_TYPE_CONSTANT })
+          // Check type for referential identity
+          expect(result.type).toBe(ACTION_TYPE_CONSTANT)
+        })
+      })
+
+      describe("AND the returned function is executed with one argument: 'arg one'", () => {
+        const argOne = "arg one"
+        const result = actionCreator(argOne)
+
+        test("THEN the result is { type: 'ACTION_TYPE_CONSTANT', payload: 'arg one' }", () => {
+          // Check overall object
+          expect(result).toEqual({ type: ACTION_TYPE_CONSTANT, payload: argOne })
+          // Check type and payload for referential identity
+          expect(result.type).toBe(ACTION_TYPE_CONSTANT)
+          expect(result.payload).toBe(argOne)
+        })
+      })
+
+      describe("AND the returned function is executed with two arguments: 'arg one', 'arg two'", () => {
+        const argOne = "arg one"
+        const argTwo = "arg two"
+        const result = actionCreator(argOne, argTwo)
+
+        test("THEN the result is { type: 'ACTION_TYPE_CONSTANT', payload: 'arg one', meta: 'arg two' }", () => {
+          // Check overall object
+          expect(result).toEqual({ type: ACTION_TYPE_CONSTANT, payload: argOne, meta: argTwo })
+          // Check type, payload and meta for referential identity
+          expect(result.type).toBe(ACTION_TYPE_CONSTANT)
+          expect(result.payload).toBe(argOne)
+          expect(result.meta).toBe(argTwo)
+        })
+      })
+
+      describe("AND the returned function is executed with three arguments: 'arg one', 'arg two', { arg: 'three' }", () => {
+        const argOne = "arg one"
+        const argTwo = "arg two"
+        const three = 'three'
+        const argThree = { arg: three }
+        const result = actionCreator(argOne, argTwo, argThree)
+
+        test("THEN the result is { type: 'ACTION_TYPE_CONSTANT', payload: 'arg one', meta: 'arg two', arg: 'three' }", () => {
+          // Check overall object
+          expect(result).toEqual({ type: ACTION_TYPE_CONSTANT, payload: argOne, meta: argTwo, arg: three })
+          // Check type, payload, meta for referential identity
+          expect(result.type).toBe(ACTION_TYPE_CONSTANT)
+          expect(result.payload).toBe(argOne)
+          expect(result.meta).toBe(argTwo)
+          // Check arg for referential identity
+          expect(result.arg).toBe(three)
+        })
       })
     })
   })
