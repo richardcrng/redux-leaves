@@ -25,10 +25,12 @@ const reducerLeaf = ({ prefix = "app", route, initialState }) => {
 const withActions = (reducer, { prefix, route }) => {
   const leafAction = type => makeActionCreator(pathJoin([prefix, route, type]))
 
+  reducer.apply = leafAction(atomicActions.APPLY)
   reducer.clear = leafAction(atomicActions.CLEAR)
   reducer.increment = leafAction(atomicActions.INCREMENT)
   reducer.off = leafAction(atomicActions.OFF)
   reducer.on = leafAction(atomicActions.ON)
+  reducer.push = leafAction(atomicActions.PUSH)
   reducer.reset = leafAction(atomicActions.RESET)
   reducer.set = leafAction(atomicActions.SET)
   reducer.update = leafAction(atomicActions.SET)
