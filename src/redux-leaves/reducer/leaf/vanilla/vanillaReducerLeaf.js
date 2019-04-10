@@ -13,6 +13,8 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     const actionPath = pathJoin(actionRoute)
     const pathToLeaf = pathJoin([prefix, route])
 
+    console.log("actionPath, pathToLeaf", actionPath, pathToLeaf)
+
     // CLEAR and RESET if pathToLeaf starts with actionPath
     //    (so that parent branch can clear)
     if (_.startsWith(pathToLeaf, actionPath)) {
