@@ -1,9 +1,9 @@
 import { makeReducerLeaf } from './';
 import { createStore } from 'redux';
 
-describe("**Feature**: returns a reducer leaf function that looks at the relevant property in supplied initialState shape, prefix and invoked route", () => {
-  describe("GIVEN initialState = { bool: true, counter: 10, foo: 'bar' }", () => {
-    const initialState = { bool: true, counter: 10, foo: 'bar' }
+describe("**Feature**: returns a reducer leaf function that looks at the relevant property in supplied initialState shape, optional prefix and invoked route", () => {
+  describe("GIVEN initialState = { bool: true, counter: 10, foo: 'bar', is: { nested: false } }", () => {
+    const initialState = { bool: true, counter: 10, foo: 'bar', is: { nested: false } }
 
     describe("AND prefix = 'app/prefix'", () => {
       const prefix = "app/prefix"
@@ -116,14 +116,42 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             })
           })
         })
+
+        describe("AND reducer = reducerLeaf('is', 'nested')", () => {
+          const reducer = reducerLeaf('is', 'nested')
+
+          test("THEN reducer is a function", () => {
+            expect(typeof reducer).toBe("function")
+          })
+
+          test("AND reducer has an 'toggle' property that is a function", () => {
+            expect(reducer.toggle).toBeDefined()
+            expect(typeof reducer.toggle).toBe("function")
+          })
+
+          test("AND reducer.toggle.type is 'app/prefix/is/nested/TOGGLE'", () => {
+            expect(reducer.toggle.type).toBe("app/prefix/is/nested/TOGGLE")
+          })
+
+          describe("AND store = createStore(reducer)", () => {
+            let store
+            beforeEach(() => store = createStore(reducer))
+
+            test("THEN the store has a state of false", () => {
+              expect(store.getState()).toBe(false)
+            })
+
+            describe("AND store is dispatched reducer.toggle()", () => {
+              beforeEach(() => store.dispatch(reducer.toggle()))
+
+              test("THEN the store has a state of true", () => {
+                expect(store.getState()).toBe(true)
+              })
+            })
+          })
+        })
       })
     })
-  })
-})
-
-describe("**Feature**: returns a reducer leaf function that looks at the relevant property in supplied initialState shape and invoked route without needing a prefix", () => {
-  describe("GIVEN initialState = { bool: true, counter: 10, foo: 'bar' }", () => {
-    const initialState = { bool: true, counter: 10, foo: 'bar' }
 
     describe("WHEN reducerLeaf = makeReducerLeaf(initialState)", () => {
       const reducerLeaf = makeReducerLeaf(initialState)
@@ -229,6 +257,40 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
 
             test("THEN the store has a state of 'foobar'", () => {
               expect(store.getState()).toBe('foobar')
+            })
+          })
+        })
+      })
+
+      describe("AND reducer = reducerLeaf('is', 'nested')", () => {
+        const reducer = reducerLeaf('is', 'nested')
+
+        test("THEN reducer is a function", () => {
+          expect(typeof reducer).toBe("function")
+        })
+
+        test("AND reducer has an 'toggle' property that is a function", () => {
+          expect(reducer.toggle).toBeDefined()
+          expect(typeof reducer.toggle).toBe("function")
+        })
+
+        test("AND reducer.toggle.type is 'is/nested/TOGGLE'", () => {
+          expect(reducer.toggle.type).toBe("is/nested/TOGGLE")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => store = createStore(reducer))
+
+          test("THEN the store has a state of false", () => {
+            expect(store.getState()).toBe(false)
+          })
+
+          describe("AND store is dispatched reducer.toggle()", () => {
+            beforeEach(() => store.dispatch(reducer.toggle()))
+
+            test("THEN the store has a state of true", () => {
+              expect(store.getState()).toBe(true)
             })
           })
         })
