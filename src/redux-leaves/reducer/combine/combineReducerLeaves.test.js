@@ -91,7 +91,7 @@ describe("**Feature**: it can combine a dictionary of simple reducers", () => {
 
 describe("**Feature**: it can combine a dictionary of nested reducers", () => {
 
-  describe("GIVEN a dictionary of nested reducers", () => {
+  describe("GIVEN a dictionary of nested reducers of structure { bool, counter, foo: { value, action: { type, payload } } }", () => {
     const dict = {
       bool: utils.reducers.bool,
       counter: utils.reducers.counter,
@@ -251,6 +251,50 @@ describe("**Feature**: child reducers can be accessed through the 'children' pro
       test("AND the reducer branches (foo, action) are all objects", () => {
         expect(typeof combinedReducers.children.foo).toBe("object")
         expect(typeof combinedReducers.children.foo.action).toBe("object")
+      })
+    })
+  })
+})
+
+describe("**Feature**: when third argument (augment) is true, it has access to action creators", () => {
+
+  describe("GIVEN a dictionary of nested reducers of structure { bool, counter, foo: { value, action: { type, payload } } }", () => {
+    const dict = {
+      bool: utils.reducers.bool,
+      counter: utils.reducers.counter,
+      foo: {
+        value: utils.reducers.foo,
+        action: {
+          type: utils.reducers.type,
+          payload: utils.reducers.payload
+        }
+      }
+    }
+
+    describe("AND prefix = 'app/prefix", () => {
+      const prefix = "app/prefix"
+
+      describe("WHEN it is called with that dictionary and prefix, and augment = true", () => {
+        const reducer = combineReducerLeaves(dict, { prefix }, true)
+
+        test("THEN it returns a function", () => {
+          expect(typeof reducer).toBe("function")
+        })
+
+        test("AND it has a defined 'clear' property", () => {
+          expect(reducer.clear).toBeDefined()
+          expect(reducer.clear.type).toBe("app/prefix/CLEAR")
+        })
+
+        test("AND it has a defined 'children.foo.clear' property", () => {
+          expect(reducer.children.foo.clear).toBeDefined()
+          expect(reducer.children.foo.clear.type).toBe("app/prefix/foo/CLEAR")
+        })
+
+        test("AND it has a defined 'children.foo.action.clear' property", () => {
+          expect(reducer.children.foo.action.clear).toBeDefined()
+          expect(reducer.children.foo.action.clear.type).toBe("app/prefix/foo/action/CLEAR")
+        })
       })
     })
   })
