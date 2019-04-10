@@ -1,5 +1,4 @@
 import { vanillaReducerLeaf } from "../";
-import { createStore } from "redux";
 
 describe("**Feature**: created reducer returns null when an action is dispatched with '.../CLEAR' and a path consistent with the initialised prefix and route", () => {
 
