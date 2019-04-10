@@ -59,7 +59,7 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
             })
 
             test("THEN the store has state of null", () => {
-              expect(store.getState()).toBeNull
+              expect(store.getState()).toBeNull()
             })
           })
         })
@@ -104,7 +104,7 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
             })
 
             test("THEN the store has state of null", () => {
-              expect(store.getState()).toBeNull
+              expect(store.getState()).toBeNull()
             })
           })
         })
