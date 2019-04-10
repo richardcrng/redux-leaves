@@ -26,6 +26,10 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     //    to actionPath
     if (pathToLeaf == actionPath) {
       switch (modifier) {
+        case atomicActions.APPLY:
+          return (typeof payload === "function")
+            ? payload(_.cloneDeep(state))
+            : payload
         case atomicActions.INCREMENT:
           const increment = (typeof payload === "number") ? payload : 1
           return state + increment
