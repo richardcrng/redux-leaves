@@ -111,11 +111,6 @@ describe("**Feature**: it can combine a dictionary of nested reducers", () => {
         expect(typeof combinedReducers).toBe("function")
       })
 
-      test("AND the function's child reducers can be accessed through its 'children' property", () => {
-        const { children } = combinedReducers;
-        expect(children).toBeDefined()
-      })
-
       describe("AND the result is passed to redux's createStore", () => {
         let store
         beforeEach(() => {
@@ -195,6 +190,67 @@ describe("**Feature**: it can combine a dictionary of nested reducers", () => {
             })
           })
         })
+      })
+    })
+  })
+})
+
+describe("**Feature**: child reducers can be accessed through the 'children' property", () => {
+
+  describe("GIVEN a dictionary of nested reducers of structure: { bool, counter, foo: { value, action: { type, payload } } }", () => {
+    const dict = {
+      bool: utils.reducers.bool,
+      counter: utils.reducers.counter,
+      foo: {
+        value: utils.reducers.foo,
+        action: {
+          type: utils.reducers.type,
+          payload: utils.reducers.payload
+        }
+      }
+    }
+
+    describe("WHEN it is called with that dictionary", () => {
+      const combinedReducers = combineReducerLeaves(dict)
+
+      test("THEN the function has a 'children' property", () => {
+        expect(combinedReducers.children).toBeDefined()
+      })
+
+      test("AND children has defined properties for the top-level of the dictionary (bool, counter, foo)", () => {
+        expect(combinedReducers.children.bool).toBeDefined()
+        expect(combinedReducers.children.counter).toBeDefined()
+        expect(combinedReducers.children.foo).toBeDefined()
+      })
+
+      test("AND children does not have defined properties for nested properties (value, action, type, payload)", () => {
+        expect(combinedReducers.children.value).toBeUndefined()
+        expect(combinedReducers.children.action).toBeUndefined()
+        expect(combinedReducers.children.type).toBeUndefined()
+        expect(combinedReducers.children.payload).toBeUndefined()
+      })
+
+      test("AND child properties with children (foo) have defined properties for their own children (value, action)", () => {
+        expect(combinedReducers.children.foo.value).toBeDefined()
+        expect(combinedReducers.children.foo.action).toBeDefined()
+      })
+
+      test("AND grandchild properties with children (action) have defined properties for their own children (type, payload)", () => {
+        expect(combinedReducers.children.foo.action.type).toBeDefined()
+        expect(combinedReducers.children.foo.action.payload).toBeDefined()
+      })
+
+      test("AND the ultimate reducer leaves (bool, counter, foo.value, type, payload) are all functions", () => {
+        expect(typeof combinedReducers.children.bool).toBe("function")
+        expect(typeof combinedReducers.children.counter).toBe("function")
+        expect(typeof combinedReducers.children.foo.value).toBe("function")
+        expect(typeof combinedReducers.children.foo.action.payload).toBe("function")
+        expect(typeof combinedReducers.children.foo.action.type).toBe("function")
+      })
+
+      test("AND the reducer branches (foo, action) are all objects", () => {
+        expect(typeof combinedReducers.children.foo).toBe("object")
+        expect(typeof combinedReducers.children.foo.action).toBe("object")
       })
     })
   })
