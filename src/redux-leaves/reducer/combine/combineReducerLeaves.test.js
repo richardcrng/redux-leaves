@@ -111,6 +111,11 @@ describe("**Feature**: it can combine a dictionary of nested reducers", () => {
         expect(typeof combinedReducers).toBe("function")
       })
 
+      test("AND the function's child reducers can be accessed through its 'children' property", () => {
+        const { children } = combinedReducers;
+        expect(children).toBeDefined()
+      })
+
       describe("AND the result is passed to redux's createStore", () => {
         let store
         beforeEach(() => {
