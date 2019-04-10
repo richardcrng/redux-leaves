@@ -298,3 +298,52 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
     })
   })
 })
+
+describe("**Feature**: returns a reducer leaf function works on primitive state", () => {
+  describe("GIVEN initialState = false", () => {
+    const initialState = false
+
+    describe("WHEN reducerLeaf = makeReducerLeaf(initialState)", () => {
+      const reducerLeaf = makeReducerLeaf(initialState)
+
+      test("THEN reducerLeaf is a function", () => {
+        expect(typeof reducerLeaf).toBe("function")
+      })
+
+      describe("AND reducer = reducerLeaf()", () => {
+        const reducer = reducerLeaf()
+
+        test("THEN reducer is a function", () => {
+          expect(typeof reducer).toBe("function")
+        })
+
+        test("AND reducer has an 'on' property that is a function", () => {
+          expect(reducer.on).toBeDefined()
+          expect(typeof reducer.on).toBe("function")
+        })
+
+        test("AND reducer.on.type is 'ON'", () => {
+          expect(reducer.on.type).toBe("ON")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => store = createStore(reducer))
+
+          test("THEN the store has a state of false", () => {
+            expect(store.getState()).toBe(false)
+          })
+
+          describe("AND store is dispatched reducer.on()", () => {
+            beforeEach(() => store.dispatch(reducer.on()))
+
+            test("THEN the store has a state of true", () => {
+              expect(store.getState()).toBe(true)
+            })
+          })
+        })
+      })
+    })
+  })
+})
+
