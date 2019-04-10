@@ -19,6 +19,13 @@ describe("**Feature**: it returns an object with properties corresponding to exp
           expect(typeof result).toBe("object")
         })
 
+        test("AND its 'apply' property is an action creator of type 'app/prefix/dummy/leaf/APPLY'", () => {
+          const { apply } = result;
+          expect(apply).toBeDefined
+          expect(typeof apply).toBe("function")
+          expect(apply.type).toBe("app/prefix/dummy/leaf/APPLY")
+        })
+
         test("AND its 'clear' property is an action creator of type 'app/prefix/dummy/leaf/CLEAR'", () => {
           const { clear } = result;
           expect(clear).toBeDefined
