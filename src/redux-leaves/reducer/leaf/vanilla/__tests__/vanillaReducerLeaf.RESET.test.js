@@ -61,6 +61,15 @@ describe("**Feature**: created reducer does not reset when an action is dispatch
         expect(result).toBe(string)
       })
     })
+
+    describe("WHEN the reducer is called with state = 'string', action type 'app/RESET' and action meta = 'nope'", () => {
+      const string = 'string'
+      const result = reducer(string, { type: "will/not/RESET", meta: "nope" })
+
+      test("THEN it returns the same string", () => {
+        expect(result).toBe(string)
+      })
+    })
   })
 
   describe("GIVEN a reducer from { prefix: 'app/prefix',  initialState: false }", () => {
