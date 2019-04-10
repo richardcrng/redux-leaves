@@ -3,18 +3,18 @@ import { vanillaReducerLeaf } from "../";
 describe("**Feature**: created reducer returns null when an action is dispatched with '.../CLEAR' and a path consistent with the initialised prefix and route", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: true }", () => {
-    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path, deep"], initialState: true })
+    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: true })
 
-    describe("WHEN the reducer is called with state = true and action type 'app/prefix/route/path/deep/CLEAR'", () => {
-      const result = reducer(true, { type: "app/prefix/route/path/deep/CLEAR" })
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/deep/CLEAR'", () => {
+      const result = reducer(true, { type: "app/prefix/path/deep/CLEAR" })
 
       test("THEN it returns null", () => {
         expect(result).toBeNull()
       })
     })
 
-    describe("WHEN the reducer is called with state = true and action type 'app/prefix/route/path/CLEAR'", () => {
-      const result = reducer(true, { type: "app/prefix/route/path/CLEAR" })
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/CLEAR'", () => {
+      const result = reducer(true, { type: "app/prefix/path/CLEAR" })
 
       test("THEN it returns null", () => {
         expect(result).toBeNull()
@@ -44,7 +44,7 @@ describe("**Feature**: created reducer does not returs null when an action is di
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: true }", () => {
     const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path, deep"], initialState: true })
 
-    describe("WHEN the reducer is called with state = true and action type 'app/prefix/route/path/wrong/CLEAR'", () => {
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/wrong/CLEAR'", () => {
       const result = reducer(true, { type: "app/prefix/route/path/wrong/CLEAR" })
 
       test("THEN it returns true", () => {

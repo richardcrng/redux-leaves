@@ -3,18 +3,18 @@ import { vanillaReducerLeaf } from "../";
 describe("**Feature**: created reducer returns its initialState when an action is dispatched with '.../RESET' and a path consistent with the initialised prefix and route", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: true }", () => {
-    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path, deep"], initialState: true })
+    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: true })
 
-    describe("WHEN the reducer is called with state = false and action type 'app/prefix/route/path/deep/RESET'", () => {
-      const result = reducer(false, { type: "app/prefix/route/path/deep/RESET" })
+    describe("WHEN the reducer is called with state = false and action type 'app/prefix/path/deep/RESET'", () => {
+      const result = reducer(false, { type: "app/prefix/path/deep/RESET" })
 
       test("THEN it returns true", () => {
         expect(result).toBe(true)
       })
     })
 
-    describe("WHEN the reducer is called with state = false and action type 'app/prefix/route/path/RESET'", () => {
-      const result = reducer(false, { type: "app/prefix/route/path/RESET" })
+    describe("WHEN the reducer is called with state = false and action type 'app/prefix/path/RESET'", () => {
+      const result = reducer(false, { type: "app/prefix/path/RESET" })
 
       test("THEN it returns true", () => {
         expect(result).toBe(true)
@@ -42,10 +42,10 @@ describe("**Feature**: created reducer returns its initialState when an action i
 describe("**Feature**: created reducer does not returs null when an action is dispatched with '.../RESET', a path inconsistent with the initialised prefix and route, and non-null state", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: true }", () => {
-    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path, deep"], initialState: true })
+    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: true })
 
-    describe("WHEN the reducer is called with state = true and action type 'app/prefix/route/path/wrong/RESET'", () => {
-      const result = reducer(true, { type: "app/prefix/route/path/wrong/RESET" })
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/wrong/RESET'", () => {
+      const result = reducer(true, { type: "app/prefix/path/wrong/RESET" })
 
       test("THEN it returns true", () => {
         expect(result).toBe(true)
