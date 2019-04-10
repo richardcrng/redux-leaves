@@ -2,66 +2,15 @@
 import { combineReducerLeaves } from './combineReducerLeaves';
 import { createStore } from 'redux';
 
-const ACTION_TYPE_TRUE = "ACTION_TYPE_TRUE"
-const ACTION_TYPE_INCREMENT = "ACTION_TYPE_INCREMENT"
-const ACTION_TYPE_FOO = "ACTION_TYPE_FOO"
-
-const initialState = {
-  bool: false,
-  counter: 0,
-  foo: null,
-  payload: null,
-  type: "",
-}
-
-const boolReducer = (state = initialState.bool, action) => {
-  switch (action.type) {
-    case ACTION_TYPE_TRUE: return true
-    default: return state
-  }
-}
-
-const counterReducer = (state = initialState.counter, action) => {
-  switch (action.type) {
-    case ACTION_TYPE_INCREMENT: return state + 1
-    default: return state
-  }
-}
-
-const fooReducer = (state = initialState.foo, action) => {
-  switch (action.type) {
-    case ACTION_TYPE_FOO: return action.payload
-    default: return state
-  }
-}
-
-const lastActionPayloadReducer = (state = initialState.payload, action) => {
-  switch (action.type) {
-    case ACTION_TYPE_INCREMENT:
-    case ACTION_TYPE_TRUE:
-    case ACTION_TYPE_FOO:
-      return action.payload
-    default: return state
-  }
-}
-
-const lastActionTypeReducer = (state = initialState.type, action) => {
-  switch (action.type) {
-    case ACTION_TYPE_INCREMENT:
-    case ACTION_TYPE_TRUE:
-    case ACTION_TYPE_FOO:
-      return action.type
-    default: return state
-  }
-}
+import * as utils from '../test.utils'
 
 describe("combining just one level of simple functions", () => {
   const combinedReducers = combineReducerLeaves({
-    bool: boolReducer,
-    counter: counterReducer,
-    foo: fooReducer,
-    type: lastActionTypeReducer,
-    payload: lastActionPayloadReducer
+    bool: utils.reducers.bool,
+    counter: utils.reducers.counter,
+    foo: utils.reducers.foo,
+    type: utils.reducers.type,
+    payload: utils.reducers.payload
   })
 
   it("returns a function", () => {
@@ -71,47 +20,47 @@ describe("combining just one level of simple functions", () => {
   it("has expected initial state after store creation", () => {
     const store = createStore(combinedReducers)
     expect(store.getState()).toEqual({
-      bool: initialState.bool,
-      counter: initialState.counter,
-      foo: initialState.foo,
-      type: initialState.type,
-      payload: initialState.payload
+      bool: utils.initialState.bool,
+      counter: utils.initialState.counter,
+      foo: utils.initialState.foo,
+      type: utils.initialState.type,
+      payload: utils.initialState.payload
     })
   })
 
   describe("it listens and updates as expected", () => {
     test("only bool, type and payload update from ACTION_TYPE_TRUE", () => {
       const store = createStore(combinedReducers)
-      store.dispatch({ type: ACTION_TYPE_TRUE, payload: "only update bool, type and payload" })
+      store.dispatch({ type: utils.ACTION_TYPE_TRUE, payload: "only update bool, type and payload" })
       expect(store.getState()).toEqual({
         bool: true,
-        counter: initialState.counter,
-        foo: initialState.foo,
-        type: ACTION_TYPE_TRUE,
+        counter: utils.initialState.counter,
+        foo: utils.initialState.foo,
+        type: utils.ACTION_TYPE_TRUE,
         payload: "only update bool, type and payload"
       })
     })
 
     test("only counter, type and payload update from ACTION_TYPE_INCREMENT", () => {
       const store = createStore(combinedReducers)
-      store.dispatch({ type: ACTION_TYPE_INCREMENT, payload: "only update counter, type and payload" })
+      store.dispatch({ type: utils.ACTION_TYPE_INCREMENT, payload: "only update counter, type and payload" })
       expect(store.getState()).toEqual({
-        bool: initialState.bool,
+        bool: utils.initialState.bool,
         counter: 1,
-        foo: initialState.foo,
-        type: ACTION_TYPE_INCREMENT,
+        foo: utils.initialState.foo,
+        type: utils.ACTION_TYPE_INCREMENT,
         payload: "only update counter, type and payload"
       })
     })
 
     test("only foo, type and payload update from ACTION_TYPE_FOO", () => {
       const store = createStore(combinedReducers)
-      store.dispatch({ type: ACTION_TYPE_FOO, payload: "here's my new foo!" })
+      store.dispatch({ type: utils.ACTION_TYPE_FOO, payload: "here's my new foo!" })
       expect(store.getState()).toEqual({
-        bool: initialState.bool,
-        counter: initialState.counter,
+        bool: utils.initialState.bool,
+        counter: utils.initialState.counter,
         foo: "here's my new foo!",
-        type: ACTION_TYPE_FOO,
+        type: utils.ACTION_TYPE_FOO,
         payload: "here's my new foo!"
       })
     })
@@ -120,13 +69,13 @@ describe("combining just one level of simple functions", () => {
 
 describe("with nested reducers", () => {
   const combinedReducers = combineReducerLeaves({
-    bool: boolReducer,
-    counter: counterReducer,
+    bool: utils.reducers.bool,
+    counter: utils.reducers.counter,
     foo: {
-      value: fooReducer,
+      value: utils.reducers.foo,
       action: {
-        type: lastActionTypeReducer,
-        payload: lastActionPayloadReducer
+        type: utils.reducers.type,
+        payload: utils.reducers.payload
       }
     }
   })
@@ -138,13 +87,13 @@ describe("with nested reducers", () => {
   it("has expected initial state after store creation", () => {
     const store = createStore(combinedReducers)
     expect(store.getState()).toEqual({
-      bool: initialState.bool,
-      counter: initialState.counter,
+      bool: utils.initialState.bool,
+      counter: utils.initialState.counter,
       foo: {
-        value: initialState.foo,
+        value: utils.initialState.foo,
         action: {
-          type: initialState.type,
-          payload: initialState.payload
+          type: utils.initialState.type,
+          payload: utils.initialState.payload
         }
       }
     })
@@ -153,14 +102,14 @@ describe("with nested reducers", () => {
   describe("it listens and updates as expected", () => {
     test("only bool, type and payload update from ACTION_TYPE_TRUE", () => {
       const store = createStore(combinedReducers)
-      store.dispatch({ type: ACTION_TYPE_TRUE, payload: "only update bool, type and payload" })
+      store.dispatch({ type: utils.ACTION_TYPE_TRUE, payload: "only update bool, type and payload" })
       expect(store.getState()).toEqual({
         bool: true,
-        counter: initialState.counter,
+        counter: utils.initialState.counter,
         foo: {
-          value: initialState.foo,
+          value: utils.initialState.foo,
           action: {
-            type: ACTION_TYPE_TRUE,
+            type: utils.ACTION_TYPE_TRUE,
             payload: "only update bool, type and payload"
           }
         }
@@ -169,14 +118,14 @@ describe("with nested reducers", () => {
 
     test("only foo, type and payload update from ACTION_TYPE_FOO", () => {
       const store = createStore(combinedReducers)
-      store.dispatch({ type: ACTION_TYPE_FOO, payload: "here's my new foo!" })
+      store.dispatch({ type: utils.ACTION_TYPE_FOO, payload: "here's my new foo!" })
       expect(store.getState()).toEqual({
-        bool: initialState.bool,
-        counter: initialState.counter,
+        bool: utils.initialState.bool,
+        counter: utils.initialState.counter,
         foo: {
           value: "here's my new foo!",
           action: {
-            type: ACTION_TYPE_FOO,
+            type: utils.ACTION_TYPE_FOO,
             payload: "here's my new foo!"
           }
         }

@@ -39,7 +39,7 @@ const initialState = {
   },
 }
 
-const reducerLeaf = makeReducerLeaf(prefix, initialState)
+const reducerLeaf = makeReducerLeaf(initialState, prefix)
 
 export const reducer = combineReducerLeaves({
   arbitrary: combineReducerLeaves({
