@@ -66,6 +66,25 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
                 })
               })
             })
+
+            // describe("AND an action to clear only foo.nesting slice of state is dispatched", () => {
+            //   beforeEach(() => {
+            //     store.dispatch(reducer.children.foo.nesting.clear())
+            //   })
+
+            //   test("THEN all sub-slices of state in foo are cleared", () => {
+            //     expect(store.getState()).toEqual({
+            //       ...initialState,
+            //       foo: {
+            //         ...initialState.foo,
+            //         nesting: {
+            //           deep: null,
+            //           manageable: null
+            //         }
+            //       }
+            //     })
+            //   })
+            // })
           })
         })
       })
