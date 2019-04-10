@@ -62,4 +62,32 @@ describe("**Feature**: created reducer does not reset when an action is dispatch
       })
     })
   })
+
+  describe("GIVEN a reducer from { prefix: 'app/prefix',  initialState: false }", () => {
+    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", initialState: false })
+
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/path/deep/RESET'", () => {
+      const result = reducer(true, { type: "app/prefix/path/deep/RESET" })
+
+      test("THEN it does not reset (and returns true)", () => {
+        expect(result).toBe(true)
+      })
+    })
+
+    describe("WHEN the reducer is called with state = true and action type 'app/prefix/RESET'", () => {
+      const result = reducer(true, { type: "app/prefix/path/RESET" })
+
+      test("THEN it does not reset (returns true)", () => {
+        expect(result).toBe(true)
+      })
+    })
+
+    describe("WHEN the reducer is called with state = true and action type 'RESET'", () => {
+      const result = reducer(true, { type: "RESET" })
+
+      test("THEN it resets (returns false)", () => {
+        expect(result).toBe(false)
+      })
+    })
+  })
 })
