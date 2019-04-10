@@ -39,7 +39,7 @@ describe("**Feature**: created reducer returns null when an action is dispatched
   })
 })
 
-describe("**Feature**: created reducer does not returs null when an action is dispatched with '.../CLEAR', a path inconsistent with the initialised prefix and route, and non-null state", () => {
+describe("**Feature**: created reducer does not return null when an action is dispatched with '.../CLEAR', a path inconsistent with the initialised prefix and route, and non-null state", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: true }", () => {
     const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path, deep"], initialState: true })
