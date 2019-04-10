@@ -39,6 +39,10 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
           return false
         case atomicActions.ON:
           return true
+        case atomicActions.PUSH:
+          const arr = Array.isArray(state) ? [...state] : [state]
+          arr.push(payload)
+          return arr
         case atomicActions.SET:
           return payload
         case atomicActions.TOGGLE:
