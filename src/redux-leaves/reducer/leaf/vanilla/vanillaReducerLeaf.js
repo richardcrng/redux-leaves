@@ -6,8 +6,10 @@ import { atomicActions } from '../../../actions/atomic';
 export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null }) => {
   return (
     state = initialState,
-    { type, payload = null, meta = null } = {}
+    action = {}
   ) => {
+    const { type, payload = null, meta = null, ...rest } = action;
+
     const { route: actionRoute, modifier } = findActionRouteAndModifier(type, meta);
 
     const actionPath = pathJoin(actionRoute)
@@ -28,7 +30,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
       switch (modifier) {
         case atomicActions.APPLY:
           return (typeof payload === "function")
-            ? payload(_.cloneDeep(state))
+            ? payload(_.cloneDeep(state), _.cloneDeep(action))
             : payload
         case atomicActions.INCREMENT:
           const increment = (typeof payload === "number") ? payload : 1

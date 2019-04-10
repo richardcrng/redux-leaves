@@ -1,6 +1,6 @@
 import { vanillaReducerLeaf } from "..";
 
-describe("**Feature**: created reducer applys payload (function) to state when an action is dispatched with '.../APPLY' at the exact path implied by the prefix, route and meta", () => {
+describe("**Feature**: created reducer invokes payload (function) non-mutatively with (state, action) when an action is dispatched with '.../APPLY' at the exact path implied by the prefix, route and meta", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: 10 }", () => {
     const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: 10 })
@@ -13,51 +13,17 @@ describe("**Feature**: created reducer applys payload (function) to state when a
       })
     })
 
-    describe("WHEN the reducer is called with state = 5, action type 'app/prefix/path/INCREMENT' and meta = 'deep'", () => {
-      const result = reducer(5, { type: "app/prefix/path/INCREMENT", meta: "deep" })
+    describe("WHEN the reducer is called with state = ['a', 'b'], action type 'app/prefix/path/deep/APPLY' and (a typically mutative) payload = arr => arr.reverse()", () => {
+      const prevState = ['a', 'b']
+      const result = reducer(prevState, { type: "app/prefix/path/deep/APPLY", payload: arr => arr.reverse() })
 
-      test("THEN it returns 6", () => {
-        expect(result).toBe(6)
+      test("THEN it returns ['b', 'a']", () => {
+        expect(result).toEqual(['b', 'a'])
+      })
+
+      test("AND the previous state is still ['a', 'b']", () => {
+        expect(prevState).toEqual(['a', 'b'])
       })
     })
   })
-})
-
-describe("**Feature**: created reducer ignores actions of type '.../INCREMENT' with irrelevant path implied by the prefix, route and meta", () => {
-
-  describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: 10 }", () => {
-    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: 10 })
-
-    describe("WHEN the reducer is called with state = 5, action type 'app/prefix/path/deep/INCREMENT' and meta = 'junk'", () => {
-      const result = reducer(5, { type: "app/prefix/path/deep/INCREMENT", meta: "junk" })
-
-      test("THEN it returns 5", () => {
-        expect(result).toBe(5)
-      })
-    })
-  })
-})
-
-describe("**Feature**: created reducer increments by the provided payload", () => {
-
-  describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: 10 }", () => {
-    const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: 10 })
-
-    describe("WHEN the reducer is called with state = 5, action type 'app/prefix/path/deep/INCREMENT' and payload = 3", () => {
-      const result = reducer(5, { type: "app/prefix/path/deep/INCREMENT", payload: 3 })
-
-      test("THEN it returns 8", () => {
-        expect(result).toBe(8)
-      })
-    })
-
-    describe("WHEN the reducer is called with state = -7, action type 'app/prefix/path/deep/INCREMENT' and payload = -2", () => {
-      const result = reducer(-2, { type: "app/prefix/path/deep/INCREMENT", payload: -7 })
-
-      test("THEN it returns -9", () => {
-        expect(result).toBe(-9)
-      })
-    })
-  })
-  
 })
