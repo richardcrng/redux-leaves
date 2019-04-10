@@ -28,26 +28,35 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     //    to actionPath
     if (pathToLeaf == actionPath) {
       switch (modifier) {
-        case atomicActions.APPLY:
-          return (typeof payload === "function")
-            ? payload(_.cloneDeep(state), _.cloneDeep(action))
-            : payload
-        case atomicActions.INCREMENT:
-          const increment = (typeof payload === "number") ? payload : 1
-          return state + increment
-        case atomicActions.OFF:
-          return false
-        case atomicActions.ON:
-          return true
-        case atomicActions.SET:
-          return payload
-        case atomicActions.TOGGLE:
-          return !state
-        default:
-          return state
+        case atomicActions.APPLY: return apply(state, action)
+        case atomicActions.INCREMENT: return increment(state, payload)
+        case atomicActions.OFF: return false
+        case atomicActions.ON: return true
+        case atomicActions.PUSH: return push(state, payload)
+        case atomicActions.SET: return payload
+        case atomicActions.TOGGLE: return !state
+        default: return state
       }
     }
 
     return state
   }
+}
+
+const apply = (state, action) => {
+  const { payload } = action;
+  return (typeof payload === "function")
+    ? payload(_.cloneDeep(state), _.cloneDeep(action))
+    : payload
+}
+
+const increment = (state, payload) => {
+  const increment = (typeof payload === "number") ? payload : 1
+  return state + increment
+}
+
+const push = (state, payload) => {
+  const arr = Array.isArray(state) ? [...state] : [state]
+  arr.push(payload)
+  return arr
 }

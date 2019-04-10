@@ -16,6 +16,7 @@ const leafActions = (path = "app/", leaf = "leaf") => {
     increment: leafAction(atomicActions.INCREMENT),
     off: leafAction(atomicActions.OFF),
     on: leafAction(atomicActions.ON),
+    push: leafAction(atomicActions.PUSH),
     reset: leafAction(atomicActions.RESET),
     set: leafAction(atomicActions.SET),
     update: leafAction(atomicActions.SET),

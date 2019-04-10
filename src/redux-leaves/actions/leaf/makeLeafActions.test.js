@@ -54,6 +54,13 @@ describe("**Feature**: it returns an object with properties corresponding to exp
           expect(on.type).toBe("app/prefix/dummy/leaf/ON")
         })
 
+        test("AND its 'push' property is an action creator of type 'app/prefix/dummy/leaf/PUSH'", () => {
+          const { push } = result;
+          expect(push).toBeDefined
+          expect(typeof push).toBe("function")
+          expect(push.type).toBe("app/prefix/dummy/leaf/PUSH")
+        })
+
         test("AND its 'reset' property is an action creator of type 'app/prefix/dummy/leaf/RESET'", () => {
           const { reset } = result;
           expect(reset).toBeDefined
