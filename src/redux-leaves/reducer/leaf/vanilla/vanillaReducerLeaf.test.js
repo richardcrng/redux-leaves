@@ -4,7 +4,7 @@ import { createStore } from "redux";
 describe("GIVEN a prefix of 'app/prefix'", () => {
   const prefix = "app/prefix/"
   
-  describe("AND a defined route of [some, route]", () => {
+  describe("AND a defined route of ['some', 'route']", () => {
     const route = ["some", "route"]
     
     describe("AND an initial state of false", () => {
