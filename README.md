@@ -34,9 +34,8 @@ store.dispatch(reducer.nested.state.manageable.toggle())
 ```
 
 ### 3. Predictable changes
+From `store.getState()`:
 ```js
-store.getState()
-/*
 {
   counter: 1,
   foo: "bar",
@@ -47,5 +46,4 @@ store.getState()
     }
   }
 }
-/*
 ```
