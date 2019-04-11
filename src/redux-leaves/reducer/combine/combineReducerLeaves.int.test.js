@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 
 
 describe("**Feature**: it can combine a dictionary of nested reducers made via makeReducerLeaf", () => {
-  describe("GIVEN nested initialState shape", () => {
+  describe("GIVEN nested initialState shape with non-null values", () => {
     const initialState = {
       bool: true,
       counter: 0,
@@ -20,7 +20,7 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
     describe("AND reducerLeaf = makeReducerLeaf(initialState)", () => {
       const reducerLeaf = makeReducerLeaf(initialState)
 
-      describe("AND a dictionary of reducers is produced using this reducerLeaf function", () => {
+      describe("AND a dictionary (dict) of reducers is produced using this reducerLeaf function", () => {
         const dict = {
           bool: reducerLeaf("bool"),
           counter: reducerLeaf("counter"),
@@ -33,24 +33,24 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
           }
         }
 
-        describe("WHEN this dictionary is passed to combineReducerLeaves", () => {
+        describe("WHEN reducer = combineReducerLeaves(dict)", () => {
           const reducer = combineReducerLeaves(dict)
 
-          test("THEN it returns a function", () => {
+          test("THEN reducer is a function", () => {
             expect(typeof reducer).toBe("function")
           })
 
-          test("AND the function has a defined children property", () => {
+          test("AND reducer.children is defined", () => {
             expect(reducer.children).toBeDefined()
           })
 
-          describe("AND the result is passed to redux's createStore", () => {
+          describe("AND store = createStore(reducer)", () => {
             let store
             beforeEach(() => {
               store = createStore(reducer)
             })
 
-            test("THEN the initialised store has original initialState", () => {
+            test("THEN store is initialised with state = initialState", () => {
               expect(store.getState()).toEqual(initialState)
             })
 
@@ -67,24 +67,71 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
               })
             })
 
-            // describe("AND an action to clear only foo.nesting slice of state is dispatched", () => {
-            //   beforeEach(() => {
-            //     store.dispatch(reducer.children.foo.nesting.clear())
-            //   })
+            describe("AND an action to clear only foo.nesting slice of state is dispatched", () => {
+              beforeEach(() => {
+                store.dispatch(reducer.children.foo.nesting.clear())
+              })
 
-            //   test("THEN all sub-slices of state in foo are cleared", () => {
-            //     expect(store.getState()).toEqual({
-            //       ...initialState,
-            //       foo: {
-            //         ...initialState.foo,
-            //         nesting: {
-            //           deep: null,
-            //           manageable: null
-            //         }
-            //       }
-            //     })
-            //   })
-            // })
+              test("THEN all sub-slices of state in foo.nesting are cleared", () => {
+                expect(store.getState()).toEqual({
+                  ...initialState,
+                  foo: {
+                    value: "foo",
+                    nesting: {
+                      deep: null,
+                      manageable: null
+                    }
+                  }
+                })
+              })
+            })
+
+            describe("AND an action to clear all of foo slice of state is dispatched", () => {
+              beforeEach(() => {
+                store.dispatch(reducer.children.foo.clear())
+              })
+
+              test("THEN all sub-slices of state in foo are cleared", () => {
+                expect(store.getState()).toEqual({
+                  ...initialState,
+                  foo: {
+                    value: null,
+                    nesting: {
+                      deep: null,
+                      manageable: null
+                    }
+                  }
+                })
+              })
+            })
+
+            describe("AND an action to clear all sub-slices of state is dispatched", () => {
+              beforeEach(() => {
+                store.dispatch(reducer.clear())
+              })
+
+              test("THEN all sub-slices of state in foo are cleared", () => {
+                expect(store.getState()).toEqual({
+                  bool: null,
+                  counter: null,
+                  foo: {
+                    value: null,
+                    nesting: {
+                      deep: null,
+                      manageable: null
+                    }
+                  }
+                })
+              })
+
+              describe("AND an action to reset all of state is dispatched", () => {
+                beforeEach(() => store.dispatch(reducer.reset()))
+
+                test("THEN all of state has been reset", () => {
+                  expect(store.getState()).toEqual(initialState)
+                })
+              })
+            })
           })
         })
       })
