@@ -27,10 +27,8 @@ const store = createStore(reducer)
 
 ### 2. Precise updates
 
-Target any specific leaf in your reducer tree:
-
 ```js
-// These standard action creators come from step 1!
+// Step 1 gives us targeted action creators:
 
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.set("bar"))
