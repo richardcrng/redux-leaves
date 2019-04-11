@@ -1,12 +1,13 @@
 # redux-leaves
 
-Takes a state tree and returns a reducer with all the actions you need to control with *predictability*, *precision* and *pleasure*!
+Less than 30 seconds to manage your redux state with *pleasure*, *precision* and *predictability*.
 
-## Why bother?
+## 30 second setup
 
-Let's look at how easy it is to use.
+Start your timer:
 
 ### 1. Pleasingly little boilerplate
+
 ```js
 import { createStore } from 'redux'
 import { reducerTree } from 'redux-leaves'
@@ -26,15 +27,20 @@ const reducer = reducerTree(initialState)
 const store = createStore(reducer)
 ```
 
+Aaand stop - that's all the boilerplate we need!
+
 ### 2. Precise updates
+
+Target any specific leaf in your reducer tree:
+
 ```js
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.set("bar"))
 store.dispatch(reducer.nested.state.manageable.toggle())
+// No boilerplate - action creators are ready to go!
 ```
 
 ### 3. Predictable changes
-From `store.getState()`:
 ```js
 {
   counter: 1,
