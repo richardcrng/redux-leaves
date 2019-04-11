@@ -5,7 +5,13 @@ import { makeReducerLeaf } from '../leaf';
 export const reducerTree = (initialState = {}, prefix = "", augment = true) => {
   const reducerLeaf = makeReducerLeaf(initialState, prefix)
   const reducerDict = asReducers(initialState, reducerLeaf)
-  return combineReducerLeaves(reducerDict, { prefix }, augment)
+  const reducer = combineReducerLeaves(reducerDict, { prefix }, augment)
+
+  _.forEach(reducer.children, (val, key) => {
+    reducer[key] = val
+  })
+
+  return reducer
 }
 
 const asReducers = (stateTree, reducerLeaf, route = []) => {
