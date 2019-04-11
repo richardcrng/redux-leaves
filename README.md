@@ -35,15 +35,15 @@ store.dispatch(reducer.nested.state.manageable.toggle())
 
 ### 3. Predictable changes to your state
 ```js
-store.getState()
-// {
-//   counter: 1,
-//   foo: "bar",
-//   nested: {
-//     state: {
-//       deep: true,
-//       manageable: true
-//     }
-//   }
-// }
+store.getState() === {
+  counter: 1,
+  foo: "bar",
+  nested: {
+    state: {
+      deep: true,
+      manageable: true
+    }
+  }
+}
+// true
 ```
