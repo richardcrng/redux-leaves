@@ -12,9 +12,10 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
         value: "foo",
         nesting: {
           deep: true,
-          manageable: false
+          manageable: false,
         }
-      }
+      },
+      object: {}
     }
 
     describe("AND prefix = 'app/'", () => {
@@ -33,6 +34,18 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
 
         test("AND reducer.children.bool is a function", () => {
           expect(typeof reducer.children.bool).toBe("function")
+        })
+
+        test("AND reducer.children.object is a function", () => {
+          expect(typeof reducer.children.object).toBe("function")
+        })
+
+        test("AND reducer.children.object.set('bar', 'foo') returns the correct action", () => {
+          expect(reducer.children.object.set('bar', 'foo')).toEqual({
+            type: "app/object/SET",
+            payload: 'bar',
+            meta: 'foo'
+          })
         })
 
         test("AND reducer.children.bool.update is an action creator of type 'app/bool/SET'", () => {
@@ -65,6 +78,19 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
 
           test("THEN store is initialised with state = initialState", () => {
             expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND an action to set a property in the object slice of state is dispatched (reducer.children.object.set('bar', 'foo'))", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.children.object.set('bar', 'foo'))
+            })
+
+            test("THEN only object is updated in the store's state", () => {
+              expect(store.getState()).toEqual({
+                ...initialState,
+                object: { foo: 'bar' }
+              })
+            })
           })
 
           describe("AND an action to clear only bool slice of state is dispatched (reducer.children.bool.clear())", () => {
@@ -147,7 +173,8 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
                     deep: null,
                     manageable: null
                   }
-                }
+                },
+                object: null
               })
             })
 
