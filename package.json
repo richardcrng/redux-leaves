@@ -2,6 +2,7 @@
   "name": "redux-leaves",
   "version": "0.1.0",
   "private": true,
+  "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
