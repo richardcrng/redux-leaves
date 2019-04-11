@@ -25,8 +25,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     }
 
 
-    // SET a property within an object by meta,
-    //    iff it has 
+    // SET a property within an object by meta
     if (_.startsWith(actionPath, pathToLeaf)) {
       if (modifier === atomicActions.SET) {
         if (typeof state === "object") {
