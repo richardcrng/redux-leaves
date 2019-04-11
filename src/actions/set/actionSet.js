@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { makeActionCreator } from './../creator/index';
+import { makeActionCreator } from '../creator/index';
 import { pathJoin } from '../../utils';
 import { atomicActions } from '../atomic';
 

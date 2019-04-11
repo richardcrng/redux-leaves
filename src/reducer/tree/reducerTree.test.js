@@ -1,4 +1,4 @@
-import { reducerTree } from "./";
+import { reducerTree } from "../tree";
 import { createStore } from "redux";
 
 
