@@ -26,16 +26,18 @@ const reducer = reducerTree(initialState)
 const store = createStore(reducer)
 ```
 
-### 2. Precisely update your state
+### 2. Precise updates
 ```js
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.set("bar"))
 store.dispatch(reducer.nested.state.manageable.toggle())
 ```
 
-### 3. Predictable changes to your state
+### 3. Predictable changes
 ```js
-store.getState() === {
+store.getState()
+/*
+{
   counter: 1,
   foo: "bar",
   nested: {
@@ -45,5 +47,5 @@ store.getState() === {
     }
   }
 }
-// true
+/*
 ```
