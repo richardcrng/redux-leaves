@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { vanillaReducerLeaf } from './vanilla/';
+import { vanillaReducerLeaf } from './vanilla';
 import { withActions } from '../../actions/set/actionSet';
 import { pathJoin } from '../../utils';
 
