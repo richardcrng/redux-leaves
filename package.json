@@ -1,21 +1,13 @@
 {
   "name": "redux-leaves",
   "version": "0.1.0",
-  "private": true,
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
-    "redux": "^4.0.1",
-    "reselect": "^4.0.0"
+    "redux": "^4.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
