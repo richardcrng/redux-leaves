@@ -28,6 +28,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     if (pathToLeaf == actionPath) {
       switch (modifier) {
         case atomicActions.APPLY: return apply(state, action)
+        case atomicActions.CONCAT: return _.concat(state, payload)
         case atomicActions.DROP: return drop(state, payload)
         case atomicActions.INCREMENT: return increment(state, payload)
         case atomicActions.OFF: return false

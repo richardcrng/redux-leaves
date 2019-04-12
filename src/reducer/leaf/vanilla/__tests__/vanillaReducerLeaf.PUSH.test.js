@@ -1,6 +1,6 @@
 import { vanillaReducerLeaf } from "..";
 
-describe("**Feature**: created reducer non-mutatively pushes action payload into the state array when an action is dispatched with '.../PUSH' at the exact path implied by the prefix, route and meta", () => {
+describe("**Feature**: created reducer non-mutatively pushes action payload into the state array when an action is dispatched with '.../PUSH' at the exact path implied by the prefix and route", () => {
 
   describe("GIVEN a reducer from { prefix: 'app/prefix', route: ['path', 'deep'], initialState: 10 }", () => {
     const reducer = vanillaReducerLeaf({ prefix: "app/prefix", route: ["path", "deep"], initialState: 10 })

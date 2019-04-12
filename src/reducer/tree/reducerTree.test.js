@@ -57,6 +57,11 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
           expect(typeof reducer.foo.value).toBe("function")
         })
 
+        test("AND reducer.foo.value.concat is an action creator of type 'app/foo/value/CONCAT'", () => {
+          expect(typeof reducer.foo.value.concat).toBe("function")
+          expect(reducer.foo.value.concat.type).toBe("app/foo/value/CONCAT")
+        })
+
         test("AND reducer.foo.value.drop is an action creator of type 'app/foo/value/DROP'", () => {
           expect(typeof reducer.foo.value.drop).toBe("function")
           expect(reducer.foo.value.drop.type).toBe("app/foo/value/DROP")
