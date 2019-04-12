@@ -37,7 +37,7 @@ const store = createStore(reducer)
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.update("bar"))
 store.dispatch(reducer.nested.state.deep.toggle())
-store.dispatch(reducer.nested.state.manageable.apply(state => state.concat(" DEFINITELY!"))) // (non-mutative!)
+store.dispatch(reducer.nested.state.manageable.apply(state => state.concat(" DEFINITELY!")))
 ```
 
 ### 3. Predictable changes
@@ -49,23 +49,26 @@ store.dispatch(reducer.nested.state.manageable.apply(state => state.concat(" DEF
   nested: {
     state: {
       deep: true,
-      manageable: "maybe...? DEFINITELY!"
+      manageable: "maybe...? DEFINITELY!" // word.
     }
   }
 }
+// All with no mutation!
 ```
 
 ## Motivation
 
 ### Problem
 
-I have found that [Redux](https://redux.js.org/) and [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) both work great for following what is happening (*cf. what you intended to happen...*) in your app.
+I have found that [Redux](https://redux.js.org/) and [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) both work great for following what is happening in your app.<sup>1</sup>
 
 However, there are three pain points that I encountered:
 
 1. **Ugly boilerplate maintenance**: one more slice of state =  another load of action types, creators and reducers to write.
 2. **Unhelpfully named constants**: what was `NONTRIVIAL_THING_HAPPENED` meant to do, again...?
 3. **Repetitive reducer logic**: an action that updates some slice of state to true? *How novel!*
+
+<sup>1</sup> *cf. what you* intended *to happen in your app...*
 
 ### Solution
 
@@ -81,7 +84,7 @@ However, there are three pain points that I encountered:
 ### reducerLeaves
 `reducerLeaves(initialState, [prefix])`
 
-Returns a reducer function with attached action creators.
+Returns a reducer function with the standard action creators attached at every leaf.
 
 #### Arguments
 - **initialState**: the initial state shape for the reducer to use.
