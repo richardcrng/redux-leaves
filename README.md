@@ -92,7 +92,9 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ## API
 
 ### reducerLeaves
-`reducerLeaves(initialState, [prefix])`
+```js
+reducerLeaves(initialState, [prefix])
+````
 
 Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
