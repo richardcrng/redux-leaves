@@ -6,17 +6,23 @@
 
 ### 1. Pleasingly little boilerplate
 
+To install the latest version:
+
+```bash
+npm install --save richardcrng/redux-leaves#master
+```
+
 ```js
 import { createStore } from 'redux'
 import { reducerTree } from 'redux-leaves'
 
 const initialState = {
   counter: 0,
-  foo: "",
+  foo: "foo",
   nested: {
     state: {
-      deep: true,
-      manageable: false,
+      deep: false,
+      manageable: "maybe?",
     }
   }
 }
@@ -32,7 +38,8 @@ const store = createStore(reducer)
 
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.update("bar"))
-store.dispatch(reducer.nested.state.manageable.toggle())
+store.dispatch(reducer.nested.state.deep.toggle())
+store.dispatch(reducer.nested.state.manageable.apply(state => state.concat(" DEFINITELY!")))
 ```
 
 ### 3. Predictable changes
@@ -43,7 +50,7 @@ store.dispatch(reducer.nested.state.manageable.toggle())
   nested: {
     state: {
       deep: true,
-      manageable: true // true indeed!
+      manageable: "maybe? DEFINITELY"
     }
   }
 }
