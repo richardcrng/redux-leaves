@@ -28,13 +28,11 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
           expect(typeof reducer).toBe("function")
         })
 
-        test("AND reducer.bool is a function, as is reducer.bool", () => {
-          expect(typeof reducer.bool).toBe("function")
+        test("AND reducer.bool is a function", () => {
           expect(typeof reducer.bool).toBe("function")
         })
 
-        test("AND reducer.object is a function, as is reducer.object", () => {
-          expect(typeof reducer.object).toBe("function")
+        test("AND reducer.object is a function", () => {
           expect(typeof reducer.object).toBe("function")
         })
 
@@ -57,6 +55,11 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
 
         test("AND reducer.foo.value is a function", () => {
           expect(typeof reducer.foo.value).toBe("function")
+        })
+
+        test("AND reducer.foo.value.drop is an action creator of type 'app/foo/value/DROP'", () => {
+          expect(typeof reducer.foo.value.drop).toBe("function")
+          expect(reducer.foo.value.drop.type).toBe("app/foo/value/DROP")
         })
 
         test("AND reducer.foo.value.reset is an action creator of type 'app/foo/value/RESET'", () => {

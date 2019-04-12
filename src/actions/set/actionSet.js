@@ -26,6 +26,7 @@ export const withActions = (reducer, path) => {
 
   reducer.apply = leafAction(atomicActions.APPLY)
   reducer.clear = leafAction(atomicActions.CLEAR)
+  reducer.drop = leafAction(atomicActions.DROP)
   reducer.increment = leafAction(atomicActions.INCREMENT)
   reducer.off = leafAction(atomicActions.OFF)
   reducer.on = leafAction(atomicActions.ON)
