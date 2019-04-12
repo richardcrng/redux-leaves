@@ -46,6 +46,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
         case atomicActions.PUSH: return push(state, payload)
         case atomicActions.SET: return payload
         case atomicActions.TOGGLE: return !state
+        case atomicActions.UPDATE: return payload
         default: return state
       }
     }

@@ -33,8 +33,8 @@ export const withActions = (reducer, path) => {
   reducer.push = leafAction(atomicActions.PUSH)
   reducer.reset = leafAction(atomicActions.RESET)
   reducer.set = leafAction(atomicActions.SET)
-  reducer.update = leafAction(atomicActions.SET)
   reducer.toggle = leafAction(atomicActions.TOGGLE)
+  reducer.update = leafAction(atomicActions.UPDATE)
 
   return reducer
 }
