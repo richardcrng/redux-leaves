@@ -79,13 +79,14 @@ However, there are three pain points that I encountered:
 const reducer = reducerLeaves(initialState) // comes with action creators!
 ```
 
-2. **Precise updates**: no matter how you nested that counter, increment it with
+2. **Precise updates**: no matter how you nested that counter, increment it by `2` with
 ```js
-dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment())
+dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ```
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
-```
-distressingly/and/foolishly/deeply/nested/counter/INCREMENT
+```js
+// the action dispatched above:
+{ type: distressingly/and/foolishly/deeply/nested/counter/INCREMENT, payload: 2 }
 ``` 
 
 ## API
