@@ -81,9 +81,9 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND an action to set a property in the object slice of state is dispatched (reducer.object.set('bar', 'foo'))", () => {
+          describe("AND an action to set a property in the object slice of state is dispatched (reducer.object.set({ value: 'bar', path: 'foo' }))", () => {
             beforeEach(() => {
-              store.dispatch(reducer.object.set('bar', 'foo'))
+              store.dispatch(reducer.object.set({ value: 'bar', path: 'foo' }))
             })
 
             test("THEN only object is updated in the store's state", () => {

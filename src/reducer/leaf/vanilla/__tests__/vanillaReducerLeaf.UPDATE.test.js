@@ -16,16 +16,5 @@ describe("**Feature**: created reducer updates state with the action payload whe
         expect(result).toBe(newState)
       })
     })
-
-    describe("WHEN the reducer is called with state = 5, action type 'app/prefix/path/UPDATE', payload = [10] and meta = 'deep'", () => {
-      const newState = [10]
-      beforeEach(() => {
-        result = reducer(5, { type: "app/prefix/path/UPDATE", payload: newState, meta: "deep" })
-      })
-
-      test("THEN it returns [10]", () => {
-        expect(result).toBe(newState)
-      })
-    })
   })
 })
