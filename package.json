@@ -1,10 +1,15 @@
 {
   "name": "redux-leaves",
   "version": "0.1.0",
+  "license": "MIT",
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
     "react-scripts": "2.1.8",
     "redux": "^4.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richardcrng/redux-leaves"
   },
   "scripts": {
     "test": "react-scripts test"
