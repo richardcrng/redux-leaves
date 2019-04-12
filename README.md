@@ -86,7 +86,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
 // the action dispatched above:
-{ type: distressingly/and/foolishly/deeply/nested/counter/INCREMENT, payload: 2 }
+{ type: "distressingly/and/foolishly/deeply/nested/counter/INCREMENT", payload: 2 }
 ``` 
 
 ## API
