@@ -126,7 +126,7 @@ describe("**Feature**: a reducer leaf can reset a created store's state with red
   })
 })
 
-describe("**Feature**: a reducer leaf can set a created store's state with reducer.uset()", () => {
+describe("**Feature**: a reducer leaf can set a created store's state with reducer.update()", () => {
   describe("GIVEN reducer = reducerLeaf({ prefix: 'app/prefix', route: ['some', 'route'], initialState: 0 })", () => {
     const reducer = reducerLeaf({ prefix: "app/prefix", route: ["some", "route"], initialState: 0 })
 
@@ -136,9 +136,9 @@ describe("**Feature**: a reducer leaf can set a created store's state with reduc
         store = createStore(reducer, 5)
       })
 
-      describe("WHEN the store is dispatched reducer.set('banana')", () => {
+      describe("WHEN the store is dispatched reducer.update('banana')", () => {
         beforeEach(() => {
-          store.dispatch(reducer.set('banana'))
+          store.dispatch(reducer.update('banana'))
         })
 
         test("THEN the store has state of 'banana'", () => {

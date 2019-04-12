@@ -7,6 +7,7 @@ export const atomicActions = {
   ON: "ON",                 // updates slice of state to true
   PUSH: "PUSH",             // non-mutative push of payload to state
   RESET: "RESET",           // updates slice of state to initial value
-  SET: "SET",               // updates slice of state to action's payload
-  TOGGLE: "TOGGLE"          // updates slice of state to !current
+  SET: "SET",               // set a property in state to payload.value at payload.path
+  TOGGLE: "TOGGLE",         // updates slice of state to !current
+  UPDATE: "UPDATE"          // updates slice of state to action's payload
 }

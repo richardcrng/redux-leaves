@@ -10,7 +10,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
   ) => {
     const { type, payload = null, meta = null, ...rest } = action;
     
-    const { route: actionRoute, modifier } = findActionRouteAndModifier(type, meta);
+    const { route: actionRoute, modifier } = findActionRouteAndModifier(type);
     
     const actionPath = pathJoin(actionRoute)
     const pathToLeaf = pathJoin([prefix, route])
@@ -23,17 +23,6 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
         case atomicActions.RESET: return initialState
       }
     }
-
-
-    // SET a property within an object by meta
-    if (_.startsWith(actionPath, pathToLeaf)) {
-      if (modifier === atomicActions.SET) {
-        if (typeof state === "object") {
-          return _.setWith(_.clone(state), meta, payload, _.clone)
-        }
-      }
-    }
-
     // Only perform other actions when pathToLeaf is identical
     //    to actionPath
     if (pathToLeaf == actionPath) {
@@ -44,8 +33,9 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
         case atomicActions.OFF: return false
         case atomicActions.ON: return true
         case atomicActions.PUSH: return push(state, payload)
-        case atomicActions.SET: return payload
+        case atomicActions.SET: return set(state, payload)
         case atomicActions.TOGGLE: return !state
+        case atomicActions.UPDATE: return payload
         default: return state
       }
     }
@@ -77,3 +67,7 @@ const push = (state, payload) => {
   arr.push(payload)
   return arr
 }
+
+const set = (state, payload) => (
+  _.setWith(_.clone(state), payload.path, payload.value, _.clone)
+)

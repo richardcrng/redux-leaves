@@ -46,7 +46,7 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
 
         test("AND reducer.bool.update is an action creator of type 'app/bool/SET'", () => {
           expect(typeof reducer.bool.update).toBe("function")
-          expect(reducer.bool.update.type).toBe("app/bool/SET")
+          expect(reducer.bool.update.type).toBe("app/bool/UPDATE")
         })
 
         test("AND reducer.foo is an object", () => {
@@ -68,7 +68,7 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
         })
 
         test("AND reducer.foo.value.update('foobar') returns an action with payload 'foobar'", () => {
-          expect(reducer.foo.value.update('foobar')).toEqual({ type: "app/foo/value/SET", payload: "foobar" })
+          expect(reducer.foo.value.update('foobar')).toEqual({ type: "app/foo/value/UPDATE", payload: "foobar" })
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -81,9 +81,9 @@ describe("**Feature**: it produces a reducer with reducer leaves from initial st
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND an action to set a property in the object slice of state is dispatched (reducer.object.set('bar', 'foo'))", () => {
+          describe("AND an action to set a property in the object slice of state is dispatched (reducer.object.set({ value: 'bar', path: 'foo' }))", () => {
             beforeEach(() => {
-              store.dispatch(reducer.object.set('bar', 'foo'))
+              store.dispatch(reducer.object.set({ value: 'bar', path: 'foo' }))
             })
 
             test("THEN only object is updated in the store's state", () => {

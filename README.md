@@ -31,7 +31,7 @@ const store = createStore(reducer)
 // Step 1 gives us targeted action creators:
 
 store.dispatch(reducer.counter.increment())
-store.dispatch(reducer.foo.set("bar"))
+store.dispatch(reducer.foo.update("bar"))
 store.dispatch(reducer.nested.state.manageable.toggle())
 ```
 

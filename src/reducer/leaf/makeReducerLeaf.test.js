@@ -95,8 +95,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             expect(typeof reducer.update).toBe("function")
           })
 
-          test("AND reducer.update.type is 'app/prefix/foo/SET'", () => {
-            expect(reducer.update.type).toBe("app/prefix/foo/SET")
+          test("AND reducer.update.type is 'app/prefix/foo/UPDATE'", () => {
+            expect(reducer.update.type).toBe("app/prefix/foo/UPDATE")
           })
 
           describe("AND store = createStore(reducer)", () => {
@@ -240,8 +240,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
           expect(typeof reducer.update).toBe("function")
         })
 
-        test("AND reducer.update.type is 'foo/SET'", () => {
-          expect(reducer.update.type).toBe("foo/SET")
+        test("AND reducer.update.type is 'foo/UPDATE'", () => {
+          expect(reducer.update.type).toBe("foo/UPDATE")
         })
 
         describe("AND store = createStore(reducer)", () => {
