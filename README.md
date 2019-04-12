@@ -74,8 +74,16 @@ However, there are three pain points that I encountered:
 
 `redux-leaves` is a library that is written to provide:
 
-1. **Pleasingly little boilerplate**: access your reducer, action types and creators with `const reducer = reducerLeaves(initialState)`
-2. **Precise updates**: no matter how you nested that counter, increment it with `dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment())`
+1. **Pleasingly little boilerplate**: access your reducer, action types and creators 
+```js
+const reducer = reducerLeaves(initialState)
+// reducer knows its own action creators
+```
+
+2. **Precise updates**: no matter how you nested that counter, increment it with
+```js
+dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment())
+```
 3. **Predictable changes**: an action is dispatched with type `distressingly/and/foolishly/deeply/nested/counter/INCREMENT`, so you can understand exactly what happened at a glance!
 
 
