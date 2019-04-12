@@ -79,7 +79,7 @@ However, there are three pain points that I encountered:
 const reducer = reducerLeaves(initialState) // comes with action creators!
 ```
 
-2. **Precise updates**: no matter how you nested that counter, increment it by `2` with
+2. **Precise updates**: no matter how deeply you nested that counter, increment it by `2` with
 ```js
 dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ```
@@ -94,8 +94,12 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ### reducerLeaves
 `reducerLeaves(initialState, [prefix])`
 
-Returns a reducer function with the standard action creators attached at every leaf.
+Creates a reducer function bundled with action creators at every (branch)[#branch] and (leaf)[#leaf].
 
 #### Arguments
-- **initialState**: the initial state shape for the reducer to use.
-- **prefix** *(optional)*: a prefix that you want to supply to the reducer's attached action creator types, e.g. `'app/'`.
+- `initialState` *(any)*: the initial state shape for the reducer to use.
+- `prefix` *(string, optional)*: a prefix that you want to supply to the reducer's attached action creator types, e.g. `'app/'`.
+
+### branch
+
+### leaf
