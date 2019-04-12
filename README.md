@@ -94,7 +94,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ### reducerLeaves
 `reducerLeaves(initialState, [prefix])`
 
-Creates a reducer function bundled with action creators at every []branch](#branch) and [leaf](#leaf).
+Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
 #### Arguments
 - `initialState` *(any)*: the initial state shape for the reducer to use.
