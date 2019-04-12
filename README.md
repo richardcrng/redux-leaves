@@ -91,10 +91,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 ## API
 
-### reducerLeaves
-```js
-reducerLeaves(initialState, [prefix])
-````
+### `reducerLeaves(initialState, [prefix])`
 
 Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
@@ -113,4 +110,26 @@ A reducer function that is responsible for a granular piece of state. This is ty
 
 Every reducer leaf has the following methods:
 
-#### `apply`
+#### `apply([method])`
+
+#### `clear()`
+
+#### `concat(array)`
+
+#### `drop(n)`
+
+#### `increment(n)`
+
+#### `off()`
+
+#### `on()`
+
+#### `push(element)`
+
+#### `reset()`
+
+#### `set({ path, value })`
+
+#### `toggle()`
+
+#### `update(value)`
