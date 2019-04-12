@@ -100,6 +100,10 @@ Creates a reducer function bundled with action creators at every [branch](#branc
 - `initialState` *(any)*: the initial state shape for the reducer to use.
 - `prefix` *(string, optional)*: a prefix that you want to supply to the reducer's attached action creator types, e.g. `'app/'`.
 
+#### Returns
+`function(state, action)`: A reducer function intended for redux's `createStore()`
+
+
 ### branch
 
 ### leaf
