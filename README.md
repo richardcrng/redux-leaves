@@ -76,16 +76,17 @@ However, there are three pain points that I encountered:
 
 1. **Pleasingly little boilerplate**: access your reducer, action types and creators 
 ```js
-const reducer = reducerLeaves(initialState)
-// reducer knows its own action creators
+const reducer = reducerLeaves(initialState) // comes with action creators!
 ```
 
 2. **Precise updates**: no matter how you nested that counter, increment it with
 ```js
 dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment())
 ```
-3. **Predictable changes**: an action is dispatched with type `distressingly/and/foolishly/deeply/nested/counter/INCREMENT`, so you can understand exactly what happened at a glance!
-
+3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
+```
+distressingly/and/foolishly/deeply/nested/counter/INCREMENT
+``` 
 
 ## API
 
