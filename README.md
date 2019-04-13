@@ -126,7 +126,11 @@ Every reducer leaf has the following action creators attached:
 - `type` *(string)*
 - `payload` *(function)*: the callback provided
 
-`store.dispatch(action)` updates the leaf's state to the return value of `callback(state)`.
+#### Usage
+```js
+store.dispatch(action)
+// updates the leaf's state to the return value of callback(state).
+```
 
 ### `leaf.clear()`
 
