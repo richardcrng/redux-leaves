@@ -117,10 +117,11 @@ Creates an action that will update the leaf's state to the return value of `call
 #### Parameters
 - `callback` *(function)*: invoked with the leaf's current state
 
-**Returns:** *(object)*: `{ leaf, type, payload }`
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(function)*: the callback provided
+#### Returns
+- *(object)*: `{ leaf, type, payload }`
+  - `leaf` *(string)*
+  - `type` *(string)*
+  - `payload` *(function)*: the callback provided
 
 ### `leaf.clear()`
 
