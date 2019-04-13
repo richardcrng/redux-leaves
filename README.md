@@ -95,7 +95,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
-#### Arguments
+#### Parameters
 - `initialState` *(any)*: the initial state shape for the reducer to use.
 - `prefix` *(string, optional)*: a prefix that you want to supply to the reducer's attached action creator types, e.g. `'app/'`.
 
@@ -110,7 +110,15 @@ A reducer function that is responsible for a granular piece of state. This is ty
 
 Every reducer leaf has the following methods:
 
-#### `apply([method])`
+#### `apply(callback)`
+
+Passes the leaf's current state to `callback` and updates the state to the return value.
+
+##### Parameters
+- `callback` *(function)*: invoked with two arguments, *state* and *action*
+
+#### Returns
+ - **action**: `{ type, payload: callback }`
 
 #### `clear()`
 
