@@ -106,22 +106,27 @@ Creates a reducer function bundled with action creators at every [branch](#branc
 ## branch
 
 ## leaf
+```js
+function leaf(state, action) {
+  // It knows its own logic!
+}
+```
 A reducer function that is responsible for a granular piece of state. This is typically a `string`, `boolean` or `array`, but could be an `object`.
 
 Every reducer leaf has the following action creators attached:
 
 ### `leaf.apply(callback)`
 
-Creates an action that will update the leaf's state to the return value of `callback(state)`.
-
 #### Parameters
-- `callback` *(function)*: invoked with the leaf's current state
+- `callback` *(function)*: invoked by the leaf's reducer with the leaf's current state
 
 #### Returns
 `action` *(object)*: an object with properties:
 - `leaf` *(string)*
 - `type` *(string)*
 - `payload` *(function)*: the callback provided
+
+`store.dispatch(action)` updates the leaf's state to the return value of `callback(state)`.
 
 ### `leaf.clear()`
 
