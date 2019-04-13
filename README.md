@@ -25,14 +25,14 @@ const initialState = {
   }
 }
 
-const reducer = reduxLeaves(initialState)
+const reducer = reduxLeaves(initialState) // sets up a reducer for your initial state shape
 const store = createStore(reducer)
 ```
 
 ### 2. Precise updates
 
 ```js
-// All these action creators, and more, come with our reducer for free!
+// All these action creators, and more, come with our reducer for free:
 
 store.dispatch(reducer.counter.increment())
 store.dispatch(reducer.foo.update("bar"))
