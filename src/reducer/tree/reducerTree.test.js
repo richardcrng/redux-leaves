@@ -478,7 +478,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.off(): returns an action that, when dispatched, updates the leaf's state to true", () => {
+  describe("leaf.off(): returns an action that, when dispatched, updates the leaf's state to false", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -532,6 +532,69 @@ describe("API: leaf", () => {
               expect(state).toEqual({
                 ...initialState,
                 false: false
+              })
+              expect(initialState.false).toBe(false)
+            })
+          })
+        })
+      })
+    })
+  })
+
+  describe("leaf.on(): returns an action that, when dispatched, updates the leaf's state to true", () => {
+
+    describe("GIVEN initialState is an object", () => {
+      const initialState = {
+        true: true,
+        false: false
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.true.on is a function", () => {
+          expect(typeof reducer.true.on).toBe("function")
+        })
+
+        test("AND reducer.false.on is a function", () => {
+          expect(typeof reducer.false.on).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.true.on()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.true.on())
+            })
+
+            test("THEN reducer.true state remains true", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                true: true
+              })
+              expect(initialState.true).toBe(true)
+            })
+          })
+
+          describe("AND we dispatch reducer.false.on()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.false.on())
+            })
+
+            test("THEN reducer.false state updates non-mutatively to true", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                false: true
               })
               expect(initialState.false).toBe(false)
             })
