@@ -603,4 +603,67 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.push(element): returns an action that, when dispatched, updates the leaf's state by non-mutatively pushing element into leaf's state", () => {
+
+    describe("GIVEN initialState is an object", () => {
+      const initialState = {
+        empty: [],
+        integers: [1, 2, 3]
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.empty.push is a function", () => {
+          expect(typeof reducer.empty.push).toBe("function")
+        })
+
+        test("AND reducer.integers.push is a function", () => {
+          expect(typeof reducer.integers.push).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.integers.push(4)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.integers.push(4))
+            })
+
+            test("THEN reducer.integers state updates non-mutatively to [1, 2, 3, 4]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                integers: [1, 2, 3, 4]
+              })
+              expect(initialState.integers).toEqual([1, 2, 3])
+            })
+          })
+
+          describe("AND we dispatch reducer.integers.push([4, 5])", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.integers.push([4, 5]))
+            })
+
+            test("THEN reducer.integers state updates non-mutatively to [1, 2, 3, [4, 5]]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                integers: [1, 2, 3, [4, 5]]
+              })
+              expect(initialState.integers).toEqual([1, 2, 3])
+            })
+          })
+        })
+      })
+    })
+  })
 })
