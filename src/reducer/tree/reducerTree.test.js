@@ -62,7 +62,7 @@ describe("API: leaf", () => {
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
         counter: 1,
-        foo: "foo",
+        foo: ["bar"],
         nested: {
           deep: {},
           state: {
@@ -97,6 +97,10 @@ describe("API: leaf", () => {
             store = createStore(reducer)
           })
 
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
           describe("AND we dispatch reducer.counter.apply(n => n * 7)", () => {
             beforeEach(() => {
               store.dispatch(reducer.counter.apply(n => n * 7))
@@ -109,15 +113,15 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.foo.apply(str => str.toUpperCase())", () => {
+          describe("AND we dispatch reducer.foo.apply(arr => ['foo', ...arr])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.apply(str => str.toUpperCase()))
+              store.dispatch(reducer.foo.apply(arr => ['foo', ...arr]))
             })
 
-            test("THEN reducer.foo updates to 'FOO'", () => {
+            test("THEN reducer.foo updates to ['foo', 'bar']", () => {
               const state = store.getState()
-              expect(state.foo).toBe('FOO')
-              expect(state).toEqual({ ...initialState, foo: "FOO" })
+              expect(state.foo).toEqual(['foo', 'bar'])
+              expect(state).toEqual({ ...initialState, foo: ['foo', 'bar'] })
             })
           })
 

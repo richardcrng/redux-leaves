@@ -16,7 +16,8 @@ export const reducerTree = (initialState = {}, prefix = "", augment = true) => {
 
 const asReducers = (stateTree, reducerLeaf, route = []) => {
   return _.mapValues(stateTree, (val, key) => {
-    return (typeof val === "object" && _.size(val) >= 1)
+    return (!Array.isArray(val) && typeof val === "object" && _.size(val) >= 1)
+      // Arrays have typeof 'object'...
       ? asReducers(val, reducerLeaf, [...route, key])
       : reducerLeaf(...route, key)
   })
