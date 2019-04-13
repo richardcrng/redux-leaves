@@ -117,8 +117,7 @@ Passes the leaf's current state to `callback` and updates the state to the retur
 #### Parameters
 - `callback` *(function)*: invoked with two arguments, *state* and *action*
 
-#### Returns
-*(object)*: `{ leaf, type, payload }`
+**Returns:** *(object)*: `{ leaf, type, payload }`
 - `leaf` *(string)*
 - `type` *(string)*
 - `payload` *(function)*: the callback provided
