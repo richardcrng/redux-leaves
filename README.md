@@ -2,7 +2,7 @@
 
 Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
-## 30 second demonstration
+## 30 second demo
 
 ### 1. Pleasingly little boilerplate
 
@@ -74,12 +74,12 @@ However, there are three pain points that I encountered:
 
 `redux-leaves` is a library that is written to provide:
 
-1. **Pleasingly little boilerplate**: access your reducer, action types and creators 
+1. **Pleasingly little boilerplate**: set up reducer, action types and creators in one line
 ```js
-const reducer = reduxLeaves(initialState) // comes with action creators!
+const reducer = reduxLeaves(initialState)
 ```
 
-2. **Precise updates**: no matter how deeply you nested that counter, increment it by `2` with
+2. **Precise updates**: easily increment that counter, no matter how deeply you nested it
 ```js
 dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 ```
