@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import { reducerTree } from "../tree";
 import { createStore } from "redux";
-
 
 describe("API: reduxLeaves(initialState)", () => {
 
@@ -118,6 +118,45 @@ describe("API: leaf", () => {
               const state = store.getState()
               expect(state.foo).toBe('FOO')
               expect(state).toEqual({ ...initialState, foo: "FOO" })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.apply(obj => ({ ...obj, arbitrarily: true }))", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.apply(obj => ({ ...obj, arbitrarily: true })))
+            })
+
+            test("THEN reducer.nested.deep updates to { arbitrarily: true }", () => {
+              const state = store.getState()
+              expect(state.nested.deep).toEqual({ arbitrarily: true })
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  deep: { arbitrarily: true }
+                }
+              })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.state.manageable.apply(str => str.concat(' DEFINITELY!'))", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.state.manageable.apply(str => str.concat(' DEFINITELY!')))
+            })
+
+            test("THEN reducer.nested.state.manageable updates to 'maybe...? DEFINITELY!'", () => {
+              const state = store.getState()
+              expect(state.nested.state.manageable).toEqual('maybe...? DEFINITELY!')
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  state: {
+                    ...initialState.nested.state,
+                    manageable: 'maybe...? DEFINITELY!'
+                  }
+                }
+              })
             })
           })
 
