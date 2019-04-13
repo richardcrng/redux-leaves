@@ -1,8 +1,8 @@
 # redux-leaves
 
-30 seconds and 3 steps to manage your redux state with *pleasure*, *precision* and *predictability*.
+Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
-## 30 seconds and 3 steps
+## 30 second demonstration
 
 ### 1. Pleasingly little boilerplate
 
