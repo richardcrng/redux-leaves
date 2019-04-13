@@ -280,4 +280,67 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.concat(...values): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with values", () => {
+
+    describe("GIVEN initialState is an object", () => {
+      const initialState = {
+        empty: [],
+        integers: [1, 2, 3]
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.empty.concat is a function", () => {
+          expect(typeof reducer.empty.concat).toBe("function")
+        })
+
+        test("AND reducer.integers.concat is a function", () => {
+          expect(typeof reducer.integers.concat).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.empty.concat(1, 2, 3)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.empty.concat(1, 2, 3))
+            })
+
+            test("THEN reducer.empty state updates non-mutatively to [1, 2, 3]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                empty: [1, 2, 3]
+              })
+              expect(initialState.empty).toEqual([])
+            })
+          })
+
+          describe("AND we dispatch reducer.empty.concat([1, 2, 3])", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.empty.concat([1, 2, 3]))
+            })
+
+            test("THEN reducer.empty state updates non-mutatively to [1, 2, 3]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                empty: [1, 2, 3]
+              })
+              expect(initialState.empty).toEqual([])
+            })
+          })
+        })
+      })
+    })
+  })
 })
