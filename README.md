@@ -76,7 +76,7 @@ However, there are three pain points that I encountered:
 
 1. **Pleasingly little boilerplate**: access your reducer, action types and creators 
 ```js
-const reducer = reducerLeaves(initialState) // comes with action creators!
+const reducer = reduxLeaves(initialState) // comes with action creators!
 ```
 
 2. **Precise updates**: no matter how deeply you nested that counter, increment it by `2` with
@@ -91,7 +91,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 # API
 
-## `reducerLeaves(initialState, [prefix])`
+## `reduxLeaves(initialState, [prefix])`
 
 Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
