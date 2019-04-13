@@ -58,10 +58,6 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
             expect(reducer.children.foo.value.reset().type).toBe("foo/value/RESET")
           })
 
-          test("AND reducer.children.foo.value.update('foobar') returns an action with payload 'foobar'", () => {
-            expect(reducer.children.foo.value.update('foobar')).toEqual({ type: "foo/value/UPDATE", payload: "foobar" })
-          })
-
           describe("AND store = createStore(reducer)", () => {
             let store
             beforeEach(() => {

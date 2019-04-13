@@ -173,7 +173,7 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
         })
 
         test("AND reducer.off.type is 'bool/OFF'", () => {
-          expect(reducer.off.type).toBe("bool/OFF")
+          expect(reducer.off().type).toBe("bool/OFF")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -206,8 +206,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
           expect(typeof reducer.increment).toBe("function")
         })
 
-        test("AND reducer.increment.type is 'counter/INCREMENT'", () => {
-          expect(reducer.increment.type).toBe("counter/INCREMENT")
+        test("AND reducer.increment().type is 'counter/INCREMENT'", () => {
+          expect(reducer.increment().type).toBe("counter/INCREMENT")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -240,8 +240,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
           expect(typeof reducer.update).toBe("function")
         })
 
-        test("AND reducer.update.type is 'foo/UPDATE'", () => {
-          expect(reducer.update.type).toBe("foo/UPDATE")
+        test("AND reducer.update().type is 'foo/UPDATE'", () => {
+          expect(reducer.update().type).toBe("foo/UPDATE")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -274,8 +274,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
           expect(typeof reducer.toggle).toBe("function")
         })
 
-        test("AND reducer.toggle.type is 'is/nested/TOGGLE'", () => {
-          expect(reducer.toggle.type).toBe("is/nested/TOGGLE")
+        test("AND reducer.toggle().type is 'is/nested/TOGGLE'", () => {
+          expect(reducer.toggle().type).toBe("is/nested/TOGGLE")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -322,8 +322,8 @@ describe("**Feature**: returns a reducer leaf function works on primitive state"
           expect(typeof reducer.on).toBe("function")
         })
 
-        test("AND reducer.on.type is 'ON'", () => {
-          expect(reducer.on.type).toBe("ON")
+        test("AND reducer.on().type is 'ON'", () => {
+          expect(reducer.on().type).toBe("ON")
         })
 
         describe("AND store = createStore(reducer)", () => {
