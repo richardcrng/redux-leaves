@@ -406,4 +406,75 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
+
+    describe("GIVEN non-trivially nested API (as in the documentation)", () => {
+      const initialState = {
+        counter: 1,
+        foo: ["bar"],
+        nested: {
+          deep: {},
+          state: {
+            manageable: "maybe...?"
+          }
+        }
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.counter.increment is a function", () => {
+          expect(typeof reducer.counter.increment).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.counter.increment()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.increment())
+            })
+
+            test("THEN reducer.counter state non-mutatively updates to 2", () => {
+              const state = store.getState()
+              expect(state).toEqual({ ...initialState, counter: 2 })
+              expect(initialState.counter).toBe(1)
+            })
+          })
+
+          describe("AND we dispatch reducer.counter.increment(4)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.increment(4))
+            })
+
+            test("THEN reducer.counter state non-mutatively updates to 5", () => {
+              const state = store.getState()
+              expect(state).toEqual({ ...initialState, counter: 5 })
+              expect(initialState.counter).toBe(1)
+            })
+          })
+
+          describe("AND we dispatch reducer.counter.increment(-1.5)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.increment(-1.5))
+            })
+
+            test("THEN reducer.counter state non-mutatively updates to -0.5", () => {
+              const state = store.getState()
+              expect(state).toEqual({ ...initialState, counter: -0.5 })
+              expect(initialState.counter).toBe(1)
+            })
+          })
+        })
+      })
+    })
+  })
 })
