@@ -790,4 +790,75 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
+
+    describe("GIVEN non-trivially nested API (as in the documentation)", () => {
+      const initialState = {
+        counter: 1,
+        foo: ["bar"],
+        nested: {
+          deep: {},
+          state: {
+            manageable: "maybe...?"
+          }
+        }
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.nested.deep.set is a function", () => {
+          expect(typeof reducer.nested.deep.set).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.nested.deep.set('arbitrarily', true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.set('arbitrarily', true))
+            })
+
+            test("THEN reducer.counter state non-mutatively updates to { arbitrarily: true }", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  deep: { arbitrarily: true }
+                }
+              })
+              expect(initialState.nested.deep).toEqual({})
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.set('arbitrarily.so', true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.set('arbitrarily.so', true))
+            })
+
+            test("THEN reducer.counter state non-mutatively updates to { arbitrarily: { so: true } }", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  deep: { arbitrarily: { so: true } }
+                }
+              })
+              expect(initialState.nested.deep).toEqual({})
+            })
+          })
+        })
+      })
+    })
+  })
 })
