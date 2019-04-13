@@ -118,10 +118,10 @@ Creates an action that will update the leaf's state to the return value of `call
 - `callback` *(function)*: invoked with the leaf's current state
 
 #### Returns
-- `action` *(object)*: an object with properties:
-  - `leaf` *(string)*
-  - `type` *(string)*
-  - `payload` *(function)*: the callback provided
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(function)*: the callback provided
 
 ### `leaf.clear()`
 
