@@ -283,17 +283,17 @@ describe("**Feature**: when third argument (augment) is true, it has access to a
 
         test("AND it has a defined 'clear' property", () => {
           expect(reducer.clear).toBeDefined()
-          expect(reducer.clear.type).toBe("app/prefix/CLEAR")
+          expect(reducer.clear().type).toBe("app/prefix/CLEAR")
         })
 
         test("AND it has a defined 'children.foo.clear' property", () => {
           expect(reducer.children.foo.clear).toBeDefined()
-          expect(reducer.children.foo.clear.type).toBe("app/prefix/foo/CLEAR")
+          expect(reducer.children.foo.clear().type).toBe("app/prefix/foo/CLEAR")
         })
 
         test("AND it has a defined 'children.foo.action.clear' property", () => {
           expect(reducer.children.foo.action.clear).toBeDefined()
-          expect(reducer.children.foo.action.clear.type).toBe("app/prefix/foo/action/CLEAR")
+          expect(reducer.children.foo.action.clear().type).toBe("app/prefix/foo/action/CLEAR")
         })
       })
     })

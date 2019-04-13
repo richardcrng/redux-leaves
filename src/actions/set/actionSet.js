@@ -22,20 +22,38 @@ const standardActionSet = (path = "app/", slice = "slice") => {
 export const actionSet = _.curry(standardActionSet)
 
 export const withActions = (reducer, path) => {
-  const leafAction = type => makeActionCreator(pathJoin([path, type]))
+  const pathWith = type => pathJoin([path, type])
 
-  reducer.apply = leafAction(atomicActions.APPLY)
-  reducer.clear = leafAction(atomicActions.CLEAR)
-  reducer.concat = leafAction(atomicActions.CONCAT)
-  reducer.drop = leafAction(atomicActions.DROP)
-  reducer.increment = leafAction(atomicActions.INCREMENT)
-  reducer.off = leafAction(atomicActions.OFF)
-  reducer.on = leafAction(atomicActions.ON)
-  reducer.push = leafAction(atomicActions.PUSH)
-  reducer.reset = leafAction(atomicActions.RESET)
-  reducer.set = leafAction(atomicActions.SET)
-  reducer.toggle = leafAction(atomicActions.TOGGLE)
-  reducer.update = leafAction(atomicActions.UPDATE)
+  const actionTemplate = (type, payload) => ({
+    leaf: pathJoin([path]),
+    type: pathWith(type),
+    payload
+  })
+
+  reducer.apply = callback => actionTemplate(atomicActions.APPLY, callback)
+
+  reducer.clear = () => actionTemplate(atomicActions.CLEAR)
+
+  reducer.concat = (...values) =>
+    actionTemplate(atomicActions.CONCAT, values)
+
+  reducer.drop = n => actionTemplate(atomicActions.DROP, n)
+
+  reducer.increment = n => actionTemplate(atomicActions.INCREMENT, n)
+
+  reducer.off = () => actionTemplate(atomicActions.OFF)
+
+  reducer.on = () => actionTemplate(atomicActions.ON)
+
+  reducer.push = element => actionTemplate(atomicActions.PUSH, element)
+
+  reducer.reset = () => actionTemplate(atomicActions.RESET)
+
+  reducer.set = (path, value) => actionTemplate(atomicActions.SET, { path, value })
+
+  reducer.toggle = () => actionTemplate(atomicActions.TOGGLE)
+
+  reducer.update = value => actionTemplate(atomicActions.UPDATE, value)
 
   return reducer
 }
