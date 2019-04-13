@@ -477,4 +477,67 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.off(): returns an action that, when dispatched, updates the leaf's state to true", () => {
+
+    describe("GIVEN initialState is an object", () => {
+      const initialState = {
+        true: true,
+        false: false
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.true.off is a function", () => {
+          expect(typeof reducer.true.off).toBe("function")
+        })
+
+        test("AND reducer.false.off is a function", () => {
+          expect(typeof reducer.false.off).toBe("function")
+        })
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.true.off()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.true.off())
+            })
+
+            test("THEN reducer.true state updates non-mutatively to false", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                true: false
+              })
+              expect(initialState.true).toBe(true)
+            })
+          })
+
+          describe("AND we dispatch reducer.false.off()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.false.off())
+            })
+
+            test("THEN reducer.false state remains false", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                false: false
+              })
+              expect(initialState.false).toBe(false)
+            })
+          })
+        })
+      })
+    })
+  })
 })
