@@ -50,12 +50,12 @@ describe("**Feature**: it can combine a dictionary of nested reducers made via m
 
           test("AND reducer.children.bool.update is an action creator of type 'bool/SET'", () => {
             expect(typeof reducer.children.bool.update).toBe("function")
-            expect(reducer.children.bool.update.type).toBe("bool/UPDATE")
+            expect(reducer.children.bool.update().type).toBe("bool/UPDATE")
           })
 
           test("AND reducer.children.foo.value.reset is an action creator of type 'foo/value/RESET'", () => {
             expect(typeof reducer.children.foo.value.reset).toBe("function")
-            expect(reducer.children.foo.value.reset.type).toBe("foo/value/RESET")
+            expect(reducer.children.foo.value.reset().type).toBe("foo/value/RESET")
           })
 
           test("AND reducer.children.foo.value.update('foobar') returns an action with payload 'foobar'", () => {

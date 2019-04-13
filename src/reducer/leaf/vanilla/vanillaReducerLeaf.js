@@ -8,11 +8,11 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     state = initialState,
     action = {}
   ) => {
-    const { type, payload = null, meta = null, ...rest } = action;
+    const { leaf, type, payload = null, meta = null, ...rest } = action;
     
     const { route: actionRoute, modifier } = findActionRouteAndModifier(type);
     
-    const actionPath = pathJoin(actionRoute)
+    const actionPath = leaf || pathJoin(actionRoute)
     const pathToLeaf = pathJoin([prefix, route])
 
     // CLEAR and RESET if pathToLeaf starts with actionPath

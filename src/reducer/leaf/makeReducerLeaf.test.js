@@ -27,8 +27,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             expect(typeof reducer.off).toBe("function")
           })
 
-          test("AND reducer.off.type is 'app/prefix/bool/OFF'", () => {
-            expect(reducer.off.type).toBe("app/prefix/bool/OFF")
+          test("AND reducer.off().type is 'app/prefix/bool/OFF'", () => {
+            expect(reducer.off().type).toBe("app/prefix/bool/OFF")
           })
 
           describe("AND store = createStore(reducer)", () => {
@@ -61,8 +61,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             expect(typeof reducer.increment).toBe("function")
           })
 
-          test("AND reducer.increment.type is 'app/prefix/counter/INCREMENT'", () => {
-            expect(reducer.increment.type).toBe("app/prefix/counter/INCREMENT")
+          test("AND reducer.increment().type is 'app/prefix/counter/INCREMENT'", () => {
+            expect(reducer.increment().type).toBe("app/prefix/counter/INCREMENT")
           })
 
           describe("AND store = createStore(reducer)", () => {
@@ -95,8 +95,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             expect(typeof reducer.update).toBe("function")
           })
 
-          test("AND reducer.update.type is 'app/prefix/foo/UPDATE'", () => {
-            expect(reducer.update.type).toBe("app/prefix/foo/UPDATE")
+          test("AND reducer.update().type is 'app/prefix/foo/UPDATE'", () => {
+            expect(reducer.update().type).toBe("app/prefix/foo/UPDATE")
           })
 
           describe("AND store = createStore(reducer)", () => {
@@ -129,8 +129,8 @@ describe("**Feature**: returns a reducer leaf function that looks at the relevan
             expect(typeof reducer.toggle).toBe("function")
           })
 
-          test("AND reducer.toggle.type is 'app/prefix/is/nested/TOGGLE'", () => {
-            expect(reducer.toggle.type).toBe("app/prefix/is/nested/TOGGLE")
+          test("AND reducer.toggle().type is 'app/prefix/is/nested/TOGGLE'", () => {
+            expect(reducer.toggle().type).toBe("app/prefix/is/nested/TOGGLE")
           })
 
           describe("AND store = createStore(reducer)", () => {
