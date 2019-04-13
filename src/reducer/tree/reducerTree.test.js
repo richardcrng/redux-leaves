@@ -924,4 +924,116 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.update(value): returns an action that, when dispatched, updates the leaf's state to value", () => {
+
+    describe("GIVEN non-trivially nested API (as in the documentation)", () => {
+      const initialState = {
+        counter: 1,
+        foo: ["bar"],
+        nested: {
+          deep: {},
+          state: {
+            manageable: "maybe...?"
+          }
+        }
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.counter.update is a function", () => {
+          expect(typeof reducer.counter.update).toBe("function")
+        })
+
+        test("AND reducer.foo.update is a function", () => {
+          expect(typeof reducer.foo.update).toBe("function")
+        })
+
+        test("AND reducer.nested.deep.update is a function", () => {
+          expect(typeof reducer.nested.deep.update).toBe("function")
+        })
+
+        test("AND reducer.nested.state.manageable.update is a function", () => {
+          expect(typeof reducer.nested.state.manageable.update).toBe("function")
+        })
+
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.counter.update(9)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.update(9))
+            })
+
+            test("THEN reducer.counter state updates non-mutatively to 9", () => {
+              const state = store.getState()
+              expect(state).toEqual({ ...initialState, counter: 9 })
+              expect(initialState.counter).toBe(1)
+            })
+          })
+
+          describe("AND we dispatch reducer.foo.update(['f', 'o', 'o'])", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.foo.update(['f', 'o', 'o']))
+            })
+
+            test("THEN reducer.foo state updates non-mutatively to ['f', 'o', 'o']", () => {
+              const state = store.getState()
+              expect(state).toEqual({ ...initialState, foo: ['f', 'o', 'o'] })
+              expect(initialState.foo).toEqual(['bar'])
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.update({ here: true })", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.update({ here: true }))
+            })
+
+            test("THEN reducer.nested.deep updates to { here: true }", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  deep: { here: true }
+                }
+              })
+              expect(initialState.nested.deep).toEqual({})
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.state.manageable.update('thanks to redux-leaves!')", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.state.manageable.update('thanks to redux-leaves!'))
+            })
+
+            test("THEN reducer.nested.state.manageable updates to 'thanks to redux-leaves!'", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  state: {
+                    ...initialState.nested.state,
+                    manageable: 'thanks to redux-leaves!'
+                  }
+                }
+              })
+              expect(initialState.nested.state.manageable).toBe("maybe...?")
+            })
+          })
+
+        })
+      })
+    })
+  })
 })
