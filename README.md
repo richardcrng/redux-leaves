@@ -118,7 +118,10 @@ Passes the leaf's current state to `callback` and updates the state to the retur
 - `callback` *(function)*: invoked with two arguments, *state* and *action*
 
 #### Returns
- - *(object)*: `{ type, payload: callback }`
+*(object)*: `{ leaf, type, payload }`
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(function)*: the callback provided
 
 ### `leaf.clear()`
 
