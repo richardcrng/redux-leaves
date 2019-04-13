@@ -108,14 +108,14 @@ Creates a reducer function bundled with action creators at every [branch](#branc
 ## leaf
 A reducer function that is responsible for a granular piece of state. This is typically a `string`, `boolean` or `array`, but could be an `object`.
 
-Every reducer leaf has the following methods:
+Every reducer leaf has the following action creators attached:
 
 ### `leaf.apply(callback)`
 
-Passes the leaf's current state to `callback` and updates the state to the return value.
+Creates an action that will update the leaf's state to the return value of `callback(state)`.
 
 #### Parameters
-- `callback` *(function)*: invoked with two arguments, *state* and *action*
+- `callback` *(function)*: invoked with the leaf's current state
 
 **Returns:** *(object)*: `{ leaf, type, payload }`
 - `leaf` *(string)*
