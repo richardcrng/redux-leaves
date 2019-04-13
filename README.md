@@ -128,7 +128,7 @@ Every reducer leaf has the following action creators attached:
 
 #### Usage
 ```js
-store.dispatch(action)
+store.dispatch(leaf.apply(callback))
 // updates the leaf's state to the return value of callback(state).
 ```
 
