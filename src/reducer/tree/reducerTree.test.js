@@ -666,4 +666,128 @@ describe("API: leaf", () => {
       })
     })
   })
+
+  describe("leaf.reset(): returns an action that, when dispatched, updates the leaf's state to the reducer's initialised state", () => {
+
+    describe("GIVEN non-trivially nested API (as in the documentation)", () => {
+      const initialState = {
+        counter: 1,
+        foo: ["bar"],
+        nested: {
+          deep: {},
+          state: {
+            manageable: "maybe...?"
+          }
+        }
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.counter.reset is a function", () => {
+          expect(typeof reducer.counter.reset).toBe("function")
+        })
+
+        test("AND reducer.foo.reset is a function", () => {
+          expect(typeof reducer.foo.reset).toBe("function")
+        })
+
+        test("AND reducer.nested.deep.reset is a function", () => {
+          expect(typeof reducer.nested.deep.reset).toBe("function")
+        })
+
+        test("AND reducer.nested.state.manageable.reset is a function", () => {
+          expect(typeof reducer.nested.state.manageable.reset).toBe("function")
+        })
+
+
+        describe("AND store = createStore(reducer, otherState)", () => {
+          let store
+          const otherState = {
+            counter: 5,
+            foo: ["FOOBAR"],
+            nested: {
+              deep: {
+                props: true
+              },
+              state: {
+                manageable: "let's find out"
+              }
+            }
+          }
+          beforeEach(() => {
+            store = createStore(reducer, otherState)
+          })
+
+          test("THEN store is initialised with state = otherState", () => {
+            expect(store.getState()).toEqual(otherState)
+          })
+
+          describe("AND we dispatch reducer.counter.reset()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.reset())
+            })
+
+            test("THEN reducer.counter resets to 1", () => {
+              const state = store.getState()
+              expect(state.counter).toBe(1)
+              expect(state).toEqual({ ...otherState, counter: 1 })
+            })
+          })
+
+          describe("AND we dispatch reducer.foo.reset()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.foo.reset())
+            })
+
+            test("THEN reducer.foo resets to ['bar']", () => {
+              const state = store.getState()
+              expect(state.foo).toEqual(['bar'])
+              expect(state).toEqual({ ...otherState, foo: ['bar'] })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.reset()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.reset())
+            })
+
+            test("THEN reducer.nested.deep resets to {}", () => {
+              const state = store.getState()
+              expect(state.nested.deep).toEqual({})
+              expect(state).toEqual({
+                ...otherState,
+                nested: {
+                  ...otherState.nested,
+                  deep: {}
+                }
+              })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.state.manageable.reset()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.state.manageable.reset())
+            })
+
+            test("THEN reducer.nested.state.manageable resets to 'maybe...?'", () => {
+              const state = store.getState()
+              expect(state.nested.state.manageable).toEqual('maybe...?')
+              expect(state).toEqual({
+                ...otherState,
+                nested: {
+                  ...otherState.nested,
+                  state: {
+                    ...otherState.nested.state,
+                    manageable: 'maybe...?'
+                  }
+                }
+              })
+            })
+          })
+
+        })
+      })
+    })
+  })
 })
