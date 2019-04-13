@@ -57,7 +57,7 @@ describe("API: reduxLeaves(initialState)", () => {
 
 describe("API: leaf", () => {
 
-  describe(".apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state)", () => {
+  describe("leaf.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state)", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -158,6 +158,118 @@ describe("API: leaf", () => {
                   state: {
                     ...initialState.nested.state,
                     manageable: 'maybe...? DEFINITELY!'
+                  }
+                }
+              })
+            })
+          })
+
+        })
+      })
+    })
+  })
+
+  describe("leaf.clear(): returns an action that, when dispatched, updates the leaf's state to null", () => {
+
+    describe("GIVEN non-trivially nested API (as in the documentation)", () => {
+      const initialState = {
+        counter: 1,
+        foo: ["bar"],
+        nested: {
+          deep: {},
+          state: {
+            manageable: "maybe...?"
+          }
+        }
+      }
+
+      describe("WHEN reducer = reducerTree(initialState)", () => {
+        const reducer = reducerTree(initialState)
+
+        test("THEN reducer.counter.clear is a function", () => {
+          expect(typeof reducer.counter.clear).toBe("function")
+        })
+
+        test("AND reducer.foo.clear is a function", () => {
+          expect(typeof reducer.foo.clear).toBe("function")
+        })
+
+        test("AND reducer.nested.deep.clear is a function", () => {
+          expect(typeof reducer.nested.deep.clear).toBe("function")
+        })
+
+        test("AND reducer.nested.state.manageable.clear is a function", () => {
+          expect(typeof reducer.nested.state.manageable.clear).toBe("function")
+        })
+
+
+        describe("AND store = createStore(reducer)", () => {
+          let store
+          beforeEach(() => {
+            store = createStore(reducer)
+          })
+
+          test("THEN store is initialised with state = initialState", () => {
+            expect(store.getState()).toEqual(initialState)
+          })
+
+          describe("AND we dispatch reducer.counter.clear()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.clear())
+            })
+
+            test("THEN reducer.counter updates to null", () => {
+              const state = store.getState()
+              expect(state.counter).toBeNull()
+              expect(state).toEqual({ ...initialState, counter: null })
+            })
+          })
+
+          describe("AND we dispatch reducer.foo.clear()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.foo.clear())
+            })
+
+            test("THEN reducer.foo updates to null", () => {
+              const state = store.getState()
+              expect(state.foo).toBeNull()
+              expect(state).toEqual({ ...initialState, foo: null })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.clear()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.clear())
+            })
+
+            test("THEN reducer.nested.deep updates to null", () => {
+              const state = store.getState()
+              expect(state.nested.deep).toBeNull()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  deep: null
+                }
+              })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.state.manageable.clear()", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.state.manageable.clear())
+            })
+
+            test("THEN reducer.nested.state.manageable updates to null", () => {
+              const state = store.getState()
+              expect(state.nested.state.manageable).toBeNull()
+              expect(state).toEqual({
+                ...initialState,
+                nested: {
+                  ...initialState.nested,
+                  state: {
+                    ...initialState.nested.state,
+                    manageable: null
                   }
                 }
               })
