@@ -204,19 +204,24 @@ const initialState = {
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
-
+```
+```js
 store.dispatch(reducer.bool.clear())
 console.log(store.getState().bool) // null
-
+```
+```js
 store.dispatch(reducer.num.clear())
 console.log(store.getState().num) // null
-
+```
+```js
 store.dispatch(reducer.str.clear())
 console.log(store.getState().str) // null
-
+```
+```js
 store.dispatch(reducer.arr.clear())
 console.log(store.getState().arr) // null
-
+```
+```js
 store.dispatch(reducer.obj.clear())
 console.log(store.getState().obj) // null
 ```
