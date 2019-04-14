@@ -82,12 +82,13 @@ const reducer = reduxLeaves(initialState)
 
 2. **Precise updates**: easily increment that counter, no matter how deeply you nested it
 ```js
-dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
+const action = reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2)
+dispatch(action)
 ```
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
-// the action dispatched above:
-{ type: "distressingly/and/foolishly/deeply/nested/counter/INCREMENT", payload: 2 }
+console.log(action.type)
+// "distressingly/and/foolishly/deeply/nested/counter/INCREMENT
 ``` 
 
 # API
