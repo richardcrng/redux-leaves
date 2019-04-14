@@ -16,11 +16,11 @@ import reduxLeaves from 'redux-leaves'
 
 const initialState = {
   counter: 1,
-  foo: ["foo"],
+  foo: ['foo'],
   nested: {
     deep: {},
     state: {
-      manageable: "I hope so"
+      manageable: 'I hope so'
     }
   }
 }
@@ -35,9 +35,9 @@ const store = createStore(reducer)
 // All these action creators, and more, come with our reducer for free:
 
 store.dispatch(reducer.counter.increment())
-store.dispatch(reducer.foo.push("bar"))
+store.dispatch(reducer.foo.push('bar'))
 store.dispatch(reducer.nested.state.deep.set('arbitrarily', true))
-store.dispatch(reducer.nested.state.manageable.apply(state => state.replace("hope", "*KNOW*")))
+store.dispatch(reducer.nested.state.manageable.apply(state => state.replace('hope', '*KNOW*')))
 ```
 
 ### 3. Predictable changes
@@ -45,13 +45,13 @@ store.dispatch(reducer.nested.state.manageable.apply(state => state.replace("hop
 // store.getState()
 {
   counter: 2,
-  foo: ["foo", "bar"],
+  foo: ['foo', 'bar'],
   nested: {
     deep: {
       arbitrarily: true
     },
     state: {
-      manageable: "I *KNOW* so"
+      manageable: 'I *KNOW* so'
     }
   }
 }
@@ -87,7 +87,7 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
 // action type dispatched above:
-"distressingly/and/foolishly/deeply/nested/counter/INCREMENT"
+'distressingly/and/foolishly/deeply/nested/counter/INCREMENT'
 ``` 
 
 # API
@@ -112,11 +112,11 @@ import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
   counter: 1,                   // leaf
-  foo: ["bar"]                  // leaf
+  foo: ['bar']                  // leaf
   nested: {                     // branch
     deep: {}                    // leaf: empty object
     state: {                    // branch
-      manageable: "maybe...?"   // leaf
+      manageable: 'maybe...?'   // leaf
     }
   }
 }
@@ -154,7 +154,7 @@ import reduxLeaves from 'reduxLeaves'
 const initialState = {
   bool: false,
   num: 2,
-  str: "foo",
+  str: 'foo',
   arr: [1, 2, 3],
   obj: {}
 }
@@ -175,7 +175,7 @@ console.log(store.getState().num) // 6
 ##### str
 ```js
 store.dispatch(reducer.str.apply(state => state.toUpperCase()))
-console.log(store.getState().str) // "FOO"
+console.log(store.getState().str) // 'FOO'
 ```
 ##### arr
 ```js
@@ -216,7 +216,7 @@ import reduxLeaves from 'reduxLeaves'
 const initialState = {
   bool: true,
   num: 2,
-  str: "foo",
+  str: 'foo',
   arr: [1, 2, 3],
   obj: {}
 }
@@ -502,7 +502,7 @@ import reduxLeaves from 'reduxLeaves'
 const initialState = {
   bool: true,
   num: 2,
-  str: "foo",
+  str: 'foo',
   arr: [1, 2, 3],
   obj: {}
 }
@@ -510,13 +510,13 @@ const initialState = {
 const otherState = {
   bool: false,
   num: 11,
-  str: "bar",
+  str: 'bar',
   arr: ['a', 'b', 'c'],
   obj: { property: true }
 }
 
-const reducer = reduxLeaves(initialState, otherState)
-const store = createStore(reducer)
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer, otherState)
 
 /* store.getState()
 * {
@@ -532,7 +532,7 @@ const store = createStore(reducer)
 ##### bool
 ```js
 store.dispatch(reducer.bool.reset())
-console.log(store.getState().bool) // false
+console.log(store.getState().bool) // true
 ```
 ##### num
 ```js
