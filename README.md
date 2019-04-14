@@ -96,8 +96,8 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 Returns a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
-Every non-empty object is treated as a reducer branch, with branches or leaves beneath it.
-Every other value is treated as a reducer leaf.
+- Every non-empty object is treated as a reducer branch, with branches or leaves beneath it.
+- Every other value is treated as a reducer leaf.
 
 ### Parameters
 - `initialState` *(object)*: the initial state shape for the reducer to use
