@@ -156,7 +156,7 @@ const initialState = {
   num: 2,
   str: "foo",
   arr: [1, 2, 3],
-  obj: { a: 1 }
+  obj: {}
 }
 
 const reducer = reduxLeaves(initialState)
@@ -174,20 +174,29 @@ console.log(store.getState().str) // "FOO"
 store.dispatch(reducer.arr.apply(state => state.reverse()))
 console.log(store.getState().arr) // [3, 2, 1]
 
-store.dispatch(reducer.obj.apply(state => { ...state, b: 2 }))
+store.dispatch(reducer.obj.apply(state => { ...state, a: 1, b: 2 }))
 console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
 
-### `leaf.clear()`
+### `leaf.clear([toNull = false])`
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `null`.
+Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
 
-(If you want to update the leaf's state to its original state, you should use [leaf.update()](#leafreset).)
+If `toNull === true`, then it updates it to true, otherwise it follows the type of the leaf's initial state:
+- *number*: `0`
+- *string*: `''`
+- *boolean*: `false`
+- *array*: `[]`
+- *object*: `{}`
+
+#### Parameters
+- `toNull` *(boolean)*
 
 #### Returns
 `action` *(object)*: an object with properties:
 - `leaf` *(string)*
 - `type` *(string)*
+- `payload` *(boolean)*: the value of `toNull`
 
 #### Example
 ```js
@@ -195,35 +204,50 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  bool: false,
+  bool: true,
   num: 2,
   str: "foo",
   arr: [1, 2, 3],
-  obj: { a: 1 }
+  obj: {}
 }
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.bool.clear())
+store.dispatch(reducer.bool.clear(true))
 console.log(store.getState().bool) // null
+
+store.dispatch(reducer.bool.clear())
+console.log(store.getState().bool) // false
 ```
 ```js
-store.dispatch(reducer.num.clear())
+store.dispatch(reducer.num.clear(true))
 console.log(store.getState().num) // null
+
+store.dispatch(reducer.num.clear())
+console.log(store.getState().num) // 0
 ```
 ```js
-store.dispatch(reducer.str.clear())
+store.dispatch(reducer.str.clear(true))
 console.log(store.getState().str) // null
+
+store.dispatch(reducer.str.clear())
+console.log(store.getState().str) // ''
 ```
 ```js
-store.dispatch(reducer.arr.clear())
+store.dispatch(reducer.arr.clear(true))
 console.log(store.getState().arr) // null
+
+store.dispatch(reducer.arr.clear())
+console.log(store.getState().arr) // []
 ```
 ```js
-store.dispatch(reducer.obj.clear())
+store.dispatch(reducer.obj.clear(true))
 console.log(store.getState().obj) // null
+
+store.dispatch(reducer.obj.clear())
+console.log(store.getState().obj) // {}
 ```
 
 ### `leaf.concat(array)`
