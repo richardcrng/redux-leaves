@@ -304,7 +304,42 @@ store.dispatch(reducer.bar.concat([1, 2, 3]))
 console.log(store.getState().bar) // ['a', 'b', 'c', 1, 2, 3]
 ```
 
-### `leaf.drop(n)`
+### `leaf.drop([n = 1])`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
+
+#### Parameters
+- `n` *(number)*: the number of elements to drop
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(function)*: the number of elements to drop
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: ['a', 'b', 'c']
+  bar: ['a', 'b', 'c']
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+##### No argument provided
+```js
+store.dispatch(reducer.foo.drop())
+console.log(store.getState().foo) // ['b', 'c']
+```
+##### Providing an argument
+```js
+store.dispatch(reducer.bar.drop(2))
+console.log(store.getState().bar) // ['c']
+```
 
 ### `leaf.increment(n)`
 
