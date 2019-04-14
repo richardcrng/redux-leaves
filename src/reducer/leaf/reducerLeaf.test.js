@@ -25,8 +25,8 @@ describe("**Feature**: a reducer leaf can update a created store's state with re
 })
 
 describe("**Feature**: a reducer leaf can clear a created store's state with reducer.clear()", () => {
-  describe("GIVEN reducer = reducerLeaf({ prefix: 'app/prefix', route: ['some', 'route'], initialState: 0 })", () => {
-    const reducer = reducerLeaf({ prefix: "app/prefix", route: ["some", "route"], initialState: 0 })
+  describe("GIVEN reducer = reducerLeaf({ prefix: 'app/prefix', route: ['some', 'route'], initialState: 2 })", () => {
+    const reducer = reducerLeaf({ prefix: "app/prefix", route: ["some", "route"], initialState: 2 })
 
     describe("AND a store that is created from the reducer with preloaded state of 5", () => {
       let store
@@ -39,8 +39,8 @@ describe("**Feature**: a reducer leaf can clear a created store's state with red
           store.dispatch(reducer.clear())
         })
 
-        test("THEN the store has state of null", () => {
-          expect(store.getState()).toBeNull()
+        test("THEN the store has state of 0", () => {
+          expect(store.getState()).toBe(0)
         })
       })
     })

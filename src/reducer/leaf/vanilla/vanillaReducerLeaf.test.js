@@ -53,9 +53,9 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
             })
           })
 
-          describe("AND an action with type 'app/CLEAR is dispatched", () => {
+          describe("AND an action with type 'app/CLEAR is dispatched and payload true", () => {
             beforeAll(() => {
-              store.dispatch({ type: "app/CLEAR" })
+              store.dispatch({ type: "app/CLEAR", payload: true })
             })
 
             test("THEN the store has state of null", () => {
@@ -98,9 +98,9 @@ describe("GIVEN a prefix of 'app/prefix'", () => {
             expect(store.getState()).toBe(true)
           })
 
-          describe("AND an action with type 'app/CLEAR is dispatched", () => {
+          describe("AND an action with type 'app/CLEAR is dispatched with payload true", () => {
             beforeAll(() => {
-              store.dispatch({ type: "app/CLEAR" })
+              store.dispatch({ type: "app/CLEAR", payload: true })
             })
 
             test("THEN the store has state of null", () => {

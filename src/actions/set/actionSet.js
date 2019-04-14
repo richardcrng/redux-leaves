@@ -32,7 +32,7 @@ export const withActions = (reducer, path) => {
 
   reducer.apply = callback => actionTemplate(atomicActions.APPLY, callback)
 
-  reducer.clear = () => actionTemplate(atomicActions.CLEAR)
+  reducer.clear = (toNull = false) => actionTemplate(atomicActions.CLEAR, toNull)
 
   reducer.concat = (...values) =>
     actionTemplate(atomicActions.CONCAT, values)
