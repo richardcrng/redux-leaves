@@ -380,9 +380,102 @@ console.log(store.getState().bar) // -1
 
 ### `leaf.off()`
 
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `false`.
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: true
+  bar: false
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(reducer.foo.off())
+console.log(store.getState().foo) // false
+```
+```js
+store.dispatch(reducer.bar.off())
+console.log(store.getState().bar) // false
+```
+
 ### `leaf.on()`
 
-### `leaf.push(element)`
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `true`.
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: true
+  bar: false
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(reducer.foo.on())
+console.log(store.getState().foo) // true
+```
+```js
+store.dispatch(reducer.bar.on())
+console.log(store.getState().bar) // true
+```
+
+### `leaf.push(element, [index = -1], [replace = false])`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state.
+
+#### Parameters
+- `element` *(any)*: the number of elements to drop
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(number)*: the number of elements to drop
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: ['a', 'b', 'c']
+  bar: ['a', 'b', 'c']
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+##### No argument provided
+```js
+store.dispatch(reducer.foo.drop())
+console.log(store.getState().foo) // ['b', 'c']
+```
+##### Providing an argument
+```js
+store.dispatch(reducer.bar.drop(2))
+console.log(store.getState().bar) // ['c']
+```
 
 ### `leaf.reset()`
 
