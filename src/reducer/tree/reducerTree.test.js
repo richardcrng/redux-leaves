@@ -169,7 +169,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.clear(): returns an action that, when dispatched, updates the leaf's state to null", () => {
+  describe("leaf.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -203,14 +203,26 @@ describe("API: leaf", () => {
         })
 
 
-        describe("AND store = createStore(reducer)", () => {
+        describe("AND store = createStore(reducer, otherState)", () => {
           let store
+          const otherState = {
+            counter: 5,
+            foo: ["FOOBAR"],
+            nested: {
+              deep: {
+                props: true
+              },
+              state: {
+                manageable: "let's find out"
+              }
+            }
+          }
           beforeEach(() => {
-            store = createStore(reducer)
+            store = createStore(reducer, otherState)
           })
 
-          test("THEN store is initialised with state = initialState", () => {
-            expect(store.getState()).toEqual(initialState)
+          test("THEN store is initialised with state = otherState", () => {
+            expect(store.getState()).toEqual(otherState)
           })
 
           describe("AND we dispatch reducer.counter.clear()", () => {
@@ -218,10 +230,22 @@ describe("API: leaf", () => {
               store.dispatch(reducer.counter.clear())
             })
 
+            test("THEN reducer.counter updates to 0", () => {
+              const state = store.getState()
+              expect(state.counter).toBe(0)
+              expect(state).toEqual({ ...otherState, counter: 0 })
+            })
+          })
+
+          describe("AND we dispatch reducer.counter.clear(true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.counter.clear(true))
+            })
+
             test("THEN reducer.counter updates to null", () => {
               const state = store.getState()
               expect(state.counter).toBeNull()
-              expect(state).toEqual({ ...initialState, counter: null })
+              expect(state).toEqual({ ...otherState, counter: null })
             })
           })
 
@@ -230,10 +254,22 @@ describe("API: leaf", () => {
               store.dispatch(reducer.foo.clear())
             })
 
+            test("THEN reducer.foo updates to []", () => {
+              const state = store.getState()
+              expect(state.foo).toEqual([])
+              expect(state).toEqual({ ...otherState, foo: [] })
+            })
+          })
+
+          describe("AND we dispatch reducer.foo.clear(true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.foo.clear(true))
+            })
+
             test("THEN reducer.foo updates to null", () => {
               const state = store.getState()
               expect(state.foo).toBeNull()
-              expect(state).toEqual({ ...initialState, foo: null })
+              expect(state).toEqual({ ...otherState, foo: null })
             })
           })
 
@@ -242,13 +278,31 @@ describe("API: leaf", () => {
               store.dispatch(reducer.nested.deep.clear())
             })
 
+            test("THEN reducer.nested.deep updates to {}", () => {
+              const state = store.getState()
+              expect(state.nested.deep).toEqual({})
+              expect(state).toEqual({
+                ...otherState,
+                nested: {
+                  ...otherState.nested,
+                  deep: {}
+                }
+              })
+            })
+          })
+
+          describe("AND we dispatch reducer.nested.deep.clear(true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.deep.clear(true))
+            })
+
             test("THEN reducer.nested.deep updates to null", () => {
               const state = store.getState()
               expect(state.nested.deep).toBeNull()
               expect(state).toEqual({
-                ...initialState,
+                ...otherState,
                 nested: {
-                  ...initialState.nested,
+                  ...otherState.nested,
                   deep: null
                 }
               })
@@ -260,22 +314,42 @@ describe("API: leaf", () => {
               store.dispatch(reducer.nested.state.manageable.clear())
             })
 
-            test("THEN reducer.nested.state.manageable updates to null", () => {
+            test("THEN reducer.nested.state.manageable updates to ''", () => {
               const state = store.getState()
-              expect(state.nested.state.manageable).toBeNull()
+              expect(state.nested.state.manageable).toBe('')
               expect(state).toEqual({
-                ...initialState,
+                ...otherState,
                 nested: {
-                  ...initialState.nested,
+                  ...otherState.nested,
                   state: {
-                    ...initialState.nested.state,
-                    manageable: null
+                    ...otherState.nested.state,
+                    manageable: ''
                   }
                 }
               })
             })
           })
 
+          describe("AND we dispatch reducer.nested.state.manageable.clear(true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.nested.state.manageable.clear(true))
+            })
+
+            test("THEN reducer.nested.state.manageable updates to null", () => {
+              const state = store.getState()
+              expect(state.nested.state.manageable).toBeNull()
+              expect(state).toEqual({
+                ...otherState,
+                nested: {
+                  ...otherState.nested,
+                  state: {
+                    ...otherState.nested.state,
+                    manageable: null
+                  }
+                }
+              })
+            })
+          })
         })
       })
     })

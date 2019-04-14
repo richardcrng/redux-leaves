@@ -19,7 +19,7 @@ export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null 
     //    (so that parent branch can clear)
     if (_.startsWith(pathToLeaf, actionPath)) {
       switch (modifier) {
-        case atomicActions.CLEAR: return null
+        case atomicActions.CLEAR: return clear(state, payload, initialState)
         case atomicActions.RESET: return initialState
       }
     }
@@ -50,6 +50,18 @@ const apply = (state, action) => {
   return (typeof payload === "function")
     ? payload(_.cloneDeep(state), _.cloneDeep(action))
     : payload
+}
+
+const clear = (state, toNull, initialState) => {
+  if (toNull) return null
+
+  if (typeof initialState === "number") return 0
+  if (typeof initialState === "string") return ''
+  if (typeof initialState === "boolean") return false
+  if (Array.isArray(initialState)) return []
+  if (typeof initialState === "object") return {}
+
+  return null
 }
 
 const drop = (state, payload) => (
