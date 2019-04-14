@@ -678,23 +678,28 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.push(element): returns an action that, when dispatched, updates the leaf's state by non-mutatively pushing element into leaf's state", () => {
+  describe("leaf.push(element, [index = -1], [replace = false]): returns an action that, when dispatched, updates the leaf's state by non-mutatively pushing element into leaf's state at index. If replace === true, then element replaces the existing element with that index.", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
-        empty: [],
-        integers: [1, 2, 3]
+        foo: [1, 2, 3],
+        bar: [1, 2, 3],
+        foobar: [1, 2, 3]
       }
 
       describe("WHEN reducer = reducerTree(initialState)", () => {
         const reducer = reducerTree(initialState)
 
-        test("THEN reducer.empty.push is a function", () => {
-          expect(typeof reducer.empty.push).toBe("function")
+        test("THEN reducer.foo.push is a function", () => {
+          expect(typeof reducer.foo.push).toBe("function")
         })
 
-        test("AND reducer.integers.push is a function", () => {
-          expect(typeof reducer.integers.push).toBe("function")
+        test("AND reducer.bar.push is a function", () => {
+          expect(typeof reducer.bar.push).toBe("function")
+        })
+
+        test("AND reducer.foobar.push is a function", () => {
+          expect(typeof reducer.foobar.push).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -707,33 +712,63 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.integers.push(4)", () => {
+          describe("AND we dispatch reducer.foo.push(4)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.integers.push(4))
+              store.dispatch(reducer.foo.push(4))
             })
 
-            test("THEN reducer.integers state updates non-mutatively to [1, 2, 3, 4]", () => {
+            test("THEN reducer.foo state updates non-mutatively to [1, 2, 3, 4]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
-                integers: [1, 2, 3, 4]
+                foo: [1, 2, 3, 4]
               })
-              expect(initialState.integers).toEqual([1, 2, 3])
+              expect(initialState.foo).toEqual([1, 2, 3])
             })
           })
 
-          describe("AND we dispatch reducer.integers.push([4, 5])", () => {
+          describe("AND we dispatch reducer.foo.push([4, 5])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.integers.push([4, 5]))
+              store.dispatch(reducer.foo.push([4, 5]))
             })
 
-            test("THEN reducer.integers state updates non-mutatively to [1, 2, 3, [4, 5]]", () => {
+            test("THEN reducer.foo state updates non-mutatively to [1, 2, 3, [4, 5]]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
-                integers: [1, 2, 3, [4, 5]]
+                foo: [1, 2, 3, [4, 5]]
               })
-              expect(initialState.integers).toEqual([1, 2, 3])
+              expect(initialState.foo).toEqual([1, 2, 3])
+            })
+          })
+
+          describe("AND we dispatch reducer.bar.push(4, 0)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.bar.push(4, 0))
+            })
+
+            test("THEN reducer.bar state updates non-mutatively to [4, 1, 2, 3]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                bar: [4, 1, 2, 3]
+              })
+              expect(initialState.bar).toEqual([1, 2, 3])
+            })
+          })
+
+          describe("AND we dispatch reducer.foobar.push(4, 0, true)", () => {
+            beforeEach(() => {
+              store.dispatch(reducer.foobar.push(4, 0, true))
+            })
+
+            test("THEN reducer.foobar state updates non-mutatively to [4, 2, 3]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                foobar: [4, 2, 3]
+              })
+              expect(initialState.foobar).toEqual([1, 2, 3])
             })
           })
         })
