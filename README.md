@@ -128,11 +128,7 @@ const store = createStore(reducer)
 ## branch
 
 ## leaf
-```js
-function leaf(state, action) {
-  // It knows its own logic!
-}
-```
+
 Returns a reducer function that is responsible for a granular piece of state (boolean, string, array or object).
 
 Every reducer leaf has the following action creators attached:
@@ -166,17 +162,6 @@ store.getState().foo == "FOO" // true
 
 store.dispatch(reducer.bar.apply(arr => arr.reverse()))
 store.getState().bar == [3, 2, 1] // true, and non-mutative
-```
-
-#### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
-
-const initialState = {
-
-}
-
 ```
 
 ### `leaf.clear()`
