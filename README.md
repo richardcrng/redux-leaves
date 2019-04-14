@@ -96,18 +96,32 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 Returns a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
+Every non-empty object is treated as a reducer branch, with branches or leaves beneath it.
+Every other value is treated as a reducer leaf.
+
 ### Parameters
 - `initialState` *(object)*: the initial state shape for the reducer to use
 
 ### Returns
 `function(state, action)`: A reducer function intended for redux's `createStore()`.
 
-### Usage
+### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
-const reducer = reduxLeaves(initialState) // pass in your state shape
+const initialState = {
+  counter: 1,                   // leaf
+  foo: ["bar"]                  // leaf
+  nested: {                     // branch
+    deep: {}                    // leaf: empty object
+    state: {                    // branch
+      manageable: "maybe...?"   // leaf
+    }
+  }
+}
+
+const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
