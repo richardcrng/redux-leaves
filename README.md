@@ -15,12 +15,12 @@ import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
 
 const initialState = {
-  counter: 0,
-  foo: "foo",
+  counter: 1,
+  foo: ["foo"],
   nested: {
+    deep: {},
     state: {
-      deep: false,
-      manageable: "maybe...?",
+      manageable: "I hope so"
     }
   }
 }
@@ -35,25 +35,26 @@ const store = createStore(reducer)
 // All these action creators, and more, come with our reducer for free:
 
 store.dispatch(reducer.counter.increment())
-store.dispatch(reducer.foo.update("bar"))
-store.dispatch(reducer.nested.state.deep.toggle())
-store.dispatch(reducer.nested.state.manageable.apply(state => state.concat(" DEFINITELY!")))
+store.dispatch(reducer.foo.push("bar"))
+store.dispatch(reducer.nested.state.deep.set('arbitrarily', true))
+store.dispatch(reducer.nested.state.manageable.apply(state => state.replace("hope", "*KNOW*")))
 ```
 
 ### 3. Predictable changes
 ```js
 // store.getState()
 {
-  counter: 1,
-  foo: "bar",
+  counter: 2,
+  foo: ["foo", "bar"],
   nested: {
+    deep: {
+      arbitrarily: true
+    },
     state: {
-      deep: true,
-      manageable: "maybe...? DEFINITELY!" // word.
+      manageable: "I *KNOW* so"
     }
   }
 }
-// All with no mutation!
 ```
 
 ## Motivation
@@ -91,17 +92,24 @@ dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
 
 # API
 
-## `reduxLeaves(initialState, [prefix])`
+## `reduxLeaves(initialState)`
 
-Creates a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
+Returns a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
 
 ### Parameters
-- `initialState` *(any)*: the initial state shape for the reducer to use.
-- `prefix` *(string, optional)*: a prefix that you want to supply to the reducer's attached action creator types, e.g. `'app/'`.
+- `initialState` *(object)*: the initial state shape for the reducer to use
 
 ### Returns
 `function(state, action)`: A reducer function intended for redux's `createStore()`.
 
+### Usage
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const reducer = reduxLeaves(initialState) // pass in your state shape
+const store = createStore(reducer)
+```
 
 ## branch
 
@@ -111,7 +119,7 @@ function leaf(state, action) {
   // It knows its own logic!
 }
 ```
-A reducer function that is responsible for a granular piece of state. This is typically a `string`, `boolean` or `array`, but could be an `object`.
+Returns a reducer function that is responsible for a granular piece of state (boolean, string, array or object).
 
 Every reducer leaf has the following action creators attached:
 
@@ -130,6 +138,17 @@ Every reducer leaf has the following action creators attached:
 ```js
 store.dispatch(leaf.apply(callback))
 // updates the leaf's state to the return value of callback(state).
+```
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'redux-leaves'
+
+const initialState = {
+
+}
+
 ```
 
 ### `leaf.clear()`
