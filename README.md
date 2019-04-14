@@ -309,13 +309,13 @@ console.log(store.getState().bar) // ['a', 'b', 'c', 1, 2, 3]
 Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
 
 #### Parameters
-- `n` *(number)*: the number of elements to drop
+- `n` *(number, optional)*: the number of elements to drop
 
 #### Returns
 `action` *(object)*: an object with properties:
 - `leaf` *(string)*
 - `type` *(string)*
-- `payload` *(function)*: the number of elements to drop
+- `payload` *(number)*: the number of elements to drop
 
 #### Example
 ```js
@@ -341,7 +341,42 @@ store.dispatch(reducer.bar.drop(2))
 console.log(store.getState().bar) // ['c']
 ```
 
-### `leaf.increment(n)`
+### `leaf.increment([n = 1])`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, increments leaf's state by `n`.
+
+#### Parameters
+- `n` *(number)*: the number to increment the leaf's state by
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(number)*: the number to increment the leaf's state by
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: 5
+  bar: 5
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+##### No argument provided
+```js
+store.dispatch(reducer.foo.increment())
+console.log(store.getState().foo) 6
+```
+##### Providing an argument
+```js
+store.dispatch(reducer.bar.increment(-6))
+console.log(store.getState().bar) // -1
+```
 
 ### `leaf.off()`
 
