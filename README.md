@@ -135,6 +135,8 @@ Every reducer leaf has the following action creators attached:
 
 ### `leaf.apply(callback)`
 
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState)`.
+
 #### Parameters
 - `callback` *(function)*: invoked by the leaf's reducer with the leaf's current state
 
@@ -150,21 +152,74 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  foo: "foo"
-  bar: [1, 2, 3]
+  bool: false,
+  num: 2,
+  str: "foo",
+  arr: [1, 2, 3],
+  obj: { a: 1 }
 }
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-store.dispatch(reducer.foo.apply(str => str.toUpperCase()))
-store.getState().foo == "FOO" // true
+store.dispatch(reducer.bool.apply(state => !state))
+console.log(store.getState().bool) // true
 
-store.dispatch(reducer.bar.apply(arr => arr.reverse()))
-store.getState().bar == [3, 2, 1] // true, and non-mutative
+store.dispatch(reducer.num.apply(state => state * 3))
+console.log(store.getState().num) // 6
+
+store.dispatch(reducer.str.apply(state => state.toUpperCase()))
+console.log(store.getState().str) // "FOO"
+
+store.dispatch(reducer.arr.apply(state => state.reverse()))
+console.log(store.getState().arr) // [3, 2, 1]
+
+store.dispatch(reducer.obj.apply(state => { ...state, b: 2 }))
+console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
 
 ### `leaf.clear()`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `null`.
+
+(If you want to update the leaf's state to its original state, you should use [leaf.update()](#leafreset).)
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  bool: false,
+  num: 2,
+  str: "foo",
+  arr: [1, 2, 3],
+  obj: { a: 1 }
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+store.dispatch(reducer.bool.clear())
+console.log(store.getState().bool) // null
+
+store.dispatch(reducer.num.clear())
+console.log(store.getState().num) // null
+
+store.dispatch(reducer.str.clear())
+console.log(store.getState().str) // null
+
+store.dispatch(reducer.arr.clear())
+console.log(store.getState().arr) // null
+
+store.dispatch(reducer.obj.clear())
+console.log(store.getState().obj) // null
+```
 
 ### `leaf.concat(array)`
 
