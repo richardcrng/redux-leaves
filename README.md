@@ -224,6 +224,7 @@ const initialState = {
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
+##### bool
 ```js
 store.dispatch(reducer.bool.clear(true))
 console.log(store.getState().bool) // null
@@ -231,6 +232,7 @@ console.log(store.getState().bool) // null
 store.dispatch(reducer.bool.clear())
 console.log(store.getState().bool) // false
 ```
+##### num
 ```js
 store.dispatch(reducer.num.clear(true))
 console.log(store.getState().num) // null
@@ -238,6 +240,7 @@ console.log(store.getState().num) // null
 store.dispatch(reducer.num.clear())
 console.log(store.getState().num) // 0
 ```
+##### str
 ```js
 store.dispatch(reducer.str.clear(true))
 console.log(store.getState().str) // null
@@ -245,6 +248,7 @@ console.log(store.getState().str) // null
 store.dispatch(reducer.str.clear())
 console.log(store.getState().str) // ''
 ```
+##### arr
 ```js
 store.dispatch(reducer.arr.clear(true))
 console.log(store.getState().arr) // null
@@ -252,6 +256,7 @@ console.log(store.getState().arr) // null
 store.dispatch(reducer.arr.clear())
 console.log(store.getState().arr) // []
 ```
+##### obj
 ```js
 store.dispatch(reducer.obj.clear(true))
 console.log(store.getState().obj) // null
@@ -260,7 +265,44 @@ store.dispatch(reducer.obj.clear())
 console.log(store.getState().obj) // {}
 ```
 
-### `leaf.concat(array)`
+### `leaf.concat(...values)`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `values`.
+
+(This uses lodash's [`_.concat(array, [values])`](https://lodash.com/docs/4.17.11#concat), where `array` is `leafState`.)
+
+#### Parameters
+- `values` *(...\*)*: the values to concatenate
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(function)*: the callback provided
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: ['a', 'b', 'c']
+  bar: ['a', 'b', 'c']
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+##### Passing multiple values
+```js
+store.dispatch(reducer.foo.concat(1, 2, 3))
+console.log(store.getState().foo) // ['a', 'b', 'c', 1, 2, 3]
+```
+##### Passing a single array
+```js
+store.dispatch(reducer.bar.concat([1, 2, 3]))
+console.log(store.getState().bar) // ['a', 'b', 'c', 1, 2, 3]
+```
 
 ### `leaf.drop(n)`
 
