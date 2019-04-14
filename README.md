@@ -161,19 +161,29 @@ const initialState = {
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
-
+```
+##### bool
+```js
 store.dispatch(reducer.bool.apply(state => !state))
 console.log(store.getState().bool) // true
-
+```
+##### num
+```js
 store.dispatch(reducer.num.apply(state => state * 3))
 console.log(store.getState().num) // 6
-
+```
+##### str
+```js
 store.dispatch(reducer.str.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // "FOO"
-
+```
+##### arr
+```js
 store.dispatch(reducer.arr.apply(state => state.reverse()))
 console.log(store.getState().arr) // [3, 2, 1]
-
+```
+##### obj
+```js
 store.dispatch(reducer.obj.apply(state => { ...state, a: 1, b: 2 }))
 console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
@@ -190,7 +200,7 @@ If `toNull === true`, then it updates it to true, otherwise it follows the type 
 - *object*: `{}`
 
 #### Parameters
-- `toNull` *(boolean)*
+- `toNull` *(boolean, optional)*: defaults to `false`
 
 #### Returns
 `action` *(object)*: an object with properties:
