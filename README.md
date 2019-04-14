@@ -592,9 +592,8 @@ console.log(store.getState().foo.bar) // { accessed: true }
 ```
 ```js
 store.dispatch(reducer.foobar.set('failed', false))
-console.log(store.getState().foobarbar) // { failed: false }
+console.log(store.getState().foobar) // { failed: false }
 ```
-
 
 ### `leaf.toggle()`
 
