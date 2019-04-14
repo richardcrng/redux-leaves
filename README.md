@@ -129,7 +129,7 @@ const store = createStore(reducer)
 
 ## leaf
 
-Returns a reducer function that is responsible for a granular piece of state (boolean, string, array or object).
+Returns a reducer function that is responsible for a granular piece of state (*boolean*, *string*, *array* or *object*).
 
 Every reducer leaf has the following action creators attached:
 
