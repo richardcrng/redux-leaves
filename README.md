@@ -479,7 +479,7 @@ console.log(store.getState().foo) // [1, 2, 3, 4]
 store.dispatch(reducer.bar.push(4, 0))
 console.log(store.getState().bar) // [4, 1, 2, 3]
 ```
-#### Providing element, index and replace
+##### Providing element, index and replace
 ```js
 store.dispatch(reducer.foobar.push(4, 0, true))
 console.log(store.getState().foobar) // [4, 2, 3]
@@ -556,6 +556,45 @@ console.log(store.getState().obj) // {}
 ```
 
 ### `leaf.set(path, value)`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
+
+(This uses lodash's [`_.set(object, path, value)`](https://lodash.com/docs/4.17.11#set), where `object` is `leafState`.)
+
+#### Parameters
+- `path` *(array | string)*: the path of the property to set
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(object)*: `{ path, value }`
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+// note: object leaves have to be initialised with empty objects
+const initialState = {
+  foo: {        // branch
+    bar: {}     // leaf
+  }
+  foobar: {}    // leaf
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(reducer.foo.bar.set('accessed', true))
+console.log(store.getState().foo.bar) // { accessed: true }
+```
+```js
+store.dispatch(reducer.foobar.set('failed', false))
+console.log(store.getState().foobarbar) // { failed: false }
+```
+
 
 ### `leaf.toggle()`
 
