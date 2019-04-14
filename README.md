@@ -487,6 +487,74 @@ console.log(store.getState().foobar) // [4, 2, 3]
 
 ### `leaf.reset()`
 
+Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the reducer.
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  bool: true,
+  num: 2,
+  str: "foo",
+  arr: [1, 2, 3],
+  obj: {}
+}
+
+const otherState = {
+  bool: false,
+  num: 11,
+  str: "bar",
+  arr: ['a', 'b', 'c'],
+  obj: { property: true }
+}
+
+const reducer = reduxLeaves(initialState, otherState)
+const store = createStore(reducer)
+
+/* store.getState()
+* {
+*   bool: false,
+*   num: 11,
+*   str: 'bar',
+*   arr: ['a', 'b', 'c'],
+*   obj: { property: true }
+* }
+*/
+
+```
+##### bool
+```js
+store.dispatch(reducer.bool.reset())
+console.log(store.getState().bool) // false
+```
+##### num
+```js
+store.dispatch(reducer.num.reset())
+console.log(store.getState().num) // 2
+```
+##### str
+```js
+store.dispatch(reducer.str.reset())
+console.log(store.getState().str) // 'foo'
+```
+##### arr
+```js
+store.dispatch(reducer.arr.reset())
+console.log(store.getState().arr) // [1, 2, 3]
+```
+##### obj
+```js
+store.dispatch(reducer.obj.reset())
+console.log(store.getState().obj) // {}
+```
+
 ### `leaf.set(path, value)`
 
 ### `leaf.toggle()`
