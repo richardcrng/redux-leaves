@@ -148,10 +148,24 @@ Every reducer leaf has the following action creators attached:
 - `type` *(string)*
 - `payload` *(function)*: the callback provided
 
-#### Usage
+#### Example
 ```js
-store.dispatch(leaf.apply(callback))
-// updates the leaf's state to the return value of callback(state).
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: "foo"
+  bar: [1, 2, 3]
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+store.dispatch(reducer.foo.apply(str => str.toUpperCase()))
+store.getState().foo == "FOO" // true
+
+store.dispatch(reducer.bar.apply(arr => arr.reverse()))
+store.getState().bar == [3, 2, 1] // true, and non-mutative
 ```
 
 #### Example
