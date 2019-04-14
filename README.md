@@ -87,8 +87,8 @@ dispatch(action)
 ```
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
-console.log(action.type)
-// "distressingly/and/foolishly/deeply/nested/counter/INCREMENT
+// console.log(action.type)
+"distressingly/and/foolishly/deeply/nested/counter/INCREMENT
 ``` 
 
 # API
