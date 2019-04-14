@@ -442,16 +442,18 @@ console.log(store.getState().bar) // true
 
 ### `leaf.push(element, [index = -1], [replace = false])`
 
-Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state.
+Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state at index `index`. If `replace === true`, then `element` replaces the existing element with that index.
 
 #### Parameters
-- `element` *(any)*: the number of elements to drop
+- `element` *(any)*: the element to insert to the leaf's state
+- `index` *(integer, optional)*: the index of the array where `element` should be inserted
+- `replace` *(boolean, optional)*: whether or not `element` should replace the current `index`<sup>th</sup> element
 
 #### Returns
 `action` *(object)*: an object with properties:
 - `leaf` *(string)*
 - `type` *(string)*
-- `payload` *(number)*: the number of elements to drop
+- `payload` *(object)*: `{ element, index, replace }`
 
 #### Example
 ```js
@@ -459,22 +461,28 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  foo: ['a', 'b', 'c']
-  bar: ['a', 'b', 'c']
+  foo: [1, 2, 3]
+  bar: [1, 2, 3]
+  foobar: [1, 2, 3]
 }
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-##### No argument provided
+##### Providing element
 ```js
-store.dispatch(reducer.foo.drop())
-console.log(store.getState().foo) // ['b', 'c']
+store.dispatch(reducer.foo.push(4))
+console.log(store.getState().foo) // [1, 2, 3, 4]
 ```
-##### Providing an argument
+##### Providing element and index
 ```js
-store.dispatch(reducer.bar.drop(2))
-console.log(store.getState().bar) // ['c']
+store.dispatch(reducer.bar.push(4, 0))
+console.log(store.getState().bar) // [4, 1, 2, 3]
+```
+#### Providing element, index and replace
+```js
+store.dispatch(reducer.foobar.push(4, 0, true))
+console.log(store.getState().foobar) // [4, 2, 3]
 ```
 
 ### `leaf.reset()`
