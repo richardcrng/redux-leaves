@@ -45,7 +45,7 @@ export const withActions = (reducer, path) => {
 
   reducer.on = () => actionTemplate(atomicActions.ON)
 
-  reducer.push = element => actionTemplate(atomicActions.PUSH, element)
+  reducer.push = (element, index = -1, replace = false) => actionTemplate(atomicActions.PUSH, { element, index, replace })
 
   reducer.reset = () => actionTemplate(atomicActions.RESET)
 

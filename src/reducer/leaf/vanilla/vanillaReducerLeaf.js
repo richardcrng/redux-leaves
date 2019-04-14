@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { findActionRouteAndModifier } from '../../../actions/route';
 import { pathJoin } from '../../../utils';
 import { atomicActions } from '../../../actions/atomic';
+import { insertAtIndex, replaceAtIndex } from './utils';
 
 export const vanillaReducerLeaf = ({ prefix = "app", route, initialState = null }) => {
   return (
@@ -75,11 +76,11 @@ const increment = (state, payload) => {
   return state + increment
 }
 
-const push = (state, payload) => {
-  const arr = Array.isArray(state) ? [...state] : [state]
-  arr.push(payload)
-  return arr
-}
+const push = (state, { element, index = -1, replace = false } = {}) => (
+  replace
+    ? replaceAtIndex(state, index, element)
+    : insertAtIndex(state, index, element)
+)
 
 const set = (state, payload) => (
   _.setWith(_.clone(state), payload.path, payload.value, _.clone)
