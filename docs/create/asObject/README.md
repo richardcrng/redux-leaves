@@ -7,7 +7,7 @@ If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#
 If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toPlainObject(leafState)`](https://lodash.com/docs/4.17.11#toPlainObject) method, before the state is updated according to the action dispatched.
 
 ## `create.asObject.set(path, value)`
-**alias: `create.push(element, [index = -1], [replace = false])`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
+**alias: `create.set(path, value)`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
 
