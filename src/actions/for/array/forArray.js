@@ -1,13 +1,14 @@
 import { atomicActions } from "../../atomic";
+import { conditions } from "../../condtions/conditions";
 
 export const forArray = (pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
-      condition: "forArray",
+      condition: conditions.ARRAY,
       modifier: type
     },
-    type: [...pathToLeafOrBranch, `forArray.${type}`].join('/'),
+    type: [...pathToLeafOrBranch, `${conditions.ARRAY}.${type}`].join('/'),
     payload
   })
 

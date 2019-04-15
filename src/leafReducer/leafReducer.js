@@ -1,21 +1,37 @@
 import _ from 'lodash';
 import { atomicActions } from '../actions/atomic';
-import { updateState } from '../utils';
-import { insertAtIndex, replaceAtIndex } from '../actions/for/array/utils';
+import { conditions } from '../actions/condtions';
+import { leafReducerArray } from './array/leafReducerArray';
+import { leafReducerObject } from './object/leafReducerObject';
+import { leafReducerString } from './string/leafReducerString';
+import { leafReducerBoolean } from './boolean/leafReducerBoolean';
+import { leafReducerNumber } from './number/leafReducerNumber';
 
-export const leafReducer = (leafState, { path, modifier, payload }, wholeState, initialWhole) => {
+export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
+
+  let newState = leafState
+  
+  // Type-specific actions
+  switch (condition) {
+    case conditions.ARRAY:
+      newState = leafReducerArray(leafState, {  path, modifier, payload }); break
+    case conditions.BOOLEAN:
+      newState = leafReducerBoolean(leafState, { modifier }); break
+    case conditions.NUMBER:
+      newState = leafReducerNumber(leafState, { modifier, payload }); break
+    case conditions.OBJECT:
+      newState = leafReducerObject(leafState, { path, modifier, payload }); break
+    case conditions.STRING:
+      newState = leafReducerString(leafState, { path, modifier, payload }); break
+  }
+
+  if (!(newState === leafState)) return newState
+
+  // Type-agnostic actions
   switch (modifier) {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
-    case atomicActions.CONCAT: return concat(leafState, payload)
-    case atomicActions.DROP: return drop(leafState, payload)
-    case atomicActions.INCREMENT: return increment(leafState, payload)
-    case atomicActions.OFF: return off(leafState)
-    case atomicActions.ON: return on(leafState)
-    case atomicActions.PUSH: return push(leafState, payload)
     case atomicActions.RESET: return reset(initialWhole, path)
-    case atomicActions.SET: return set(leafState, payload)
-    case atomicActions.TOGGLE: return toggle(leafState)
     case atomicActions.UPDATE: return update(leafState, payload)
     default: return leafState
   }
@@ -41,26 +57,6 @@ const clear = (leafState, toNull) => {
   }
 }
 
-const concat = (leafState, payload) => leafState.concat(payload)
-
-const drop = (leafState, n) => _.drop(leafState, n)
-
-const increment = (leafState, n) => leafState + n
-
-const off = () => false
-
-const on = () => true
-
-const push = (leafState, { element, index = -1, replace = false } = {}) => (
-  replace
-    ? replaceAtIndex(leafState, index, element)
-    : insertAtIndex(leafState, index, element)
-)
-
 const reset = (initialWholeState, path) => _.get(initialWholeState, path)
 
-const set = (state, { path, value }) => updateState(state, path, value)
-
-const toggle = leafState => !leafState
-
-const update = (leafState, newState) => newState
+const update = (leafState, payload) => payload
