@@ -3,11 +3,12 @@ import { atomicActions } from "../../actions/atomic";
 import { replaceAtIndex, insertAtIndex } from "../../actions/for/array/utils";
 
 export const leafReducerArray = (leafState, { path, modifier, payload }, wholeState, initialWhole) => {
+  const state = _.isArray(leafState) ? leafState : _.toArray(leafState)
   switch (modifier) {
-    case atomicActions.CONCAT: return concat(leafState, payload)
-    case atomicActions.DROP: return drop(leafState, payload)
-    case atomicActions.PUSH: return push(leafState, payload)
-    default: return leafState
+    case atomicActions.CONCAT: return concat(state, payload)
+    case atomicActions.DROP: return drop(state, payload)
+    case atomicActions.PUSH: return push(state, payload)
+    default: return state
   }
 }
 
