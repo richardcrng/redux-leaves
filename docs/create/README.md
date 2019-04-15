@@ -196,66 +196,6 @@ store.dispatch(actions.bar.create.increment(-6))
 console.log(store.getState().bar) // -1
 ```
 
-## `create.off()`
-***(`initialLeafState`: boolean)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `false`.
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: true
-  bar: false
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.off())
-console.log(store.getState().foo) // false
-```
-```js
-store.dispatch(actions.bar.create.off())
-console.log(store.getState().bar) // false
-```
-
-## `create.on()`
-***(`initialLeafState`: boolean)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `true`.
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: true
-  bar: false
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.on())
-console.log(store.getState().foo) // true
-```
-```js
-store.dispatch(actions.bar.create.on())
-console.log(store.getState().bar) // true
-```
-
 ## `create.reset()`
 ***(`initialLeafState`: any)***
 
@@ -361,36 +301,6 @@ console.log(store.getState().foo.bar) // { accessed: true }
 ```js
 store.dispatch(actions.foobar.create.set('failed', false))
 console.log(store.getState().foobar) // { failed: false }
-```
-
-## `create.toggle()`
-***(`initialLeafState`: object)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `!leafState`.
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: true
-  bar: false
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.toggle())
-console.log(store.getState().foo) // false
-```
-```js
-store.dispatch(actions.bar.create.toggle())
-console.log(store.getState().bar) // true
 ```
 
 ## `create.update(value)`
