@@ -133,34 +133,6 @@ store.dispatch(actions.objcreate.clear())
 console.log(store.getState().obj) // {}
 ```
 
-## `create.concat(...strings)`
-***(`initialLeafState`: string)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `strings`.
-
-### Parameters
-- `...strings` *(string)*: the strings to concatenate
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: [1, 2, 3]
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.concat(['a', 'b', 'c']))
-console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
-```
-
 ## `create.reset()`
 ***(`initialLeafState`: any)***
 
