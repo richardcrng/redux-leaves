@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { actionsFor } from '../actionsFor/actionsFor';
 import { atomicActions } from '../actions/atomic';
 import { updateState } from './utils';
+import { insertAtIndex, deleteAtIndex, replaceAtIndex } from '../actionsFor/forArray/utils';
 
 export const reduxLeaves = (initialState) => {
   function rootReducer(
@@ -31,6 +32,7 @@ const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
     case atomicActions.INCREMENT: return increment(leafState, payload)
     case atomicActions.OFF: return off(leafState)
     case atomicActions.ON: return on(leafState)
+    case atomicActions.PUSH: return push(leafState, payload)
     default: return leafState
   }
 }
@@ -64,3 +66,9 @@ const increment = (leafState, n) => leafState + n
 const off = () => false
 
 const on = () => true
+
+const push = (leafState, { element, index = -1, replace = false } = {}) => (
+  replace
+    ? replaceAtIndex(leafState, index, element)
+    : insertAtIndex(leafState, index, element)
+)
