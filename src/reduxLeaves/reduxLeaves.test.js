@@ -77,7 +77,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.counter.create.apply is a function", () => {
@@ -189,7 +189,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.counter.create.clear is a function", () => {
@@ -361,7 +361,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.create.concat(...values): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with values", () => {
+  describe("leaf.create.concat(array): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with array", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -369,7 +369,7 @@ describe("API: leaf", () => {
         integers: [1, 2, 3]
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.empty.create.concat is a function", () => {
@@ -390,21 +390,6 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch actions.empty.create.concat(1, 2, 3)", () => {
-            beforeEach(() => {
-              store.dispatch(actions.empty.create.concat(1, 2, 3))
-            })
-
-            test("THEN actions.empty state updates non-mutatively to [1, 2, 3]", () => {
-              const state = store.getState()
-              expect(state).toEqual({
-                ...initialState,
-                empty: [1, 2, 3]
-              })
-              expect(initialState.empty).toEqual([])
-            })
-          })
-
           describe("AND we dispatch actions.empty.create.concat([1, 2, 3])", () => {
             beforeEach(() => {
               store.dispatch(actions.empty.create.concat([1, 2, 3]))
@@ -417,6 +402,21 @@ describe("API: leaf", () => {
                 empty: [1, 2, 3]
               })
               expect(initialState.empty).toEqual([])
+            })
+          })
+
+          describe("AND we dispatch actions.integers.create.concat([4, 5, 6])", () => {
+            beforeEach(() => {
+              store.dispatch(actions.integers.create.concat([4, 5, 6]))
+            })
+
+            test("THEN actions.integers state updates non-mutatively to [1, 2, 3,4, 5, 6]", () => {
+              const state = store.getState()
+              expect(state).toEqual({
+                ...initialState,
+                integers: [1, 2, 3, 4, 5, 6]
+              })
+              expect(initialState.integers).toEqual([1, 2, 3])
             })
           })
         })
@@ -432,7 +432,7 @@ describe("API: leaf", () => {
         integers: [1, 2, 3]
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.empty.create.drop is a function", () => {
@@ -501,7 +501,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.counter.create.increment is a function", () => {
@@ -566,7 +566,7 @@ describe("API: leaf", () => {
         false: false
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.true.create.off is a function", () => {
@@ -629,7 +629,7 @@ describe("API: leaf", () => {
         false: false
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.true.create.on is a function", () => {
@@ -693,7 +693,7 @@ describe("API: leaf", () => {
         foobar: [1, 2, 3]
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.foo.actions.push is a function", () => {
@@ -796,7 +796,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.counter.create.reset is a function", () => {
@@ -920,7 +920,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.nested.deep.create.set is a function", () => {
@@ -985,7 +985,7 @@ describe("API: leaf", () => {
         false: false
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.true.create.toggle is a function", () => {
@@ -1054,7 +1054,7 @@ describe("API: leaf", () => {
         }
       }
 
-      describe("WHEN reducer = reduxLeaves(initialState)", () => {
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.counter.create.update is a function", () => {
