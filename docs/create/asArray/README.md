@@ -6,6 +6,11 @@ If the leaf was initialised with array state, then these methods are also access
 
 If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toArray(leafState)`](https://lodash.com/docs/4.17.11#toArray) method, before the state is updated according to the action dispatched.
 
+### Action creators
+- [`create.asArray.concat(array)`](#createasarrayconcatarray)
+- [`create.asArray.drop([n = 1])`](#createdropn--1)
+- [`create.asArray.push(element, [index = -1], [replace = false])`](##createpushelement-index---1-replace--false)
+
 ## `create.asArray.concat(array)`
 **alias: `create.concat(array)`** *(when `initialLeafState` is an array)*
 
