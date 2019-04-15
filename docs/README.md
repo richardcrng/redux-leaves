@@ -9,8 +9,8 @@ Returns a reducer function and an object.
 
 ### Returns
 `array`, with two elements:
-  **0th**: `reducer` *(function)*: a reducer function to pass to redux's `createStore`
-  **1st**: `actions` *(object)*: an object with same shape as `initialState`
+- 0th: `reducer` *(function)*: a reducer function to pass to redux's `createStore`
+- 1st: `actions` *(object)*: an object with same shape as `initialState`
 
 ### Example
 ```js
