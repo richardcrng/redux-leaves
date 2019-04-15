@@ -10,7 +10,7 @@ export const reduxLeaves = (initialState) => {
   ) {
     const { path, condition, modifier } = leaf
     const prevLeafState = _.get(state, path)
-    const newLeafState = reduceLeaf(prevLeafState, { modifier, payload }, state)
+    const newLeafState = reduceLeaf(prevLeafState, { path, modifier, payload }, state)
 
     return (prevLeafState === newLeafState)
       ? state
@@ -22,9 +22,10 @@ export const reduxLeaves = (initialState) => {
   return [rootReducer, actions]
 }
 
-const reduceLeaf = (leafState, { modifier, payload }, wholeState) => {
+const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
   switch (modifier) {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
+    case atomicActions.CLEAR: return clear(leafState, payload)
     default: return leafState
   }
 }
@@ -32,3 +33,19 @@ const reduceLeaf = (leafState, { modifier, payload }, wholeState) => {
 const apply = (callback, leafState, wholeState) => (
   callback(leafState, wholeState)
 )
+
+const clear = (leafState, toNull) => {
+  if (toNull) {
+    return null
+  } else if (_.isBoolean(leafState)) {
+    return false
+  } else if (_.isString(leafState)) {
+    return ''
+  } else if (_.isArray(leafState)) {
+    return []
+  } else if (_.isNumber(leafState)) {
+    return 0
+  } else if (_.isPlainObject(leafState)) {
+    return {}
+  }
+}
