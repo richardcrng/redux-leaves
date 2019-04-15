@@ -17,6 +17,7 @@ export const forString = (pathToLeafOrBranch = []) => {
   const replace = (pattern, replacement) => actionTemplate(atomicActions.REPLACE, { pattern, replacement })
 
   return {
+    concat,
     replace
   }
 }

@@ -4,6 +4,7 @@ import { updateState } from '../utils';
 import { insertAtIndex, replaceAtIndex } from '../actions/for/array/utils';
 import { conditions } from '../actions/condtions';
 import { leafReducerArray } from './array/leafReducerArray';
+import { leafReducerObject } from './object/leafReducerObject';
 
 export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
   let newState
@@ -11,6 +12,8 @@ export const leafReducer = (leafState, { path, condition, modifier, payload }, w
   switch (condition) {
     case conditions.ARRAY:
       newState = leafReducerArray(leafState, { path, modifier, payload }); break
+    case conditions.OBJECT:
+      newState = leafReducerObject(leafState, { path, modifier, payload }); break
   }
 
   if (newState) return newState
@@ -22,7 +25,6 @@ export const leafReducer = (leafState, { path, condition, modifier, payload }, w
     case atomicActions.OFF: return off(leafState)
     case atomicActions.ON: return on(leafState)
     case atomicActions.RESET: return reset(initialWhole, path)
-    case atomicActions.SET: return set(leafState, payload)
     case atomicActions.TOGGLE: return toggle(leafState)
     case atomicActions.UPDATE: return update(leafState, payload)
     default: return leafState
@@ -57,8 +59,4 @@ const on = () => true
 
 const reset = (initialWholeState, path) => _.get(initialWholeState, path)
 
-const set = (state, { path, value }) => updateState(state, path, value)
-
 const toggle = leafState => !leafState
-
-const update = (leafState, newState) => newState

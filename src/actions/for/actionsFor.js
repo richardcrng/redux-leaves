@@ -4,6 +4,7 @@ import { forObject } from './object';
 import { forBoolean } from './boolean';
 import { forNumber } from './number';
 import { forAny } from './any';
+import { forString } from './string/forString';
 
 export const actionsFor = (stateShape) => {
   const paths = recursivelyGeneratePaths(stateShape)
@@ -28,6 +29,7 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
   const asBoolean = forBoolean(pathToLeafOrBranch)
   const asNumber = forNumber(pathToLeafOrBranch)
   const asObject = forObject(pathToLeafOrBranch)
+  const asString = forString(pathToLeafOrBranch)
 
   if (_.isBoolean(initialState)) {
     actionCreators = asBoolean
@@ -37,6 +39,8 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
     actionCreators = asNumber
   } else if (_.isPlainObject(initialState)) {
     actionCreators = asObject
+  } else if (_.isString(initialState)) {
+    actionCreators = asString
   }
 
   leafOrBranch.create = {
@@ -45,7 +49,8 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
     asArray,
     asBoolean,
     asNumber,
-    asObject
+    asObject,
+    asString
   }
 
   return leafOrBranch
