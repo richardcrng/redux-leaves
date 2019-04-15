@@ -5,16 +5,20 @@ import { leafReducerArray } from './array/leafReducerArray';
 import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
 import { leafReducerBoolean } from './boolean/leafReducerBoolean';
+import { leafReducerNumber } from './number/leafReducerNumber';
 
 export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
 
   let newState = leafState
   
+  // Type-specific actions
   switch (condition) {
     case conditions.ARRAY:
       newState = leafReducerArray(leafState, {  path, modifier, payload }); break
     case conditions.BOOLEAN:
       newState = leafReducerBoolean(leafState, { modifier }); break
+    case conditions.NUMBER:
+      newState = leafReducerNumber(leafState, { modifier, payload }); break
     case conditions.OBJECT:
       newState = leafReducerObject(leafState, { path, modifier, payload }); break
     case conditions.STRING:
@@ -23,10 +27,10 @@ export const leafReducer = (leafState, { path, condition, modifier, payload }, w
 
   if (!(newState === leafState)) return newState
 
+  // Type-agnostic actions
   switch (modifier) {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
-    case atomicActions.INCREMENT: return increment(leafState, payload)
     case atomicActions.RESET: return reset(initialWhole, path)
     case atomicActions.UPDATE: return update(leafState, payload)
     default: return leafState
@@ -52,8 +56,6 @@ const clear = (leafState, toNull) => {
     return {}
   }
 }
-
-const increment = (leafState, n) => leafState + n
 
 const reset = (initialWholeState, path) => _.get(initialWholeState, path)
 
