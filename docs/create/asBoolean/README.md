@@ -66,7 +66,7 @@ store.dispatch(actions.bar.create.asBoolean.on())
 console.log(store.getState().bar) // true
 ```
 
-## `create.toggle()`
+## `create.asBoolean.toggle()`
 **alias: `create.toggle()`** *(when `initialLeafState` is a boolean)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `!leafState`.
