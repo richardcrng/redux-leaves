@@ -24,24 +24,28 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
   let actionCreators
 
   const basicActionCreators = forAny(pathToLeafOrBranch)
-  const arrayActions = forArray(pathToLeafOrBranch)
-  const booleanActions = forBoolean(pathToLeafOrBranch)
-  const numberActions = forNumber(pathToLeafOrBranch)
-  const objectActions = forObject(pathToLeafOrBranch)
+  const asArray = forArray(pathToLeafOrBranch)
+  const asBoolean = forBoolean(pathToLeafOrBranch)
+  const asNumber = forNumber(pathToLeafOrBranch)
+  const asObject = forObject(pathToLeafOrBranch)
 
-  if (typeof initialState === "boolean") {
-    actionCreators = booleanActions
-  } else if (Array.isArray(initialState)) {
-    actionCreators = arrayActions
-  } else if (typeof initialState === "number") {
-    actionCreators = numberActions
+  if (_.isBoolean(initialState)) {
+    actionCreators = asBoolean
+  } else if (_.isArray(initialState)) {
+    actionCreators = asArray
+  } else if (_.isNumber(initialState)) {
+    actionCreators = asNumber
   } else if (_.isPlainObject(initialState)) {
-    actionCreators = objectActions
+    actionCreators = asObject
   }
 
   leafOrBranch.create = {
     ...basicActionCreators,
-    ...actionCreators
+    ...actionCreators,
+    asArray,
+    asBoolean,
+    asNumber,
+    asObject
   }
 
   return leafOrBranch
