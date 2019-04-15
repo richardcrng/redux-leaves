@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import { atomicActions } from '../actions/atomic';
-import { addActionsForArray } from './forArray/';
-import { addActionsForObject } from './forObject/';
-import { addActionsForBoolean } from './forBoolean/';
+import { forArray } from './forArray/';
+import { forObject } from './forObject/';
+import { forBoolean } from './forBoolean/';
+import { forNumber } from './forNumber/forNumber';
 
 // export const recursivelyAddActions = (leafOrBranch, path = []) => {
 //   if (isBranch(leafOrBranch)) {
@@ -52,9 +53,10 @@ const addActions = (leafOrBranch, pathToLeafOrBranch = []) => {
     payload
   })
 
-  addActionsForArray(leafOrBranch, pathToLeafOrBranch)
-  addActionsForBoolean(leafOrBranch, pathToLeafOrBranch)
-  addActionsForObject(leafOrBranch, pathToLeafOrBranch)
+  leafOrBranch.forArray = forArray(leafOrBranch, pathToLeafOrBranch)
+  leafOrBranch.forBoolean = forBoolean(leafOrBranch, pathToLeafOrBranch)
+  leafOrBranch.forNumber = forNumber(leafOrBranch, pathToLeafOrBranch)
+  leafOrBranch.forObject = forObject(leafOrBranch, pathToLeafOrBranch)
 
   leafOrBranch.apply = callback => actionTemplate(atomicActions.APPLY, callback)
 

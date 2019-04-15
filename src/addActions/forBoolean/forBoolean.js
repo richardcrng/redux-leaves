@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const addActionsForBoolean = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forBoolean = (leafOrBranch, pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
@@ -13,9 +13,7 @@ export const addActionsForBoolean = (leafOrBranch, pathToLeafOrBranch = []) => {
 
   const set = (path, value) => actionTemplate(atomicActions.SET, { path, value })
 
-  leafOrBranch.forBoolean = {
+  return {
     set
   }
-
-  return leafOrBranch
 }

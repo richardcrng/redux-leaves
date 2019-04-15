@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const addActionsForArray = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forArray = (leafOrBranch, pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
@@ -17,11 +17,9 @@ export const addActionsForArray = (leafOrBranch, pathToLeafOrBranch = []) => {
 
   const push = (element, index = -1, replace = false) => actionTemplate(atomicActions.PUSH, { element, index, replace })
 
-  leafOrBranch.forArray = {
+  return {
     concat,
     drop,
     push
   }
-
-  return leafOrBranch
 }

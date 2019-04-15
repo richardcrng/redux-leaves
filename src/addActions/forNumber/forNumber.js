@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const addActionsForNumber = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forNumber = (leafOrBranch, pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
@@ -13,9 +13,7 @@ export const addActionsForNumber = (leafOrBranch, pathToLeafOrBranch = []) => {
 
   const increment = (n = 1) => actionTemplate(atomicActions.INCREMENT, n)
 
-  leafOrBranch.forNumber = {
+  return {
     increment
   }
-
-  return leafOrBranch
 }

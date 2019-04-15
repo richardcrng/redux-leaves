@@ -1,5 +1,5 @@
-import { addActionsForObject } from './addActionsForObject';
+import { forObject } from './forObject';
 
 export {
-  addActionsForObject
+  forObject
 }

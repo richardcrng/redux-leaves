@@ -3,10 +3,13 @@ import { recursivelyAddActions } from '../addActions';
 import { recursivelyGeneratePaths, addActionsDeep } from '../addActions/addActions';
 
 export const reduxLeaves = (initialState) => {
-  const reducer = (state = initialState, action) => {
-    const { leaf: { path, condition, modifier }, type, payload } = action
+  function reducer(
+    state = initialState,
+    { leaf = {}, type, payload } = {}
+  ) {
+    const { path, condition, modifier } = leaf
 
-    
+
 
     return state
   }

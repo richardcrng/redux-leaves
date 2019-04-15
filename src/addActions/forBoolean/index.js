@@ -1,5 +1,5 @@
-import { addActionsForBoolean } from './addActionsForBoolean';
+import { forBoolean } from './forBoolean';
 
 export {
-  addActionsForBoolean
+  forBoolean
 }

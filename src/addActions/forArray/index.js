@@ -1,5 +1,5 @@
-import { addActionsForArray } from './addActionsForArray';
+import { forArray } from './forArray';
 
 export {
-  addActionsForArray
+  forArray
 }
