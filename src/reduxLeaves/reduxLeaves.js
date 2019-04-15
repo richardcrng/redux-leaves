@@ -11,7 +11,7 @@ export const reduxLeaves = (initialState) => {
   ) {
     const { path, condition, modifier } = leaf
     const prevLeafState = _.get(state, path)
-    const newLeafState = reduceLeaf(prevLeafState, { path, modifier, payload }, state)
+    const newLeafState = reduceLeaf(prevLeafState, { path, modifier, payload }, state, initialState)
 
     return (prevLeafState === newLeafState)
       ? state
@@ -23,7 +23,7 @@ export const reduxLeaves = (initialState) => {
   return [rootReducer, actions]
 }
 
-const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
+const reduceLeaf = (leafState, { path, modifier, payload }, wholeState, initialWhole) => {
   switch (modifier) {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
@@ -33,6 +33,7 @@ const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
     case atomicActions.OFF: return off(leafState)
     case atomicActions.ON: return on(leafState)
     case atomicActions.PUSH: return push(leafState, payload)
+    case atomicActions.RESET: return reset(initialWhole, path)
     default: return leafState
   }
 }
@@ -72,3 +73,5 @@ const push = (leafState, { element, index = -1, replace = false } = {}) => (
     ? replaceAtIndex(leafState, index, element)
     : insertAtIndex(leafState, index, element)
 )
+
+const reset = (initialWholeState, path) => _.get(initialWholeState, path)
