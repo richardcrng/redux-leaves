@@ -27,6 +27,7 @@ const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
     case atomicActions.CONCAT: return concat(leafState, payload)
+    case atomicActions.DROP: return drop (leafState, payload)
     default: return leafState
   }
 }
@@ -54,3 +55,5 @@ const clear = (leafState, toNull) => {
 const concat = (leafState, payload) => (
   leafState.concat(payload)
 )
+
+const drop = (leafState, n) => _.drop(leafState, n)
