@@ -265,44 +265,6 @@ store.dispatch(actions.obj.create.reset())
 console.log(store.getState().obj) // {}
 ```
 
-## `create.set(path, value)`
-***(`initialLeafState`: object)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
-
-(This uses lodash's [`_.set(object, path, value)`](https://lodash.com/docs/4.17.11#set), where `object` is `leafState`.)
-
-### Parameters
-- `path` *(array | string)*: the path of the property to set
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-// note: object leaves have to be initialised with empty objects
-const initialState = {
-  foo: {        // branch
-    bar: {}     // leaf
-  }
-  foobar: {}    // leaf
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.bar.create.set('accessed', true))
-console.log(store.getState().foo.bar) // { accessed: true }
-```
-```js
-store.dispatch(actions.foobar.create.set('failed', false))
-console.log(store.getState().foobar) // { failed: false }
-```
-
 ## `create.update(value)`
 ***(`initialLeafState`: any)***
 
