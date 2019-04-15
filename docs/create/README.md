@@ -1,25 +1,20 @@
 # Action creators API
 
-Every single branch and leaf on our `actions` object has a `create` property, through which we can access action creator functions.
+Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
 
 The actions immediately accessible through `create` depends on the data type at that leaf in the `initialState` passed to `reduxLeaves`.
 
 
 ## `create.apply(callback)`
-***(`initialState`: any)***
+***(`initialLeafState`: any)***
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState)`.
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, entireState)`.
 
 ### Parameters
 - `callback` *(function)*: invoked by the leaf's reducer with the leaf's current state
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(object)*: an object with properties:
-  - `path` *(array)*: path to the leaf,
-  - `action` *(string)*: `'APPLY'`
-- `type` *(string)*
-- `payload` *(function)*: the callback provided
+`action` *(object)*: an object to dispatch to the `store`
 
 ### Example
 ```js
@@ -39,31 +34,32 @@ const store = createStore(reducer)
 ```
 #### bool
 ```js
-store.dispatch(reducer.bool.apply(state => !state))
+store.dispatch(actions.boolcreate.apply(state => !state))
 console.log(store.getState().bool) // true
 ```
 #### num
 ```js
-store.dispatch(reducer.num.apply(state => state * 3))
+store.dispatch(actions.numcreate.apply(state => state * 3))
 console.log(store.getState().num) // 6
 ```
 #### str
 ```js
-store.dispatch(reducer.str.apply(state => state.toUpperCase()))
+store.dispatch(actions.strcreate.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
 #### arr
 ```js
-store.dispatch(reducer.arr.apply(state => state.reverse()))
+store.dispatch(actions.arrcreate.apply(state => state.reverse()))
 console.log(store.getState().arr) // [3, 2, 1]
 ```
 #### obj
 ```js
-store.dispatch(reducer.obj.apply(state => { ...state, a: 1, b: 2 }))
+store.dispatch(actions.objcreate.apply(state => { ...state, a: 1, b: 2 }))
 console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
 
-## `leaf.clear([toNull = false])`
+## `create.clear([toNull = false])`
+***(`initialLeafState`: any)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
 
@@ -78,10 +74,7 @@ If `toNull === true`, then it updates it to true, otherwise it follows the type 
 - `toNull` *(boolean, optional)*: defaults to `false`
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(boolean)*: the value of `toNull`
+`action` *(object)*: an object to dispatch to the `store`
 
 ### Example
 ```js
@@ -101,59 +94,55 @@ const store = createStore(reducer)
 ```
 #### bool
 ```js
-store.dispatch(reducer.bool.clear(true))
+store.dispatch(actions.boolcreate.clear(true))
 console.log(store.getState().bool) // null
 
-store.dispatch(reducer.bool.clear())
+store.dispatch(actions.boolcreate.clear())
 console.log(store.getState().bool) // false
 ```
 #### num
 ```js
-store.dispatch(reducer.num.clear(true))
+store.dispatch(actions.numcreate.clear(true))
 console.log(store.getState().num) // null
 
-store.dispatch(reducer.num.clear())
+store.dispatch(actions.numcreate.clear())
 console.log(store.getState().num) // 0
 ```
 #### str
 ```js
-store.dispatch(reducer.str.clear(true))
+store.dispatch(actions.strcreate.clear(true))
 console.log(store.getState().str) // null
 
-store.dispatch(reducer.str.clear())
+store.dispatch(actions.strcreate.clear())
 console.log(store.getState().str) // ''
 ```
 #### arr
 ```js
-store.dispatch(reducer.arr.clear(true))
+store.dispatch(actions.arrcreate.clear(true))
 console.log(store.getState().arr) // null
 
-store.dispatch(reducer.arr.clear())
+store.dispatch(actions.arrcreate.clear())
 console.log(store.getState().arr) // []
 ```
 #### obj
 ```js
-store.dispatch(reducer.obj.clear(true))
+store.dispatch(actions.objcreate.clear(true))
 console.log(store.getState().obj) // null
 
-store.dispatch(reducer.obj.clear())
+store.dispatch(actions.objcreate.clear())
 console.log(store.getState().obj) // {}
 ```
 
-## `leaf.concat(...values)`
+## `create.concat(array)`
+***(`initialLeafState`: array)***
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `values`.
-
-(This uses lodash's [`_.concat(array, [values])`](https://lodash.com/docs/4.17.11#concat), where `array` is `leafState`.)
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `array`.
 
 ### Parameters
-- `values` *(...\*)*: the values to concatenate
+- `array` *(array)*: the array to concatenate
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(function)*: the callback provided
+`action` *(object)*: an object to dispatch to the `store`
 
 ### Example
 ```js
@@ -161,25 +150,47 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  foo: ['a', 'b', 'c']
-  bar: ['a', 'b', 'c']
+  foo: [1, 2, 3]
 }
 
 const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-#### Passing multiple values
 ```js
-store.dispatch(reducer.foo.concat(1, 2, 3))
-console.log(store.getState().foo) // ['a', 'b', 'c', 1, 2, 3]
-```
-#### Passing a single array
-```js
-store.dispatch(reducer.bar.concat([1, 2, 3]))
-console.log(store.getState().bar) // ['a', 'b', 'c', 1, 2, 3]
+store.dispatch(actions.foocreate.concat(['a', 'b', 'c']))
+console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
 
-## `leaf.drop([n = 1])`
+## `create.concat(...strings)`
+***(`initialLeafState`: string)***
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `strings`.
+
+### Parameters
+- `...strings` *(string)*: the strings to concatenate
+
+### Returns
+`action` *(object)*: an object to dispatch to the store
+
+### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: [1, 2, 3]
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(actions.foo.create.concat(['a', 'b', 'c']))
+console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
+```
+
+## `create.drop([n = 1])`
+***(`initialLeafState`: array)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
 
@@ -187,10 +198,7 @@ Returns an object that, *when dispatched to a store created with the original st
 - `n` *(number, optional)*: the number of elements to drop
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(number)*: the number of elements to drop
+`action` *(object)*: an object to dispatch to the `store`
 
 ### Example
 ```js
@@ -207,16 +215,17 @@ const store = createStore(reducer)
 ```
 #### No argument provided
 ```js
-store.dispatch(reducer.foo.drop())
+store.dispatch(actions.foo.create.drop())
 console.log(store.getState().foo) // ['b', 'c']
 ```
 #### Providing an argument
 ```js
-store.dispatch(reducer.bar.drop(2))
+store.dispatch(actions.bar.create.drop(2))
 console.log(store.getState().bar) // ['c']
 ```
 
-## `leaf.increment([n = 1])`
+## `create.increment([n = 1])`
+***(`initialLeafState`: number)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, increments leaf's state by `n`.
 
@@ -224,10 +233,7 @@ Returns an object that, *when dispatched to a store created with the original st
 - `n` *(number)*: the number to increment the leaf's state by
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(number)*: the number to increment the leaf's state by
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -244,23 +250,22 @@ const store = createStore(reducer)
 ```
 #### No argument provided
 ```js
-store.dispatch(reducer.foo.increment())
+store.dispatch(actions.foo.create.increment())
 console.log(store.getState().foo) 6
 ```
 #### Providing an argument
 ```js
-store.dispatch(reducer.bar.increment(-6))
+store.dispatch(actions.bar.create.increment(-6))
 console.log(store.getState().bar) // -1
 ```
 
-## `leaf.off()`
+## `create.off()`
+***(`initialLeafState`: boolean)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `false`.
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -276,22 +281,21 @@ const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.foo.off())
+store.dispatch(actions.foo.create.off())
 console.log(store.getState().foo) // false
 ```
 ```js
-store.dispatch(reducer.bar.off())
+store.dispatch(actions.bar.create.off())
 console.log(store.getState().bar) // false
 ```
 
-## `leaf.on()`
+## `create.on()`
+***(`initialLeafState`: boolean)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `true`.
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -307,15 +311,15 @@ const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.foo.on())
+store.dispatch(actions.foo.create.on())
 console.log(store.getState().foo) // true
 ```
 ```js
-store.dispatch(reducer.bar.on())
+store.dispatch(actions.bar.create.on())
 console.log(store.getState().bar) // true
 ```
 
-## `leaf.push(element, [index = -1], [replace = false])`
+## `create.push(element, [index = -1], [replace = false])`
 
 Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state at index `index`. If `replace === true`, then `element` replaces the existing element with that index.
 
@@ -325,10 +329,7 @@ Returns an object that, *when dispatched to a store created with the original st
 - `replace` *(boolean, optional)*: whether or not `element` should replace the current `index`<sup>th</sup> element
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(object)*: `{ element, index, replace }`
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -346,28 +347,27 @@ const store = createStore(reducer)
 ```
 #### Providing element
 ```js
-store.dispatch(reducer.foo.push(4))
+store.dispatch(actions.foo.create.push(4))
 console.log(store.getState().foo) // [1, 2, 3, 4]
 ```
 #### Providing element and index
 ```js
-store.dispatch(reducer.bar.push(4, 0))
+store.dispatch(actions.bar.create.push(4, 0))
 console.log(store.getState().bar) // [4, 1, 2, 3]
 ```
 #### Providing element, index and replace
 ```js
-store.dispatch(reducer.foobar.push(4, 0, true))
+store.dispatch(actions.foobar.create.push(4, 0, true))
 console.log(store.getState().foobar) // [4, 2, 3]
 ```
 
-## `leaf.reset()`
+## `create.reset()`
+***(`initialLeafState`: any)***
 
-Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the reducer.
+Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the actions.
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -406,31 +406,32 @@ const store = createStore(reducer, otherState)
 ```
 #### bool
 ```js
-store.dispatch(reducer.bool.reset())
+store.dispatch(actions.bool.create.reset())
 console.log(store.getState().bool) // true
 ```
 #### num
 ```js
-store.dispatch(reducer.num.reset())
+store.dispatch(actions.num.create.reset())
 console.log(store.getState().num) // 2
 ```
 #### str
 ```js
-store.dispatch(reducer.str.reset())
+store.dispatch(actions.str.create.reset())
 console.log(store.getState().str) // 'foo'
 ```
 #### arr
 ```js
-store.dispatch(reducer.arr.reset())
+store.dispatch(actions.arr.create.reset())
 console.log(store.getState().arr) // [1, 2, 3]
 ```
 #### obj
 ```js
-store.dispatch(reducer.obj.reset())
+store.dispatch(actions.obj.create.reset())
 console.log(store.getState().obj) // {}
 ```
 
-## `leaf.set(path, value)`
+## `create.set(path, value)`
+***(`initialLeafState`: object)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
 
@@ -440,10 +441,7 @@ Returns an object that, *when dispatched to a store created with the original st
 - `path` *(array | string)*: the path of the property to set
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(object)*: `{ path, value }`
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -462,22 +460,21 @@ const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.foo.bar.set('accessed', true))
+store.dispatch(actions.foo.bar.create.set('accessed', true))
 console.log(store.getState().foo.bar) // { accessed: true }
 ```
 ```js
-store.dispatch(reducer.foobar.set('failed', false))
+store.dispatch(actions.foobar.create.set('failed', false))
 console.log(store.getState().foobar) // { failed: false }
 ```
 
-## `leaf.toggle()`
+## `create.toggle()`
+***(`initialLeafState`: object)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `!leafState`.
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -493,15 +490,16 @@ const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.foo.toggle())
+store.dispatch(actions.foo.create.toggle())
 console.log(store.getState().foo) // false
 ```
 ```js
-store.dispatch(reducer.bar.toggle())
+store.dispatch(actions.bar.create.toggle())
 console.log(store.getState().bar) // true
 ```
 
-## `leaf.update(value)`
+## `create.update(value)`
+***(`initialLeafState`: any)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
 
@@ -509,10 +507,7 @@ Returns an object that, *when dispatched to a store created with the original st
 - `value` *(any)*: the new value for the leaf's state
 
 ### Returns
-`action` *(object)*: an object with properties:
-- `leaf` *(string)*
-- `type` *(string)*
-- `payload` *(function)*: `value`
+`action` *(object)*: an object to dispatch to the store
 
 ### Example
 ```js
@@ -531,6 +526,6 @@ const reducer = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(reducer.bool.update("I can put anything here"))
+store.dispatch(actions.bool.create.update("I can put anything here"))
 console.log(store.getState().bool) // 'I can put anything here'
 ```
