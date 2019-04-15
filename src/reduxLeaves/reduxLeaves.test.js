@@ -149,9 +149,9 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch actions.nested.state.manageable.create.apply(str => str.create.concat(' DEFINITELY!'))", () => {
+          describe("AND we dispatch actions.nested.state.manageable.create.apply(str => str.concat(' DEFINITELY!'))", () => {
             beforeEach(() => {
-              store.dispatch(actions.nested.state.manageable.create.apply(str => str.create.concat(' DEFINITELY!')))
+              store.dispatch(actions.nested.state.manageable.create.apply(str => str.concat(' DEFINITELY!')))
             })
 
             test("THEN actions.nested.state.manageable updates to 'maybe...? DEFINITELY!'", () => {
