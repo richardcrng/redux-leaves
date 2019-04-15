@@ -2,16 +2,15 @@
 
 ## `reduxLeaves(initialState)`
 
-Returns a reducer function bundled with action creators at every [branch](#branch) and [leaf](#leaf).
-
-- Every non-empty object is treated as a reducer branch, with branches or leaves beneath it.
-- Every other value is treated as a reducer leaf.
+Returns a reducer function and an object.
 
 ### Parameters
-- `initialState` *(object)*: the initial state shape for the reducer to use
+- `initialState` *(object)*: the state shape and initial values for your redux store
 
 ### Returns
-`function(state, action)`: A reducer function intended for redux's `createStore()`.
+`array`, with two elements:
+0. `reducer` *(function)*: a reducer function to pass to redux's `createStore`
+1.  `actions` *(object)*: an object with same shape as `initialState`
 
 ### Example
 ```js
@@ -29,7 +28,7 @@ const initialState = {
   }
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
