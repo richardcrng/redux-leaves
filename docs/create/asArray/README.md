@@ -1,6 +1,10 @@
 # create.asArray
 
-Every single leaf on our `actions` object has access to `create.asArray` methods, even if leaf's `initialState` (as passed into `reduxLeaves`), was not an array.
+Every single leaf on our `actions` object has access to `create.asArray` methods.
+
+If the leaf was initialised with array state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+
+If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toArray(leafState)`](https://lodash.com/docs/4.17.11#toArray) method, before the state is updated according to the action dispatched.
 
 ## `create.asArray.concat(array)`
 **alias: `create.concat(array)`** *(when `initialLeafState` is an array)*
