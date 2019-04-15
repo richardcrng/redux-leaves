@@ -11,7 +11,7 @@ If the current `leafState` is *not* an array, then it is first coerced into an a
 - [`create.asArray.drop([n = 1])`](#createdropn--1)
 - [`create.asArray.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
 
-[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asArray.concat(array)`
 **alias: `create.concat(array)`** *(when `initialLeafState` is an array)*

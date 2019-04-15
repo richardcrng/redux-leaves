@@ -11,7 +11,7 @@ If the current `leafState` is *not* a boolean, then it is first coerced into a b
 - [`create.asBoolean.on()`](#createasbooleanon)
 - [`create.asBoolean.toggle()`](#createasbooleantoggle)
 
-[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asBoolean.off()`
 **alias: `create.off()`** *(when `initialLeafState` is a boolean)*
