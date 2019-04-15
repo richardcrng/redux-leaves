@@ -34,6 +34,7 @@ const reduceLeaf = (leafState, { path, modifier, payload }, wholeState, initialW
     case atomicActions.ON: return on(leafState)
     case atomicActions.PUSH: return push(leafState, payload)
     case atomicActions.RESET: return reset(initialWhole, path)
+    case atomicActions.SET: return set(leafState, payload)
     default: return leafState
   }
 }
@@ -75,3 +76,6 @@ const push = (leafState, { element, index = -1, replace = false } = {}) => (
 )
 
 const reset = (initialWholeState, path) => _.get(initialWholeState, path)
+
+
+const set = (state, { path, value }) => updateState(state, path, value)
