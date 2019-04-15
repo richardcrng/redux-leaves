@@ -18,12 +18,12 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  counter: 1,                   // leaf
-  foo: ['bar']                  // leaf
-  nested: {                     // branch
-    deep: {}                    // leaf: empty object
-    state: {                    // branch
-      manageable: 'maybe...?'   // leaf
+  counter: 1,
+  foo: ['bar']
+  nested: {
+    deep: {}
+    state: {
+      manageable: 'maybe...?'
     }
   }
 }
