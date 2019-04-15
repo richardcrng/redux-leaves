@@ -597,4 +597,33 @@ console.log(store.getState().foobar) // { failed: false }
 
 ### `leaf.toggle()`
 
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `!leafState`.
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: true
+  bar: false
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(reducer.foo.toggle())
+console.log(store.getState().foo) // false
+```
+```js
+store.dispatch(reducer.bar.toggle())
+console.log(store.getState().bar) // true
+```
+
 ### `leaf.update(value)`
