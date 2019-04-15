@@ -11,8 +11,6 @@ If the current `leafState` is *not* an array, then it is first coerced into an a
 - [`create.asArray.drop([n = 1])`](#createdropn--1)
 - [`create.asArray.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
 
-[Back to `asArray` action creators](#action-creators)
-
 [Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asArray.concat(array)`
@@ -42,7 +40,7 @@ const store = createStore(reducer)
 store.dispatch(actions.foo.create.asArray.concat(['a', 'b', 'c']))
 console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
-Back to [`asArray`](#action-creators) / [all](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators) action creators
+Back to [`asArray` action creators](#action-creators) / [all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 
 ## `create.drop([n = 1])`
