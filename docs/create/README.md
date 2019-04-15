@@ -133,34 +133,6 @@ store.dispatch(actions.objcreate.clear())
 console.log(store.getState().obj) // {}
 ```
 
-## `create.concat(array)`
-***(`initialLeafState`: array)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `array`.
-
-### Parameters
-- `array` *(array)*: the array to concatenate
-
-### Returns
-`action` *(object)*: an object to dispatch to the `store`
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: [1, 2, 3]
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foocreate.concat(['a', 'b', 'c']))
-console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
-```
-
 ## `create.concat(...strings)`
 ***(`initialLeafState`: string)***
 
@@ -187,41 +159,6 @@ const store = createStore(reducer)
 ```js
 store.dispatch(actions.foo.create.concat(['a', 'b', 'c']))
 console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
-```
-
-## `create.drop([n = 1])`
-***(`initialLeafState`: array)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
-
-### Parameters
-- `n` *(number, optional)*: the number of elements to drop
-
-### Returns
-`action` *(object)*: an object to dispatch to the `store`
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: ['a', 'b', 'c']
-  bar: ['a', 'b', 'c']
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-#### No argument provided
-```js
-store.dispatch(actions.foo.create.drop())
-console.log(store.getState().foo) // ['b', 'c']
-```
-#### Providing an argument
-```js
-store.dispatch(actions.bar.create.drop(2))
-console.log(store.getState().bar) // ['c']
 ```
 
 ## `create.increment([n = 1])`
@@ -317,48 +254,6 @@ console.log(store.getState().foo) // true
 ```js
 store.dispatch(actions.bar.create.on())
 console.log(store.getState().bar) // true
-```
-
-## `create.push(element, [index = -1], [replace = false])`
-
-Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state at index `index`. If `replace === true`, then `element` replaces the existing element with that index.
-
-### Parameters
-- `element` *(any)*: the element to insert to the leaf's state
-- `index` *(integer, optional)*: the index of the array where `element` should be inserted
-- `replace` *(boolean, optional)*: whether or not `element` should replace the current `index`<sup>th</sup> element
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: [1, 2, 3]
-  bar: [1, 2, 3]
-  foobar: [1, 2, 3]
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-#### Providing element
-```js
-store.dispatch(actions.foo.create.push(4))
-console.log(store.getState().foo) // [1, 2, 3, 4]
-```
-#### Providing element and index
-```js
-store.dispatch(actions.bar.create.push(4, 0))
-console.log(store.getState().bar) // [4, 1, 2, 3]
-```
-#### Providing element, index and replace
-```js
-store.dispatch(actions.foobar.create.push(4, 0, true))
-console.log(store.getState().foobar) // [4, 2, 3]
 ```
 
 ## `create.reset()`
