@@ -161,41 +161,6 @@ store.dispatch(actions.foo.create.concat(['a', 'b', 'c']))
 console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
 
-## `create.increment([n = 1])`
-***(`initialLeafState`: number)***
-
-Returns an object that, *when dispatched to a store created with the original state tree*, increments leaf's state by `n`.
-
-### Parameters
-- `n` *(number)*: the number to increment the leaf's state by
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: 5
-  bar: 5
-}
-
-const reducer = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-#### No argument provided
-```js
-store.dispatch(actions.foo.create.increment())
-console.log(store.getState().foo) 6
-```
-#### Providing an argument
-```js
-store.dispatch(actions.bar.create.increment(-6))
-console.log(store.getState().bar) // -1
-```
-
 ## `create.reset()`
 ***(`initialLeafState`: any)***
 
