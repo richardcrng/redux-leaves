@@ -19,15 +19,6 @@ export const actionsFor = (stateShape) => {
   return actions
 }
 
-const addActionsToBranch = (actions, path, stateShape) => {
-  const branch = _.get(stateShape, path)
-  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape))
-}
-
-const addActionsToLeaf = (actions, path, stateShape) => {
-  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape))
-}
-
 const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape) => {
   const initialState = _.get(stateShape, pathToLeafOrBranch)
   let actionCreators
@@ -56,6 +47,14 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
   return leafOrBranch
 }
 
+const addActionsToBranch = (actions, path, stateShape) => {
+  const branch = _.get(stateShape, path)
+  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape))
+}
+
+const addActionsToLeaf = (actions, path, stateShape) => {
+  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape))
+}
 
 const isBranch = leafOrBranch => (
   (!Array.isArray(leafOrBranch) && typeof leafOrBranch === "object" && _.size(leafOrBranch) >= 1)
