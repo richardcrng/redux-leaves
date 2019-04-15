@@ -627,3 +627,35 @@ console.log(store.getState().bar) // true
 ```
 
 ### `leaf.update(value)`
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
+
+#### Parameters
+- `value` *(any)*: the new value for the leaf's state
+
+#### Returns
+`action` *(object)*: an object with properties:
+- `leaf` *(string)*
+- `type` *(string)*
+- `payload` *(function)*: `value`
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  bool: false,
+  num: 2,
+  str: 'foo',
+  arr: [1, 2, 3],
+  obj: {}
+}
+
+const reducer = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(reducer.bool.update("I can put anything here"))
+console.log(store.getState().bool) // 'I can put anything here'
+```
