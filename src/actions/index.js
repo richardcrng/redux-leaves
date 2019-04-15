@@ -1,7 +1,7 @@
-import { makeLeafActions } from './leaf';
 import { makeActionCreator } from '.';
+import { actionsFor } from './for';
 
 export {
+  actionsFor,
   makeActionCreator,
-  makeLeafActions
 }
