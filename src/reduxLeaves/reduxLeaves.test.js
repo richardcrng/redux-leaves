@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { reduxLeaves } from '.';
 import { createStore } from "redux";
 
-describe.only("API: reduxLeaves(initialState)", () => {
+describe("API: reduxLeaves(initialState)", () => {
 
   describe("GIVEN nested initialState with non-null values for shape { counter, foo, nested: { deep: {}, state: { manageable } } }", () => {
     const initialState = {
@@ -63,7 +63,7 @@ describe.only("API: reduxLeaves(initialState)", () => {
 
 describe("API: leaf", () => {
 
-  describe("leaf.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state)", () => {
+  describe("leaf.create.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state)", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -78,22 +78,22 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.counter.apply is a function", () => {
-          expect(typeof reducer.counter.apply).toBe("function")
+        test("THEN actions.counter.create.apply is a function", () => {
+          expect(typeof actions.counter.create.apply).toBe("function")
         })
 
-        test("AND reducer.foo.apply is a function", () => {
-          expect(typeof reducer.foo.apply).toBe("function")
+        test("AND actions.foo.create.apply is a function", () => {
+          expect(typeof actions.foo.create.apply).toBe("function")
         })
 
-        test("AND reducer.nested.deep.apply is a function", () => {
-          expect(typeof reducer.nested.deep.apply).toBe("function")
+        test("AND actions.nested.deep.create.apply is a function", () => {
+          expect(typeof actions.nested.deep.create.apply).toBe("function")
         })
 
-        test("AND reducer.nested.state.manageable.apply is a function", () => {
-          expect(typeof reducer.nested.state.manageable.apply).toBe("function")
+        test("AND actions.nested.state.manageable.create.apply is a function", () => {
+          expect(typeof actions.nested.state.manageable.create.apply).toBe("function")
         })
 
 
@@ -107,36 +107,36 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.counter.apply(n => n * 7)", () => {
+          describe("AND we dispatch actions.counter.create.apply(n => n * 7)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.apply(n => n * 7))
+              store.dispatch(actions.counter.create.apply(n => n * 7))
             })
 
-            test("THEN reducer.counter updates to 7", () => {
+            test("THEN actions.counter updates to 7", () => {
               const state = store.getState()
               expect(state.counter).toBe(7)
               expect(state).toEqual({ ...initialState, counter: 7 })
             })
           })
 
-          describe("AND we dispatch reducer.foo.apply(arr => ['foo', ...arr])", () => {
+          describe("AND we dispatch actions.foo.create.apply(arr => ['foo', ...arr])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.apply(arr => ['foo', ...arr]))
+              store.dispatch(actions.foo.create.apply(arr => ['foo', ...arr]))
             })
 
-            test("THEN reducer.foo updates to ['foo', 'bar']", () => {
+            test("THEN actions.foo updates to ['foo', 'bar']", () => {
               const state = store.getState()
               expect(state.foo).toEqual(['foo', 'bar'])
               expect(state).toEqual({ ...initialState, foo: ['foo', 'bar'] })
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.apply(obj => ({ ...obj, arbitrarily: true }))", () => {
+          describe("AND we dispatch actions.nested.deep.create.apply(obj => ({ ...obj, arbitrarily: true }))", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.apply(obj => ({ ...obj, arbitrarily: true })))
+              store.dispatch(actions.nested.deep.create.apply(obj => ({ ...obj, arbitrarily: true })))
             })
 
-            test("THEN reducer.nested.deep updates to { arbitrarily: true }", () => {
+            test("THEN actions.nested.deep updates to { arbitrarily: true }", () => {
               const state = store.getState()
               expect(state.nested.deep).toEqual({ arbitrarily: true })
               expect(state).toEqual({
@@ -149,12 +149,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.state.manageable.apply(str => str.concat(' DEFINITELY!'))", () => {
+          describe("AND we dispatch actions.nested.state.manageable.create.apply(str => str.create.concat(' DEFINITELY!'))", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.state.manageable.apply(str => str.concat(' DEFINITELY!')))
+              store.dispatch(actions.nested.state.manageable.create.apply(str => str.create.concat(' DEFINITELY!')))
             })
 
-            test("THEN reducer.nested.state.manageable updates to 'maybe...? DEFINITELY!'", () => {
+            test("THEN actions.nested.state.manageable updates to 'maybe...? DEFINITELY!'", () => {
               const state = store.getState()
               expect(state.nested.state.manageable).toEqual('maybe...? DEFINITELY!')
               expect(state).toEqual({
@@ -175,7 +175,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
+  describe("leaf.create.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -190,22 +190,22 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.counter.clear is a function", () => {
-          expect(typeof reducer.counter.clear).toBe("function")
+        test("THEN actions.counter.create.clear is a function", () => {
+          expect(typeof actions.counter.create.clear).toBe("function")
         })
 
-        test("AND reducer.foo.clear is a function", () => {
-          expect(typeof reducer.foo.clear).toBe("function")
+        test("AND actions.foo.create.clear is a function", () => {
+          expect(typeof actions.foo.create.clear).toBe("function")
         })
 
-        test("AND reducer.nested.deep.clear is a function", () => {
-          expect(typeof reducer.nested.deep.clear).toBe("function")
+        test("AND actions.nested.deep.create.clear is a function", () => {
+          expect(typeof actions.nested.deep.create.clear).toBe("function")
         })
 
-        test("AND reducer.nested.state.manageable.clear is a function", () => {
-          expect(typeof reducer.nested.state.manageable.clear).toBe("function")
+        test("AND actions.nested.state.manageable.create.clear is a function", () => {
+          expect(typeof actions.nested.state.manageable.create.clear).toBe("function")
         })
 
 
@@ -231,60 +231,60 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(otherState)
           })
 
-          describe("AND we dispatch reducer.counter.clear()", () => {
+          describe("AND we dispatch actions.counter.create.clear()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.clear())
+              store.dispatch(actions.counter.create.clear())
             })
 
-            test("THEN reducer.counter updates to 0", () => {
+            test("THEN actions.counter updates to 0", () => {
               const state = store.getState()
               expect(state.counter).toBe(0)
               expect(state).toEqual({ ...otherState, counter: 0 })
             })
           })
 
-          describe("AND we dispatch reducer.counter.clear(true)", () => {
+          describe("AND we dispatch actions.counter.create.clear(true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.clear(true))
+              store.dispatch(actions.counter.create.clear(true))
             })
 
-            test("THEN reducer.counter updates to null", () => {
+            test("THEN actions.counter updates to null", () => {
               const state = store.getState()
               expect(state.counter).toBeNull()
               expect(state).toEqual({ ...otherState, counter: null })
             })
           })
 
-          describe("AND we dispatch reducer.foo.clear()", () => {
+          describe("AND we dispatch actions.foo.create.clear()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.clear())
+              store.dispatch(actions.foo.create.clear())
             })
 
-            test("THEN reducer.foo updates to []", () => {
+            test("THEN actions.foo updates to []", () => {
               const state = store.getState()
               expect(state.foo).toEqual([])
               expect(state).toEqual({ ...otherState, foo: [] })
             })
           })
 
-          describe("AND we dispatch reducer.foo.clear(true)", () => {
+          describe("AND we dispatch actions.foo.create.clear(true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.clear(true))
+              store.dispatch(actions.foo.create.clear(true))
             })
 
-            test("THEN reducer.foo updates to null", () => {
+            test("THEN actions.foo updates to null", () => {
               const state = store.getState()
               expect(state.foo).toBeNull()
               expect(state).toEqual({ ...otherState, foo: null })
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.clear()", () => {
+          describe("AND we dispatch actions.nested.deep.create.clear()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.clear())
+              store.dispatch(actions.nested.deep.create.clear())
             })
 
-            test("THEN reducer.nested.deep updates to {}", () => {
+            test("THEN actions.nested.deep updates to {}", () => {
               const state = store.getState()
               expect(state.nested.deep).toEqual({})
               expect(state).toEqual({
@@ -297,12 +297,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.clear(true)", () => {
+          describe("AND we dispatch actions.nested.deep.create.clear(true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.clear(true))
+              store.dispatch(actions.nested.deep.create.clear(true))
             })
 
-            test("THEN reducer.nested.deep updates to null", () => {
+            test("THEN actions.nested.deep updates to null", () => {
               const state = store.getState()
               expect(state.nested.deep).toBeNull()
               expect(state).toEqual({
@@ -315,12 +315,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.state.manageable.clear()", () => {
+          describe("AND we dispatch actions.nested.state.manageable.create.clear()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.state.manageable.clear())
+              store.dispatch(actions.nested.state.manageable.create.clear())
             })
 
-            test("THEN reducer.nested.state.manageable updates to ''", () => {
+            test("THEN actions.nested.state.manageable updates to ''", () => {
               const state = store.getState()
               expect(state.nested.state.manageable).toBe('')
               expect(state).toEqual({
@@ -336,12 +336,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.state.manageable.clear(true)", () => {
+          describe("AND we dispatch actions.nested.state.manageable.create.clear(true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.state.manageable.clear(true))
+              store.dispatch(actions.nested.state.manageable.create.clear(true))
             })
 
-            test("THEN reducer.nested.state.manageable updates to null", () => {
+            test("THEN actions.nested.state.manageable updates to null", () => {
               const state = store.getState()
               expect(state.nested.state.manageable).toBeNull()
               expect(state).toEqual({
@@ -361,7 +361,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.concat(...values): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with values", () => {
+  describe("leaf.create.concat(...values): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with values", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -370,14 +370,14 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.empty.concat is a function", () => {
-          expect(typeof reducer.empty.concat).toBe("function")
+        test("THEN actions.empty.create.concat is a function", () => {
+          expect(typeof actions.empty.create.concat).toBe("function")
         })
 
-        test("AND reducer.integers.concat is a function", () => {
-          expect(typeof reducer.integers.concat).toBe("function")
+        test("AND actions.integers.create.concat is a function", () => {
+          expect(typeof actions.integers.create.concat).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -390,12 +390,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.empty.concat(1, 2, 3)", () => {
+          describe("AND we dispatch actions.empty.create.concat(1, 2, 3)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.empty.concat(1, 2, 3))
+              store.dispatch(actions.empty.create.concat(1, 2, 3))
             })
 
-            test("THEN reducer.empty state updates non-mutatively to [1, 2, 3]", () => {
+            test("THEN actions.empty state updates non-mutatively to [1, 2, 3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -405,12 +405,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.empty.concat([1, 2, 3])", () => {
+          describe("AND we dispatch actions.empty.create.concat([1, 2, 3])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.empty.concat([1, 2, 3]))
+              store.dispatch(actions.empty.create.concat([1, 2, 3]))
             })
 
-            test("THEN reducer.empty state updates non-mutatively to [1, 2, 3]", () => {
+            test("THEN actions.empty state updates non-mutatively to [1, 2, 3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -424,7 +424,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.drop(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively dropping the first n values", () => {
+  describe("leaf.create.drop(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively dropping the first n values", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -433,14 +433,14 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.empty.drop is a function", () => {
-          expect(typeof reducer.empty.drop).toBe("function")
+        test("THEN actions.empty.create.drop is a function", () => {
+          expect(typeof actions.empty.create.drop).toBe("function")
         })
 
-        test("AND reducer.integers.drop is a function", () => {
-          expect(typeof reducer.integers.drop).toBe("function")
+        test("AND actions.integers.create.drop is a function", () => {
+          expect(typeof actions.integers.create.drop).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -453,12 +453,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.integers.drop()", () => {
+          describe("AND we dispatch actions.integers.create.drop()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.integers.drop())
+              store.dispatch(actions.integers.create.drop())
             })
 
-            test("THEN reducer.integers state updates non-mutatively to [2, 3]", () => {
+            test("THEN actions.integers state updates non-mutatively to [2, 3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -468,12 +468,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.integers.drop(2)", () => {
+          describe("AND we dispatch actions.integers.create.drop(2)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.integers.drop(2))
+              store.dispatch(actions.integers.create.drop(2))
             })
 
-            test("THEN reducer.integers state updates non-mutatively to [3]", () => {
+            test("THEN actions.integers state updates non-mutatively to [3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -487,7 +487,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
+  describe("leaf.create.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -502,10 +502,10 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.counter.increment is a function", () => {
-          expect(typeof reducer.counter.increment).toBe("function")
+        test("THEN actions.counter.create.increment is a function", () => {
+          expect(typeof actions.counter.create.increment).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -518,36 +518,36 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.counter.increment()", () => {
+          describe("AND we dispatch actions.counter.create.increment()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.increment())
+              store.dispatch(actions.counter.create.increment())
             })
 
-            test("THEN reducer.counter state non-mutatively updates to 2", () => {
+            test("THEN actions.counter state non-mutatively updates to 2", () => {
               const state = store.getState()
               expect(state).toEqual({ ...initialState, counter: 2 })
               expect(initialState.counter).toBe(1)
             })
           })
 
-          describe("AND we dispatch reducer.counter.increment(4)", () => {
+          describe("AND we dispatch actions.counter.create.increment(4)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.increment(4))
+              store.dispatch(actions.counter.create.increment(4))
             })
 
-            test("THEN reducer.counter state non-mutatively updates to 5", () => {
+            test("THEN actions.counter state non-mutatively updates to 5", () => {
               const state = store.getState()
               expect(state).toEqual({ ...initialState, counter: 5 })
               expect(initialState.counter).toBe(1)
             })
           })
 
-          describe("AND we dispatch reducer.counter.increment(-1.5)", () => {
+          describe("AND we dispatch actions.counter.create.increment(-1.5)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.increment(-1.5))
+              store.dispatch(actions.counter.create.increment(-1.5))
             })
 
-            test("THEN reducer.counter state non-mutatively updates to -0.5", () => {
+            test("THEN actions.counter state non-mutatively updates to -0.5", () => {
               const state = store.getState()
               expect(state).toEqual({ ...initialState, counter: -0.5 })
               expect(initialState.counter).toBe(1)
@@ -558,7 +558,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.off(): returns an action that, when dispatched, updates the leaf's state to false", () => {
+  describe("leaf.create.off(): returns an action that, when dispatched, updates the leaf's state to false", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -567,14 +567,14 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.true.off is a function", () => {
-          expect(typeof reducer.true.off).toBe("function")
+        test("THEN actions.true.create.off is a function", () => {
+          expect(typeof actions.true.create.off).toBe("function")
         })
 
-        test("AND reducer.false.off is a function", () => {
-          expect(typeof reducer.false.off).toBe("function")
+        test("AND actions.false.create.off is a function", () => {
+          expect(typeof actions.false.create.off).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -587,12 +587,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.true.off()", () => {
+          describe("AND we dispatch actions.true.create.off()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.true.off())
+              store.dispatch(actions.true.create.off())
             })
 
-            test("THEN reducer.true state updates non-mutatively to false", () => {
+            test("THEN actions.true state updates non-mutatively to false", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -602,12 +602,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.false.off()", () => {
+          describe("AND we dispatch actions.false.create.off()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.false.off())
+              store.dispatch(actions.false.create.off())
             })
 
-            test("THEN reducer.false state remains false", () => {
+            test("THEN actions.false state remains false", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -621,7 +621,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.on(): returns an action that, when dispatched, updates the leaf's state to true", () => {
+  describe("leaf.create.on(): returns an action that, when dispatched, updates the leaf's state to true", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -630,14 +630,14 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.true.on is a function", () => {
-          expect(typeof reducer.true.on).toBe("function")
+        test("THEN actions.true.create.on is a function", () => {
+          expect(typeof actions.true.create.on).toBe("function")
         })
 
-        test("AND reducer.false.on is a function", () => {
-          expect(typeof reducer.false.on).toBe("function")
+        test("AND actions.false.create.on is a function", () => {
+          expect(typeof actions.false.create.on).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -650,12 +650,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.true.on()", () => {
+          describe("AND we dispatch actions.true.create.on()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.true.on())
+              store.dispatch(actions.true.create.on())
             })
 
-            test("THEN reducer.true state remains true", () => {
+            test("THEN actions.true state remains true", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -665,12 +665,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.false.on()", () => {
+          describe("AND we dispatch actions.false.create.on()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.false.on())
+              store.dispatch(actions.false.create.on())
             })
 
-            test("THEN reducer.false state updates non-mutatively to true", () => {
+            test("THEN actions.false state updates non-mutatively to true", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -684,7 +684,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.push(element, [index = -1], [replace = false]): returns an action that, when dispatched, updates the leaf's state by non-mutatively pushing element into leaf's state at index. If replace === true, then element replaces the existing element with that index.", () => {
+  describe("leaf.actions.push(element, [index = -1], [replace = false]): returns an action that, when dispatched, updates the leaf's state by non-mutatively pushing element into leaf's state at index. If replace === true, then element replaces the existing element with that index.", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -694,18 +694,18 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.foo.push is a function", () => {
-          expect(typeof reducer.foo.push).toBe("function")
+        test("THEN actions.foo.actions.push is a function", () => {
+          expect(typeof actions.foo.actions.push).toBe("function")
         })
 
-        test("AND reducer.bar.push is a function", () => {
-          expect(typeof reducer.bar.push).toBe("function")
+        test("AND actions.bar.actions.push is a function", () => {
+          expect(typeof actions.bar.actions.push).toBe("function")
         })
 
-        test("AND reducer.foobar.push is a function", () => {
-          expect(typeof reducer.foobar.push).toBe("function")
+        test("AND actions.foobar.actions.push is a function", () => {
+          expect(typeof actions.foobar.actions.push).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -718,12 +718,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.foo.push(4)", () => {
+          describe("AND we dispatch actions.foo.actions.push(4)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.push(4))
+              store.dispatch(actions.foo.actions.push(4))
             })
 
-            test("THEN reducer.foo state updates non-mutatively to [1, 2, 3, 4]", () => {
+            test("THEN actions.foo state updates non-mutatively to [1, 2, 3, 4]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -733,12 +733,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.foo.push([4, 5])", () => {
+          describe("AND we dispatch actions.foo.actions.push([4, 5])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.push([4, 5]))
+              store.dispatch(actions.foo.actions.push([4, 5]))
             })
 
-            test("THEN reducer.foo state updates non-mutatively to [1, 2, 3, [4, 5]]", () => {
+            test("THEN actions.foo state updates non-mutatively to [1, 2, 3, [4, 5]]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -748,12 +748,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.bar.push(4, 0)", () => {
+          describe("AND we dispatch actions.bar.actions.push(4, 0)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.bar.push(4, 0))
+              store.dispatch(actions.bar.actions.push(4, 0))
             })
 
-            test("THEN reducer.bar state updates non-mutatively to [4, 1, 2, 3]", () => {
+            test("THEN actions.bar state updates non-mutatively to [4, 1, 2, 3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -763,12 +763,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.foobar.push(4, 0, true)", () => {
+          describe("AND we dispatch actions.foobar.actions.push(4, 0, true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foobar.push(4, 0, true))
+              store.dispatch(actions.foobar.actions.push(4, 0, true))
             })
 
-            test("THEN reducer.foobar state updates non-mutatively to [4, 2, 3]", () => {
+            test("THEN actions.foobar state updates non-mutatively to [4, 2, 3]", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -782,7 +782,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.reset(): returns an action that, when dispatched, updates the leaf's state to the reducer's initialised state", () => {
+  describe("leaf.create.reset(): returns an action that, when dispatched, updates the leaf's state to the reducer's initialised state", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -797,22 +797,22 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.counter.reset is a function", () => {
-          expect(typeof reducer.counter.reset).toBe("function")
+        test("THEN actions.counter.create.reset is a function", () => {
+          expect(typeof actions.counter.create.reset).toBe("function")
         })
 
-        test("AND reducer.foo.reset is a function", () => {
-          expect(typeof reducer.foo.reset).toBe("function")
+        test("AND actions.foo.create.reset is a function", () => {
+          expect(typeof actions.foo.create.reset).toBe("function")
         })
 
-        test("AND reducer.nested.deep.reset is a function", () => {
-          expect(typeof reducer.nested.deep.reset).toBe("function")
+        test("AND actions.nested.deep.create.reset is a function", () => {
+          expect(typeof actions.nested.deep.create.reset).toBe("function")
         })
 
-        test("AND reducer.nested.state.manageable.reset is a function", () => {
-          expect(typeof reducer.nested.state.manageable.reset).toBe("function")
+        test("AND actions.nested.state.manageable.create.reset is a function", () => {
+          expect(typeof actions.nested.state.manageable.create.reset).toBe("function")
         })
 
 
@@ -838,36 +838,36 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(otherState)
           })
 
-          describe("AND we dispatch reducer.counter.reset()", () => {
+          describe("AND we dispatch actions.counter.create.reset()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.reset())
+              store.dispatch(actions.counter.create.reset())
             })
 
-            test("THEN reducer.counter resets to 1", () => {
+            test("THEN actions.counter resets to 1", () => {
               const state = store.getState()
               expect(state.counter).toBe(1)
               expect(state).toEqual({ ...otherState, counter: 1 })
             })
           })
 
-          describe("AND we dispatch reducer.foo.reset()", () => {
+          describe("AND we dispatch actions.foo.create.reset()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.reset())
+              store.dispatch(actions.foo.create.reset())
             })
 
-            test("THEN reducer.foo resets to ['bar']", () => {
+            test("THEN actions.foo resets to ['bar']", () => {
               const state = store.getState()
               expect(state.foo).toEqual(['bar'])
               expect(state).toEqual({ ...otherState, foo: ['bar'] })
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.reset()", () => {
+          describe("AND we dispatch actions.nested.deep.create.reset()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.reset())
+              store.dispatch(actions.nested.deep.create.reset())
             })
 
-            test("THEN reducer.nested.deep resets to {}", () => {
+            test("THEN actions.nested.deep resets to {}", () => {
               const state = store.getState()
               expect(state.nested.deep).toEqual({})
               expect(state).toEqual({
@@ -880,12 +880,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.state.manageable.reset()", () => {
+          describe("AND we dispatch actions.nested.state.manageable.create.reset()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.state.manageable.reset())
+              store.dispatch(actions.nested.state.manageable.create.reset())
             })
 
-            test("THEN reducer.nested.state.manageable resets to 'maybe...?'", () => {
+            test("THEN actions.nested.state.manageable resets to 'maybe...?'", () => {
               const state = store.getState()
               expect(state.nested.state.manageable).toEqual('maybe...?')
               expect(state).toEqual({
@@ -906,7 +906,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
+  describe("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -921,10 +921,10 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.nested.deep.set is a function", () => {
-          expect(typeof reducer.nested.deep.set).toBe("function")
+        test("THEN actions.nested.deep.create.set is a function", () => {
+          expect(typeof actions.nested.deep.create.set).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -937,12 +937,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.nested.deep.set('arbitrarily', true)", () => {
+          describe("AND we dispatch actions.nested.deep.create.set('arbitrarily', true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.set('arbitrarily', true))
+              store.dispatch(actions.nested.deep.create.set('arbitrarily', true))
             })
 
-            test("THEN reducer.counter state non-mutatively updates to { arbitrarily: true }", () => {
+            test("THEN actions.counter state non-mutatively updates to { arbitrarily: true }", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -955,12 +955,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.set('arbitrarily.so', true)", () => {
+          describe("AND we dispatch actions.nested.deep.create.set('arbitrarily.so', true)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.set('arbitrarily.so', true))
+              store.dispatch(actions.nested.deep.create.set('arbitrarily.so', true))
             })
 
-            test("THEN reducer.counter state non-mutatively updates to { arbitrarily: { so: true } }", () => {
+            test("THEN actions.counter state non-mutatively updates to { arbitrarily: { so: true } }", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -977,7 +977,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.toggle(): returns an action that, when dispatched, updates the leaf's state to !state", () => {
+  describe("leaf.create.toggle(): returns an action that, when dispatched, updates the leaf's state to !state", () => {
 
     describe("GIVEN initialState is an object", () => {
       const initialState = {
@@ -986,14 +986,14 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.true.toggle is a function", () => {
-          expect(typeof reducer.true.toggle).toBe("function")
+        test("THEN actions.true.create.toggle is a function", () => {
+          expect(typeof actions.true.create.toggle).toBe("function")
         })
 
-        test("AND reducer.false.toggle is a function", () => {
-          expect(typeof reducer.false.toggle).toBe("function")
+        test("AND actions.false.create.toggle is a function", () => {
+          expect(typeof actions.false.create.toggle).toBe("function")
         })
 
         describe("AND store = createStore(reducer)", () => {
@@ -1006,12 +1006,12 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.true.toggle()", () => {
+          describe("AND we dispatch actions.true.create.toggle()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.true.toggle())
+              store.dispatch(actions.true.create.toggle())
             })
 
-            test("THEN reducer.true state updates non-mutatively to false", () => {
+            test("THEN actions.true state updates non-mutatively to false", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -1021,12 +1021,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.false.toggle()", () => {
+          describe("AND we dispatch actions.false.create.toggle()", () => {
             beforeEach(() => {
-              store.dispatch(reducer.false.toggle())
+              store.dispatch(actions.false.create.toggle())
             })
 
-            test("THEN reducer.false state updates non-mutatively to true", () => {
+            test("THEN actions.false state updates non-mutatively to true", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -1040,7 +1040,7 @@ describe("API: leaf", () => {
     })
   })
 
-  describe("leaf.update(value): returns an action that, when dispatched, updates the leaf's state to value", () => {
+  describe("leaf.create.update(value): returns an action that, when dispatched, updates the leaf's state to value", () => {
 
     describe("GIVEN non-trivially nested API (as in the documentation)", () => {
       const initialState = {
@@ -1055,22 +1055,22 @@ describe("API: leaf", () => {
       }
 
       describe("WHEN reducer = reduxLeaves(initialState)", () => {
-        const reducer = reduxLeaves(initialState)
+        const [reducer, actions] = reduxLeaves(initialState)
 
-        test("THEN reducer.counter.update is a function", () => {
-          expect(typeof reducer.counter.update).toBe("function")
+        test("THEN actions.counter.create.update is a function", () => {
+          expect(typeof actions.counter.create.update).toBe("function")
         })
 
-        test("AND reducer.foo.update is a function", () => {
-          expect(typeof reducer.foo.update).toBe("function")
+        test("AND actions.foo.create.update is a function", () => {
+          expect(typeof actions.foo.create.update).toBe("function")
         })
 
-        test("AND reducer.nested.deep.update is a function", () => {
-          expect(typeof reducer.nested.deep.update).toBe("function")
+        test("AND actions.nested.deep.create.update is a function", () => {
+          expect(typeof actions.nested.deep.create.update).toBe("function")
         })
 
-        test("AND reducer.nested.state.manageable.update is a function", () => {
-          expect(typeof reducer.nested.state.manageable.update).toBe("function")
+        test("AND actions.nested.state.manageable.create.update is a function", () => {
+          expect(typeof actions.nested.state.manageable.create.update).toBe("function")
         })
 
 
@@ -1084,36 +1084,36 @@ describe("API: leaf", () => {
             expect(store.getState()).toEqual(initialState)
           })
 
-          describe("AND we dispatch reducer.counter.update(9)", () => {
+          describe("AND we dispatch actions.counter.create.update(9)", () => {
             beforeEach(() => {
-              store.dispatch(reducer.counter.update(9))
+              store.dispatch(actions.counter.create.update(9))
             })
 
-            test("THEN reducer.counter state updates non-mutatively to 9", () => {
+            test("THEN actions.counter state updates non-mutatively to 9", () => {
               const state = store.getState()
               expect(state).toEqual({ ...initialState, counter: 9 })
               expect(initialState.counter).toBe(1)
             })
           })
 
-          describe("AND we dispatch reducer.foo.update(['f', 'o', 'o'])", () => {
+          describe("AND we dispatch actions.foo.create.update(['f', 'o', 'o'])", () => {
             beforeEach(() => {
-              store.dispatch(reducer.foo.update(['f', 'o', 'o']))
+              store.dispatch(actions.foo.create.update(['f', 'o', 'o']))
             })
 
-            test("THEN reducer.foo state updates non-mutatively to ['f', 'o', 'o']", () => {
+            test("THEN actions.foo state updates non-mutatively to ['f', 'o', 'o']", () => {
               const state = store.getState()
               expect(state).toEqual({ ...initialState, foo: ['f', 'o', 'o'] })
               expect(initialState.foo).toEqual(['bar'])
             })
           })
 
-          describe("AND we dispatch reducer.nested.deep.update({ here: true })", () => {
+          describe("AND we dispatch actions.nested.deep.create.update({ here: true })", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.deep.update({ here: true }))
+              store.dispatch(actions.nested.deep.create.update({ here: true }))
             })
 
-            test("THEN reducer.nested.deep updates to { here: true }", () => {
+            test("THEN actions.nested.deep updates to { here: true }", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
@@ -1126,12 +1126,12 @@ describe("API: leaf", () => {
             })
           })
 
-          describe("AND we dispatch reducer.nested.state.manageable.update('thanks to redux-leaves!')", () => {
+          describe("AND we dispatch actions.nested.state.manageabl.createe.update('thanks to redux-leaves!')", () => {
             beforeEach(() => {
-              store.dispatch(reducer.nested.state.manageable.update('thanks to redux-leaves!'))
+              store.dispatch(actions.nested.state.manageable.create.update('thanks to redux-leaves!'))
             })
 
-            test("THEN reducer.nested.state.manageable updates to 'thanks to redux-leaves!'", () => {
+            test("THEN actions.nested.state.manageable updates to 'thanks to redux-leaves!'", () => {
               const state = store.getState()
               expect(state).toEqual({
                 ...initialState,
