@@ -50,7 +50,9 @@ Returns an object that, *when dispatched to a store created with the original st
 
 #### Returns
 `action` *(object)*: an object with properties:
-- `leaf` *(string)*
+- `leaf` *(object)*: an object with properties:
+  - `path` *(array)*: path to the leaf,
+  - `action` *(string)*: `'APPLY'`
 - `type` *(string)*
 - `payload` *(function)*: the callback provided
 
