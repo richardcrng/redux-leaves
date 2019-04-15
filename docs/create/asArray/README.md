@@ -9,7 +9,11 @@ If the current `leafState` is *not* an array, then it is first coerced into an a
 ### Action creators
 - [`create.asArray.concat(array)`](#createasarrayconcatarray)
 - [`create.asArray.drop([n = 1])`](#createdropn--1)
-- [`create.asArray.push(element, [index = -1], [replace = false])`](##createpushelement-index---1-replace--false)
+- [`create.asArray.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
+
+[Back to `asArray` action creators](#action-creators)
+
+[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asArray.concat(array)`
 **alias: `create.concat(array)`** *(when `initialLeafState` is an array)*
@@ -38,7 +42,9 @@ const store = createStore(reducer)
 store.dispatch(actions.foo.create.asArray.concat(['a', 'b', 'c']))
 console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
+[Back to `asArray` action creators](#action-creators)
 
+[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.drop([n = 1])`
 **alias: `create.drop([n = 1])`** *(when `initialLeafState` is an array)*
@@ -74,6 +80,9 @@ console.log(store.getState().foo) // ['b', 'c']
 store.dispatch(actions.bar.create.asArray.drop(2))
 console.log(store.getState().bar) // ['c']
 ```
+[Back to `asArray` action creators](#action-creators)
+
+[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.push(element, [index = -1], [replace = false])`
 **alias: `create.push(element, [index = -1], [replace = false])`** *(when `initialLeafState` is an array)*
@@ -117,3 +126,6 @@ console.log(store.getState().bar) // [4, 1, 2, 3]
 store.dispatch(actions.foobar.create.asArray.push(4, 0, true))
 console.log(store.getState().foobar) // [4, 2, 3]
 ```
+[Back to `asArray` action creators](#action-creators)
+
+[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
