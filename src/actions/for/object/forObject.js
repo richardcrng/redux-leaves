@@ -1,4 +1,4 @@
-import { atomicActions } from "../../actions/atomic";
+import { atomicActions } from "../../atomic";
 
 export const forObject = (pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({

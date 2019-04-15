@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { forArray } from './forArray';
-import { forObject } from './forObject';
-import { forBoolean } from './forBoolean';
-import { forNumber } from './forNumber/forNumber';
-import { forAny } from './forAny';
+import { forArray } from './array';
+import { forObject } from './object';
+import { forBoolean } from './boolean';
+import { forNumber } from './number';
+import { forAny } from './any';
 
 export const actionsFor = (stateShape) => {
   const paths = recursivelyGeneratePaths(stateShape)

@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { actionsFor } from '../actionsFor/actionsFor';
 import { atomicActions } from '../actions/atomic';
 import { updateState } from './utils';
-import { insertAtIndex, deleteAtIndex, replaceAtIndex } from '../actionsFor/forArray/utils';
+import { insertAtIndex, deleteAtIndex, replaceAtIndex } from '../actions/for/array/utils';
+import { actionsFor } from '../actions/for/actionsFor';
 
 export const reduxLeaves = (initialState) => {
   function rootReducer(
