@@ -28,7 +28,7 @@ const initialState = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)  // 
 const store = createStore(reducer)
 ```
 
@@ -45,12 +45,12 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  counter: 1,
-  foo: ['bar']
-  nested: {
-    deep: {}
-    state: {
-      manageable: 'maybe...?'
+  counter: 1,                     // leaf
+  foo: ['bar']                    // leaf
+  nested: {                       // branch
+    deep: {}                      // leaf (empty object)
+    state: {                      // branch
+      manageable: 'maybe...?'     // leaf
     }
   }
 }
@@ -59,7 +59,9 @@ const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
-`actions` is an object with 'action branches' and 'action leaves' corresponding to every branch and leaf in `initialState`:
+`actions` is an object with the same shape as `initialState`, with corresponding branches and leaves.
+
+Every action branch and leaf is an object, regardless of the initial data type:
 
 ```js
 console.log(typeof actions.counter)                       // 'object'
