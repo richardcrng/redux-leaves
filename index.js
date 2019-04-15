@@ -1,8 +1,11 @@
-import { reducerTree as reduxLeaves } from './src/reducer/tree/reducerTree';
-import { makeActionCreator } from './src/actions/creator/makeActionCreator';
+import { reduxLeaves } from "./src/reduxLeaves";
+import { makeActionCreator } from './src/actions';
+import { resetState, updateState } from './src/utils';
 
 export {
-  makeActionCreator
+  makeActionCreator,
+  resetState,
+  updateState
 }
 
 export default reduxLeaves
