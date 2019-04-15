@@ -42,9 +42,8 @@ const store = createStore(reducer)
 store.dispatch(actions.foo.create.asArray.concat(['a', 'b', 'c']))
 console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
-[Back to `asArray` action creators](#action-creators)
+Back to [`asArray`](#action-creators) / [(https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)] action creators
 
-[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.drop([n = 1])`
 **alias: `create.drop([n = 1])`** *(when `initialLeafState` is an array)*
@@ -80,9 +79,7 @@ console.log(store.getState().foo) // ['b', 'c']
 store.dispatch(actions.bar.create.asArray.drop(2))
 console.log(store.getState().bar) // ['c']
 ```
-[Back to `asArray` action creators](#action-creators)
-
-[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+Back to [`asArray`](#action-creators) / [(https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)] action creators
 
 ## `create.push(element, [index = -1], [replace = false])`
 **alias: `create.push(element, [index = -1], [replace = false])`** *(when `initialLeafState` is an array)*
@@ -126,6 +123,4 @@ console.log(store.getState().bar) // [4, 1, 2, 3]
 store.dispatch(actions.foobar.create.asArray.push(4, 0, true))
 console.log(store.getState().foobar) // [4, 2, 3]
 ```
-[Back to `asArray` action creators](#action-creators)
-
-[Back to all action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+Back to [`asArray`](#action-creators) / [(https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)] action creators
