@@ -1,4 +1,4 @@
-import { makeActionCreator } from '.';
+import { makeActionCreator } from './creator';
 import { actionsFor } from './for';
 
 export {
