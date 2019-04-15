@@ -108,6 +108,7 @@ This API allows for concise but descriptive dispatching of actions.
 ```js
 // Push 'FOO' to the 'foo' (array) slice of state
 //    by creating and dispatching an action
+
 store.dispatch(actions.foo.create.push('FOO'))
 ```
 
