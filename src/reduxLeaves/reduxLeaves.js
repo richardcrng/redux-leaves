@@ -29,6 +29,7 @@ const reduceLeaf = (leafState, { path, modifier, payload }, wholeState) => {
     case atomicActions.CONCAT: return concat(leafState, payload)
     case atomicActions.DROP: return drop(leafState, payload)
     case atomicActions.INCREMENT: return increment(leafState, payload)
+    case atomicActions.OFF: return off(leafState)
     default: return leafState
   }
 }
@@ -60,3 +61,5 @@ const concat = (leafState, payload) => (
 const drop = (leafState, n) => _.drop(leafState, n)
 
 const increment = (leafState, n) => leafState + n
+
+const off = () => false

@@ -11,9 +11,14 @@ export const forBoolean = (pathToLeafOrBranch = []) => {
     payload
   })
 
-  const set = (path, value) => actionTemplate(atomicActions.SET, { path, value })
+  const off = () => actionTemplate(atomicActions.OFF)
+  const on = () => actionTemplate(atomicActions.ON)
+  const toggle = () => actionTemplate(atomicActions.TOGGLE)
+
 
   return {
-    set
+    off,
+    on,
+    toggle
   }
 }
