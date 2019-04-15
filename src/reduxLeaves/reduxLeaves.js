@@ -4,18 +4,13 @@ import { atomicActions } from '../actions/atomic';
 import { updateState } from './utils';
 
 export const reduxLeaves = (initialState) => {
-  function reducer(
+  function rootReducer(
     state = initialState,
     { leaf = {}, type, payload } = {}
   ) {
     const { path, condition, modifier } = leaf
     const prevLeafState = _.get(state, path)
-    let newLeafState = prevLeafState
-
-    switch (modifier) {
-      case atomicActions.APPLY:
-        newLeafState = apply(payload, newLeafState, state); break
-    }
+    const newLeafState = reduceLeaf(prevLeafState, { modifier, payload }, state)
 
     return (prevLeafState === newLeafState)
       ? state
@@ -24,7 +19,14 @@ export const reduxLeaves = (initialState) => {
 
   const actions = actionsFor(_.cloneDeep(initialState))
 
-  return [reducer, actions]
+  return [rootReducer, actions]
+}
+
+const reduceLeaf = (leafState, { modifier, payload }, wholeState) => {
+  switch (modifier) {
+    case atomicActions.APPLY: return apply(payload, leafState, wholeState)
+    default: return leafState
+  }
 }
 
 const apply = (callback, leafState, wholeState) => (
