@@ -924,7 +924,6 @@ describe("API: leaf", () => {
         const [reducer, actions] = reduxLeaves(initialState)
 
         test("THEN actions.nested.deep.create.set is a function", () => {
-          console.log(actions.nested.deep.create)
           expect(typeof actions.nested.deep.create.set).toBe("function")
         })
 
