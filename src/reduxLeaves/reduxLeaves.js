@@ -4,6 +4,10 @@ import { recursivelyGeneratePaths, addActionsDeep } from '../addActions/addActio
 
 export const reduxLeaves = (initialState) => {
   const reducer = (state = initialState, action) => {
+    const { leaf: { path, condition, modifier }, type, payload } = action
+
+    
+
     return state
   }
 

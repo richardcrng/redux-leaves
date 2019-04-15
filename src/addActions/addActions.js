@@ -60,8 +60,6 @@ const addActions = (leafOrBranch, pathToLeafOrBranch = []) => {
 
   leafOrBranch.clear = (toNull = false) => actionTemplate(atomicActions.CLEAR, toNull)
 
-  leafOrBranch.increment = (n = 1) => actionTemplate(atomicActions.INCREMENT, n)
-
   leafOrBranch.reset = () => actionTemplate(atomicActions.RESET)
 
   leafOrBranch.update = value => actionTemplate(atomicActions.UPDATE, value)
