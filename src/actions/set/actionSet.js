@@ -37,9 +37,9 @@ export const withActions = (reducer, path) => {
   reducer.concat = (...values) =>
     actionTemplate(atomicActions.CONCAT, values)
 
-  reducer.drop = n => actionTemplate(atomicActions.DROP, n)
+  reducer.drop = (n = 1) => actionTemplate(atomicActions.DROP, n)
 
-  reducer.increment = n => actionTemplate(atomicActions.INCREMENT, n)
+  reducer.increment = (n = 1) => actionTemplate(atomicActions.INCREMENT, n)
 
   reducer.off = () => actionTemplate(atomicActions.OFF)
 
