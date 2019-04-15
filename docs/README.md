@@ -1,4 +1,4 @@
-# API
+# Core API
 
 ## `reduxLeaves(initialState)`
 
@@ -28,7 +28,7 @@ const initialState = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)  // 
+const [reducer, actions] = reduxLeaves(initialState)  // the key line
 const store = createStore(reducer)
 ```
 
