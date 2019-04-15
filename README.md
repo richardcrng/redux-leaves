@@ -20,12 +20,12 @@ const initialState = {
   nested: {
     deep: {},
     state: {
-      manageable: 'I hope so'
+      manageable: 'you bet'
     }
   }
 }
 
-const reducer = reduxLeaves(initialState) // sets up a reducer for your initial state shape
+const [reducer, actions] = reduxLeaves(initialState) // ES6 array destructuring
 const store = createStore(reducer)
 ```
 
@@ -34,10 +34,10 @@ const store = createStore(reducer)
 ```js
 // All these action creators, and more, come with our reducer for free:
 
-store.dispatch(reducer.counter.increment())
-store.dispatch(reducer.foo.push('bar'))
-store.dispatch(reducer.nested.state.deep.set('arbitrarily', true))
-store.dispatch(reducer.nested.state.manageable.apply(state => state.replace('hope', '*KNOW*')))
+store.dispatch(actions.counter.create.increment())
+store.dispatch(actions.foo.create.push('bar'))
+store.dispatch(actions.nested.state.deep.create.set('arbitrarily', true))
+store.dispatch(actions.nested.state.manageable.create.apply(state => state.toUpperCase()))
 ```
 
 ### 3. Predictable changes
@@ -51,7 +51,7 @@ store.dispatch(reducer.nested.state.manageable.apply(state => state.replace('hop
       arbitrarily: true
     },
     state: {
-      manageable: 'I *KNOW* so'
+      manageable: 'YOU BET'
     }
   }
 }
@@ -75,14 +75,14 @@ However, there are three pain points that I encountered:
 
 `redux-leaves` is a library that is written to provide:
 
-1. **Pleasingly little boilerplate**: set up reducer, action types and creators in one line
+1. **Pleasingly little boilerplate**: set up your reducer and actions in one line
 ```js
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 ```
 
 2. **Precise updates**: easily increment that counter, no matter how deeply you nested it
 ```js
-dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.increment(2))
+dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.create.increment(2))
 ```
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
