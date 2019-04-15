@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const forObject = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forObject = (pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
@@ -17,11 +17,9 @@ export const forObject = (leafOrBranch, pathToLeafOrBranch = []) => {
 
   const toggle = () => actionTemplate(atomicActions.TOGGLE)
 
-  leafOrBranch.forObject = {
+  return {
     off,
     on,
     toggle
   }
-
-  return leafOrBranch
 }

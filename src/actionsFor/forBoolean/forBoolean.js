@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const forBoolean = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forBoolean = (pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,

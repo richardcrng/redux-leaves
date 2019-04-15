@@ -1,6 +1,6 @@
 import { atomicActions } from "../../actions/atomic";
 
-export const forArray = (leafOrBranch, pathToLeafOrBranch = []) => {
+export const forArray = (pathToLeafOrBranch = []) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,

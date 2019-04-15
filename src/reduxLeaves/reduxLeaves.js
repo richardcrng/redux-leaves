@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import { recursivelyAddActions } from '../addActions';
-import { recursivelyGeneratePaths, addActionsDeep } from '../addActions/addActions';
+import { actionsFor } from '../actionsFor/actionsFor';
 
 export const reduxLeaves = (initialState) => {
   function reducer(
@@ -14,8 +13,7 @@ export const reduxLeaves = (initialState) => {
     return state
   }
 
-  const paths = recursivelyGeneratePaths(initialState)
-  const actions = addActionsDeep(initialState, paths)
+  const actions = actionsFor(initialState)
 
   return [reducer, actions]
 }
