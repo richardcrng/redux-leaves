@@ -104,9 +104,11 @@ console.log(store.getState())
 *  }
 */
 ```
-Equivalently:
+This API allows for concise but descriptive dispatching of actions.
 ```js
-store.dispatch(actions.counter.create.increment(2))
+// Push 'FOO' to the 'foo' (array) slice of state
+//    by creating and dispatching an action
+store.dispatch(actions.foo.create.push('FOO'))
 ```
 
 For full details of the methods available, please see the `create` API.
