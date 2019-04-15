@@ -6,7 +6,7 @@ The actions immediately accessible through `create` depends on the data type at 
 
 
 ## `create.apply(callback)`
-*(available on any data type)*
+***(`initialState`: any)***
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState)`.
 
