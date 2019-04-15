@@ -64,3 +64,61 @@ describe("leaf.create.concat(array): returns an action that, when dispatched, up
     })
   })
 })
+
+describe("leaf.create.concat(...strings): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with strings", () => {
+
+  describe("GIVEN initialState is an object", () => {
+    const initialState = {
+      foo: "foo"
+    }
+
+    describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
+      const [reducer, actions] = reduxLeaves(initialState)
+
+      test("THEN actions.foo.create.concat is a function", () => {
+        expect(typeof actions.foo.create.concat).toBe("function")
+      })
+
+      describe("AND store = createStore(reducer)", () => {
+        let store
+        beforeEach(() => {
+          store = createStore(reducer)
+        })
+
+        test("THEN store is initialised with state = initialState", () => {
+          expect(store.getState()).toEqual(initialState)
+        })
+
+        describe("AND we dispatch actions.foo.create.concat('bar')", () => {
+          beforeEach(() => {
+            store.dispatch(actions.foo.create.concat('bar'))
+          })
+
+          test("THEN actions.foo state updates non-mutatively to 'foobar'", () => {
+            const state = store.getState()
+            expect(state).toEqual({
+              ...initialState,
+              foo: 'foobar'
+            })
+            expect(initialState.foo).toEqual('foo')
+          })
+        })
+
+        describe("AND we dispatch actions.foo.create.concat('bar', '!')", () => {
+          beforeEach(() => {
+            store.dispatch(actions.foo.create.concat('bar', '!'))
+          })
+
+          test("THEN actions.foo state updates non-mutatively to 'foobar!'", () => {
+            const state = store.getState()
+            expect(state).toEqual({
+              ...initialState,
+              foo: 'foobar!'
+            })
+            expect(initialState.foo).toEqual('foo')
+          })
+        })
+      })
+    })
+  })
+})

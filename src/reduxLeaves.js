@@ -10,7 +10,7 @@ export const reduxLeaves = (initialState) => {
   ) {
     const { path, condition, modifier } = leaf
     const prevLeafState = _.get(state, path)
-    const newLeafState = leafReducer(prevLeafState, { path, modifier, payload }, state, initialState)
+    const newLeafState = leafReducer(prevLeafState, { path, condition, modifier, payload }, state, initialState)
 
     return (prevLeafState === newLeafState)
       ? state
