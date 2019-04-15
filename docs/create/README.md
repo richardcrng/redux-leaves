@@ -4,6 +4,12 @@ Every single leaf on our `actions` object has a `create` property, through which
 
 The actions immediately accessible through `create` depends on the data type at that leaf in the `initialState` passed to `reduxLeaves`.
 
+### Action creators
+#### Type agnostic
+- [`create.apply(callback)`](#createapplycallback)
+- [`create.clear([toNull = false])`](#createcleartonull--false)
+- [`create.reset()`](#createreset)
+- [`create.update(value)`](#createupdatevalue)
 
 ## `create.apply(callback)`
 ***(`initialLeafState`: any)***
