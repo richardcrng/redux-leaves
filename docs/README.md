@@ -32,13 +32,82 @@ const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
-## branch
+## actions
 
-## leaf
+An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
 
-Returns a reducer function that is responsible for a granular piece of state (*boolean*, *string*, *array* or *object*).
+### Example
 
-Every reducer leaf has the following action creators attached:
+First, grab `actions` by destructuring the return value of `reduxLeaves`:
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  counter: 1,
+  foo: ['bar']
+  nested: {
+    deep: {}
+    state: {
+      manageable: 'maybe...?'
+    }
+  }
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+
+`actions` is an object with 'action branches' and 'action leaves' corresponding to every branch and leaf in `initialState`:
+
+```js
+console.log(typeof actions.counter)                       // 'object'
+console.log(typeof actions.nested.deep)                   // 'object'
+console.log(typeof actions.nested.state.manageable)       // 'object'
+```
+
+Every action branch and leaf also has an additional property, `create`, that is an object:
+
+```js
+console.log(typeof actions.counter.create)                  // 'object'
+console.log(typeof actions.nested.deep.create)              // 'object'
+console.log(typeof actions.nested.state.manageable.create)  // 'object'
+```
+
+This `create` property is the API through which you can access action creators.
+
+For example, suppose I want to dispatch an action that will increment my `counter` state by 2.
+
+```js
+// We can destructure to access the 'increment' method from the create API
+const { increment } = actions.counter.create
+
+// Increment is an action creator function which takes one argument
+const action = increment(2)
+
+// Dispatch the action to the store
+store.dispatch(action)
+
+// The store changes as expected!
+console.log(store.getState())
+/*
+*  {
+*    counter: 3,      <--- incremented by 2!
+*    foo: ['bar'],
+*    nested: {
+*      deep: {},
+*      manageable: 'maybe...?'
+*    }
+*  }
+*/
+```
+Equivalently:
+```js
+store.dispatch(actions.counter.create.increment(2))
+```
+
+For full details of the methods available, please see the `create` API.
 
 ### `leaf.apply(callback)`
 
