@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import { atomicActions } from '../actions/atomic';
-import { updateState } from '../utils';
-import { insertAtIndex, replaceAtIndex } from '../actions/for/array/utils';
 import { conditions } from '../actions/condtions';
 import { leafReducerArray } from './array/leafReducerArray';
 import { leafReducerObject } from './object/leafReducerObject';
+import { leafReducerString } from './string/leafReducerString';
 
 export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
   let newState
@@ -14,6 +13,8 @@ export const leafReducer = (leafState, { path, condition, modifier, payload }, w
       newState = leafReducerArray(leafState, { path, modifier, payload }); break
     case conditions.OBJECT:
       newState = leafReducerObject(leafState, { path, modifier, payload }); break
+    case conditions.STRING:
+      newState = leafReducerString(leafState, { path, modifier, payload }); break
   }
 
   if (newState) return newState
@@ -60,3 +61,5 @@ const on = () => true
 const reset = (initialWholeState, path) => _.get(initialWholeState, path)
 
 const toggle = leafState => !leafState
+
+const update = (leafState, payload) => payload
