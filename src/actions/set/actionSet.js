@@ -21,11 +21,14 @@ const standardActionSet = (path = "app/", slice = "slice") => {
 
 export const actionSet = _.curry(standardActionSet)
 
-export const withActions = (reducer, path) => {
+export const withActions = (reducer, path = []) => {
   const pathWith = type => pathJoin([path, type])
 
   const actionTemplate = (type, payload) => ({
-    leaf: pathJoin([path]),
+    leaf: {
+      path: path,
+      modifier: type
+    },
     type: pathWith(type),
     payload
   })
