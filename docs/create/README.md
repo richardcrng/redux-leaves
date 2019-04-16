@@ -203,59 +203,34 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  bool: true,
   num: 2,
-  str: 'foo',
-  arr: [1, 2, 3],
-  obj: {}
-}
+  arr: [1, 2, 3]
 
 const otherState = {
-  bool: false,
   num: 11,
-  str: 'bar',
-  arr: ['a', 'b', 'c'],
-  obj: { property: true }
+  arr: ['a', 'b', 'c']
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer, otherState)
+const store = createStore(reducer, otherState)        // preloads otherState
 
 /* store.getState()
 * {
-*   bool: false,
 *   num: 11,
-*   str: 'bar',
-*   arr: ['a', 'b', 'c'],
-*   obj: { property: true }
+*   arr: ['a', 'b', 'c']
 * }
 */
 
 ```
-##### bool
-```js
-store.dispatch(actions.bool.create.reset())
-console.log(store.getState().bool) // true
-```
-##### num
+Calling `create.reset` on a leaf:
 ```js
 store.dispatch(actions.num.create.reset())
 console.log(store.getState().num) // 2
 ```
-##### str
+Calling `create.reset` on a branch:
 ```js
-store.dispatch(actions.str.create.reset())
-console.log(store.getState().str) // 'foo'
-```
-##### arr
-```js
-store.dispatch(actions.arr.create.reset())
-console.log(store.getState().arr) // [1, 2, 3]
-```
-##### obj
-```js
-store.dispatch(actions.obj.create.reset())
-console.log(store.getState().obj) // {}
+store.dispatch(actions.create.reset())
+console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
 
 [Back to all `create` action creators](#action-creators)
