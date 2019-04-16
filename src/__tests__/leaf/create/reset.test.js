@@ -4,6 +4,56 @@ import reduxLeaves from '../../../..';
 
 describe("leaf.create.reset(): returns an action that, when dispatched, updates the leaf's state to the reducer's initialised state", () => {
 
+  describe("Documentation example 1", () => {
+    describe("GIVEN setup of initialState, otherState and store as documented", () => {
+      const initialState = {
+        num: 2,
+        arr: [1, 2, 3],
+      }
+
+      const otherState = {
+        num: 11,
+        arr: ['a', 'b', 'c']
+      }
+
+      const [reducer, actions] = reduxLeaves(initialState)
+      let store
+
+      beforeEach(() => {
+        store = createStore(reducer, otherState)
+      })
+
+      test("THEN store is initialised with otherState", () => {
+        expect(store.getState()).toEqual(otherState)
+      })
+
+      describe("WHEN we execute store.dispatch(actions.num.create.reset()))", () => {
+        beforeEach(() => {
+          store.dispatch(actions.num.create.reset())
+        })
+
+        test("THEN the store's state.num is 2", () => {
+          expect(store.getState().num).toBe(2)
+        })
+
+        describe("AND we execute store.dispatch(actions.create.reset())", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.reset())
+          })
+
+          test("THEN the store's state is { num: 2, arr: [1, 2, 3] }", () => {
+            expect(store.getState()).toEqual({
+              num: 2,
+              arr: [1, 2, 3]
+            })
+          })
+        })
+      })
+    })
+
+
+  })
+
   describe("GIVEN non-trivially nested API (as in the documentation)", () => {
     const initialState = {
       counter: 1,
