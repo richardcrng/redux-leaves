@@ -89,27 +89,27 @@ const store = createStore(reducer)
 ```
 ##### bool
 ```js
-store.dispatch(actions.boolcreate.apply(state => !state))
+store.dispatch(actions.bool.create.apply(state => !state))
 console.log(store.getState().bool) // true
 ```
 ##### num
 ```js
-store.dispatch(actions.numcreate.apply(state => state * 3))
+store.dispatch(actions.num.create.apply(state => state * 3))
 console.log(store.getState().num) // 6
 ```
 ##### str
 ```js
-store.dispatch(actions.strcreate.apply(state => state.toUpperCase()))
+store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
 ##### arr
 ```js
-store.dispatch(actions.arrcreate.apply(state => state.reverse()))
+store.dispatch(actions.arr.create.apply(state => state.reverse()))
 console.log(store.getState().arr) // [3, 2, 1]
 ```
 ##### obj
 ```js
-store.dispatch(actions.objcreate.apply(state => { ...state, a: 1, b: 2 }))
+store.dispatch(actions.obj.create.apply(state => { ...state, a: 1, b: 2 }))
 console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
 
@@ -151,42 +151,42 @@ const store = createStore(reducer)
 ```
 ##### bool
 ```js
-store.dispatch(actions.boolcreate.clear(true))
+store.dispatch(actions.bool.create.clear(true))
 console.log(store.getState().bool) // null
 
-store.dispatch(actions.boolcreate.clear())
+store.dispatch(actions.bool.create.clear())
 console.log(store.getState().bool) // false
 ```
 ##### num
 ```js
-store.dispatch(actions.numcreate.clear(true))
+store.dispatch(actions.num.create.clear(true))
 console.log(store.getState().num) // null
 
-store.dispatch(actions.numcreate.clear())
+store.dispatch(actions.num.create.clear())
 console.log(store.getState().num) // 0
 ```
 ##### str
 ```js
-store.dispatch(actions.strcreate.clear(true))
+store.dispatch(actions.str.create.clear(true))
 console.log(store.getState().str) // null
 
-store.dispatch(actions.strcreate.clear())
+store.dispatch(actions.str.create.clear())
 console.log(store.getState().str) // ''
 ```
 ##### arr
 ```js
-store.dispatch(actions.arrcreate.clear(true))
+store.dispatch(actions.arr.create.clear(true))
 console.log(store.getState().arr) // null
 
-store.dispatch(actions.arrcreate.clear())
+store.dispatch(actions.arr.create.clear())
 console.log(store.getState().arr) // []
 ```
 ##### obj
 ```js
-store.dispatch(actions.objcreate.clear(true))
+store.dispatch(actions.obj.create.clear(true))
 console.log(store.getState().obj) // null
 
-store.dispatch(actions.objcreate.clear())
+store.dispatch(actions.obj.create.clear())
 console.log(store.getState().obj) // {}
 ```
 
