@@ -80,8 +80,7 @@ const initialState = {
   bool: false,
   num: 2,
   str: 'foo',
-  arr: [1, 2, 3],
-  obj: {}
+  arr: [1, 2, 3]
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
@@ -255,16 +254,24 @@ const initialState = {
   bool: false,
   num: 2,
   str: 'foo',
-  arr: [1, 2, 3],
-  obj: {}
+  arr: [1, 2, 3]
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
+
+Calling `create.update` on a leaf:
+
 ```js
-store.dispatch(actions.bool.create.update("I can put anything here"))
-console.log(store.getState().bool) // 'I can put anything here'
+store.dispatch(actions.str.create.update("I can put anything here"))
+console.log(store.getState().str) // 'I can put anything here'
+```
+
+Calling `create.update` on a branch:
+```js
+store.dispatch(actions.create.update({ any: { properties: true }}))
+console.log(store.getState()) // { any: { properties: true } }
 ```
 
 [Back to all `create` action creators](#action-creators)
