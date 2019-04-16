@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { createStore } from "redux";
-import reduxLeaves from '../../..';
+import reduxLeaves from '../../../..';
 
-describe("leaf.create.toggle(): returns an action that, when dispatched, updates the leaf's state to !state", () => {
+describe("leaf.create.on(): returns an action that, when dispatched, updates the leaf's state to true", () => {
 
   describe("GIVEN initialState is an object", () => {
     const initialState = {
@@ -13,12 +13,12 @@ describe("leaf.create.toggle(): returns an action that, when dispatched, updates
     describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
       const [reducer, actions] = reduxLeaves(initialState)
 
-      test("THEN actions.true.create.toggle is a function", () => {
-        expect(typeof actions.true.create.toggle).toBe("function")
+      test("THEN actions.true.create.on is a function", () => {
+        expect(typeof actions.true.create.on).toBe("function")
       })
 
-      test("AND actions.false.create.toggle is a function", () => {
-        expect(typeof actions.false.create.toggle).toBe("function")
+      test("AND actions.false.create.on is a function", () => {
+        expect(typeof actions.false.create.on).toBe("function")
       })
 
       describe("AND store = createStore(reducer)", () => {
@@ -31,24 +31,24 @@ describe("leaf.create.toggle(): returns an action that, when dispatched, updates
           expect(store.getState()).toEqual(initialState)
         })
 
-        describe("AND we dispatch actions.true.create.toggle()", () => {
+        describe("AND we dispatch actions.true.create.on()", () => {
           beforeEach(() => {
-            store.dispatch(actions.true.create.toggle())
+            store.dispatch(actions.true.create.on())
           })
 
-          test("THEN actions.true state updates non-mutatively to false", () => {
+          test("THEN actions.true state remains true", () => {
             const state = store.getState()
             expect(state).toEqual({
               ...initialState,
-              true: false
+              true: true
             })
             expect(initialState.true).toBe(true)
           })
         })
 
-        describe("AND we dispatch actions.false.create.toggle()", () => {
+        describe("AND we dispatch actions.false.create.on()", () => {
           beforeEach(() => {
-            store.dispatch(actions.false.create.toggle())
+            store.dispatch(actions.false.create.on())
           })
 
           test("THEN actions.false state updates non-mutatively to true", () => {
