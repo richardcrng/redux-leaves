@@ -64,7 +64,7 @@ store.dispatch(actions.objcreate.apply(state => { ...state, a: 1, b: 2 }))
 console.log(store.getState().obj) // { a: 1, b: 2 }
 ```
 
-[Back to all action creators](#action-creators)
+[Back to all `create` action creators](#action-creators)
 
 ## `create.clear([toNull = false])`
 ***(`initialLeafState`: any)***
@@ -141,7 +141,7 @@ store.dispatch(actions.objcreate.clear())
 console.log(store.getState().obj) // {}
 ```
 
-[Back to all action creators](#action-creators)
+[Back to all `create` action creators](#action-creators)
 
 ## `create.reset()`
 ***(`initialLeafState`: any)***
@@ -212,7 +212,7 @@ store.dispatch(actions.obj.create.reset())
 console.log(store.getState().obj) // {}
 ```
 
-[Back to all action creators](#action-creators)
+[Back to all `create` action creators](#action-creators)
 
 ## `create.update(value)`
 ***(`initialLeafState`: any)***
@@ -246,4 +246,4 @@ store.dispatch(actions.bool.create.update("I can put anything here"))
 console.log(store.getState().bool) // 'I can put anything here'
 ```
 
-[Back to all action creators](#action-creators)
+[Back to all `create` action creators](#action-creators)

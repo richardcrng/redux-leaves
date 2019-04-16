@@ -6,6 +6,13 @@ If the leaf was initialised with boolean state, then these methods are also acce
 
 If the current `leafState` is *not* a boolean, then it is first coerced into a boolean as `!!leafState`, before the state is updated according to the action dispatched.
 
+### Action creators
+- [`create.asBoolean.off()`](#createasbooleanoff)
+- [`create.asBoolean.on()`](#createasbooleanon)
+- [`create.asBoolean.toggle()`](#createasbooleantoggle)
+
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
 ## `create.asBoolean.off()`
 **alias: `create.off()`** *(when `initialLeafState` is a boolean)*
 
@@ -35,6 +42,9 @@ console.log(store.getState().foo) // false
 store.dispatch(actions.bar.create.asBoolean.off())
 console.log(store.getState().bar) // false
 ```
+Back to:
+* [`create.asBoolean` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asBoolean.on()`
 **alias: `create.on()`** *(when `initialLeafState` is a boolean)*
@@ -95,3 +105,6 @@ console.log(store.getState().foo) // false
 store.dispatch(actions.bar.create.asBoolean.toggle())
 console.log(store.getState().bar) // true
 ```
+Back to:
+* [`create.asBoolean` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
