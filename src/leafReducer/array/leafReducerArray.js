@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { atomicActions } from "../../actions/atomic";
 import { replaceAtIndex, insertAtIndex } from "../../actions/for/array/utils";
 
-export const leafReducerArray = (leafState, { path, modifier, payload }, wholeState, initialWhole) => {
+export const leafReducerArray = (leafState, { modifier, payload }) => {
   const state = _.isArray(leafState) ? leafState : _.toArray(leafState)
   switch (modifier) {
     case atomicActions.CONCAT: return concat(state, payload)

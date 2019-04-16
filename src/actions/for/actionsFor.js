@@ -8,7 +8,7 @@ import { forString } from './string/forString';
 
 export const actionsFor = (stateShape) => {
   const paths = recursivelyGeneratePaths(stateShape)
-  const actions = {}
+  const actions = { create: createFor(stateShape) }
   paths.forEach(path => {
     const isPathToBranch = isBranch(_.get(stateShape, path))
     if (isPathToBranch) {
@@ -21,7 +21,24 @@ export const actionsFor = (stateShape) => {
 }
 
 const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape) => {
-  const initialState = _.get(stateShape, pathToLeafOrBranch)
+  leafOrBranch.create = createFor(stateShape, pathToLeafOrBranch)
+  return leafOrBranch
+}
+
+const addActionsToBranch = (actions, path, stateShape) => {
+  const branch = _.get(stateShape, path)
+  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape))
+}
+
+const addActionsToLeaf = (actions, path, stateShape) => {
+  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape))
+}
+
+const createFor = (stateShape, pathToLeafOrBranch = []) => {
+  const initialState = pathToLeafOrBranch.length >= 1
+    ? _.get(stateShape, pathToLeafOrBranch)
+    : stateShape
+
   let actionCreators
 
   const basicActionCreators = forAny(pathToLeafOrBranch)
@@ -43,7 +60,7 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
     actionCreators = asString
   }
 
-  leafOrBranch.create = {
+  return {
     ...basicActionCreators,
     ...actionCreators,
     asArray,
@@ -52,17 +69,6 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
     asObject,
     asString
   }
-
-  return leafOrBranch
-}
-
-const addActionsToBranch = (actions, path, stateShape) => {
-  const branch = _.get(stateShape, path)
-  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape))
-}
-
-const addActionsToLeaf = (actions, path, stateShape) => {
-  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape))
 }
 
 const isBranch = leafOrBranch => (

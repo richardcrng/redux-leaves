@@ -4,6 +4,48 @@ import reduxLeaves from '../../../..';
 
 describe("leaf.create.update(value): returns an action that, when dispatched, updates the leaf's state to value", () => {
 
+  describe("Documentation example 1", () => {
+    describe("GIVEN setup of initialState and store as documented", () => {
+      const initialState = {
+        bool: false,
+        num: 2,
+        str: 'foo',
+        arr: [1, 2, 3]
+      }
+
+      const [reducer, actions] = reduxLeaves(initialState)
+      let store
+
+      beforeEach(() => {
+        store = createStore(reducer)
+      })
+
+      describe("WHEN we execute store.dispatch(actions.str.create.update('I can put anything here'))", () => {
+        beforeEach(() => {
+          store.dispatch(actions.str.create.update('I can put anything here'))
+        })
+
+        test("THEN the store's state.str is 'I can put anything here'", () => {
+          expect(store.getState().str).toBe('I can put anything here')
+        })
+
+        describe("AND we execute store.dispatch(actions.create.update({ any: { properties: true } }))", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.update({ any: { properties: true } }))
+          })
+
+          test("THEN the store's state is { any: { properties: { true }} }", () => {
+            expect(store.getState()).toEqual({
+              any: { properties: true }
+            })
+          })
+        })
+      })
+    })
+
+
+  })
+
   describe("GIVEN non-trivially nested API (as in the documentation)", () => {
     const initialState = {
       counter: 1,
