@@ -106,8 +106,8 @@ Calling `create.apply` with two arguments:
 
 ```js
 store.dispatch(actions.arr.create.apply(
-  (leafState, entireState) => (leafState.map(element => element * entireState.num)
-)))
+  (leafState, entireState) => leafState.map(element => element * entireState.num)
+))
 console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
 ```
 
