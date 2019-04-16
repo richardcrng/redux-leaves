@@ -38,7 +38,7 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
           })
 
           test("THEN foo has squared, but not bar", () => {
-            expect(store.getState()).toEqual({ foo: 9, bar: 16 })
+            expect(store.getState()).toEqual({ foo: 9, bar: 4 })
           })
 
           describe("AND we dispatch actions.bar.create.custom.square()", () => {
