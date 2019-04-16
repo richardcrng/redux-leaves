@@ -31,22 +31,20 @@ import reduxLeaves from 'reduxLeaves'
 
 // note: object leaves have to be initialised with empty objects
 const initialState = {
-  foo: {        // branch
-    bar: {}     // leaf
-  }
-  foobar: {}    // leaf
+  foo: {}
+  bar: { props: true }
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(actions.foo.bar.create.asObject.set('accessed', true))
+store.dispatch(actions.foo.create.asObject.set('accessed', true))
 console.log(store.getState().foo.bar) // { accessed: true }
 ```
 ```js
-store.dispatch(actions.foobar.create.asObject.set('failed', false))
-console.log(store.getState().foobar) // { failed: false }
+store.dispatch(actions.ar.create.asObject.set('other.thing', false))
+console.log(store.getState().foobar) // { props: true, other: { thing: false } }
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
