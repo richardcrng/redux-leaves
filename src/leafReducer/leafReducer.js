@@ -14,15 +14,15 @@ export const leafReducer = (leafState, { path, condition, modifier, payload }, w
   // Type-specific actions
   switch (condition) {
     case conditions.ARRAY:
-      newState = leafReducerArray(leafState, {  path, modifier, payload }); break
+      newState = leafReducerArray(leafState, {  modifier, payload }); break
     case conditions.BOOLEAN:
       newState = leafReducerBoolean(leafState, { modifier }); break
     case conditions.NUMBER:
       newState = leafReducerNumber(leafState, { modifier, payload }); break
     case conditions.OBJECT:
-      newState = leafReducerObject(leafState, { path, modifier, payload }); break
+      newState = leafReducerObject(leafState, { modifier, payload }); break
     case conditions.STRING:
-      newState = leafReducerString(leafState, { path, modifier, payload }); break
+      newState = leafReducerString(leafState, { modifier, payload }); break
   }
 
   if (!(newState === leafState)) return newState
@@ -57,6 +57,8 @@ const clear = (leafState, toNull) => {
   }
 }
 
-const reset = (initialWholeState, path) => _.get(initialWholeState, path)
+const reset = (initialWholeState, path) => (
+  _.size(path) >= 1 ? _.get(initialWholeState, path) : initialWholeState
+)
 
 const update = (leafState, payload) => payload
