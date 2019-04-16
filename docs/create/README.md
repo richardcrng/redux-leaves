@@ -2,21 +2,63 @@
 
 Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
 
-The actions immediately accessible through `create` depends on the data type at that leaf in the `initialState` passed to `reduxLeaves`.
-
 ### Action creators
-#### Type agnostic
+#### Type-agnostic
 - [`create.apply(callback)`](#createapplycallback)
 - [`create.clear([toNull = false])`](#createcleartonull--false)
 - [`create.reset()`](#createreset)
 - [`create.update(value)`](#createupdatevalue)
 
-#### Type specific
+#### Type-specific
 - [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)
 - [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asBoolean#createasboolean)
 - [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asNumber#createasnumber)
 - [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
 - [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
+
+
+## Type-specific `create` methods
+
+All type-agnostic methods can be accessed through every leaf's `create` property.
+
+Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)), even if the leaf state is not an array.
+
+For convenience, *if applicable at initialisation through [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs)*, type-specific methods are also aliased so that they are directly available through `create` directly.
+
+### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  bool: false,        // initialised as boolean
+  num: 2,             // initialised as number
+  str: 'foo',         // initialised as string
+  arr: [1, 2, 3],     // initialised as array
+  obj: {}             // initialised as object
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+All leaves have access to [`create.asArray.push`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createpushelement-index---1-replace--false):
+```js
+console.log(typeof actions.bool.create.asArray.push)      // function
+console.log(typeof actions.num.create.asArray.push)       // function
+console.log(typeof actions.str.create.asArray.push)       // function
+console.log(typeof actions.str.arr.create.asArray.push)   // function
+console.log(typeof actions.str.obj.create.asArray.push)   // function
+```
+But **only** `actions.arr.create` has *direct* access to `create.push`, since it is the only leaf that was initialised as an array:
+```js
+console.log(typeof actions.bool.create.push)      // undefined
+console.log(typeof actions.num.create.push)       // undefined
+console.log(typeof actions.str.create.push)       // undefined
+console.log(typeof actions.str.arr.create.push)   // function: initialised as array
+console.log(typeof actions.str.obj.create.push)   // undefined
+```
+
+## Type-agnostic `create` methods
 
 ### `create.apply(callback)`
 ***(`initialLeafState`: any)***
@@ -42,7 +84,7 @@ const initialState = {
   obj: {}
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ##### bool
@@ -104,7 +146,7 @@ const initialState = {
   obj: {}
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ##### bool
@@ -179,7 +221,7 @@ const otherState = {
   obj: { property: true }
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer, otherState)
 
 /* store.getState()
@@ -245,7 +287,7 @@ const initialState = {
   obj: {}
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
