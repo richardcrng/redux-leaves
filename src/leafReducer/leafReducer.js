@@ -16,8 +16,6 @@ export const leafReducer = (
   customLogic
   ) => {
 
-  let newState = leafState
-
   // Custom actions
   if (custom) {
     return leafReducerCustom(customLogic, leafState, { modifier, payload }, wholeState)

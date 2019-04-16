@@ -10,6 +10,7 @@ import { makeCustomActions } from '../custom';
 export const actionsFor = (stateShape, customLogic) => {
   const paths = recursivelyGeneratePaths(stateShape)
   const actions = { create: createFor(stateShape, customLogic) }
+
   paths.forEach(path => {
     const isPathToBranch = isBranch(_.get(stateShape, path))
     if (isPathToBranch) {
@@ -18,6 +19,7 @@ export const actionsFor = (stateShape, customLogic) => {
       addActionsToLeaf(actions, path, stateShape, customLogic)
     }
   })
+  
   return actions
 }
 

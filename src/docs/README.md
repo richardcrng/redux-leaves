@@ -145,7 +145,7 @@ To do this, I need to define some custom reducer logic to pass to `reduxLeaves`:
 ```js
 const customLogic = {
   square: {
-    reducer: leafState => leafState * 2
+    reducer: leafState => leafState ** 2 // ES6 exponentiation
   }
 }
 ```
@@ -158,4 +158,12 @@ And now we can access the `square` action creator through the `create.custom` AP
 ```js
 console.log(typeof actions.foo.create.custom.square)  // function
 console.log(typeof actions.bar.create.custom.square)  // function
+```
+Dispatching to the store triggers our custom reducer logic:
+```js
+store.dispatch(actions.foo.create.custom.square())
+console.log(store.getState().foo) // 9
+
+store.dispatch(actions.bar.create.custom.square())
+console.log(store.getState().bar) // 16
 ```

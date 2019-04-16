@@ -8,6 +8,7 @@ export const reduxLeaves = (initialState, customLogic = {}) => {
     state = initialState,
     { leaf = {}, type, payload } = {}
   ) {
+
     const { path, condition, modifier, custom } = leaf
 
     const prevLeafState = _.size(path) >= 1
