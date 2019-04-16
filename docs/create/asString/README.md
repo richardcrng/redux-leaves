@@ -32,7 +32,7 @@ const initialState = {
   foo: 'foo'
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
@@ -60,7 +60,7 @@ const initialState = {
   foo: 'foo'
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js

@@ -37,7 +37,7 @@ const initialState = {
   foobar: {}    // leaf
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
