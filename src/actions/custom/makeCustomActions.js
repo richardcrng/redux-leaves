@@ -26,13 +26,3 @@ const makeCustomActionCreator = ({ argsToPayload }, actionName, actionTemplate) 
     return actionTemplate(actionName.toUpperCase(), payload)
   }
 }
-
-const customActionsSample = {
-  double: {
-    reducer: leafState => leafState * 2
-  },
-  compact: {
-    argsToPayload: (...values) => values,
-    reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
-  }
-}
