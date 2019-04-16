@@ -66,7 +66,7 @@ console.log(typeof actions.str.obj.create.push)   // undefined
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, entireState)`.
 
 #### Parameters
-- `callback` *(function)*: invoked by the leaf's reducer with the leaf's current state
+- `callback` *(function)*: invoked by the leaf's reducer with two arguments, `leafState` and `entireState`
 
 #### Returns
 `action` *(object)*: an object to dispatch to the `store`
@@ -87,18 +87,27 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
+
+Calling `create.apply` on a leaf:
+
 ```js
 store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
+
+Calling `create.apply` on a branch:
+
 ```js
 store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr }))
 console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
+
+Calling `create.apply` with two arguments:
+
 ```js
-store.dispatch(actions.arr.create.apply((leafState, entireState) => (
-  leafState.map(element => element * entireState.num)
-)))
+store.dispatch(actions.arr.create.apply(
+  (leafState, entireState) => leafState.map(element => element * entireState.num)
+))
 console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
 ```
 
