@@ -18,10 +18,16 @@ export const reduxLeaves = (initialState) => {
 
     return (prevLeafState === newLeafState)
       ? state
-      : updateState(state, path, newLeafState)
+      : updateLeafState(state, newLeafState, path)
   }
 
   const actions = actionsFor(_.cloneDeep(initialState))
 
   return [rootReducer, actions]
 }
+
+const updateLeafState = (wholeState, newLeafState, path = []) => (
+  _.size(path) >= 1
+    ? updateState(wholeState, path, newLeafState)
+    : newLeafState
+)
