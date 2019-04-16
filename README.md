@@ -97,3 +97,7 @@ dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increm
 // action type dispatched above:
 'distressingly/and/foolishly/deeply/nested/counter/asNumber.INCREMENT'
 ``` 
+
+#### API reference
+- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
+- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
