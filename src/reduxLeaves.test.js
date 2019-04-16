@@ -58,5 +58,25 @@ describe("API: reduxLeaves(initialState)", () => {
         })
       })
     })
+
+    describe("AND some specified customLogic", () => {
+      const customLogic = {
+        double: {
+          reducer: leafState => leafState * 2
+        },
+        compact: {
+          argsToPayload: (...values) => values,
+          reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+        }
+      }
+
+      describe("WHEN [reducer, actions] = reduxLeaves(initialState, customLogic)", () => {
+        const [reducer, actions] = reduxLeaves(initialState, customLogic)
+
+        test("THEN actions.create.custom is an object", () => {
+          expect(typeof actions.create.custom).toBe("object")
+        })
+      })
+    })
   })
 })
