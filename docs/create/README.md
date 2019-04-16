@@ -87,30 +87,13 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-##### bool
-```js
-store.dispatch(actions.bool.create.apply(state => !state))
-console.log(store.getState().bool) // true
-```
-##### num
-```js
-store.dispatch(actions.num.create.apply(state => state * 3))
-console.log(store.getState().num) // 6
-```
-##### str
 ```js
 store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
-##### arr
 ```js
-store.dispatch(actions.arr.create.apply(state => state.reverse()))
-console.log(store.getState().arr) // [3, 2, 1]
-```
-##### obj
-```js
-store.dispatch(actions.obj.create.apply(state => { ...state, a: 1, b: 2 }))
-console.log(store.getState().obj) // { a: 1, b: 2 }
+store.dispatch(actions.apply(state => ({ num: state.num, arr: state.arr }))
+console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
 
 [Back to all `create` action creators](#action-creators)

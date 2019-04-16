@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { createStore } from "redux";
 import reduxLeaves from '../../../..';
 
-describe("leaf.create.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state)", () => {
+describe("leaf.create.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state, entireState)", () => {
 
   describe("GIVEN non-trivially nested API (as in the documentation)", () => {
     const initialState = {
