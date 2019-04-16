@@ -6,7 +6,12 @@ If the leaf was initialised with number state, then these methods are also acces
 
 If the current `leafState` is *not* a number, then it is first coerced into an array via lodash's [`_.toNumber(leafState)`](https://lodash.com/docs/4.17.11#toNumber) method, before the state is updated according to the action dispatched.
 
-## `create.increment([n = 1])`
+### Action creators
+- [`create.asNumber.increment([n = 1])`](#createincrementn--1)
+
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
+## `create.asNumber.increment([n = 1])`
 **alias: `create.increment([n = 1])`** *(when `initialLeafState` is a number)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, increments leaf's state by `n`.
@@ -40,3 +45,6 @@ console.log(store.getState().foo) // 6
 store.dispatch(actions.bar.create.asNumber.increment(-6))
 console.log(store.getState().bar) // -1
 ```
+Back to:
+* [`create.asNumber` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
