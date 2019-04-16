@@ -7,7 +7,7 @@ import { leafReducerString } from './string/leafReducerString';
 import { leafReducerBoolean } from './boolean/leafReducerBoolean';
 import { leafReducerNumber } from './number/leafReducerNumber';
 
-export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
+export const leafReducer = (leafState, { path, condition, modifier, payload, custom }, wholeState, initialWhole) => {
 
   let newState = leafState
   
