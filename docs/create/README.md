@@ -92,7 +92,7 @@ store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
 ```js
-store.dispatch(actions.apply(state => ({ num: state.num, arr: state.arr }))
+store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr }))
 console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
 

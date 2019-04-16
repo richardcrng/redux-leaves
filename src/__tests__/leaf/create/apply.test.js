@@ -4,6 +4,51 @@ import reduxLeaves from '../../../..';
 
 describe("leaf.create.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state, entireState)", () => {
 
+  describe("Documentation example 1", () => {
+    describe("GIVEN setup of initialState and store as documented", () => {
+      const initialState = {
+        bool: false,
+        num: 2,
+        str: 'foo',
+        arr: [1, 2, 3],
+        obj: {}
+      }
+
+      const [reducer, actions] = reduxLeaves(initialState)
+      let store
+
+      beforeEach(() => {
+        store = createStore(reducer)
+      })
+
+      describe("WHEN we execute store.dispatch(actions.str.create.apply(state => state.toUpperCase()))", () => {
+        beforeEach(() => {
+          store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
+        })
+
+        test("THEN the store's state.str is 'FOO'", () => {
+          expect(store.getState().str).toBe('FOO')
+        })
+
+        describe("AND we execute store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr })))", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr })))
+          })
+
+          test("THEN the store's state is { num: 2, arr: [1, 2, 3] }", () => {
+            expect(store.getState()).toEqual({
+              num: 2,
+              arr: [1, 2, 3]
+            })
+          })
+
+        })
+      })
+    })
+
+
+  })
+
   describe("GIVEN non-trivially nested API (as in the documentation)", () => {
     const initialState = {
       counter: 1,

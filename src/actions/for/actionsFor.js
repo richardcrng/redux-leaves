@@ -21,7 +21,10 @@ export const actionsFor = (stateShape) => {
 }
 
 const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape) => {
-  const initialState = _.get(stateShape, pathToLeafOrBranch)
+  const initialState = pathToLeafOrBranch.length >= 1
+    ? _.get(stateShape, pathToLeafOrBranch)
+    : stateShape
+
   let actionCreators
 
   const basicActionCreators = forAny(pathToLeafOrBranch)
@@ -81,4 +84,12 @@ const recursivelyGeneratePaths = (stateShape, paths = [], currentPath = []) => {
     )
   }
   return paths
+}
+
+const rootActions = stateShape => {
+  if (isBranch(stateShape)) {
+    return addActionsToBranch({}, [], stateShape)
+  } else {
+    return addActionsToLeaf({}, [], stateShape)
+  }
 }
