@@ -6,10 +6,26 @@ import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
 import { leafReducerBoolean } from './boolean/leafReducerBoolean';
 import { leafReducerNumber } from './number/leafReducerNumber';
+import { leafReducerCustom } from './custom/leafReducerCustom';
 
-export const leafReducer = (leafState, { path, condition, modifier, payload, custom }, wholeState, initialWhole) => {
+export const leafReducer = (
+  leafState,
+  { path, condition, modifier, payload, custom },
+  wholeState,
+  initialWhole,
+  customActions
+  ) => {
 
   let newState = leafState
+  let didCustomReduce = true
+  let didSpecificReduce = true
+
+  // Custom actions
+  if (custom) {
+    newState = leafReducerCustom(customActions, leafState, { modifier, payload })
+  } else {
+    didCustomReduce = false
+  }
   
   // Type-specific actions
   switch (condition) {
@@ -23,9 +39,11 @@ export const leafReducer = (leafState, { path, condition, modifier, payload, cus
       newState = leafReducerObject(leafState, { modifier, payload }); break
     case conditions.STRING:
       newState = leafReducerString(leafState, { modifier, payload }); break
+    default:
+      didSpecificReduce = false
   }
 
-  if (!(newState === leafState)) return newState
+  if (didCustomReduce || didSpecificReduce) return newState
 
   // Type-agnostic actions
   switch (modifier) {

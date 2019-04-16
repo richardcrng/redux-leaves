@@ -32,7 +32,7 @@ const [reducer, actions] = reduxLeaves(initialState)  // the key line
 const store = createStore(reducer)
 ```
 
-## actions
+## The `actions` object
 
 An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
 
@@ -113,3 +113,9 @@ store.dispatch(actions.foo.create.push('FOO'))
 ```
 
 For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+
+## Initialising with custom action creators
+
+The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
+
+However, perhaps we want to initialise with a custom action creator that will

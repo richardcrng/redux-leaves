@@ -1,9 +1,5 @@
 
-export const makeCustomActions = (pathToLeafOrBranch, customActions) => {
-  const actions = {
-    compact: (values = [false, null, 0, '', undefined, NaN]) => null
-  }
-
+export const makeCustomActions = (pathToLeafOrBranch, customActions = customActionsSample) => {
   const actionTemplate = (type, payload) => ({
     leaf: {
       path: pathToLeafOrBranch,
@@ -13,4 +9,16 @@ export const makeCustomActions = (pathToLeafOrBranch, customActions) => {
     type: [...pathToLeafOrBranch, type].join('/'),
     payload
   })
+
+  
+}
+
+const customActionsSample = {
+  double: {
+    reducer: leafState => leafState * 2
+  },
+  compact: {
+    argsToPayload: (...values) => values,
+    reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+  }
 }

@@ -3,7 +3,7 @@ import { updateState } from './utils';
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
 
-export const reduxLeaves = (initialState) => {
+export const reduxLeaves = (initialState, customActions) => {
   function rootReducer(
     state = initialState,
     { leaf = {}, type, payload } = {}
@@ -14,7 +14,13 @@ export const reduxLeaves = (initialState) => {
       ? _.get(state, path)
       : state
 
-    const newLeafState = leafReducer(prevLeafState, { path, condition, modifier, payload, custom }, state, initialState)
+    const newLeafState = leafReducer(
+      prevLeafState,
+      { path, condition, modifier, payload, custom },
+      state,
+      initialState,
+      customActions
+    )
 
     return (prevLeafState === newLeafState)
       ? state
