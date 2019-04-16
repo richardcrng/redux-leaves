@@ -118,7 +118,7 @@ console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
 
 Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
 
-If `toNull === true`, then it updates it to true, otherwise it follows the type of the leaf's initial state:
+If `toNull === true`, then it updates it to `null`, otherwise it follows the type of the leaf's initial state:
 - *number*: `0`
 - *string*: `''`
 - *boolean*: `false`
@@ -140,8 +140,7 @@ const initialState = {
   bool: true,
   num: 2,
   str: 'foo',
-  arr: [1, 2, 3],
-  obj: {}
+  arr: [1, 2, 3]
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
@@ -149,19 +148,19 @@ const store = createStore(reducer)
 ```
 ##### bool
 ```js
-store.dispatch(actions.bool.create.clear(true))
-console.log(store.getState().bool) // null
-
 store.dispatch(actions.bool.create.clear())
 console.log(store.getState().bool) // false
+
+store.dispatch(actions.bool.create.clear(true))
+console.log(store.getState().bool) // null
 ```
 ##### num
 ```js
-store.dispatch(actions.num.create.clear(true))
-console.log(store.getState().num) // null
-
 store.dispatch(actions.num.create.clear())
 console.log(store.getState().num) // 0
+
+store.dispatch(actions.num.create.clear(true))
+console.log(store.getState().num) // null
 ```
 ##### str
 ```js
@@ -181,11 +180,11 @@ console.log(store.getState().arr) // []
 ```
 ##### obj
 ```js
-store.dispatch(actions.obj.create.clear(true))
-console.log(store.getState().obj) // null
+store.dispatch(actions.create.clear(true))
+console.log(store.getState()) // null
 
-store.dispatch(actions.obj.create.clear())
-console.log(store.getState().obj) // {}
+store.dispatch(actions.create.clear())
+console.log(store.getState()) // {}
 ```
 
 [Back to all `create` action creators](#action-creators)
