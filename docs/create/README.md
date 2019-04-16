@@ -95,6 +95,12 @@ console.log(store.getState().str) // 'FOO'
 store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr }))
 console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
+```js
+store.dispatch(actions.arr.create.apply((leafState, entireState) => (
+  leafState.map(element => element * entireState.num)
+)))
+console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
+```
 
 [Back to all `create` action creators](#action-creators)
 

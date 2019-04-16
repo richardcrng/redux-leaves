@@ -42,6 +42,20 @@ describe("leaf.create.apply(callback): returns an action that, when dispatched, 
             })
           })
 
+          describe("AND we execute store.dispatch(actions.arr.create.apply((leafState, entireState) => (leafState.map(element => element * entireState.num))))))", () => {
+            beforeEach(() => {
+              store.dispatch(actions.arr.create.apply((leafState, entireState) => (
+                leafState.map(element => element * entireState.num)
+              )))
+            })
+
+            test("THEN the store's state is { num: 2, arr: [2, 4, 6] }", () => {
+              expect(store.getState()).toEqual({
+                num: 2,
+                arr: [2, 4, 6]
+              })
+            })
+          })
         })
       })
     })
