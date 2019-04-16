@@ -2,12 +2,20 @@
 
 Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
+#### Getting started
+- [30 second demo](#30-second-demo)
+- [Motivation](#motivation)
+
+#### API reference
+- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
+- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
+
 ## 30 second demo
 
 ### 1. Pleasingly little boilerplate
 
 ```bash
-npm install --save richardcrng/redux-leaves#master
+npm install --save redux-leaves
 ```
 
 ```js
@@ -32,7 +40,7 @@ const store = createStore(reducer)
 ### 2. Precise updates
 
 ```js
-// All these action creators, and more, come with our reducer for free:
+// actions API allows us to access action creators targeted at any leaf of our state shape
 
 store.dispatch(actions.counter.create.increment())
 store.dispatch(actions.foo.create.push('bar'))
@@ -82,10 +90,14 @@ const [reducer, actions] = reduxLeaves(initialState)
 
 2. **Precise updates**: easily increment that counter, no matter how deeply you nested it
 ```js
-dispatch(reducer.distressingly.and.foolishly.deeply.nested.counter.create.increment(2))
+dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increment(2))
 ```
 3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
 ```js
 // action type dispatched above:
-'distressingly/and/foolishly/deeply/nested/counter/INCREMENT'
+'distressingly/and/foolishly/deeply/nested/counter/asNumber.INCREMENT'
 ``` 
+
+#### API reference
+- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
+- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)

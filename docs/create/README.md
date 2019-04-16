@@ -11,6 +11,13 @@ The actions immediately accessible through `create` depends on the data type at 
 - [`create.reset()`](#createreset)
 - [`create.update(value)`](#createupdatevalue)
 
+#### Type specific
+- [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray)
+- [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asBoolean)
+- [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asNumber)
+- [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject)
+- [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString)
+
 ## `create.apply(callback)`
 ***(`initialLeafState`: any)***
 
