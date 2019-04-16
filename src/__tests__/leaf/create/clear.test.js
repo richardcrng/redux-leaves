@@ -183,6 +183,28 @@ describe("leaf.create.clear(toNull = false): returns an action that, when dispat
             })
           })
         })
+
+        describe("AND we dispatch actions.create.clear(true)", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.clear(true))
+          })
+
+          test("THEN state updates to null", () => {
+            const state = store.getState()
+            expect(state).toBeNull()
+          })
+        })
+
+        describe("AND we dispatch actions.create.clear()", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.clear())
+          })
+
+          test("THEN state updates to {}", () => {
+            const state = store.getState()
+            expect(state).toEqual({})
+          })
+        })
       })
     })
   })
