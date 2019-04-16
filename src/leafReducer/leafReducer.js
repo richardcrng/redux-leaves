@@ -20,7 +20,7 @@ export const leafReducer = (
 
   // Custom actions
   if (custom) {
-    return leafReducerCustom(customLogic, leafState, { modifier, payload })
+    return leafReducerCustom(customLogic, leafState, { modifier, payload }, wholeState)
   }
   
   // Type-specific actions

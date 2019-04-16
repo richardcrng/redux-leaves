@@ -1,11 +1,12 @@
 # Core API
 
-## `reduxLeaves(initialState)`
+## `reduxLeaves(initialState, [customLogic = {}])`
 
 Returns a reducer function and an object.
 
 ### Parameters
 - `initialState` *(object)*: the state shape and initial values for your redux store
+- `customLogic` *(object)*: the custom logic you want your reducer and action creators to have
 
 ### Returns
 `array`, with two elements:
@@ -114,8 +115,47 @@ store.dispatch(actions.foo.create.push('FOO'))
 
 For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
 
-## Initialising with custom action creators
+## Initialising with custom logic
 
 The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
-However, perhaps we want to initialise with a custom action creator that will
+However, perhaps we want to initialise with a custom action creator and reducer logic.
+
+This is what the `customLogic` object is for.
+
+### Example 1: custom action creator with no arguments
+
+Let's start with the shape of our app state.
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: 3,
+  bar: 4
+}
+```
+
+Suppose we want to implement a custom action:
+- `double`: doubles the value of state at a leaf
+
+To do this, I need to define some custom reducer logic to pass to `reduxLeaves`:
+
+```js
+const customLogic = {
+  square: {
+    reducer: leafState => leafState * 2
+  }
+}
+```
+We then pass this into `reduxLeaves`:
+```js
+const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const store = createStore(reducer)
+```
+And now we can access the `square` action creator through the `create.custom` API:
+```js
+console.log(typeof actions.foo.create.custom.square)  // function
+console.log(typeof actions.bar.create.custom.square)  // function
+```
