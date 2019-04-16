@@ -33,7 +33,7 @@ const initialState = {
   foo: [1, 2, 3]
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
@@ -66,7 +66,7 @@ const initialState = {
   bar: ['a', 'b', 'c']
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 #### No argument provided
@@ -107,7 +107,7 @@ const initialState = {
   foobar: [1, 2, 3]
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 #### Providing element

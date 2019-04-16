@@ -32,7 +32,7 @@ const initialState = {
   bar: 5
 }
 
-const reducer = reduxLeaves(initialState)
+const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 #### No argument provided
