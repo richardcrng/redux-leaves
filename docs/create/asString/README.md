@@ -6,6 +6,12 @@ If the leaf was initialised with string state, then these methods are also acces
 
 If the current `leafState` is *not* a string, then it is first coerced into a string via lodash's [`_.toString(leafState)`](https://lodash.com/docs/4.17.11#toString) method, before the state is updated according to the action dispatched.
 
+### Action creators
+- [`create.asString.concat(...strings)`](#createasstringconcatstrings)
+- [`create.asString.replace(pattern, replacement)`](#createasstringreplacepattern-replacement)
+
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
 ## `create.asString.concat(...strings)`
 **alias: `create.concat(...strings)`** *(when `initialLeafState` is a string)*
 
@@ -61,3 +67,6 @@ const store = createStore(reducer)
 store.dispatch(actions.foo.create.asString.replace('f', 'B'))
 console.log(store.getState().foo) // 'Boo'
 ```
+Back to:
+* [`create.asString` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
