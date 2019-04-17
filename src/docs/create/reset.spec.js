@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createStore } from "redux";
-import reduxLeaves from '../../..';
+import reduxLeaves from '../..';
 
 describe("leaf.create.reset(): returns an action that, when dispatched, updates the leaf's state to the reducer's initialised state", () => {
 
