@@ -6,9 +6,6 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 ![David](https://img.shields.io/david/richardcrng/redux-leaves.svg)
 [![install size](https://packagephobia.now.sh/badge?p=redux-leaves)](https://packagephobia.now.sh/result?p=redux-leaves)
 [![npm version](https://badge.fury.io/js/redux-leaves.svg)](https://badge.fury.io/js/redux-leaves)
-[![Inline docs](http://inch-ci.org/github/richardcrng/redux-leaves.svg?branch=master)](http://inch-ci.org/github/richardcrng/redux-leaves)
-[![Maintainability](https://api.codeclimate.com/v1/badges/371605931cb9f824e25c/maintainability)](https://codeclimate.com/github/richardcrng/redux-leaves/maintainability)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/richardcrng/redux-leaves.svg)
 
 #### Getting started
 - [30 second demo](#30-second-demo)
