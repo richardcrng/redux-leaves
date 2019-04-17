@@ -9,6 +9,7 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 #### API reference
 - [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)
 - [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create)
+- [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/customLogic.md)
 
 ## 30 second demo
 

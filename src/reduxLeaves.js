@@ -1,39 +1,33 @@
 import _ from 'lodash';
+import produce from 'immer';
 import { updateState } from './utils';
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
 import { getState } from './utils/index';
 
 export const reduxLeaves = (initialState, customLogic = {}) => {
-  Object.freeze(initialState)
-
-  function rootReducer(
+  function immeredReducer(
     state = initialState,
     { leaf = {}, type, payload } = {}
   ) {
+    return produce(state, draftState => {
+      const { path, condition, modifier, custom } = leaf
 
-    const { path, condition, modifier, custom } = leaf
+      const prevLeafState = getState(draftState, path)
 
-    const prevLeafState = getState(state, path)
+      const newLeafState = leafReducer(
+        prevLeafState,
+        { path, condition, modifier, payload, custom },
+        draftState,
+        initialState,
+        customLogic
+      )
 
-    const newLeafState = leafReducer(
-      prevLeafState,
-      { path, condition, modifier, payload, custom },
-      state,
-      initialState,
-      customLogic
-    )
-
-    return updateLeafState(state, newLeafState, path)
+      return updateState(draftState, path, newLeafState)
+    })
   }
 
   const actions = actionsFor(_.cloneDeep(initialState), customLogic)
 
-  return [rootReducer, actions]
+  return [immeredReducer, actions]
 }
-
-const updateLeafState = (wholeState, newLeafState, path = []) => (
-  _.size(path) >= 1
-    ? updateState(wholeState, path, newLeafState)
-    : newLeafState
-)
