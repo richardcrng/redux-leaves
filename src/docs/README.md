@@ -113,11 +113,11 @@ This API allows for concise but descriptive dispatching of actions.
 store.dispatch(actions.foo.create.push('FOO'))
 ```
 
-For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create).
 
 ## Initialising with custom logic
 
-The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
+The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
 However, perhaps we want to initialise with a custom action creator and reducer logic.
 

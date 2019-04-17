@@ -10,20 +10,20 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.update(value)`](#createupdatevalue)
 
 #### Type-specific
-- [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)
-- [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asBoolean#createasboolean)
-- [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asNumber#createasnumber)
-- [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
-- [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
+- [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asArray#createasarray)
+- [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asBoolean#createasboolean)
+- [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asNumber#createasnumber)
+- [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asObject#createasobject)
+- [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asString#createasstring)
 
 
 ## Type-specific `create` methods
 
 All type-agnostic methods can be accessed through every leaf's `create` property.
 
-Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)), even if the leaf state is not an array.
+Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asArray#createasarray)), even if the leaf state is not an array.
 
-For convenience, *if applicable at initialisation through [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs)*, type-specific methods are also aliased so that they are directly available through `create` directly.
+For convenience, *if applicable at initialisation through [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)*, type-specific methods are also aliased so that they are directly available through `create` directly.
 
 ### Example
 ```js
@@ -41,7 +41,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-All leaves have access to [`create.asArray.push`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createpushelement-index---1-replace--false):
+All leaves have access to [`create.asArray.push`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asArray#createpushelement-index---1-replace--false):
 ```js
 console.log(typeof actions.bool.create.asArray.push)      // function
 console.log(typeof actions.num.create.asArray.push)       // function
