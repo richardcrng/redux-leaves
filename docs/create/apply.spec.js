@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createStore } from "redux";
-import reduxLeaves from '../..';
+import reduxLeaves from '../../src';
 
 describe("leaf.create.apply(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state, entireState)", () => {
 

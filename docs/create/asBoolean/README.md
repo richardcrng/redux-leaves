@@ -2,7 +2,7 @@
 
 Every single leaf on our `actions` object has access to `create.asBoolean` methods.
 
-If the leaf was initialised with boolean state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create).
+If the leaf was initialised with boolean state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
 
 If the current `leafState` is *not* a boolean, then it is first coerced into a boolean as `!!leafState`, before the state is updated according to the action dispatched.
 
@@ -11,7 +11,7 @@ If the current `leafState` is *not* a boolean, then it is first coerced into a b
 - [`create.asBoolean.on()`](#createasbooleanon)
 - [`create.asBoolean.toggle()`](#createasbooleantoggle)
 
-[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create#action-creators)
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asBoolean.off()`
 **alias: `create.off()`** *(when `initialLeafState` is a boolean)*
@@ -44,7 +44,7 @@ console.log(store.getState().bar) // false
 ```
 Back to:
 * [`create.asBoolean` action creators](#action-creators)
-* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 ## `create.asBoolean.on()`
 **alias: `create.on()`** *(when `initialLeafState` is a boolean)*
@@ -107,4 +107,4 @@ console.log(store.getState().bar) // true
 ```
 Back to:
 * [`create.asBoolean` action creators](#action-creators)
-* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)

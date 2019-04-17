@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createStore } from "redux";
-import { reduxLeaves } from '../reduxLeaves';
+import reduxLeaves from '../src';
 
 describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
 
