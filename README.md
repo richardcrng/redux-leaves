@@ -18,8 +18,8 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 - [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md)
 
 #### [FAQs](#faqs)
-- [What actions can I dispatch to the store?]
-- [Will dispatched actions mutate the store state?]
+- [What actions can I dispatch to the store?](#what-actions-can-i-dispatch-to-the-store)
+- [Will dispatched actions mutate the store state?](#will-dispatched-actions-mutate-the-stores-state)
 
 ## 30 second demo
 
@@ -123,7 +123,7 @@ If you desire further customisation, you can add custom action creators to the `
 Even if you dispatch an action that looks like it will mutate state (e.g. `create.apply(n => n++)`), `reduxLeaves`'s reducer enforces immutability (using [Immer](https://github.com/immerjs/immer)).
 
 
-#### API reference
+## API reference
 - [Core: `reduxLeaves(initialState, [customLogic = {}])`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
 - [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
 - [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md)
