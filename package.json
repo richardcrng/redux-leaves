@@ -2,7 +2,11 @@
   "name": "redux-leaves",
   "version": "0.2.3",
   "license": "MIT",
-  "author": "Richard Ng (https://github.com/richardcrng)",
+  "author": {
+    "name": "Richard Ng",
+    "email": "hi@richard.ng",
+    "url": "https://github.com/richardcrng/"
+  },
   "dependencies": {
     "immer": "^2.1.5",
     "lodash": "^4.17.11",
