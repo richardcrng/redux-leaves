@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prepublish": "npx babel src --out-dir dist",
-    "test": "jest src"
+    "test": "jest --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
