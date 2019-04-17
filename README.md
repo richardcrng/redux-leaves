@@ -2,6 +2,8 @@
 
 Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
+[![install size](https://packagephobia.now.sh/badge?p=redux-leaves)](https://packagephobia.now.sh/result?p=redux-leaves)
+
 #### Getting started
 - [30 second demo](#30-second-demo)
 - [Motivation](#motivation)
