@@ -23,8 +23,8 @@
       "create/README": {
         "title": "create/README"
       },
-      "customLogic": {
-        "title": "customLogic"
+      "custom-logic": {
+        "title": "Custom logic"
       },
       "redux-leaves": {
         "title": "Core API"

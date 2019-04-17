@@ -1,3 +1,9 @@
+---
+id: custom-logic
+title: Custom logic
+hide_title: true
+---
+
 # Custom action creators via `customLogic`
 
 The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.

@@ -1,6 +1,7 @@
 ---
 id: redux-leaves
 title: Core API
+hide_title: true
 ---
 
 # Core API
@@ -11,7 +12,7 @@ Returns a reducer function and an object.
 
 ### Parameters
 - `initialState` *(object)*: the state shape and initial values for your redux store
-- [`customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
+- [`customLogic`](customLogic.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
 
 ### Returns
 `array`, with two elements:
