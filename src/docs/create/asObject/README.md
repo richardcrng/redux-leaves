@@ -2,14 +2,14 @@
 
 Every single leaf on our `actions` object has access to `create.asObject` methods.
 
-If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#isPlainObject) state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#isPlainObject) state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create).
 
 If the current `leafState` is *not* a plain object, then it is first coerced into a plain object via lodash's [`_.toPlainObject(leafState)`](https://lodash.com/docs/4.17.11#toPlainObject) method, before the state is updated according to the action dispatched.
 
 ### Action creators
 - [`create.asObject.set(path, value)`](#createasobjectsetpath-value)
 
-[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create#action-creators)
 
 ## `create.asObject.set(path, value)`
 **alias: `create.set(path, value)`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
@@ -48,4 +48,4 @@ console.log(store.getState().foobar) // { props: true, other: { thing: false } }
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
-* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create#action-creators)

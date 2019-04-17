@@ -6,26 +6,34 @@ import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
 import { leafReducerBoolean } from './boolean/leafReducerBoolean';
 import { leafReducerNumber } from './number/leafReducerNumber';
+import { leafReducerCustom } from './custom/leafReducerCustom';
 
-export const leafReducer = (leafState, { path, condition, modifier, payload }, wholeState, initialWhole) => {
+export const leafReducer = (
+  leafState,
+  { path, condition, modifier, payload, custom },
+  wholeState,
+  initialWhole,
+  customLogic
+  ) => {
 
-  let newState = leafState
+  // Custom actions
+  if (custom) {
+    return leafReducerCustom(customLogic, leafState, { modifier, payload }, wholeState)
+  }
   
   // Type-specific actions
   switch (condition) {
     case conditions.ARRAY:
-      newState = leafReducerArray(leafState, {  modifier, payload }); break
+      return leafReducerArray(leafState, {  modifier, payload })
     case conditions.BOOLEAN:
-      newState = leafReducerBoolean(leafState, { modifier }); break
+      return leafReducerBoolean(leafState, { modifier })
     case conditions.NUMBER:
-      newState = leafReducerNumber(leafState, { modifier, payload }); break
+      return leafReducerNumber(leafState, { modifier, payload })
     case conditions.OBJECT:
-      newState = leafReducerObject(leafState, { modifier, payload }); break
+      return leafReducerObject(leafState, { modifier, payload })
     case conditions.STRING:
-      newState = leafReducerString(leafState, { modifier, payload }); break
+      return leafReducerString(leafState, { modifier, payload })
   }
-
-  if (!(newState === leafState)) return newState
 
   // Type-agnostic actions
   switch (modifier) {

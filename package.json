@@ -1,9 +1,10 @@
 {
   "name": "redux-leaves",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
+    "immer": "^2.1.5",
     "react-scripts": "2.1.8",
     "redux": "^4.0.1"
   },

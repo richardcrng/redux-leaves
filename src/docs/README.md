@@ -1,11 +1,12 @@
 # Core API
 
-## `reduxLeaves(initialState)`
+## `reduxLeaves(initialState, [customLogic = {}])`
 
 Returns a reducer function and an object.
 
 ### Parameters
 - `initialState` *(object)*: the state shape and initial values for your redux store
+- [`customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/customLogic.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
 
 ### Returns
 `array`, with two elements:
@@ -32,7 +33,7 @@ const [reducer, actions] = reduxLeaves(initialState)  // the key line
 const store = createStore(reducer)
 ```
 
-## actions
+## The `actions` object
 
 An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
 
@@ -112,4 +113,8 @@ This API allows for concise but descriptive dispatching of actions.
 store.dispatch(actions.foo.create.push('FOO'))
 ```
 
-For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+For full details of the methods available, please see the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create).
+
+### Advanced usage
+
+If you wish to augment the `create` API, then it is possible to define some `create.custom` action creators through a [`customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/customLogic.md) object passed into `reduxLeaves`.
