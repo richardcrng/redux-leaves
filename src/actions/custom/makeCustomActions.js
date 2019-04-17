@@ -1,15 +1,8 @@
 import _ from 'lodash';
+import { makeActionTemplate } from '../for/utils';
 
 export const makeCustomActions = (customLogic = {}, pathToLeafOrBranch = []) => {
-  const actionTemplate = (type, payload) => ({
-    leaf: {
-      path: pathToLeafOrBranch,
-      modifier: type,
-      custom: true
-    },
-    type: [...pathToLeafOrBranch, type].join('/'),
-    payload
-  })
+  const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
 
   return _.mapValues(
     customLogic,

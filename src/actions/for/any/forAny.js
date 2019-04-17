@@ -1,14 +1,8 @@
 import { atomicActions } from "../../atomic";
+import { makeActionTemplate } from "../utils";
 
 export const forAny = (pathToLeafOrBranch = []) => {
-  const actionTemplate = (type, payload) => ({
-    leaf: {
-      path: pathToLeafOrBranch,
-      modifier: type
-    },
-    type: [...pathToLeafOrBranch, type].join('/'),
-    payload
-  })
+  const actionTemplate = makeActionTemplate(pathToLeafOrBranch)
 
   const apply = callback => actionTemplate(atomicActions.APPLY, callback)
 
