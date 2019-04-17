@@ -8,7 +8,6 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 [![npm version](https://badge.fury.io/js/redux-leaves.svg)](https://badge.fury.io/js/redux-leaves)
 [![Inline docs](http://inch-ci.org/github/richardcrng/redux-leaves.svg?branch=master)](http://inch-ci.org/github/richardcrng/redux-leaves)
 
-
 #### Getting started
 - [30 second demo](#30-second-demo)
 - [Motivation](#motivation)
