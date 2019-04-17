@@ -4,8 +4,14 @@ export const leafReducerCustom = (customLogic, leafState, { modifier, payload },
   const key = modifier.toLowerCase()
 
   if (Object.keys(customLogic).includes(key)) {
-    const { reducer } = customLogic[key];
-    return reducer(_.cloneDeep(leafState), { payload }, wholeState)
+    const logic = customLogic[key]
+
+    if (typeof logic === "function") {
+      return logic(_.cloneDeep(leafState), { payload }, wholeState)
+    } else {
+      return logic.reducer(_.cloneDeep(leafState), { payload }, wholeState)
+    }
+
   } else {
     return leafState
   }

@@ -17,12 +17,20 @@ export const makeCustomActions = (customLogic = {}, pathToLeafOrBranch = []) => 
   )
 }
 
-const makeCustomActionCreator = ({ argsToPayload }, actionName, actionTemplate) => {
-  return (firstArg, ...remArgs) => {
-    const payload = (typeof argsToPayload === "function")
-      ? argsToPayload(firstArg, ...remArgs)
-      : firstArg
+const makeCustomActionCreator = (creatorDefinition, actionName, actionTemplate) => {
 
-    return actionTemplate(actionName.toUpperCase(), payload)
+  if (typeof creatorDefinition === "function") {
+    return (firstArg) => actionTemplate(actionName.toUpperCase(), firstArg)
+  }
+  
+  if (_.isPlainObject(creatorDefinition)) {
+    const { argsToPayload } = creatorDefinition;
+    return (firstArg, ...remArgs) => {
+      const payload = (typeof argsToPayload === "function")
+        ? argsToPayload(firstArg, ...remArgs)
+        : firstArg
+
+      return actionTemplate(actionName.toUpperCase(), payload)
+    }
   }
 }
