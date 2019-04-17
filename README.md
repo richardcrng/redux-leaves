@@ -46,6 +46,8 @@ const initialState = {
 
 const [reducer, actions] = reduxLeaves(initialState) // ES6 array destructuring
 const store = createStore(reducer)
+
+// Setup complete!
 ```
 
 ### 2. Precise updates
