@@ -13,7 +13,7 @@
     "url": "https://github.com/richardcrng/redux-leaves"
   },
   "scripts": {
-    "prepublish": "npx babel src --out-dir lib"
+    "prepublish": "npx babel src --out-dir dist"
   },
   "eslintConfig": {
     "extends": "react-app"
