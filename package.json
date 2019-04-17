@@ -4,6 +4,7 @@
   "license": "MIT",
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
     "immer": "^2.1.5",
     "redux": "^4.0.1"
   },
@@ -22,5 +23,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3"
+  }
 }
