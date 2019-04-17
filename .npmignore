@@ -1,1 +1,6 @@
+# source
 /src
+
+# testing
+/coverage
+.coveralls.yml
