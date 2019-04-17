@@ -1,16 +1,12 @@
 import { atomicActions } from "../../atomic";
 import { conditions } from "../../condtions/conditions";
+import { makeActionTemplate } from "../utils";
 
 export const forBoolean = (pathToLeafOrBranch = []) => {
-  const actionTemplate = (type, payload) => ({
-    leaf: {
-      path: pathToLeafOrBranch,
-      condition: conditions.BOOLEAN,
-      modifier: type
-    },
-    type: [...pathToLeafOrBranch, `${conditions.BOOLEAN}.${type}`].join('/'),
-    payload
-  })
+  const actionTemplate = makeActionTemplate(
+    pathToLeafOrBranch,
+    { condition: conditions.BOOLEAN }
+  )
 
   const off = () => actionTemplate(atomicActions.OFF)
   const on = () => actionTemplate(atomicActions.ON)
