@@ -7,8 +7,8 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 - [Motivation](#motivation)
 
 #### API reference
-- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
-- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
+- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)
+- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create)
 
 ## 30 second demo
 
@@ -99,5 +99,5 @@ dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increm
 ``` 
 
 #### API reference
-- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
-- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
+- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)
+- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create)
