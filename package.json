@@ -5,6 +5,7 @@
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
     "immer": "^2.1.5",
+    "lodash": "^4.17.11",
     "redux": "^4.0.1"
   },
   "repository": {
