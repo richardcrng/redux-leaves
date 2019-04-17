@@ -216,4 +216,20 @@ const expWithTwoArgs = actions.foo.create.custom.exponentiate(3, 4)
 
 console.log(expWithOneArg.payload)    // 2
 console.log(expWithTwoArgs.payload)   // 3 (4 has been discarded)
+
+store.dispatch(expWithTwoArgs)
+console.log(store.getState().foo)   // 8
+```
+
+However, we can override this behaviour of our action creators by specifying an `argsToPayload` function, as we did for `remove`:
+
+```js
+const removeWithOneArg = actions.bar.create.custom.remove(2)
+const removeWithTwoArgs = actions.bar.create.custom.remove(3, 4)
+
+console.log(removeWithOneArg.payload)    // [2]
+console.log(removeWithTwoArgs.payload)   // [3, 4]
+
+store.dispatch(removeWithTwoArgs)
+console.log(store.getState().bar)   // [1, 2, 5]
 ```

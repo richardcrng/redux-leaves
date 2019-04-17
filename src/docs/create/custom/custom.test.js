@@ -104,6 +104,21 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
             expect(store.getState()).toEqual({ foo: 8, bar: [1, 2, 3, 4, 5] })
           })
         })
+
+        describe("AND we pass arguments to custom.remove", () => {
+          const removeWithOneArg = actions.bar.create.custom.remove(2)
+          const removeWithTwoArgs = actions.bar.create.custom.remove(3, 4)
+
+          test("THEN custom.remove sets payload to be the first argument", () => {
+            expect(removeWithOneArg.payload).toEqual([2])
+            expect(removeWithTwoArgs.payload).toEqual([3, 4])
+          })
+
+          test("AND the store state updates as expected", () => {
+            store.dispatch(removeWithTwoArgs)
+            expect(store.getState()).toEqual({ foo: 2, bar: [1, 2, 5] })
+          })
+        })
       })
     })
   })
