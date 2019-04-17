@@ -53,7 +53,7 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
     })
   })
 
-  describe("Example 2: custom action creator with arguments", () => {
+  describe("Example 2: custom action creator using payload and wholeState", () => {
     describe("GIVEN initialState and customLogic", () => {
       const initialState = {
         foo: 2,
@@ -114,6 +114,54 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
             test("AND the store state updates as expected", () => {
               expect(store.getState()).toEqual({ foo: 8, bar: [2, 4, 6, 10] })
             })
+          })
+        })
+      })
+    })
+  })
+
+  describe("Example 3: more detailed customisation with argsToPayload", () => {
+    describe("GIVEN initialState and customLogic", () => {
+      const initialState = {
+        foo: [2, 4, 6, 8, 10]
+      }
+
+      const customLogic = {
+        remove: {
+          argsToPayload: (...values) => values,
+          reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+        }
+      }
+
+      describe("WHEN we pass initialState and customLogic to reduxLeaves", () => {
+        const [reducer, actions] = reduxLeaves(initialState, customLogic)
+        let store
+
+        beforeEach(() => store = createStore(reducer))
+
+        test("THEN store initialises with initialState", () => {
+          expect(store.getState()).toEqual(initialState)
+        })
+
+        test("AND create.custom.remove is defined for actions.foo", () => {
+          expect(typeof actions.foo.create.custom.remove).toBe("function")
+        })
+        
+        describe("AND we pass arguments to custom.remove before dispatching", () => {
+          const removeWithOneArg = actions.foo.create.custom.remove(4)
+          const removeWithTwoArgs = actions.foo.create.custom.remove(4, 8)
+
+          beforeEach(() => {
+            store.dispatch(removeWithTwoArgs)
+          })
+
+          test("THEN custom.remove sets payload to be the first argument", () => {
+            expect(removeWithOneArg.payload).toEqual([4])
+            expect(removeWithTwoArgs.payload).toEqual([4, 8])
+          })
+
+          test("AND the store state updates as expected", () => {
+            expect(store.getState().foo).toEqual([2, 6, 10])
           })
         })
       })

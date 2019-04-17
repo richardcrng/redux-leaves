@@ -55,6 +55,8 @@ console.log(store.getState().bar) // 16
 
 ## Example 2: custom action creator using `payload` and `wholeState`
 
+When we define custom reducer logic to pass to `reduxLeaves`, by default the custom action creators accept one argument, which becomes the action payload.
+
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
@@ -68,8 +70,6 @@ const initialState = {
 Suppose we want to implement two custom actions:
 - `exponentiate`: raises the value of state at a leaf to an exponent received as an argument
 - `remove`: removes values from the value of state at a leaf based on a value elsewhere, as indicated by an argument
-
-When we define custom reducer logic to pass to `reduxLeaves`, by default the custom action creators accept one argument, which becomes the action payload.
 
 ```js
 const customLogic = {
@@ -93,4 +93,42 @@ console.log(store.getState().foo)   // 8
 
 store.dispatch(actions.barr.create.custom.remove("foo"))
 console.log(store.getState().bar)   // [2, 4, 6, 10] <- state.foo, 8, removed
+```
+
+## Example 3: more detailed customisation with `argsToPayload`
+
+Suppose we want to implement a custom `remove` action creator such that it takes an arbitrary number of arguments and, when dispatched, removes all of them from the leaf state.
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: [2, 4, 6, 8, 10]
+}
+const customLogic = {
+  remove: {
+    argsToPayload: (...values) => values,
+    reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+  }
+}
+
+const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const store = createStore(reducer)
+```
+
+Here, instead of passing in `remove` as a function, we have passed it in as an object with the following properties:
+
+- `argsToPayload`: this function receives all the arguments passed to the action creator, and its return value becomes the action `payload`;
+- `reducer`: the reducer logic, invoked with arguments `leafState`, `{ payload }` and `wholeState` as before.
+
+```js
+const removeWithOneArg = actions.foo.create.custom.remove(4)
+const removeWithTwoArgs = actions.foo.create.custom.remove(4, 8)
+
+console.log(removeWithOneArg.payload)   // [4]
+console.log(removeWithTwoArgs.payload)  // [4, 8]
+
+store.dispatch(removeWithTwoArgs)
+console.log(store.getState().foo)   // [2, 6, 10]
 ```
