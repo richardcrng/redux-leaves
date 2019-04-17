@@ -129,7 +129,8 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
       const customLogic = {
         remove: {
           argsToPayload: (...values) => values,
-          reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+          reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e)),
+          type: '!!! HEY THERE, I DID A THING !!!'
         }
       }
 
@@ -158,6 +159,11 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
           test("THEN custom.remove sets payload to be the first argument", () => {
             expect(removeWithOneArg.payload).toEqual([4])
             expect(removeWithTwoArgs.payload).toEqual([4, 8])
+          })
+
+          test("AND actions have the passed in type", () => {
+            expect(removeWithOneArg.type).toBe('!!! HEY THERE, I DID A THING !!!')
+            expect(removeWithTwoArgs.type).toBe('!!! HEY THERE, I DID A THING !!!')
           })
 
           test("AND the store state updates as expected", () => {
