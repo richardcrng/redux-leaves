@@ -7,6 +7,7 @@ export const leafReducerArray = (leafState, { modifier, payload }) => {
   switch (modifier) {
     case atomicActions.CONCAT: return concat(state, payload)
     case atomicActions.DROP: return drop(state, payload)
+    case atomicActions.FILTER: return filter(state, payload)
     case atomicActions.PUSH: return push(state, payload)
     default: return state
   }
@@ -15,6 +16,8 @@ export const leafReducerArray = (leafState, { modifier, payload }) => {
 const concat = (leafState, payload) => leafState.concat(payload)
 
 const drop = (leafState, n) => _.drop(leafState, n)
+
+const filter = (leafState, callback) => leafState.filter(callback)
 
 const push = (leafState, { element, index = -1, replace = false } = {}) => (
   replace
