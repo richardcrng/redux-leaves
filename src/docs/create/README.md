@@ -16,6 +16,8 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asObject#createasobject)
 - [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create/asString#createasstring)
 
+It is also possible to add [custom action creators](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs).
+
 
 ## Type-specific `create` methods
 
