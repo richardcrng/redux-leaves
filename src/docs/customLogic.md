@@ -6,6 +6,12 @@ However, perhaps we want to initialise with a custom action creator and reducer 
 
 This is what the `customLogic` object is for.
 
+- [Shape of `customLogic`](#shape-of-customlogic)
+- [Example 1: custom action creator with no arguments](#example-1-custom-action-creator-with-no-arguments)
+- [Example 2: custom action creator using `payload` and `wholeState`](#example-2-custom-action-creator-using-payload-and-wholestate)
+- [Example 3: more detailed customisation with `argsToPayload`](#example-3-more-detailed-customisation-with-argstopayload)
+
+
 ## Shape of `customLogic`
 
 `customLogic` is an object
