@@ -8,7 +8,7 @@
     "url": "https://github.com/richardcrng/"
   },
   "dependencies": {
-    "immer": "^2.1.5",
+    "immer": "^3.0.0",
     "lodash": "^4.17.11",
     "redux": "^4.0.1"
   },
@@ -17,7 +17,7 @@
     "url": "https://github.com/richardcrng/redux-leaves"
   },
   "scripts": {
-    "prepublish": "npx babel src --out-dir dist",
+    "prepublishOnly": "npx babel src --out-dir dist",
     "test": "jest --watch"
   },
   "eslintConfig": {
