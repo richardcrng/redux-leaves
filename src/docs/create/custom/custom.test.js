@@ -53,23 +53,49 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
         })
       })
     })
+  })
 
-    describe.skip("AND some specified customLogic", () => {
+  describe("Example 2: custom action creator with arguments", () => {
+    describe("GIVEN initialState and customLogic", () => {
+      const initialState = {
+        foo: 2,
+        bar: [1, 2, 3, 4, 5]
+      }
+
       const customLogic = {
-        double: {
-          reducer: leafState => leafState * 2
+        exponentiate: {
+          reducer: (leafState, { payload }) => leafState ** payload
         },
-        compact: {
+        remove: {
           argsToPayload: (...values) => values,
           reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
         }
       }
 
-      describe("WHEN [reducer, actions] = reduxLeaves(initialState, customLogic)", () => {
+      describe("WHEN we pass initialState and customLogic to reduxLeaves", () => {
         const [reducer, actions] = reduxLeaves(initialState, customLogic)
+        let store
 
-        test("THEN actions.create.custom is an object", () => {
-          expect(typeof actions.create.custom).toBe("object")
+        beforeEach(() => store = createStore(reducer))
+
+        test("THEN store initialises with initialState", () => {
+          expect(store.getState()).toEqual(initialState)
+        })
+
+        test("AND create.custom.exponentiate is defined for actions.foo", () => {
+          expect(typeof actions.foo.create.custom.exponentiate).toBe("function")
+        })
+
+        test("AND create.custom is defined for actions.bar", () => {
+          expect(typeof actions.bar.create.custom.remove).toBe("function")
+        })
+
+        test("AND custom.exponentiate sets payload to be the first argument", () => {
+          const expWithOneArg = actions.foo.create.custom.exponentiate(2)
+          const expWithTwoArgs = actions.foo.create.custom.exponentiate(3, 4)
+
+          expect(expWithOneArg.payload).toBe(2)
+          expect(expWithTwoArgs.payload).toBe(3)
         })
       })
     })
