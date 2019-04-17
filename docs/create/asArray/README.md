@@ -45,6 +45,39 @@ Back to:
 * [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
 
 
+## `create.asArray.filter(callback)`
+**alias: `create.filter(callback)`** *(when `initialLeafState` is an array)*
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by selecting elements that return true when passed to `callback`.
+
+(Effectively, this uses the vanilla javascript [`Array.prototype.filter(callback)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) API.)
+
+### Parameters
+- `callback` *(function)*: the callback function to test each element with
+
+### Returns
+`action` *(object)*: an object to dispatch to the `store`
+
+### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: [1, 2, 3, 4, 5]
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(actions.foo.create.asArray.filter(e => !(e % 2)))
+console.log(store.getState().foo) // [2, 4]
+```
+Back to:
+* [`create.asArray` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
 ## `create.drop([n = 1])`
 **alias: `create.drop([n = 1])`** *(when `initialLeafState` is an array)*
 
