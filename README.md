@@ -99,5 +99,6 @@ dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increm
 ``` 
 
 #### API reference
-- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)
+- [Core: `reduxLeaves(initialState, [customLogic = {}])`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs)
 - [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create)
+- [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/customLogic.md)

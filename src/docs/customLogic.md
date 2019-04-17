@@ -1,10 +1,10 @@
-# Custom action creators
+# Custom action creators via `customLogic`
 
 The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/src/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
 However, perhaps we want to initialise with a custom action creator and reducer logic.
 
-This is what the `customLogic` object is for.
+This is what the `customLogic` object is for, passed in as a second (optional) argument to [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/src/docs).
 
 - [Shape of `customLogic`](#shape-of-customlogic)
   - [Function shorthand](#function-shorthand)
@@ -51,6 +51,8 @@ const customLogic = {
     reducer: (leafState, { payload }) => leafState - payload
   }
 }
+
+// create.custom.decrementBy(4, 5) will have a payload of 9
 ```
 
 Using longhand lets us customise further, e.g.:
