@@ -7,6 +7,8 @@ However, perhaps we want to initialise with a custom action creator and reducer 
 This is what the `customLogic` object is for.
 
 - [Shape of `customLogic`](#shape-of-customlogic)
+  - [Function shorthand](#function-shorthand)
+  - [Object longhand](#object-longhand)
 - [Example 1: custom action creator with no arguments](#example-1-custom-action-creator-with-no-arguments)
 - [Example 2: custom action creator using `payload` and `wholeState`](#example-2-custom-action-creator-using-payload-and-wholestate)
 - [Example 3: more detailed customisation with `argsToPayload`](#example-3-more-detailed-customisation-with-argstopayload)
@@ -14,7 +16,68 @@ This is what the `customLogic` object is for.
 
 ## Shape of `customLogic`
 
-`customLogic` is an object
+### Function shorthand
+
+`customLogic` is an object which, at its simplest, is `key`-`value` pairings where:
+- `key`: the name of the custom action creator,
+- `value` *(function)*: updates the leaf state to its return value, invoked with `leafState`, `{ payload }` and `wholeState`.
+
+For example:
+```js
+const customLogic = {
+  incrementByTwo: leafState => leafState + 2,
+  decrementBy: (leafState, { payload }) => leafState - payload
+}
+```
+
+This enables us to create actions for a given leaf in the following way:
+```js
+const { create } = actions.path.to.leaf
+
+const incByTwoAction = create.custom.incrementByTwo()
+const decrementByThreeAction = create.custom.decrementBy(3) // 3 becomes the action payload
+```
+
+### Object longhand
+
+The notation above is shorthand for the following:
+
+```js
+const customLogic = {
+  incrementByTwo: {
+    reducer: leafState => leafState + 2
+  },
+  decrementBy: {
+    reducer: (leafState, { payload }) => leafState - payload
+  }
+}
+```
+
+Using longhand lets us customise further, e.g.:
+
+```js
+const customLogic = {
+  decrementBySumOf: {
+    argsToPayload: (first, second) => first + second,
+    reducer: (leafState, { payload }) => leafState - payload
+  }
+}
+```
+Every logic object should fit:
+- `reducer` *(function)*: updates the leaf state to its return value, invoked with `leafState`, `{ payload }` and `wholeState`;
+- `argsToPayload` *(function, optional)*: takes the arguments passed to the action creator such that its return value becomes the action payload.
+
+We can mix and match shorthand and longhand:
+
+```js
+const customLogic = {
+  incrementByTwo: leafState => leafState + 2,
+  decrementBySumOf: {
+    argsToPayload: (first, second) => first + second,
+    reducer: (leafState, { payload }) => leafState - payload
+  }
+}
+```
 
 ## Example 1: custom action creator with no arguments
 
