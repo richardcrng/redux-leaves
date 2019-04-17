@@ -2,8 +2,11 @@ import _ from 'lodash';
 import { updateState } from './utils';
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
+import { getState } from './utils/index';
 
 export const reduxLeaves = (initialState, customLogic = {}) => {
+  Object.freeze(initialState)
+
   function rootReducer(
     state = initialState,
     { leaf = {}, type, payload } = {}
@@ -11,9 +14,7 @@ export const reduxLeaves = (initialState, customLogic = {}) => {
 
     const { path, condition, modifier, custom } = leaf
 
-    const prevLeafState = _.size(path) >= 1
-      ? _.get(state, path)
-      : state
+    const prevLeafState = getState(state, path)
 
     const newLeafState = leafReducer(
       prevLeafState,
@@ -23,9 +24,7 @@ export const reduxLeaves = (initialState, customLogic = {}) => {
       customLogic
     )
 
-    return (prevLeafState === newLeafState)
-      ? state
-      : updateLeafState(state, newLeafState, path)
+    return updateLeafState(state, newLeafState, path)
   }
 
   const actions = actionsFor(_.cloneDeep(initialState), customLogic)
