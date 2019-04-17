@@ -4,7 +4,6 @@
   "license": "MIT",
   "author": "Richard Ng (https://github.com/richardcrng)",
   "dependencies": {
-    "@babel/polyfill": "^7.4.3",
     "immer": "^2.1.5",
     "redux": "^4.0.1"
   },
