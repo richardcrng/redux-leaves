@@ -18,10 +18,10 @@ export const makeCustomActions = (customLogic = {}, pathToLeafOrBranch = []) => 
 }
 
 const makeCustomActionCreator = ({ argsToPayload }, actionName, actionTemplate) => {
-  return (...args) => {
+  return (firstArg, ...remArgs) => {
     const payload = (typeof argsToPayload === "function")
-      ? argsToPayload(args)
-      : null
+      ? argsToPayload(firstArg, ...remArgs)
+      : firstArg
 
     return actionTemplate(actionName.toUpperCase(), payload)
   }

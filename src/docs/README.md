@@ -140,7 +140,7 @@ const initialState = {
 Suppose we want to implement a custom action:
 - `double`: doubles the value of state at a leaf
 
-To do this, I need to define some custom reducer logic to pass to `reduxLeaves`:
+To do this, we need to define some custom reducer logic to pass to `reduxLeaves`:
 
 ```js
 const customLogic = {
@@ -166,4 +166,54 @@ console.log(store.getState().foo) // 9
 
 store.dispatch(actions.bar.create.custom.square())
 console.log(store.getState().bar) // 16
+```
+
+### Example 2: custom action creator with arguments
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: 2,
+  bar: [1, 2, 3, 4, 5]
+}
+```
+
+Suppose we want to implement two custom actions:
+- `exponentiate`: raises the value of state at a leaf to an exponent received as an argument
+- `remove`: removes values from an array, taking an arbitrary number of arguments
+
+To do this, we need to define some custom reducer logic to pass to `reduxLeaves`.
+
+```js
+const customLogic = {
+  exponentiate: {
+    reducer: (leafState, { payload }) => leafState ** payload
+  },
+  remove: {
+    argsToPayload: (...values) => values,
+    reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+  }
+}
+
+const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const store = createStore(reducer)
+```
+
+This creates action creators available through the `create.custom` API:
+
+```js
+console.log(typeof actions.foo.create.custom.exponentiate)  // function
+console.log(typeof actions.bar.create.custom.remove)        // function
+```
+
+The default behaviour of our custom action creators is to accept an arbitrary number of arguments and pass *only the first one* as the action's payload.
+
+```js
+const expWithOneArg = actions.foo.create.custom.exponentiate(2)
+const expWithTwoArgs = actions.foo.create.custom.exponentiate(3, 4)
+
+console.log(expWithOneArg.payload)    // 2
+console.log(expWithTwoArgs.payload)   // 3 (4 has been discarded)
 ```
