@@ -1,3 +1,8 @@
+---
+id: redux-leaves
+title: Core API
+---
+
 # Core API
 
 ## `reduxLeaves(initialState, [customLogic = {}])`
