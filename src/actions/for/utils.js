@@ -1,5 +1,5 @@
 export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
-  return (modifier, payload) => {
+  return (modifier, payload, customType = null) => {
     const type = condition
       ? `${condition}.${modifier}`
       : modifier
@@ -11,7 +11,7 @@ export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
         modifier,
         custom
       },
-      type: [...path, type].join('/'),
+      type: customType || [...path, type].join('/'),
       payload
     }
   }

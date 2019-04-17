@@ -65,9 +65,10 @@ const customLogic = {
   }
 }
 ```
-Every logic object should fit:
-- `reducer` *(function)*: updates the leaf state to its return value, invoked with `leafState`, `{ payload }` and `wholeState`;
-- `argsToPayload` *(function, optional)*: takes the arguments passed to the action creator such that its return value becomes the action payload.
+Every logic object can have the following properties:
+- `reducer` *(function)*: updates the leaf state to its return value, invoked with `leafState`, `{ payload }` and `wholeState`
+- `argsToPayload` *(function, optional)*: takes the arguments passed to the action creator such that its return value becomes the action payload
+- `type` *(string, optional)*: overrides the default `reduxLeaves`-generated action type (but does not affect reducer behaviour - the effect is only for Redux DevTools debugging)
 
 We can mix and match shorthand and longhand:
 
@@ -166,9 +167,13 @@ store.dispatch(actions.barr.create.custom.remove("foo"))
 console.log(store.getState().bar)   // [2, 4, 6, 10] <- state.foo, 8, removed
 ```
 
-## Example 3: more detailed customisation with `argsToPayload`
+## Example 3: more detailed customisation with `argsToPayload` and `type`
+
+We can achieve greater customisation of our actions using the [object longhand](#object-longhand) for our `customLogic`.
 
 Suppose we want to implement a custom `remove` action creator such that it takes an arbitrary number of arguments and, when dispatched, removes all of them from the leaf state.
+
+Let's assume that we also want this to be flagged up in a very obvious way, in Redux DevTools, by giving it some (unsightly) action type, such as `!!! HEY THERE, I DID A THING !!!`.
 
 ```js
 import { createStore } from 'redux'
@@ -181,6 +186,7 @@ const customLogic = {
   remove: {
     argsToPayload: (...values) => values,
     reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
+    type: '!!! HEY THERE, I DID A THING !!!'
   }
 }
 
@@ -192,6 +198,7 @@ Here, instead of passing in `remove` as a function, we have passed it in as an o
 
 - `argsToPayload`: this function receives all the arguments passed to the action creator, and its return value becomes the action `payload`;
 - `reducer`: the reducer logic, invoked with arguments `leafState`, `{ payload }` and `wholeState` as before.
+- `type`: the string constant for Redux DevTools to display. *This doesn't affect the reducer behaviour at all.*
 
 ```js
 const removeWithOneArg = actions.foo.create.custom.remove(4)
@@ -199,6 +206,8 @@ const removeWithTwoArgs = actions.foo.create.custom.remove(4, 8)
 
 console.log(removeWithOneArg.payload)   // [4]
 console.log(removeWithTwoArgs.payload)  // [4, 8]
+
+console.log(removeWithTwoArgs.type)     // !!! HEY THERE, I DID A THING !!!
 
 store.dispatch(removeWithTwoArgs)
 console.log(store.getState().foo)   // [2, 6, 10]

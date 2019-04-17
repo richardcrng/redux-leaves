@@ -23,7 +23,7 @@ const makeCustomActionCreator = (creatorDefinition, actionName, actionTemplate) 
         ? argsToPayload(firstArg, ...remArgs)
         : firstArg
 
-      return actionTemplate(actionName.toUpperCase(), payload)
+      return actionTemplate(actionName.toUpperCase(), payload, creatorDefinition.type)
     }
   }
 }
