@@ -2,7 +2,7 @@
 
 Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
-[![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons) [![install size](https://packagephobia.now.sh/badge?p=redux-leaves)](https://packagephobia.now.sh/result?p=redux-leaves) [![Inline docs](http://inch-ci.org/github/richardcrng/redux-leaves.svg?branch=master)](http://inch-ci.org/github/richardcrng/redux-leaves)
+[![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons) [![install size](https://packagephobia.now.sh/badge?p=redux-leaves)](https://packagephobia.now.sh/result?p=redux-leaves) [![Inline docs](http://inch-ci.org/github/richardcrng/redux-leaves.svg?branch=master)](http://inch-ci.org/github/richardcrng/redux-leaves) [![Maintainability](https://api.codeclimate.com/v1/badges/371605931cb9f824e25c/maintainability)](https://codeclimate.com/github/richardcrng/redux-leaves/maintainability)
 
 #### Getting started
 - [30 second demo](#30-second-demo)
