@@ -11,7 +11,7 @@ This is what the `customLogic` object is for, passed in as a second (optional) a
   - [Object longhand](#object-longhand)
 - [Example 1: custom action creator with no arguments](#example-1-custom-action-creator-with-no-arguments)
 - [Example 2: custom action creator using `payload` and `wholeState`](#example-2-custom-action-creator-using-payload-and-wholestate)
-- [Example 3: more detailed customisation with `argsToPayload`](#example-3-more-detailed-customisation-with-argstopayload)
+- [Example 3: more detailed customisation with `argsToPayload`](#example-3-more-detailed-customisation-with-argstopayload-and-type)
 
 
 ## Shape of `customLogic`

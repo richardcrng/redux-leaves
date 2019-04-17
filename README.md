@@ -2,6 +2,7 @@
 
 Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
 
+![Travis (.org)](https://img.shields.io/travis/richardcrng/redux-leaves.svg)
 [![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons)
 ![David](https://img.shields.io/david/richardcrng/redux-leaves.svg)
 [![install size](https://packagephobia.now.sh/badge?p=redux-leaves)](https://packagephobia.now.sh/result?p=redux-leaves)
