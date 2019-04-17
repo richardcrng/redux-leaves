@@ -90,12 +90,19 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
           expect(typeof actions.bar.create.custom.remove).toBe("function")
         })
 
-        test("AND custom.exponentiate sets payload to be the first argument", () => {
+        describe("AND we pass arguments to custom.exponentiate", () => {
           const expWithOneArg = actions.foo.create.custom.exponentiate(2)
           const expWithTwoArgs = actions.foo.create.custom.exponentiate(3, 4)
 
-          expect(expWithOneArg.payload).toBe(2)
-          expect(expWithTwoArgs.payload).toBe(3)
+          test("THEN custom.exponentiate sets payload to be the first argument", () => {
+            expect(expWithOneArg.payload).toBe(2)
+            expect(expWithTwoArgs.payload).toBe(3)
+          })
+
+          test("AND the store state updates as expected", () => {
+            store.dispatch(expWithTwoArgs)
+            expect(store.getState()).toEqual({ foo: 8, bar: [1, 2, 3, 4, 5] })
+          })
         })
       })
     })
