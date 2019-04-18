@@ -27,7 +27,10 @@
       },
       "create/core-creators": {
         "title": "Action Creators",
-        "sidebar_label": "create"
+        "sidebar_label": "Core action creators"
+      },
+      "create/type-specific": {
+        "title": "Type-specific creators"
       },
       "custom-logic": {
         "title": "Advanced Usage",

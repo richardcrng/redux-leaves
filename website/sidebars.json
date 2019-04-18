@@ -9,6 +9,7 @@
     ],
     "Actions": [
       "create/core-creators",
+      "create/type-specific",
       {
         "type": "subcategory",
         "label": "create.as",
