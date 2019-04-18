@@ -1,18 +1,27 @@
-# create.asNumber
+---
+id: number-creators
+title: Number Action Creators
+hide_title: true
+sidebar_label: Number
+---
+
+# `create.asNumber`
 
 Every single leaf on our `actions` object has access to `create.asNumber` methods.
 
-If the leaf was initialised with number state, then these methods are also accessible directly through the [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create).
+If the leaf was initialised with number state, then these methods are also accessible directly through the [`create` API](../README.md).
 
 If the current `leafState` is *not* a number, then it is first coerced into an array via lodash's [`_.toNumber(leafState)`](https://lodash.com/docs/4.17.11#toNumber) method, before the state is updated according to the action dispatched.
 
-### Action creators
-- [`create.asNumber.increment([n = 1])`](#createasnumberincrementn--1)
+## Action creators
+- [`.increment([n = 1])`](#incrementn--1)
 
-[Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+[Back to all `create` action creators](../README.md#action-creators)
 
-## `create.asNumber.increment([n = 1])`
-**alias: `create.increment([n = 1])`** *(when `initialLeafState` is a number)*
+## `increment([n = 1])`
+**`create.asNumber.increment`**
+
+**alias: `create.increment`** *(when `initialLeafState` is a number)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, increments leaf's state by `n`.
 
@@ -47,4 +56,4 @@ console.log(store.getState().bar) // -1
 ```
 Back to:
 * [`create.asNumber` action creators](#action-creators)
-* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+* [all `create` action creators](../README.md#action-creators)

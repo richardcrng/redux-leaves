@@ -14,9 +14,9 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 - [Motivation](#motivation)
 
 #### API reference
-- [Core: `reduxLeaves(initialState)`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
-- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
-- [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md)
+- [Core: `reduxLeaves(initialState)`](reduxLeaves.md)
+- [Action creators: `create`](create.md)
+- [Custom action creators via `customLogic`](customLogic.md)
 
 #### [FAQs](#faqs)
 - [What actions can I dispatch to the store?](#what-actions-can-i-dispatch-to-the-store)
@@ -116,9 +116,9 @@ dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increm
 
 ### What actions can I dispatch to the store?
 
-The `reducer` produced by `reduxLeaves` only knows how to update state in response to the `actions` produced by `reduxLeaves` - but there's a full [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) which shows what actions you can dispatch (including [`create.apply`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#createapplycallback), which takes a callback function to update state).
+The `reducer` produced by `reduxLeaves` only knows how to update state in response to the `actions` produced by `reduxLeaves` - but there's a full [`create` API](create.md) which shows what actions you can dispatch (including [`create.apply`](create.md#createapplycallback), which takes a callback function to update state).
 
-If you desire further customisation, you can add custom action creators to the `actions` returned by `reduxLeaves`, via an optional [`customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md) argument.
+If you desire further customisation, you can add custom action creators to the `actions` returned by `reduxLeaves`, via an optional [`customLogic`](customLogic.md) argument.
 
 
 ### Will dispatched actions mutate the store's state?
@@ -127,6 +127,6 @@ Even if you dispatch an action that looks like it will mutate state (e.g. `creat
 
 
 ## API reference
-- [Core: `reduxLeaves(initialState, [customLogic = {}])`](https://github.com/richardcrng/redux-leaves/tree/master/docs)
-- [Action creators: `create`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create)
-- [Custom action creators via `customLogic`](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md)
+- [Core: `reduxLeaves(initialState, [customLogic = {}])`](reduxLeaves.md)
+- [Action creators: `create`](create.md)
+- [Custom action creators via `customLogic`](customLogic.md)

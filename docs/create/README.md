@@ -1,76 +1,43 @@
-# Action creators API
+---
+id: core-creators
+title: Core Action Creators
+hide_title: true
+sidebar_label: Core creators
+---
+
+# `create`
 
 Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
 
-### Action creators
-#### Type-agnostic
-- [`create.apply(callback)`](#createapplycallback)
-- [`create.clear([toNull = false])`](#createcleartonull--false)
-- [`create.reset()`](#createreset)
-- [`create.update(value)`](#createupdatevalue)
+## Action creators
+- [`.apply(callback)`](#applycallback)
+- [`.clear([toNull = false])`](#cleartonull--false)
+- [`.reset()`](#reset)
+- [`.update(value)`](#updatevalue)
 
-#### Type-specific
-- [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)
-- [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asBoolean#createasboolean)
-- [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asNumber#createasnumber)
-- [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
-- [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
+### Type-specific
+These are [spread into the `create` object](typeSpecific.md) depending on the `initialLeafState`, or accessible through their respective APIs:
 
-It is also possible to add [custom action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs).
+- [`create.asArray`](asArray/README.md#createasarray)
+- [`create.asBoolean`](asBoolean/README.md#createasboolean)
+- [`create.asNumber`](asNumber/README.md#createasnumber)
+- [`create.asObject`](asObject/README.md#createasobject)
+- [`create.asString`](asString/README.md#createasstring)
+
+### Custom`
+
+It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../README.md).
 
 
-## Type-specific `create` methods
-
-All type-agnostic methods can be accessed through every leaf's `create` property.
-
-Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)), even if the leaf state is not an array.
-
-For convenience, *if applicable at initialisation through [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs)*, type-specific methods are also aliased so that they are directly available through `create` directly.
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  bool: false,        // initialised as boolean
-  num: 2,             // initialised as number
-  str: 'foo',         // initialised as string
-  arr: [1, 2, 3],     // initialised as array
-  obj: {}             // initialised as object
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-All leaves have access to [`create.asArray.push`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createpushelement-index---1-replace--false):
-```js
-console.log(typeof actions.bool.create.asArray.push)      // function
-console.log(typeof actions.num.create.asArray.push)       // function
-console.log(typeof actions.str.create.asArray.push)       // function
-console.log(typeof actions.str.arr.create.asArray.push)   // function
-console.log(typeof actions.str.obj.create.asArray.push)   // function
-```
-But **only** `actions.arr.create` has *direct* access to `create.push`, since it is the only leaf that was initialised as an array:
-```js
-console.log(typeof actions.bool.create.push)      // undefined
-console.log(typeof actions.num.create.push)       // undefined
-console.log(typeof actions.str.create.push)       // undefined
-console.log(typeof actions.str.arr.create.push)   // function: initialised as array
-console.log(typeof actions.str.obj.create.push)   // undefined
-```
-
-## Type-agnostic `create` methods
-
-### `create.apply(callback)`
-***(`initialLeafState`: any)***
+## `apply(callback)`
+**`create.apply`**
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, entireState)`.
 
-#### Parameters
+### Parameters
 - `callback` *(function)*: invoked by the leaf's reducer with two arguments, `leafState` and `entireState`
 
-#### Returns
+### Returns
 `action` *(object)*: an object to dispatch to the `store`
 
 #### Example
@@ -114,8 +81,8 @@ console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
 
 [Back to all `create` action creators](#action-creators)
 
-### `create.clear([toNull = false])`
-***(`initialLeafState`: any)***
+## `clear([toNull = false])`
+**`create.clear`**
 
 Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
 
@@ -126,10 +93,10 @@ If `toNull === true`, then it updates it to `null`, otherwise it follows the typ
 - *array*: `[]`
 - *object*: `{}`
 
-#### Parameters
+### Parameters
 - `toNull` *(boolean, optional)*: defaults to `false`
 
-#### Returns
+### Returns
 `action` *(object)*: an object to dispatch to the `store`
 
 #### Example
@@ -147,7 +114,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-##### bool
+#### bool
 ```js
 store.dispatch(actions.bool.create.clear())
 console.log(store.getState().bool) // false
@@ -155,7 +122,7 @@ console.log(store.getState().bool) // false
 store.dispatch(actions.bool.create.clear(true))
 console.log(store.getState().bool) // null
 ```
-##### num
+#### num
 ```js
 store.dispatch(actions.num.create.clear())
 console.log(store.getState().num) // 0
@@ -163,7 +130,7 @@ console.log(store.getState().num) // 0
 store.dispatch(actions.num.create.clear(true))
 console.log(store.getState().num) // null
 ```
-##### str
+#### str
 ```js
 store.dispatch(actions.str.create.clear(true))
 console.log(store.getState().str) // null
@@ -171,7 +138,7 @@ console.log(store.getState().str) // null
 store.dispatch(actions.str.create.clear())
 console.log(store.getState().str) // ''
 ```
-##### arr
+#### arr
 ```js
 store.dispatch(actions.arr.create.clear(true))
 console.log(store.getState().arr) // null
@@ -179,7 +146,7 @@ console.log(store.getState().arr) // null
 store.dispatch(actions.arr.create.clear())
 console.log(store.getState().arr) // []
 ```
-##### obj
+#### obj
 ```js
 store.dispatch(actions.create.clear(true))
 console.log(store.getState()) // null
@@ -190,12 +157,12 @@ console.log(store.getState()) // {}
 
 [Back to all `create` action creators](#action-creators)
 
-### `create.reset()`
-***(`initialLeafState`: any)***
+## `reset()`
+**`create.reset`**
 
 Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the actions.
 
-#### Returns
+### Returns
 `action` *(object)*: an object to dispatch to the store
 
 #### Example
@@ -236,15 +203,15 @@ console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 
 [Back to all `create` action creators](#action-creators)
 
-### `create.update(value)`
-***(`initialLeafState`: any)***
+## `update(value)`
+**`create.update`**
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
 
-#### Parameters
+### Parameters
 - `value` *(any)*: the new value for the leaf's state
 
-#### Returns
+### Returns
 `action` *(object)*: an object to dispatch to the store
 
 #### Example
