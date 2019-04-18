@@ -29,22 +29,20 @@ Returns an object that, *when dispatched to a store created with the original st
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
-// note: object leaves have to be initialised with empty objects
 const initialState = {
-  foo: {}
-  bar: { props: true }
+  foo: { props: true }
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 ```js
-store.dispatch(actions.foo.create.asObject.set('accessed', true))
-console.log(store.getState().foo.bar) // { accessed: true }
+store.dispatch(actions.foo.create.asObject.assign({ string: 'foo' }))
+console.log(store.getState().foo) // { props: true, string: 'foo' }
 ```
 ```js
-store.dispatch(actions.ar.create.asObject.set('other.thing', false))
-console.log(store.getState().foobar) // { props: true, other: { thing: false } }
+store.dispatch(actions.ar.create.asObject.assign({ props: false }))
+console.log(store.getState().foo) // { props: false, string: 'foo' }
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
@@ -69,7 +67,6 @@ Returns an object that, *when dispatched to a store created with the original st
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
-// note: object leaves have to be initialised with empty objects
 const initialState = {
   foo: {}
   bar: { props: true }
