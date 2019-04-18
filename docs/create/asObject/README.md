@@ -7,9 +7,48 @@ If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#
 If the current `leafState` is *not* a plain object, then it is first coerced into a plain object via lodash's [`_.toPlainObject(leafState)`](https://lodash.com/docs/4.17.11#toPlainObject) method, before the state is updated according to the action dispatched.
 
 ### Action creators
+- [`create.asObject.assign(...sources)`](#createasobjectassignsources)
 - [`create.asObject.set(path, value)`](#createasobjectsetpath-value)
 
 [Back to all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
+## `create.asObject.assign(...sources)`
+**alias: `create.assign(...sources)`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the copies all properties from `sources` into the leaf's state.
+
+(This is essentially a convenience wrapper on top of the vanilla JavaScript [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).)
+
+### Parameters
+- `sources` *(...objects)*: the path of the property to set
+
+### Returns
+`action` *(object)*: an object to dispatch to the store
+
+### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: { props: true }
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(actions.foo.create.asObject.assign({ string: 'foo' }))
+console.log(store.getState().foo) // { props: true, string: 'foo' }
+```
+```js
+store.dispatch(actions.ar.create.asObject.assign({ props: false }))
+console.log(store.getState().foo) // { props: false, string: 'foo' }
+```
+Back to:
+* [`create.asObject` action creators](#action-creators)
+* [all `create` action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/create#action-creators)
+
 
 ## `create.asObject.set(path, value)`
 **alias: `create.set(path, value)`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
@@ -29,7 +68,6 @@ Returns an object that, *when dispatched to a store created with the original st
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
-// note: object leaves have to be initialised with empty objects
 const initialState = {
   foo: {}
   bar: { props: true }
