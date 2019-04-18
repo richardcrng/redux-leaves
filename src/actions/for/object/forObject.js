@@ -8,9 +8,12 @@ export const forObject = (pathToLeafOrBranch = []) => {
     { condition: conditions.OBJECT }
   )
 
+  const assign = (...sources) => actionTemplate(atomicActions.ASSIGN, sources)
+
   const set = (path, value) => actionTemplate(atomicActions.SET, { path, value })
 
   return {
+    assign,
     set
   }
 }
