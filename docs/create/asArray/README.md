@@ -13,17 +13,18 @@ If the leaf was initialised with array state, then these methods are also access
 
 If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toArray(leafState)`](https://lodash.com/docs/4.17.11#toArray) method, before the state is updated according to the action dispatched.
 
-### Action creators
-- [`create.asArray.concat(array)`](#concat)
-- [`create.asArray.drop([n = 1])`](#createdropn--1)
-- [`create.asArray.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
+## Action creators
+- [`.concat(array)`](#concatarray)
+- [`.drop([n = 1])`](#createdropn--1)
+- [`.filter(callback)`](#filter(callback))
+- [`.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
 
 [Back to all `create` action creators](../README.md#action-creators)
 
 ## `concat(array)`
-**`create.asArray.concat(array)`**
+**`create.asArray.concat`**
 
-**alias: `create.concat(array)`** *(when `initialLeafState` is an array)*
+**alias: `create.concat`** *(when `initialLeafState` is an array)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `array`.
 
@@ -33,7 +34,7 @@ Returns an object that, *when dispatched to a store created with the original st
 ### Returns
 `action` *(object)*: an object to dispatch to the `store`
 
-### Example
+##### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
@@ -53,42 +54,10 @@ Back to:
 * [`create.asArray` action creators](#action-creators)
 * [all `create` action creators](../README.md#action-creators)
 
+## `drop([n = 1])`
+**`create.asArray.drop`**
 
-## `create.asArray.filter(callback)`
-**alias: `create.filter(callback)`** *(when `initialLeafState` is an array)*
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by selecting elements that return true when passed to `callback`.
-
-(Effectively, this uses the vanilla javascript [`Array.prototype.filter(callback)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) API.)
-
-### Parameters
-- `callback` *(function)*: the callback function to test each element with
-
-### Returns
-`action` *(object)*: an object to dispatch to the `store`
-
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: [1, 2, 3, 4, 5]
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.asArray.filter(e => !(e % 2)))
-console.log(store.getState().foo) // [2, 4]
-```
-Back to:
-* [`create.asArray` action creators](#action-creators)
-* [all `create` action creators](../README.md#action-creators)
-
-## `create.drop([n = 1])`
-**alias: `create.drop([n = 1])`** *(when `initialLeafState` is an array)*
+**alias: `create.drop`** *(when `initialLeafState` is an array)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
 
@@ -98,7 +67,7 @@ Returns an object that, *when dispatched to a store created with the original st
 ### Returns
 `action` *(object)*: an object to dispatch to the `store`
 
-### Example
+#### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
@@ -125,8 +94,45 @@ Back to:
 * [`create.asArray` action creators](#action-creators)
 * [all `create` action creators](../README.md#action-creators)
 
-## `create.push(element, [index = -1], [replace = false])`
-**alias: `create.push(element, [index = -1], [replace = false])`** *(when `initialLeafState` is an array)*
+## `filter(callback)`
+**via: `create.asArray.filter`**
+
+**alias: `create.filter`** *(when `initialLeafState` is an array)*
+
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by selecting elements that return true when passed to `callback`.
+
+(Effectively, this uses the vanilla javascript [`Array.prototype.filter(callback)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) API.)
+
+### Parameters
+- `callback` *(function)*: the callback function to test each element with
+
+### Returns
+`action` *(object)*: an object to dispatch to the `store`
+
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'reduxLeaves'
+
+const initialState = {
+  foo: [1, 2, 3, 4, 5]
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+```
+```js
+store.dispatch(actions.foo.create.asArray.filter(e => !(e % 2)))
+console.log(store.getState().foo) // [2, 4]
+```
+Back to:
+* [`create.asArray` action creators](#action-creators)
+* [all `create` action creators](../README.md#action-creators)
+
+## `push(element, [index = -1], [replace = false])`
+**`create.asArray.push`**
+
+**alias: `create.push`** *(when `initialLeafState` is an array)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state at index `index`. If `replace === true`, then `element` replaces the existing element with that index.
 
@@ -138,7 +144,7 @@ Returns an object that, *when dispatched to a store created with the original st
 ### Returns
 `action` *(object)*: an object to dispatch to the store
 
-### Example
+#### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
