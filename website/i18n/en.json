@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A website for testing",
+    "tagline": "Manage every leaf of your state tree",
     "docs": {
       "create/asArray/array-creators": {
         "title": "Array Action Creators",
@@ -30,7 +30,7 @@
         "sidebar_label": "create"
       },
       "custom-logic": {
-        "title": "Custom Logic",
+        "title": "Advanced Usage",
         "sidebar_label": "customLogic"
       },
       "redux-leaves": {
@@ -39,10 +39,11 @@
       }
     },
     "links": {
-      "Core API": "Core API"
+      "Docs": "Docs",
+      "GitHub": "GitHub"
     },
     "categories": {
-      "reduxLeaves API": "reduxLeaves API",
+      "Core API": "Core API",
       "Action Creators": "Action Creators"
     }
   },

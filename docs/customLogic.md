@@ -1,11 +1,11 @@
 ---
 id: custom-logic
-title: Custom Logic
+title: Advanced Usage
 hide_title: true
 sidebar_label: customLogic
 ---
 
-# Custom action creators via `customLogic`
+# `customLogic`
 
 The [`create` API](create/README.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 

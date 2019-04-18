@@ -5,9 +5,7 @@ hide_title: true
 sidebar_label: reduxLeaves
 ---
 
-# Core API
-
-## `reduxLeaves(initialState, [customLogic = {}])`
+# `reduxLeaves(initialState, [customLogic = {}])`
 
 Returns a reducer function and an object.
 

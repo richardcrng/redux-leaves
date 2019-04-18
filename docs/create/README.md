@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: create
 ---
 
-# Action Creators API
+# `create`
 
 Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
 

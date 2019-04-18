@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: create.asBoolean
 ---
 
-# create.asBoolean
+# `create.asBoolean`
 
 Every single leaf on our `actions` object has access to `create.asBoolean` methods.
 

@@ -1,6 +1,6 @@
 {
   "docs": {
-    "reduxLeaves API":[
+    "Core API":[
       "redux-leaves",
       "custom-logic"
     ],
@@ -10,11 +10,11 @@
         "type": "subcategory",
         "label": "Type-specific",
         "ids": [
+          "create/asArray/array-creators",
           "create/asBoolean/boolean-creators",
           "create/asNumber/number-creators",
-          "create/asString/string-creators",
-          "create/asArray/array-creators",
-          "create/asObject/object-creators"
+          "create/asObject/object-creators",
+          "create/asString/string-creators"
         ]
       }
     ]
