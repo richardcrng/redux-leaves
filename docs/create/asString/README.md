@@ -1,8 +1,14 @@
+---
+id: string-creators
+title: String Action Creators
+hide_title: true
+---
+
 # create.asString
 
 Every single leaf on our `actions` object has access to `create.asString` methods.
 
-If the leaf was initialised with string state, then these methods are also accessible directly through the [`create` API](create.md).
+If the leaf was initialised with string state, then these methods are also accessible directly through the [`create` API](../README.md).
 
 If the current `leafState` is *not* a string, then it is first coerced into a string via lodash's [`_.toString(leafState)`](https://lodash.com/docs/4.17.11#toString) method, before the state is updated according to the action dispatched.
 
@@ -10,7 +16,7 @@ If the current `leafState` is *not* a string, then it is first coerced into a st
 - [`create.asString.concat(...strings)`](#createasstringconcatstrings)
 - [`create.asString.replace(pattern, replacement)`](#createasstringreplacepattern-replacement)
 
-[Back to all `create` action creators](create.md#action-creators)
+[Back to all `create` action creators](../README.md#action-creators)
 
 ## `create.asString.concat(...strings)`
 **alias: `create.concat(...strings)`** *(when `initialLeafState` is a string)*
@@ -69,4 +75,4 @@ console.log(store.getState().foo) // 'Boo'
 ```
 Back to:
 * [`create.asString` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)

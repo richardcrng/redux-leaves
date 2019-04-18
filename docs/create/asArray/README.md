@@ -1,8 +1,14 @@
+---
+id: array-creators
+title: Array Action Creators
+hide_title: true
+---
+
 # create.asArray
 
 Every single leaf on our `actions` object has access to `create.asArray` methods.
 
-If the leaf was initialised with array state, then these methods are also accessible directly through the [`create` API](create.md).
+If the leaf was initialised with array state, then these methods are also accessible directly through the [`create` API](../README.md).
 
 If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toArray(leafState)`](https://lodash.com/docs/4.17.11#toArray) method, before the state is updated according to the action dispatched.
 
@@ -11,7 +17,7 @@ If the current `leafState` is *not* an array, then it is first coerced into an a
 - [`create.asArray.drop([n = 1])`](#createdropn--1)
 - [`create.asArray.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
 
-[Back to all `create` action creators](create.md#action-creators)
+[Back to all `create` action creators](../README.md#action-creators)
 
 ## `create.asArray.concat(array)`
 **alias: `create.concat(array)`** *(when `initialLeafState` is an array)*
@@ -42,7 +48,7 @@ console.log(store.getState().foo) // [1, 2, 3, 'a', 'b', 'c']
 ```
 Back to:
 * [`create.asArray` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)
 
 
 ## `create.asArray.filter(callback)`
@@ -76,7 +82,7 @@ console.log(store.getState().foo) // [2, 4]
 ```
 Back to:
 * [`create.asArray` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)
 
 ## `create.drop([n = 1])`
 **alias: `create.drop([n = 1])`** *(when `initialLeafState` is an array)*
@@ -114,7 +120,7 @@ console.log(store.getState().bar) // ['c']
 ```
 Back to:
 * [`create.asArray` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)
 
 ## `create.push(element, [index = -1], [replace = false])`
 **alias: `create.push(element, [index = -1], [replace = false])`** *(when `initialLeafState` is an array)*
@@ -160,4 +166,4 @@ console.log(store.getState().foobar) // [4, 2, 3]
 ```
 Back to:
 * [`create.asArray` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)

@@ -5,26 +5,26 @@
     "previous": "Previous",
     "tagline": "A website for testing",
     "docs": {
-      "create/asArray/README": {
-        "title": "create/asArray/README"
+      "create/asArray/array-creators": {
+        "title": "Array Action Creators"
       },
-      "create/asBoolean/README": {
-        "title": "create/asBoolean/README"
+      "create/asBoolean/boolean-creators": {
+        "title": "Boolean Action Creators"
       },
-      "create/asNumber/README": {
-        "title": "create/asNumber/README"
+      "create/asNumber/number-creators": {
+        "title": "Number Action Creators"
       },
-      "create/asObject/README": {
-        "title": "create/asObject/README"
+      "create/asObject/object-creators": {
+        "title": "Object Action Creators"
       },
-      "create/asString/README": {
-        "title": "create/asString/README"
+      "create/asString/string-creators": {
+        "title": "String Action Creators"
       },
-      "create/action-creators": {
-        "title": "Create API"
+      "create/core-creators": {
+        "title": "Action Creators"
       },
       "custom-logic": {
-        "title": "Custom logic"
+        "title": "Custom Logic"
       },
       "redux-leaves": {
         "title": "Core API"

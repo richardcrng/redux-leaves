@@ -1,10 +1,10 @@
 ---
-id: action-creators
-title: Create API
+id: core-creators
+title: Action Creators
 hide_title: true
 ---
 
-# Action creators API
+# Action Creators API
 
 Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
 
@@ -16,22 +16,22 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.update(value)`](#createupdatevalue)
 
 #### Type-specific
-- [`create.asArray`](asArray/#createasarray)
-- [`create.asBoolean`](asBoolean/#createasboolean)
-- [`create.asNumber`](asNumber/#createasnumber)
-- [`create.asObject`](asObject/#createasobject)
-- [`create.asString`](asString/#createasstring)
+- [`create.asArray`](asArray/README.md#createasarray)
+- [`create.asBoolean`](asBoolean/README.md#createasboolean)
+- [`create.asNumber`](asNumber/README.md#createasnumber)
+- [`create.asObject`](asObject/README.md#createasobject)
+- [`create.asString`](asString/README.md#createasstring)
 
-It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../reduxLeaves.md).
+It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../README.md).
 
 
 ## Type-specific `create` methods
 
 All type-agnostic methods can be accessed through every leaf's `create` property.
 
-Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)), even if the leaf state is not an array.
+Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](asArray/README.md#createasarray)), even if the leaf state is not an array.
 
-For convenience, *if applicable at initialisation through [`reduxLeaves`](reduxLeaves.md)*, type-specific methods are also aliased so that they are directly available through `create` directly.
+For convenience, *if applicable at initialisation through [`reduxLeaves`](../README.md)*, type-specific methods are also aliased so that they are directly available through `create` directly.
 
 ### Example
 ```js
@@ -49,7 +49,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-All leaves have access to [`create.asArray.push`](asArray/asArray.md#createpushelement-index---1-replace--false):
+All leaves have access to [`create.asArray.push`](asArray/README.md#createpushelement-index---1-replace--false):
 ```js
 console.log(typeof actions.bool.create.asArray.push)      // function
 console.log(typeof actions.num.create.asArray.push)       // function

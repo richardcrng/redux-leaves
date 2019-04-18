@@ -1,8 +1,14 @@
+---
+id: object-creators
+title: Object Action Creators
+hide_title: true
+---
+
 # create.asObject
 
 Every single leaf on our `actions` object has access to `create.asObject` methods.
 
-If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#isPlainObject) state, then these methods are also accessible directly through the [`create` API](create.md).
+If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#isPlainObject) state, then these methods are also accessible directly through the [`create` API](../README.md).
 
 If the current `leafState` is *not* a plain object, then it is first coerced into a plain object via lodash's [`_.toPlainObject(leafState)`](https://lodash.com/docs/4.17.11#toPlainObject) method, before the state is updated according to the action dispatched.
 
@@ -10,7 +16,7 @@ If the current `leafState` is *not* a plain object, then it is first coerced int
 - [`create.asObject.assign(...sources)`](#createasobjectassignsources)
 - [`create.asObject.set(path, value)`](#createasobjectsetpath-value)
 
-[Back to all `create` action creators](create.md#action-creators)
+[Back to all `create` action creators](../README.md#action-creators)
 
 ## `create.asObject.assign(...sources)`
 **alias: `create.assign(...sources)`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
@@ -47,7 +53,7 @@ console.log(store.getState().foo) // { props: false, string: 'foo' }
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)
 
 
 ## `create.asObject.set(path, value)`
@@ -86,4 +92,4 @@ console.log(store.getState().foobar) // { props: true, other: { thing: false } }
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
-* [all `create` action creators](create.md#action-creators)
+* [all `create` action creators](../README.md#action-creators)
