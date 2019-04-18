@@ -1,5 +1,6 @@
 export const atomicActions = {
   APPLY: "APPLY",           // updates slice of state by applying payload (function) to it
+  ASSIGN: "ASSIGN",
   CLEAR: "CLEAR",           // updates slice of state to null
   CONCAT: "CONCAT",         // concats payload to state
   DROP: "DROP",             // non-mutative drop of n elements from array's beginning
