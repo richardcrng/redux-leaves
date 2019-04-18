@@ -13,14 +13,16 @@ If the leaf was initialised with string state, then these methods are also acces
 
 If the current `leafState` is *not* a string, then it is first coerced into a string via lodash's [`_.toString(leafState)`](https://lodash.com/docs/4.17.11#toString) method, before the state is updated according to the action dispatched.
 
-### Action creators
-- [`create.asString.concat(...strings)`](#createasstringconcatstrings)
-- [`create.asString.replace(pattern, replacement)`](#createasstringreplacepattern-replacement)
+## Action creators
+- [`.concat(...strings)`](#concatstrings)
+- [`.replace(pattern, replacement)`](#replacepattern-replacement)
 
 [Back to all `create` action creators](../README.md#action-creators)
 
-## `create.asString.concat(...strings)`
-**alias: `create.concat(...strings)`** *(when `initialLeafState` is a string)*
+## `concat(...strings)`
+**`create.asString.concat`**
+
+**alias: `create.concat`** *(when `initialLeafState` is a string)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `strings`.
 
@@ -30,7 +32,7 @@ Returns an object that, *when dispatched to a store created with the original st
 ### Returns
 `action` *(object)*: an object to dispatch to the store
 
-### Example
+#### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
@@ -47,8 +49,10 @@ store.dispatch(actions.foo.create.asString.concat('bar', '!'))
 console.log(store.getState().foo) // 'foobar!'
 ```
 
-## `create.asString.replace(pattern, replacement)`
-**alias: `create.replace(pattern, replacement)`** *(when `initialLeafState` is a string)*
+## `replace(pattern, replacement)`
+**`create.asString.replace`**
+
+**alias: `create.replace`** *(when `initialLeafState` is a string)*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by replacing some, or all, matches of `pattern` with `replacement`.
 
@@ -58,7 +62,7 @@ Returns an object that, *when dispatched to a store created with the original st
 ### Returns
 `action` *(object)*: an object to dispatch to the store
 
-### Example
+#### Example
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
