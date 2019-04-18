@@ -1,5 +1,5 @@
 ---
-id: create
+id: action-creators
 title: Create API
 hide_title: true
 ---

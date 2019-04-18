@@ -5,22 +5,22 @@
     "previous": "Previous",
     "tagline": "A website for testing",
     "docs": {
-      "create/asArray/asArray": {
-        "title": "create/asArray/asArray"
+      "create/asArray/README": {
+        "title": "create/asArray/README"
       },
-      "create/asBoolean/asBoolean": {
-        "title": "create/asBoolean/asBoolean"
+      "create/asBoolean/README": {
+        "title": "create/asBoolean/README"
       },
-      "create/asNumber/asNumber": {
-        "title": "create/asNumber/asNumber"
+      "create/asNumber/README": {
+        "title": "create/asNumber/README"
       },
-      "create/asObject/asObject": {
-        "title": "create/asObject/asObject"
+      "create/asObject/README": {
+        "title": "create/asObject/README"
       },
-      "create/asString/asString": {
-        "title": "create/asString/asString"
+      "create/asString/README": {
+        "title": "create/asString/README"
       },
-      "create/create": {
+      "create/action-creators": {
         "title": "Create API"
       },
       "custom-logic": {

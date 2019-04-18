@@ -119,7 +119,7 @@ This API allows for concise but descriptive dispatching of actions.
 store.dispatch(actions.foo.create.push('FOO'))
 ```
 
-For full details of the methods available, please see the [`create` API](create).
+For full details of the methods available, please see the [`create` API](create/create.md).
 
 ### Advanced usage
 
