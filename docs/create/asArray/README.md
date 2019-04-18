@@ -2,7 +2,7 @@
 id: array-creators
 title: Array Action Creators
 hide_title: true
-sidebar_label: create.asArray
+sidebar_label: Array
 ---
 
 # `create.asArray`

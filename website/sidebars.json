@@ -1,14 +1,17 @@
 {
   "docs": {
+    "Introduction": [
+      "motivation"
+    ],
     "Core API":[
       "redux-leaves",
       "custom-logic"
     ],
-    "Action Creators": [
+    "Actions": [
       "create/core-creators",
       {
         "type": "subcategory",
-        "label": "Type-specific",
+        "label": "create.as",
         "ids": [
           "create/asArray/array-creators",
           "create/asBoolean/boolean-creators",

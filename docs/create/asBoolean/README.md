@@ -2,7 +2,7 @@
 id: boolean-creators
 title: Boolean Action Creators
 hide_title: true
-sidebar_label: create.asBoolean
+sidebar_label: Boolean
 ---
 
 # `create.asBoolean`

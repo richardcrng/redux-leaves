@@ -2,7 +2,7 @@
 id: object-creators
 title: Object Action Creators
 hide_title: true
-sidebar_label: create.asObject
+sidebar_label: Object
 ---
 
 # `create.asObject`

@@ -7,23 +7,23 @@
     "docs": {
       "create/asArray/array-creators": {
         "title": "Array Action Creators",
-        "sidebar_label": "create.asArray"
+        "sidebar_label": "Array"
       },
       "create/asBoolean/boolean-creators": {
         "title": "Boolean Action Creators",
-        "sidebar_label": "create.asBoolean"
+        "sidebar_label": "Boolean"
       },
       "create/asNumber/number-creators": {
         "title": "Number Action Creators",
-        "sidebar_label": "create.asNumber"
+        "sidebar_label": "Number"
       },
       "create/asObject/object-creators": {
         "title": "Object Action Creators",
-        "sidebar_label": "create.asObject"
+        "sidebar_label": "Object"
       },
       "create/asString/string-creators": {
         "title": "String Action Creators",
-        "sidebar_label": "create.asString"
+        "sidebar_label": "String"
       },
       "create/core-creators": {
         "title": "Action Creators",
@@ -44,7 +44,7 @@
     },
     "categories": {
       "Core API": "Core API",
-      "Action Creators": "Action Creators"
+      "Actions": "Actions"
     }
   },
   "pages-strings": {

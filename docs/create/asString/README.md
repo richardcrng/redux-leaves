@@ -2,7 +2,7 @@
 id: string-creators
 title: String Action Creators
 hide_title: true
-sidebar_label: create.asString
+sidebar_label: String
 ---
 
 # `create.asString`
