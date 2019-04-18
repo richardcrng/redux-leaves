@@ -22,7 +22,7 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
 - [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
 
-It is also possible to add [custom action creators](customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](reduxLeaves.md).
+It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../reduxLeaves.md).
 
 
 ## Type-specific `create` methods
@@ -49,7 +49,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
-All leaves have access to [`create.asArray.push`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createpushelement-index---1-replace--false):
+All leaves have access to [`create.asArray.push`](asArray/asArray.md#createpushelement-index---1-replace--false):
 ```js
 console.log(typeof actions.bool.create.asArray.push)      // function
 console.log(typeof actions.num.create.asArray.push)       // function
