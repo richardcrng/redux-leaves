@@ -16,11 +16,11 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.update(value)`](#createupdatevalue)
 
 #### Type-specific
-- [`create.asArray`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)
-- [`create.asBoolean`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asBoolean#createasboolean)
-- [`create.asNumber`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asNumber#createasnumber)
-- [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
-- [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
+- [`create.asArray`](asArray/#createasarray)
+- [`create.asBoolean`](asBoolean/#createasboolean)
+- [`create.asNumber`](asNumber/#createasnumber)
+- [`create.asObject`](asObject/#createasobject)
+- [`create.asString`](asString/#createasstring)
 
 It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../reduxLeaves.md).
 
