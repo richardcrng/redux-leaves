@@ -1,3 +1,9 @@
+---
+id: create
+title: Create API
+hide_title: true
+---
+
 # Action creators API
 
 Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.

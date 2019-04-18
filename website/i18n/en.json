@@ -5,23 +5,23 @@
     "previous": "Previous",
     "tagline": "A website for testing",
     "docs": {
-      "create/asArray/README": {
-        "title": "create/asArray/README"
+      "create/asArray/asArray": {
+        "title": "create/asArray/asArray"
       },
-      "create/asBoolean/README": {
-        "title": "create/asBoolean/README"
+      "create/asBoolean/asBoolean": {
+        "title": "create/asBoolean/asBoolean"
       },
-      "create/asNumber/README": {
-        "title": "create/asNumber/README"
+      "create/asNumber/asNumber": {
+        "title": "create/asNumber/asNumber"
       },
-      "create/asObject/README": {
-        "title": "create/asObject/README"
+      "create/asObject/asObject": {
+        "title": "create/asObject/asObject"
       },
-      "create/asString/README": {
-        "title": "create/asString/README"
+      "create/asString/asString": {
+        "title": "create/asString/asString"
       },
-      "create/README": {
-        "title": "create/README"
+      "create/create": {
+        "title": "create/create"
       },
       "custom-logic": {
         "title": "Custom logic"
