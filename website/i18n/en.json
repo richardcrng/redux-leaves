@@ -33,6 +33,10 @@
         "title": "Advanced Usage",
         "sidebar_label": "customLogic"
       },
+      "motivation": {
+        "title": "Motivation",
+        "sidebar_label": "Motivation"
+      },
       "redux-leaves": {
         "title": "Core API",
         "sidebar_label": "reduxLeaves"
@@ -43,6 +47,7 @@
       "GitHub": "GitHub"
     },
     "categories": {
+      "Introduction": "Introduction",
       "Core API": "Core API",
       "Actions": "Actions"
     }
