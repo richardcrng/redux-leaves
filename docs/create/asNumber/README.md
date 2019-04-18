@@ -14,7 +14,7 @@ If the leaf was initialised with number state, then these methods are also acces
 If the current `leafState` is *not* a number, then it is first coerced into an array via lodash's [`_.toNumber(leafState)`](https://lodash.com/docs/4.17.11#toNumber) method, before the state is updated according to the action dispatched.
 
 ## Action creators
-- [`increment([n = 1])`](#incrementn--1)
+- [`.increment([n = 1])`](#incrementn--1)
 
 [Back to all `create` action creators](../README.md#action-creators)
 
