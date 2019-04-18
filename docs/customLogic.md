@@ -6,7 +6,7 @@ hide_title: true
 
 # Custom action creators via `customLogic`
 
-The [`create` API](create.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
+The [`create` API](create/create.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
 However, perhaps we want to initialise with a custom action creator and reducer logic.
 
