@@ -2,6 +2,7 @@
 id: redux-leaves
 title: Core API
 hide_title: true
+sidebar_label: reduxLeaves
 ---
 
 # Core API

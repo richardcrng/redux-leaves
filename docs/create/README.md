@@ -2,6 +2,7 @@
 id: core-creators
 title: Action Creators
 hide_title: true
+sidebar_label: create
 ---
 
 # Action Creators API

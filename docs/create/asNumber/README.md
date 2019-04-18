@@ -2,6 +2,7 @@
 id: number-creators
 title: Number Action Creators
 hide_title: true
+sidebar_label: create.asNumber
 ---
 
 # create.asNumber

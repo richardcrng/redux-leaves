@@ -2,6 +2,7 @@
 id: custom-logic
 title: Custom Logic
 hide_title: true
+sidebar_label: customLogic
 ---
 
 # Custom action creators via `customLogic`

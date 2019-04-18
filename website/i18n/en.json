@@ -6,35 +6,44 @@
     "tagline": "A website for testing",
     "docs": {
       "create/asArray/array-creators": {
-        "title": "Array Action Creators"
+        "title": "Array Action Creators",
+        "sidebar_label": "create.asArray"
       },
       "create/asBoolean/boolean-creators": {
-        "title": "Boolean Action Creators"
+        "title": "Boolean Action Creators",
+        "sidebar_label": "create.asBoolean"
       },
       "create/asNumber/number-creators": {
-        "title": "Number Action Creators"
+        "title": "Number Action Creators",
+        "sidebar_label": "create.asNumber"
       },
       "create/asObject/object-creators": {
-        "title": "Object Action Creators"
+        "title": "Object Action Creators",
+        "sidebar_label": "create.asObject"
       },
       "create/asString/string-creators": {
-        "title": "String Action Creators"
+        "title": "String Action Creators",
+        "sidebar_label": "create.asString"
       },
       "create/core-creators": {
-        "title": "Action Creators"
+        "title": "Action Creators",
+        "sidebar_label": "create"
       },
       "custom-logic": {
-        "title": "Custom Logic"
+        "title": "Custom Logic",
+        "sidebar_label": "customLogic"
       },
       "redux-leaves": {
-        "title": "Core API"
+        "title": "Core API",
+        "sidebar_label": "reduxLeaves"
       }
     },
     "links": {
       "Core API": "Core API"
     },
     "categories": {
-      "Core API": "Core API"
+      "reduxLeaves API": "reduxLeaves API",
+      "Action Creators": "Action Creators"
     }
   },
   "pages-strings": {
