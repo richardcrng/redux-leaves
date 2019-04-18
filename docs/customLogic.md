@@ -6,11 +6,11 @@ hide_title: true
 
 # Custom action creators via `customLogic`
 
-The [`create` API](https://github.com/richardcrng/redux-leaves/tree/master/docs/create) comes with several action creators, which our initialised `reducer` already knows how to respond to.
+The [`create` API](create.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
 However, perhaps we want to initialise with a custom action creator and reducer logic.
 
-This is what the `customLogic` object is for, passed in as a second (optional) argument to [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs).
+This is what the `customLogic` object is for, passed in as a second (optional) argument to [`reduxLeaves`](reduxLeaves.md).
 
 - [Shape of `customLogic`](#shape-of-customlogic)
   - [Function shorthand](#function-shorthand)

@@ -16,7 +16,7 @@ Every single leaf on our `actions` object has a `create` property, through which
 - [`create.asObject`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asObject#createasobject)
 - [`create.asString`](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asString#createasstring)
 
-It is also possible to add [custom action creators](https://github.com/richardcrng/redux-leaves/tree/master/docs/customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs).
+It is also possible to add [custom action creators](customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](reduxLeaves.md).
 
 
 ## Type-specific `create` methods
@@ -25,7 +25,7 @@ All type-agnostic methods can be accessed through every leaf's `create` property
 
 Additionally, every leaf has access to type-specific methods (e.g. [`create.asArray` methods](https://github.com/richardcrng/redux-leaves/tree/master/docs/create/asArray#createasarray)), even if the leaf state is not an array.
 
-For convenience, *if applicable at initialisation through [`reduxLeaves`](https://github.com/richardcrng/redux-leaves/tree/master/docs)*, type-specific methods are also aliased so that they are directly available through `create` directly.
+For convenience, *if applicable at initialisation through [`reduxLeaves`](reduxLeaves.md)*, type-specific methods are also aliased so that they are directly available through `create` directly.
 
 ### Example
 ```js
