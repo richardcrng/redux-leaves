@@ -31,13 +31,13 @@ import reduxLeaves from 'redux-leaves'
 const initialState = {
   counter: 1,
   foo: ['foo'],
-  nest: {}
+  nest: { deep: {} }
 }
 
 const reducers = {
   increment: leafState => leafState + 1,
   push: (leafState, { payload }) => leafState.push(payload),
-  recurse: (leafState, _, wholeState) => ({ ...leafState, ...wholeState })
+  recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
 }
 
 const [reducer, actions] = reduxLeaves(initialState, reducers)
@@ -48,18 +48,20 @@ const store = createStore(reducer)
 
 ```js
 store.dispatch(actions.counter.create.increment())
-console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: {} }
+console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
 
 store.dispatch(actions.foo.create.push('bar'))
-console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: {} }
+console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
 
-store.dispatch(actions.nest.create.recurse())
+store.dispatch(actions.nest.deep.create.recurse('counter'))
 console.log(store.getState())
 /*
   {
     counter: 2,
     foo: ['foo', 'bar'],
-    nest: { counter: 2, foo: ['foo', 'bar'], nest: {} }
+    nest: {
+      deep: { counter: 2 }
+    }
   }
 */
 ```
