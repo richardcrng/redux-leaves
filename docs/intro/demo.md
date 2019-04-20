@@ -25,7 +25,7 @@ const initialState = {
 
 const reducers = {
   increment: leafState => leafState + 1,
-  push: (leafState, { payload }) => leafState.push(payload),
+  push: (leafState, { payload }) => [...leafState, payload],
   recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
 }
 

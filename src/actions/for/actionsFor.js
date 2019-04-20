@@ -72,7 +72,8 @@ const createFor = (stateShape, customLogic, pathToLeafOrBranch = []) => {
     asNumber,
     asObject,
     asString,
-    custom
+    custom,
+    ...custom
   }
 }
 
