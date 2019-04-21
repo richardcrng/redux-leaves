@@ -34,7 +34,7 @@
       },
       "custom-logic": {
         "title": "Advanced Usage",
-        "sidebar_label": "customLogic"
+        "sidebar_label": "customReducers"
       },
       "motivation": {
         "title": "Motivation",

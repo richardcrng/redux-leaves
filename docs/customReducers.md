@@ -1,19 +1,19 @@
 ---
-id: custom-logic
+id: custom-reducers
 title: Advanced Usage
 hide_title: true
-sidebar_label: customLogic
+sidebar_label: customReducers
 ---
 
-# `customLogic`
+# `customReducers`
 
 The [`create` API](create/README.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
-However, perhaps we want to initialise with a custom action creator and reducer logic.
+However, perhaps we want to initialise with a custom action creator and reducer reducers.
 
-This is what the `customLogic` object is for, passed in as a second (optional) argument to [`reduxLeaves`](README.md).
+This is what the `customReducers` object is for, passed in as a second (optional) argument to [`reduxLeaves`](README.md).
 
-- [Shape of `customLogic`](#shape-of-customlogic)
+- [Shape of `customReducers`](#shape-of-customreducers)
   - [Function shorthand](#function-shorthand)
   - [Object longhand](#object-longhand)
 - [Example 1: custom action creator with no arguments](#example-1-custom-action-creator-with-no-arguments)
@@ -21,17 +21,17 @@ This is what the `customLogic` object is for, passed in as a second (optional) a
 - [Example 3: more detailed customisation with `argsToPayload`](#example-3-more-detailed-customisation-with-argstopayload-and-type)
 
 
-## Shape of `customLogic`
+## Shape of `customReducers`
 
 ### Function shorthand
 
-`customLogic` is an object which, at its simplest, is `key`-`value` pairings where:
+`customReducers` is an object which, at its simplest, is `key`-`value` pairings where:
 - `key`: the name of the custom action creator,
 - `value` *(function)*: updates the leaf state to its return value, invoked with `leafState`, `{ payload }` and `wholeState`.
 
 For example:
 ```js
-const customLogic = {
+const customReducers = {
   incrementByTwo: leafState => leafState + 2,
   decrementBy: (leafState, { payload }) => leafState - payload
 }
@@ -50,7 +50,7 @@ const decrementByThreeAction = create.custom.decrementBy(3) // 3 becomes the act
 The notation above is shorthand for the following:
 
 ```js
-const customLogic = {
+const customReducers = {
   incrementByTwo: {
     reducer: leafState => leafState + 2
   },
@@ -65,7 +65,7 @@ const customLogic = {
 Using longhand lets us customise further, e.g.:
 
 ```js
-const customLogic = {
+const customReducers = {
   decrementBySumOf: {
     argsToPayload: (first, second) => first + second,
     reducer: (leafState, { payload }) => leafState - payload
@@ -80,7 +80,7 @@ Every logic object can have the following properties:
 We can mix and match shorthand and longhand:
 
 ```js
-const customLogic = {
+const customReducers = {
   incrementByTwo: leafState => leafState + 2,
   decrementBySumOf: {
     argsToPayload: (first, second) => first + second,
@@ -109,13 +109,13 @@ Suppose we want to implement a custom action:
 To do this, we need to define some custom reducer logic to pass to `reduxLeaves`:
 
 ```js
-const customLogic = {
+const customReducers = {
   square: leafState => leafState ** 2 // ES6 exponentiation
 }
 ```
 We then pass this into `reduxLeaves`:
 ```js
-const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const [reducer, actions] = reduxLeaves(initialState, customReducers)
 const store = createStore(reducer)
 ```
 And now we can access the `square` action creator through the `create.custom` API:
@@ -151,12 +151,12 @@ Suppose we want to implement two custom actions:
 - `remove`: removes values from the value of state at a leaf based on a value elsewhere, as indicated by an argument
 
 ```js
-const customLogic = {
+const customReducers = {
   exponentiate: (leafState, { payload }) => leafState ** payload,
   remove: (leafState, { payload }, wholeState) => leafState.filter(e => e != wholeState[payload])
 }
 
-const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const [reducer, actions] = reduxLeaves(initialState, customReducers)
 const store = createStore(reducer)
 
 // Testing that the action creators take only the first argument to be the payload:
@@ -176,7 +176,7 @@ console.log(store.getState().bar)   // [2, 4, 6, 10] <- state.foo, 8, removed
 
 ## Example 3: more detailed customisation with `argsToPayload` and `type`
 
-We can achieve greater customisation of our actions using the [object longhand](#object-longhand) for our `customLogic`.
+We can achieve greater customisation of our actions using the [object longhand](#object-longhand) for our `customReducers`.
 
 Suppose we want to implement a custom `remove` action creator such that it takes an arbitrary number of arguments and, when dispatched, removes all of them from the leaf state.
 
@@ -189,7 +189,7 @@ import reduxLeaves from 'reduxLeaves'
 const initialState = {
   foo: [2, 4, 6, 8, 10]
 }
-const customLogic = {
+const customReducers = {
   remove: {
     argsToPayload: (...values) => values,
     reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e))
@@ -197,7 +197,7 @@ const customLogic = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState, customLogic)
+const [reducer, actions] = reduxLeaves(initialState, customReducers)
 const store = createStore(reducer)
 ```
 

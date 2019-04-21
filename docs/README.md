@@ -5,13 +5,13 @@ hide_title: true
 sidebar_label: reduxLeaves
 ---
 
-# `reduxLeaves(initialState, [customLogic = {}])`
+# `reduxLeaves(initialState, [customReducers = {}])`
 
 Returns a reducer function and an object.
 
 ### Parameters
 - `initialState` *(object)*: the state shape and initial values for your redux store
-- [`customLogic`](customLogic.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
+- [`customReducers`](customReducers.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
 
 ### Returns
 `array`, with two elements:
@@ -122,4 +122,4 @@ For full details of the methods available, please see the [`create` API](create/
 
 ### Advanced usage
 
-If you wish to augment the `create` API, then it is possible to define some `create.custom` action creators through a [`customLogic`](customLogic.md) object passed into `reduxLeaves`.
+If you wish to augment the `create` API, then it is possible to define some `create.custom` action creators through a [`customReducers`](customReducers.md) object passed into `reduxLeaves`.
