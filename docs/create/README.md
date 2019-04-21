@@ -26,7 +26,7 @@ These are [spread into the `create` object](typeSpecific.md) depending on the `i
 
 ### Custom`
 
-It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../README.md).
+It is also possible to add [custom action creators](../customReducers.md) by passing in a `customReducers` argument to [`reduxLeaves`](../README.md).
 
 
 ## `apply(callback)`

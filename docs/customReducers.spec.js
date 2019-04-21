@@ -2,21 +2,21 @@ import _ from 'lodash';
 import { createStore } from "redux";
 import reduxLeaves from '../src';
 
-describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
+describe("API: reduxLeaves(initialState, [customReducers = {}])", () => {
 
   describe("Example 1: custom action creator with no arguments", () => {
-    describe("GIVEN initialState and customLogic", () => {
+    describe("GIVEN initialState and customReducers", () => {
       const initialState = {
         foo: 3,
         bar: 4
       }
 
-      const customLogic = {
+      const customReducers = {
         square: leafState => leafState ** 2
       }
 
-      describe("WHEN we pass initialState and customLogic to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customLogic)
+      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
+        const [reducer, actions] = reduxLeaves(initialState, customReducers)
         let store
 
         beforeEach(() => store = createStore(reducer))
@@ -54,19 +54,19 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
   })
 
   describe("Example 2: custom action creator using payload and wholeState", () => {
-    describe("GIVEN initialState and customLogic", () => {
+    describe("GIVEN initialState and customReducers", () => {
       const initialState = {
         foo: 2,
         bar: [2, 4, 6, 8, 10]
       }
 
-      const customLogic = {
+      const customReducers = {
         exponentiate: (leafState, { payload }) => leafState ** payload,
         remove: (leafState, { payload }, wholeState) => leafState.filter(e => e != wholeState[payload])
       }
 
-      describe("WHEN we pass initialState and customLogic to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customLogic)
+      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
+        const [reducer, actions] = reduxLeaves(initialState, customReducers)
         let store
 
         beforeEach(() => store = createStore(reducer))
@@ -121,12 +121,12 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
   })
 
   describe("Example 3: more detailed customisation with argsToPayload", () => {
-    describe("GIVEN initialState and customLogic", () => {
+    describe("GIVEN initialState and customReducers", () => {
       const initialState = {
         foo: [2, 4, 6, 8, 10]
       }
 
-      const customLogic = {
+      const customReducers = {
         remove: {
           argsToPayload: (...values) => values,
           reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e)),
@@ -134,8 +134,8 @@ describe("API: reduxLeaves(initialState, [customLogic = {}])", () => {
         }
       }
 
-      describe("WHEN we pass initialState and customLogic to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customLogic)
+      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
+        const [reducer, actions] = reduxLeaves(initialState, customReducers)
         let store
 
         beforeEach(() => store = createStore(reducer))

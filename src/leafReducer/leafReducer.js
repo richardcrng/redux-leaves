@@ -13,12 +13,12 @@ export const leafReducer = (
   { path, condition, modifier, payload, custom },
   wholeState,
   initialWhole,
-  customLogic
+  customReducers
   ) => {
 
   // Custom actions
   if (custom) {
-    return leafReducerCustom(customLogic, leafState, { modifier, payload }, wholeState)
+    return leafReducerCustom(customReducers, leafState, { modifier, payload }, wholeState)
   }
   
   // Type-specific actions

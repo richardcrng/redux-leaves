@@ -5,7 +5,7 @@ import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
 import { getState } from './utils/index';
 
-export const reduxLeaves = (initialState, customLogic = {}) => {
+export const reduxLeaves = (initialState, customReducers = {}) => {
   function immeredReducer(
     state = initialState,
     { leaf = {}, type, payload } = {}
@@ -20,14 +20,14 @@ export const reduxLeaves = (initialState, customLogic = {}) => {
         { path, condition, modifier, payload, custom },
         draftState,
         initialState,
-        customLogic
+        customReducers
       )
 
       return updateState(draftState, path, newLeafState)
     })
   }
 
-  const actions = actionsFor(_.cloneDeep(initialState), customLogic)
+  const actions = actionsFor(_.cloneDeep(initialState), customReducers)
 
   return [immeredReducer, actions]
 }
