@@ -47,6 +47,9 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - Advanced customisation.
 
 ### Quick setup
+1. Define initial state and optional reducer logic;
+2. Pass to `reduxLeaves`;
+3. Done!
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
@@ -57,6 +60,7 @@ const initialState = {
   nest: { deep: {} }
 }
 
+// Optional reducer logic:
 const reducers = {
   increment: leafState => leafState + 1,
   push: (leafState, { payload }) => [...leafState, payload],
@@ -66,6 +70,8 @@ const reducers = {
 const [reducer, actions] = reduxLeaves(initialState, reducers)
 const store = createStore(reducer)
 ```
+
+We can now access action creators that trigger the `increment`, `push` and `recurse` reducer logic, for any slice of our state, all through the `actions` API.
 
 ### Intuitive API
 
