@@ -75,14 +75,29 @@ We can now access action creators that trigger the `increment`, `push` and `recu
 
 ### Intuitive API
 
+The `actions` object contains action creators for every slice of state, based on the custom reducer logic we passed in to `reduxLeaves`.
+
 ```js
-store.dispatch(actions.counter.create.increment())
+// Create an action to increment the counter slice of state
+const actionToIncrementCounter = actions.counter.create.increment()
+
+// Create an action to push 'bar' to the foo slice of state
+const actionToPushToFoo = actions.foo.create.push('bar')
+
+// Create an action to recurse the counter slice of state within the nest.deep slice of state
+const actionToRecurseCounter = actions.nest.deep.create.recurse('counter')
+```
+
+The `reducer` produced by `reduxLeaves` and passed to `createStore` uses the supplied custom reducer logic to update the store's state:
+
+```js
+store.dispatch(actionToIncrementCounter)
 console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
 
-store.dispatch(actions.foo.create.push('bar'))
+store.dispatch(actionToPushToFoo)
 console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
 
-store.dispatch(actions.nest.deep.create.recurse('counter'))
+store.dispatch(actionToRecurseCounter)
 console.log(store.getState())
 /*
   {
