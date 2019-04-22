@@ -47,67 +47,87 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - Advanced customisation.
 
 ### Quick setup
-1. Define initial state and optional reducer logic;
+1. Define initial state and reducer logic;
 2. Pass to `reduxLeaves`;
 3. Done!
+
+Let's demonstrate this by using Redux-Leaves to increment arbitrarily nested counters.
+
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
 
 const initialState = {
-  counter: 1,
-  foo: ['foo'],
-  nest: { deep: {} }
+  topLevel: 0,
+  nested: {
+    once: 1,
+    deeper: {
+      twice: 2,
+    }
+  }
 }
 
-// Optional reducer logic:
-const reducers = {
-  increment: leafState => leafState + 1,
-  push: (leafState, { payload }) => [...leafState, payload],
-  recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
-}
+const increment = leafState => leafState + 1
 
-const [reducer, actions] = reduxLeaves(initialState, reducers)
+const [reducer, actions] = reduxLeaves(initialState, { increment })
 const store = createStore(reducer)
 ```
 
-We can now access action creators that trigger the `increment`, `push` and `recurse` reducer logic, for any slice of our state, all through the `actions` API.
+`actions` contains action creators that allows me to trigger the `increment` reducer logic for any slice of state in `store`, through an [intuitive API](#intuitive-api). This is the *'write once, reduce anywhere'* philosophy in action.
 
 ### Intuitive API
 
-The `actions` object contains action creators for every slice of state, based on the custom reducer logic we passed in to `reduxLeaves`.
+To create an action that increments at a given leaf:
+1. Navigate through the `actions` object to the state leaf;
+2. Access the `create` property at that leaf; and
+3. Execute the present `increment` function.
 
 ```js
-// Create an action to increment the counter slice of state
-const actionToIncrementCounter = actions.counter.create.increment()
+const actionToIncrementTopLevel = actions.topLevel.create.increment()
 
-// Create an action to push 'bar' to the foo slice of state
-const actionToPushToFoo = actions.foo.create.push('bar')
+const actionToIncrementNestedOnce = actions.nested.once.create.increment()
 
-// Create an action to recurse the counter slice of state within the nest.deep slice of state
-const actionToRecurseCounter = actions.nest.deep.create.recurse('counter')
+const actionToIncrementNestedDeeperTwice = actions.nested.deeper.twice.create.increment()
 ```
 
-The `reducer` produced by `reduxLeaves` and passed to `createStore` uses the supplied custom reducer logic to update the store's state:
+The `reducer` produced by `reduxLeaves` and passed to `createStore` uses the common `increment` logic to update the store's state at each of these leaves:
 
 ```js
-store.dispatch(actionToIncrementCounter)
-console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
-
-store.dispatch(actionToPushToFoo)
-console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
-
-store.dispatch(actionToRecurseCounter)
+store.dispatch(actionToIncrementTopLevel)
 console.log(store.getState())
 /*
-  {
-    counter: 2,
-    foo: ['foo', 'bar'],
-    nest: {
-      deep: { counter: 2 }
-    }
-  }
+*  {
+*    topLevel: 1,
+*    nested: {
+*      once: 1,
+*      deeper: { twice: 2 }
+*    }
+*  }
+*/
+
+store.dispatch(actionToIncrementNestedOnce)
+console.log(store.getState())
+/*
+*  {
+*    topLevel: 1,
+*    nested: {
+*      once: 2,
+*      deeper: { twice: 2 }
+*    }
+*  }
+*/
+
+store.dispatch(actionToIncrementNestedDeeperTwice)
+console.log(store.getState())
+/*
+*  {
+*    topLevel: 1,
+*    nested: {
+*      once: 2,
+*      deeper: { twice: 3 }
+*    }
+*  }
 */
 ```
 
-#### Advanced customisation
+### Advanced customisation
