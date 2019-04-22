@@ -26,15 +26,26 @@
         "sidebar_label": "String"
       },
       "create/core-creators": {
-        "title": "Action Creators",
-        "sidebar_label": "Core action creators"
+        "title": "Core Action Creators",
+        "sidebar_label": "Core creators"
       },
       "create/type-specific": {
-        "title": "Type-specific creators"
+        "title": "Type-Specific Action Creators",
+        "sidebar_label": "Type-specific creators"
       },
-      "custom-logic": {
+      "custom-reducers": {
         "title": "Advanced Usage",
         "sidebar_label": "customReducers"
+      },
+      "intro/demo": {
+        "title": "30 Second Demo",
+        "sidebar_label": "30 second demo"
+      },
+      "intro/features": {
+        "title": "Features"
+      },
+      "intro/overview": {
+        "title": "Overview"
       },
       "motivation": {
         "title": "Motivation",
