@@ -6,7 +6,7 @@ hide_title: true
 
 # Overview
 
-The guiding philosophy of Redux-Leaves is *write once, reduce anywhere*.
+The guiding philosophy of Redux-Leaves is *"write once, reduce anywhere"*.
 
 **Just want to see some code? Check out the [30 second demo](demo.md).**
 
@@ -35,7 +35,9 @@ Achieving this can feel like it requires a lot of boilerplate in:
 
 **What if we could just write some reducer logic and have it instantly available *throughout our global state tree?***
 
-This encapsulates Redux-Leave's *write once, reduce anywhere* philosophy.
+This encapsulates Redux-Leave's *"write once, reduce anywhere"* philosophy.
+
+## Introducing Redux-Leaves
 
 ### What?
 
@@ -44,7 +46,7 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - Intuitive API; and
 - Advanced customisation.
 
-#### Quick setup
+### Quick setup
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
@@ -65,7 +67,7 @@ const [reducer, actions] = reduxLeaves(initialState, reducers)
 const store = createStore(reducer)
 ```
 
-#### Intuitive API
+### Intuitive API
 
 ```js
 store.dispatch(actions.counter.create.increment())
