@@ -1,8 +1,9 @@
 {
   "docs": {
     "Introduction": [
+      "intro/demo",
       "intro/overview",
-      "intro/demo"
+      "intro/features"
     ],
     "Core API":[
       "redux-leaves",
