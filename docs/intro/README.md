@@ -18,20 +18,73 @@ This page explains more about the motivation of Redux-Leaves and how its design 
 
 Redux is great, but some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7).
 
-With a *write once, reduce anywhere* philosophy, Redux-Leaves aims to make Redux **easier to learn *and* quicker to scale**.
+Redux-Leaves aims to **make Redux easier to learn *and* quicker to scale**.
 
-Redux-Leaves aims to provide:
+### How?
+
+One of the three core principles of Redux is: "[Changes \[to global state\] are made with pure \[reducer\] functions"](https://redux.js.org/introduction/three-principles#changes-are-made-with-pure-functions).
+
+This can be easier said than done.
+
+Achieving this can feel like it requires a lot of boilerplate in:
+- action types;
+- action creators; and
+- switch/case logic...
+
+... for *every single slice of state*.
+
+**What if we could just write some reducer logic and have it instantly available *throughout our global state tree?***
+
+This encapsulates Redux-Leave's *write once, reduce anywhere* philosophy.
+
+### What?
+
+Redux-Leaves lets you *write once, reduce anywhere* with:
 - Quick setup;
 - Intuitive API; and
 - Advanced customisation.
 
-### How?
+#### Quick setup
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'redux-leaves'
 
-One of the three core principles of Redux is: **"[Changes \[to global state\] are made with pure \[reducer\] functions"](https://redux.js.org/introduction/three-principles#changes-are-made-with-pure-functions)**.
+const initialState = {
+  counter: 1,
+  foo: ['foo'],
+  nest: { deep: {} }
+}
 
-This is typically supported by a lot of boilerplate in action types, action creators and switch/case logic for *every single slice of state*.
+const reducers = {
+  increment: leafState => leafState + 1,
+  push: (leafState, { payload }) => [...leafState, payload],
+  recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
+}
 
-**What if we could just write some reducer logic and have it instantly available throughout our state tree?**
+const [reducer, actions] = reduxLeaves(initialState, reducers)
+const store = createStore(reducer)
+```
 
-### What?
+#### Intuitive API
 
+```js
+store.dispatch(actions.counter.create.increment())
+console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
+
+store.dispatch(actions.foo.create.push('bar'))
+console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
+
+store.dispatch(actions.nest.deep.create.recurse('counter'))
+console.log(store.getState())
+/*
+  {
+    counter: 2,
+    foo: ['foo', 'bar'],
+    nest: {
+      deep: { counter: 2 }
+    }
+  }
+*/
+```
+
+#### Advanced customisation
