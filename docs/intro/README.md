@@ -42,9 +42,9 @@ This encapsulates Redux-Leave's *"write once, reduce anywhere"* philosophy.
 ### What?
 
 Redux-Leaves lets you *write once, reduce anywhere* with:
-- Quick setup;
-- Intuitive API; and
-- Advanced customisation.
+- [Quick setup](#quick-setup);
+- [Intuitive API](#intuitive-api); and
+- [Advanced customisation](#advanced-customisation).
 
 ### Quick setup
 1. Define initial state and reducer logic;
@@ -73,7 +73,9 @@ const [reducer, actions] = reduxLeaves(initialState, { increment })
 const store = createStore(reducer)
 ```
 
-`actions` contains action creators that allows me to trigger the `increment` reducer logic for any slice of state in `store`, through an [intuitive API](#intuitive-api). This is the *'write once, reduce anywhere'* philosophy in action.
+`actions` contains action creators that allows me to trigger the `increment` reducer logic for any slice of state in `store`, through an [intuitive API](#intuitive-api).
+
+This is the *'write once, reduce anywhere'* philosophy in action.
 
 ### Intuitive API
 
@@ -131,3 +133,47 @@ console.log(store.getState())
 ```
 
 ### Advanced customisation
+
+The reducer logic supplied to `reduxLeaves` can:
+- Take an argument supplied to an action creator (received as the action's `payload`);
+- Update a given `leafState` using the store's `wholeState`; and
+- Be customised further with additional properties.
+
+For example:
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'redux-leaves'
+
+const initialState = {
+  foo: ['foo'],
+  nest: {}
+}
+
+// Update a leaf state (array) by pushing a supplied element
+const push = (leafState, { payload }) => [...leafState, payload]
+
+// Update a leaf state (object) with a property of the whole state
+const recurse = (leafState, { payload }, wholeState) => ({
+  ...leafState, [payload]: wholeState[payload]
+})
+
+const [reducer, actions] = reduxLeaves(initialState, { push, recurse })
+const store = createStore(reducer)
+```
+
+```js
+store.dispatch(actions.foo.create.push('bar'))
+console.log(store.getState()) // { foo: ['foo', 'bar'], nest: {} }
+
+store.dispatch(actions.nest.create.recurse('foo'))
+console.log(store.getState())
+/*
+  {
+    foo: ['foo', 'bar'],
+    nest: {
+      foo: ['foo', 'bar']
+    }
+  }
+*/
+```
