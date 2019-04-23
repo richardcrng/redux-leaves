@@ -14,6 +14,7 @@ Returns a reducer function and an object.
 - `reducersDict` *(object, optional)*: the custom logic you want your reducer and action creators to have
 
 ### `initialState`
+***(object)***
 
 This is the state shape and initial values for your Redux store.
 
@@ -32,6 +33,11 @@ const initialState = {
 ```
 
 ### `reducersDict`
+***(object)***
+
+This is an object with `key`-`value` pairs such that:
+- `value` *(function | object)* is a reducer definition;
+- `key` is the name of the action creator that invokes the reducer logic.
 
 ## Returns
 `array`, with two elements:
