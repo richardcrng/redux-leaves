@@ -5,40 +5,26 @@ hide_title: true
 sidebar_label: reduxLeaves
 ---
 
-# `reduxLeaves(initialState, [customReducers = {}])`
+# `reduxLeaves(initialState, [reducersDict = {}])`
 
 Returns a reducer function and an object.
 
-### Parameters
+## Parameters
 - `initialState` *(object)*: the state shape and initial values for your redux store
-- [`customReducers`](customReducers.md) *(object, optional)*: the custom logic you want your reducer and action creators to have
+- `reducersDict` *(object, optional)*: the custom logic you want your reducer and action creators to have
 
-### Returns
+### `initialState`
+
+### `reducersDict`
+
+## Returns
 `array`, with two elements:
 - 0th: `reducer` *(function)*: a reducer function to pass to redux's `createStore`
 - 1st: `actions` *(object)*: an object with same shape as `initialState`
 
-### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+### `reducer`
 
-const initialState = {
-  counter: 1,
-  foo: ['bar']
-  nested: {
-    deep: {}
-    state: {
-      manageable: 'maybe...?'
-    }
-  }
-}
-
-const [reducer, actions] = reduxLeaves(initialState)  // the key line
-const store = createStore(reducer)
-```
-
-## The `actions` object
+### `actions`
 
 An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
 
@@ -116,10 +102,3 @@ This API allows for concise but descriptive dispatching of actions.
 //    by creating and dispatching an action
 
 store.dispatch(actions.foo.create.push('FOO'))
-```
-
-For full details of the methods available, please see the [`create` API](create/README.md).
-
-### Advanced usage
-
-If you wish to augment the `create` API, then it is possible to define some `create.custom` action creators through a [`customReducers`](customReducers.md) object passed into `reduxLeaves`.
