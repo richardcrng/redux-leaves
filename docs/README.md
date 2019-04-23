@@ -10,10 +10,26 @@ sidebar_label: reduxLeaves
 Returns a reducer function and an object.
 
 ## Parameters
-- `initialState` *(object)*: the state shape and initial values for your redux store
+- `initialState` *(object)*: the state shape and initial values for your Redux store
 - `reducersDict` *(object, optional)*: the custom logic you want your reducer and action creators to have
 
 ### `initialState`
+
+This is the state shape and initial values for your Redux store.
+
+It is described as having state 'branches' and 'leaves'.
+
+#### Example
+
+```js
+const initialState = {
+  todos: {
+    byId: {},
+    allIds: []
+  },
+  visibilityFilter: "SHOW_ALL"
+}
+```
 
 ### `reducersDict`
 
