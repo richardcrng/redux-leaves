@@ -5,16 +5,16 @@ hide_title: true
 sidebar_label: reduxLeaves
 ---
 
-# `reduxLeaves(initialState, [leafReducers = {}])`
+# `reduxLeaves(initialState, [reducersDict = {}])`
 
 Returns a reducer function and an object.
 
 ## Parameters
-- `initialState` *(object)*: the state shape and initial values for your Redux store
-- `leafReducers` *(object, optional)*: the custom logic you want your reducer and action creators to have
+- [`initialState`](#initialstate) *(object)*: the state shape and initial values for your Redux store
+- [`reducersDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](#leafReducers.md) keyed by their action creator slugs
 
 ### `initialState`
-***(object)***
+*(object)*
 
 This is the state shape and initial values for your Redux store.
 
@@ -32,12 +32,12 @@ const initialState = {
 }
 ```
 
-### `leafReducers`
-***(object)***
+### `reducersDict`
+*(object)*
 
-This is an object with `key`-`value` pairs such that:
-- `value` *(function | object)* is a reducer definition;
-- `key` is the name of the action creator that invokes the reducer logic.
+This is an object where every `key`-`value` pair is such that:
+- `value` *(function | object)* is a [leaf reducer](#leafReducers.md);
+- `key` is an action creator slug for that leaf reducer.
 
 ## Returns
 `array`, with two elements:
