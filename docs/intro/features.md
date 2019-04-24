@@ -44,9 +44,7 @@ To create an action that increments at a given leaf:
 
 ```js
 const actionToIncrementTopLevel = actions.topLevel.create.increment()
-
 const actionToIncrementNestedOnce = actions.nested.once.create.increment()
-
 const actionToIncrementNestedDeeperTwice = actions.nested.deeper.twice.create.increment()
 ```
 
@@ -54,37 +52,21 @@ The reducer produced by `reduxLeaves` uses the supplied increment reducer logic 
 
 ```js
 store.dispatch(actionToIncrementTopLevel)
-console.log(store.getState())
-/*
-*  {
-*    topLevel: 1, <---- incremented
-*    nested: {
-*      once: 1,
-*      deeper: { twice: 2 }
-*    }
-*  }
-*/
+console.log(store.getState().topLevel)  // 1
 
 store.dispatch(actionToIncrementNestedOnce)
-console.log(store.getState())
-/*
-*  {
-*    topLevel: 1,
-*    nested: {
-*      once: 2, <---- incremented
-*      deeper: { twice: 2 }
-*    }
-*  }
-*/
+console.log(store.getState().nested.once) // 2
 
 store.dispatch(actionToIncrementNestedDeeperTwice)
+console.log(store.getState().nested.deeper.twice) // 3
+
 console.log(store.getState())
 /*
 *  {
 *    topLevel: 1,
 *    nested: {
 *      once: 2,
-*      deeper: { twice: 3 } <---- incremented
+*      deeper: { twice: 3 }
 *    }
 *  }
 */
@@ -122,9 +104,11 @@ const store = createStore(reducer)
 
 ```js
 store.dispatch(actions.foo.create.push('bar'))
-console.log(store.getState()) // { foo: ['foo', 'bar'], nest: {} }
+console.log(store.getState().foo) // ['foo', 'bar']
 
 store.dispatch(actions.nest.create.recurse('foo'))
+console.log(store.getState().nest)  // { foo: ['foo', 'bar'] }
+
 console.log(store.getState())
 /*
 * {
