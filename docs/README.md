@@ -11,7 +11,7 @@ Returns a reducer function and an object.
 
 ## Parameters
 - [`initialState`](#initialstate) *(object)*: the state shape and initial values for your Redux store
-- [`reducersDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](#leafReducers.md) keyed by their action creator slugs
+- [`reducersDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](leafReducers.md) keyed by their [creator keys](creatorKeys.md)
 
 ### `initialState`
 *(object)*
@@ -36,7 +36,7 @@ const initialState = {
 *(object)*
 
 This is an object where every `key`-`value` pair is such that:
-- `value` *(function | object)* is a [leaf reducer](#leafReducers.md);
+- `value` *(function | object)* is a [leaf reducer](leafReducers.md);
 - `key` is an action creator slug for that leaf reducer.
 
 ## Returns

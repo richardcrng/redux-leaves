@@ -33,6 +33,10 @@
         "title": "Type-Specific Action Creators",
         "sidebar_label": "Type-specific creators"
       },
+      "creator-keys": {
+        "title": "Creator Keys",
+        "sidebar_label": "Creator keys"
+      },
       "custom-reducers": {
         "title": "Advanced Usage",
         "sidebar_label": "customReducers"
