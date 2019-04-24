@@ -39,6 +39,18 @@ This is an object where every `key`-`value` pair is such that:
 - `value` *(function | object)* is a [leaf reducer](leafReducers.md);
 - `key` is an action creator slug for that leaf reducer.
 
+#### Example
+
+```js
+const reducersDict = {
+  increment: (state, { payload }) => state + payload,
+  slice: {
+    argsToPayload: (begin, end) => [begin, end]
+    reducer: (state, { payload }) => state.slice(payload[0], payload[1])
+  }
+}
+```
+
 ## Returns
 `array`, with two elements:
 - 0th: `reducer` *(function)*: a reducer function to pass to redux's `createStore`
