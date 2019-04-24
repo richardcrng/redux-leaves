@@ -47,6 +47,10 @@
       "intro/overview": {
         "title": "Overview"
       },
+      "leaf-reducers": {
+        "title": "Leaf Reducers",
+        "sidebar_label": "Leaf reducers"
+      },
       "motivation": {
         "title": "Motivation",
         "sidebar_label": "Motivation"

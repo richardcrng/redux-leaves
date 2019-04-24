@@ -1,6 +1,6 @@
 ---
 id: leaf-reducers
-title: Core API
+title: Leaf Reducers
 hide_title: true
 sidebar_label: Leaf reducers
 ---
@@ -9,9 +9,8 @@ sidebar_label: Leaf reducers
 
 A leaf reducer is a function or configuration object that updates the state of an arbitrary leaf in your state tree.
 
-## Syntax
 
-### As a function
+## As a function
 ```js
 const leafReducer = (leafState, action, treeState) => {
   // some logic here
@@ -19,26 +18,10 @@ const leafReducer = (leafState, action, treeState) => {
 }
 ```
 
-### As a configuration object
+## As a configuration object
 The above leafReducer function is shorthand for the following configuration object:
 ```js
 const leafReducer = {
-  reducer: (leafState, action, treeState) => {
-    /// some logic here
-    // return the new leafState
-  }
-}
-```
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `reducer` | *(function)* | A function, invoked with *leafState*, *action* and *treeState*, that returns the new leafState. |
-
-```js
-const leafReducer = {
-  argsToPayload: (...args) => {
-    // 
-  },
   reducer: (leafState, action, treeState) => {
     // some logic here
     // return the new leafState
@@ -46,120 +29,48 @@ const leafReducer = {
 }
 ```
 
-The `leafReducers` object is where you provide the individual leaf reducers that you want Redux-Leaves to make available at every leaf of your state tree.
+The list of configuration options that can be provided are below:
 
-## Parameters
-- `initialState` *(object)*: the state shape and initial values for your Redux store
-- `leafReducers` *(object, optional)*: the custom logic you want your reducer and action creators to have
-
-### `initialState`
-***(object)***
-
-This is the state shape and initial values for your Redux store.
-
-It is described as having state 'branches' and 'leaves'.
-
-#### Example
-
-```js
-const initialState = {
-  todos: {
-    byId: {},
-    allIds: []
-  },
-  visibilityFilter: "SHOW_ALL"
-}
-```
-
-### `leafReducers`
-***(object)***
-
-This is an object with `key`-`value` pairs such that:
-- `value` *(function | object)* is a reducer definition;
-- `key` is the name of the action creator that invokes the reducer logic.
-
-## Returns
-`array`, with two elements:
-- 0th: `reducer` *(function)*: a reducer function to pass to redux's `createStore`
-- 1st: `actions` *(object)*: an object with same shape as `initialState`
+| Key | Value |  |
+| --- | --- | -- |
+| [`reducer`](#reducer) | function | |
+| [`argsToPayload`](#argstopayload) | function | *(optional)* |
 
 ### `reducer`
+A *function* that takes in the leaf's current state and returns its new state.
 
-### `actions`
+#### Arguments
+- `leafState` *(any)*: the current state of the given leaf
+- `action` *(object)*: the action created
+- `treeState` *(object)*: the current state of the entire Redux store
 
-An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
+#### Returns
+The new state value for the leaf.
 
-### Example
+### `argsToPayload`
 
-First, grab `actions` by destructuring the return value of `reduxLeaves`:
+#### Arguments
+- `...args` *(...any)*: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
+#### Returns
+A `payload` used by the action creator.
+
+#### Default
+If a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 ```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+const argsToPayload = (first, ...rest) => first
+```
 
-const initialState = {
-  counter: 1,
-  foo: ['bar']
-  nested: {
-    deep: {}
-    state: {
-      manageable: 'maybe...?'
-    }
+## Example
+```js
+const leafReducer = {
+  argsToPayload: (...args) => {
+    // some logic here
+    // return an action payload
+  },
+  reducer: (leafState, action, treeState) => {
+    // some logic here
+    // return the new leafState
   }
 }
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
 ```
-
-`actions` is an object with the same shape as `initialState`, with corresponding branches and leaves.
-
-Every action branch and leaf is an object, regardless of the initial data type:
-
-```js
-console.log(typeof actions.counter)                       // 'object'
-console.log(typeof actions.nested.deep)                   // 'object'
-console.log(typeof actions.nested.state.manageable)       // 'object'
-```
-
-Every action branch and leaf also has an additional property, `create`, that is an object:
-
-```js
-console.log(typeof actions.counter.create)                  // 'object'
-console.log(typeof actions.nested.deep.create)              // 'object'
-console.log(typeof actions.nested.state.manageable.create)  // 'object'
-```
-
-This `create` property is the API through which you can access action creators.
-
-For example, suppose I want to dispatch an action that will increment my `counter` state by 2.
-
-```js
-// We can destructure to access the 'increment' method from the create API
-const { increment } = actions.counter.create
-
-// Increment is an action creator function which takes one argument
-const action = increment(2)
-
-// Dispatch the action to the store
-store.dispatch(action)
-
-// The store's state changes as expected!
-console.log(store.getState())
-/*
-*  {
-*    counter: 3,  <--------------- incremented by 2!
-*    foo: ['bar'],
-*    nested: {
-*      deep: {},
-*      manageable: 'maybe...?'
-*    }
-*  }
-*/
-```
-This API allows for concise but descriptive dispatching of actions.
-```js
-// Push 'FOO' to the 'foo' (array) slice of state
-//    by creating and dispatching an action
-
-store.dispatch(actions.foo.create.push('FOO'))
