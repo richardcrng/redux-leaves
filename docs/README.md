@@ -37,7 +37,7 @@ const initialState = {
 
 This is an object where every `key`-`value` pair is such that:
 - `value` *(function | object)* is a [leaf reducer](leafReducers.md);
-- `key` is an action creator slug for that leaf reducer.
+- `key` is a [creator key](creatorKeys.md) for that leaf reducer.
 
 #### Example
 
