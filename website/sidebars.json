@@ -7,7 +7,8 @@
     ],
     "Core API":[
       "redux-leaves",
-      "custom-logic"
+      "custom-logic",
+      "leaf-reducers"
     ],
     "Actions": [
       "create/core-creators",
