@@ -1,13 +1,52 @@
 ---
-id: redux-leaves
+id: leaf-reducers
 title: Core API
 hide_title: true
-sidebar_label: reduxLeaves
+sidebar_label: Leaf reducers
 ---
 
-# `reduxLeaves(initialState, [leafReducers = {}])`
+# Leaf reducers
 
-Returns a reducer function and an object.
+A leaf reducer is a function or configuration object that updates the state of an arbitrary leaf in your state tree.
+
+## Syntax
+
+### As a function
+```js
+const leafReducer = (leafState, action, treeState) => {
+  // some logic here
+  // return the new leafState
+}
+```
+
+### As a configuration object
+The above leafReducer function is shorthand for the following configuration object:
+```js
+const leafReducer = {
+  reducer: (leafState, action, treeState) => {
+    /// some logic here
+    // return the new leafState
+  }
+}
+```
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `reducer` | *(function)* | A function, invoked with *leafState*, *action* and *treeState*, that returns the new leafState. |
+
+```js
+const leafReducer = {
+  argsToPayload: (...args) => {
+    // 
+  },
+  reducer: (leafState, action, treeState) => {
+    // some logic here
+    // return the new leafState
+  }
+}
+```
+
+The `leafReducers` object is where you provide the individual leaf reducers that you want Redux-Leaves to make available at every leaf of your state tree.
 
 ## Parameters
 - `initialState` *(object)*: the state shape and initial values for your Redux store
