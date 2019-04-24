@@ -5,72 +5,9 @@ hide_title: true
 sidebar_label: Creator keys
 ---
 
-# Action creator slugs
+# Creator keys
 
-An action creator slug is a key which allows you to access
+A creator key, `creator`, serves two roles:
 
-
-## As a function
-```js
-const leafReducer = (leafState, action, treeState) => {
-  // some logic here
-  // return the new leafState
-}
-```
-
-## As a configuration object
-The above leafReducer function is shorthand for the following configuration object:
-```js
-const leafReducer = {
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
-}
-```
-
-The list of configuration options that can be provided are below:
-
-| Key | Value |  |
-| --- | --- | -- |
-| [`reducer`](#reducer) | function | |
-| [`argsToPayload`](#argstopayload) | function | *(optional)* |
-
-### `reducer`
-A *function* that takes in the leaf's current state and returns its new state.
-
-#### Arguments
-- `leafState` *(any)*: the current state of the given leaf
-- `action` *(object)*: the action created
-- `treeState` *(object)*: the current state of the entire Redux store
-
-#### Returns
-The new state value for the leaf.
-
-### `argsToPayload`
-
-#### Arguments
-- `...args` *(...any)*: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
-
-#### Returns
-A `payload` used by the action creator.
-
-#### Default
-If a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
-```js
-const argsToPayload = (first, ...rest) => first
-```
-
-## Example
-```js
-const leafReducer = {
-  argsToPayload: (...args) => {
-    // some logic here
-    // return an action payload
-  },
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
-}
-```
+1. In a [`reducersDict`](README.md#reducersdict), it uniquely identifies a given [leaf reducer](#leafReducers.md);
+2. In the `actions` API, it is an action creator available through `leaf.create[creator]`.
