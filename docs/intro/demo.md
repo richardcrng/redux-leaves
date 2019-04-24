@@ -7,11 +7,9 @@ sidebar_label: 30 second demo
 
 # redux-leaves
 
-Write once. Reduce anywhere.
+**[Write once](#write-once). [Reduce anywhere](#reduce-anywhere).**
 
-## 30 second demo
-
-### 1. Write once.
+## Write once.
 
 ```js
 import { createStore } from 'redux'
@@ -33,7 +31,7 @@ const [reducer, actions] = reduxLeaves(initialState, reducers)
 const store = createStore(reducer)
 ```
 
-### 2. Reduce anywhere.
+## Reduce anywhere.
 
 ```js
 store.dispatch(actions.counter.create.increment())
