@@ -106,9 +106,9 @@ console.log(typeof actions.visibilityFilter)   // object
 console.log(typeof actions.todos.byStatus)    // undefined - todos.byStatus is not a leaf
 ```
 
-### Every leaf of `actions` has a `create` property
+### Every leaf of `actions` has a [`create`](#../create/README.md) property
 
-Every single leaf of `actions` has a `create` property, that is an object:
+Every single leaf of `actions` has a [`create`](#../create/README.md) property, that is an object:
 
 ```js
 console.log(typeof actions.todos.create)              // object
