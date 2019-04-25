@@ -1,8 +1,8 @@
 ---
-id: concept
+id: about
 title: Leaves in Redux-Leaves
 hide_title: true
-sidebar_label: Leaves in Redux-Leaves
+sidebar_label: About 'leaves'
 ---
 
 # 'Leaves' in Redux-Leaves

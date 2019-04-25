@@ -7,7 +7,7 @@
     ],
     "Core API":[
       "redux-leaves",
-      "leaf/concept",
+      "leaf/about",
       "leaf-reducers",
       "creator-keys"
     ],
