@@ -37,10 +37,10 @@ Using the configuration object longhand allows greater customisation, through ad
 
 The list of configuration keys that can be provided are below:
 
-| Key | Value |  |
-| --- | --- | -- |
-| [`reducer`](#reducer) | function | |
-| [`argsToPayload`](#argstopayload) | function | *(optional)* |
+| Key | Value |
+| --- | --- |
+| [`reducer`](#reducer) | function |
+| [`argsToPayload`](#argstopayload) | function *(optional)* |
 
 ### `reducer`
 A *function* that takes in the leaf's current state and returns its new state.
