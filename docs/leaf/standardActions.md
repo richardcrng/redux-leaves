@@ -40,9 +40,9 @@ There *can* be a conflict between:
 - `type` being maximally useful for Redux DevTools debugging ('the *descriptive* imperative'); and
 - `type` being maximally useful as a director of reducer logic ('the *procedural* imperative').
 
-There is no intrinsic reason why reducers *have* to look at `type` to decide what to do.
+However, there is no intrinsic reason why reducers *have* to look at `type` to decide what to do.
 
-Redux-Leaves takes the design decision to separate out the *descriptive* and the *procedural* imperative, by:
+As such, Redux-Leaves takes the design decision to separate out the *descriptive* and the *procedural* imperative, by:
 
 - reserving the `type` property for the descriptive imperative; and
 - introducing a `leaf` property for the procedural imperative.
