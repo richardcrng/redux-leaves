@@ -15,9 +15,12 @@ sidebar_label: Leaves in Redux-Leaves
 
 In particular: *not every node of the Redux state is a leaf*, since the Redux state can have nodes that weren't present in the [initial state shape passed to `reduxLeaves`](../README.md#initialstate).
 
+Additionally:
+- [**The `actions` object also contains every leaf**](#the-actions-object-also-contains-every-leaf);
+
 This is explored further through a worked example of a simple todo app.
 
-### Every node of the initial state shape is a leaf
+## Every node of the initial state shape is a leaf
 
 First, let's set up, assuming that we have defined [`reducersDict`](../README.md#reducersdict) elsewhere.
 
@@ -46,19 +49,13 @@ Thus, each of the following is a leaf:
 - `todos.allIds`; and
 - `visibilityFilter`.
 
-#### All leaves are available on `actions`
+Here are some non-leaves:
+- `{ byId: {}, allIds: [] }`: this is the initial state of a leaf, but not a leaf itself;
+- `todos.byStatus`: there is no `todos.byStatus` provided in the initial state shape; and
+- `todos.byId.007`: there is no `todos.byId.007` provided in the initial state shape.
 
-Every leaf is defined as an object on `actions`.
-```js
-console.log(typeof actions.todos)              // object
-console.log(typeof actions.todos.allIds)       // object
-console.log(typeof actions.visibilityFilter)   // object
-
-// Non-leaves are not defined:
-console.log(typeof actions.todos.byStatus)    // undefined - no todos.byStatus in initialState
-```
-
-### Not every node of the Redux state is a leaf
+## Nothing else is a leaf
+(In particular: **not every node of the Redux state is a leaf**)
 
 Having established what are and what are not leaves, let's now create our Redux store, and [hydrate it with some preloaded state](https://redux.js.org/api/createstore#createstorereducer-preloadedstate-enhancer):
 
@@ -77,4 +74,16 @@ const preloadedState = {
 }
 
 const store = createStore(initialState, preloadedState)
+```
+
+## The `actions` object also contains every leaf
+
+Every leaf is defined as an object on `actions`.
+```js
+console.log(typeof actions.todos)              // object
+console.log(typeof actions.todos.allIds)       // object
+console.log(typeof actions.visibilityFilter)   // object
+
+// Non-leaves are not defined:
+console.log(typeof actions.todos.byStatus)    // undefined - todos.byStatus is not a leaf
 ```
