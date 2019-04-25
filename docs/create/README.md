@@ -60,7 +60,7 @@ store.dispatch(actionToDoubleFoo)
 store.dispatch(actionToCubeFoo)
 
 // ((1+1)*2)^3 = 64
-console.log(store.getState())   // { foo: 64 }    success!
+console.log(store.getState())   // { foo: 64 }; success!
 ```
 
 ## Defaults
