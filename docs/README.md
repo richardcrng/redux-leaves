@@ -58,13 +58,17 @@ const reducersDict = {
 
 ### `reducer`
 
+The root reducer for your Redux store.
+
+It listens to actions created through [`actions`](#actions) at a given leaf for a given [creator key](creatorKeys.md), and updates that leaf's state using the [leaf reducer](leafReducers.md) keyed by the creator key.
+
 ### `actions`
 
 An object with nested action creator functions, following the same shape as the `initialState` passed to `reduxLeaves`.
 
-### Example
+#### Example
 
-First, grab `actions` by destructuring the return value of `reduxLeaves`:
+First, grab `reducer` and `actions` by destructuring the return value of `reduxLeaves`:
 
 ```js
 import { createStore } from 'redux'
@@ -136,3 +140,4 @@ This API allows for concise but descriptive dispatching of actions.
 //    by creating and dispatching an action
 
 store.dispatch(actions.foo.create.push('FOO'))
+```
