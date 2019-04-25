@@ -20,6 +20,8 @@ In the below code:
 - `addOne` is the creator key that identifies and triggers a reducer to add one to a leaf's state;
 - `doubleEach` is the creator key that identifies and triggers a reducer to double each element in a leaf's state.
 
+### Setup
+
 ```js
 import reduxLeaves from 'redux-leaves'
 import { createStore } from 'redux'
@@ -28,21 +30,32 @@ const initialState = {
   foo: 5,
   bar: [1, 2, 3]
 }
+```
 
-// Use the creator keys to uniquely identify reducer logic
+### Identifying leaf reducers
+```js
+// Use the creator keys to uniquely identify leaf reducers
 const reducersDict = {
   addOne: leafState => leafState + 1,
   doubleEach: leafState => leafState.map(n => 2 * n)
 }
+```
 
+### Creating actions
+
+```js
+// Grab the actions object using reduxLeaves
 const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 const store = createStore(reducer)
 
-// Use the creator keys to create actions:
+// Use the creator keys at a chosen leaf's create property:
 const actionToAddOneToFoo = actions.foo.create.addOne()
 const actionToDoubleEachAtBar = actions.bar.create.doubleEach()
+```
 
-// Dispatch created actions to trigger the matching reducer logic
+### Triggering the leaf reducer
+```js
+// Dispatch created actions to trigger the matching leaf reducer
 store.dispatch(actionToAddOneToFoo)
 store.dispatch(actionToDoubleEachAtBar)
 
