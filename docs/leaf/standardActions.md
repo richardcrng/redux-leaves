@@ -47,6 +47,13 @@ Redux-Leaves takes the design decision to separate out the *descriptive* and the
 - reserving the `type` property for the descriptive imperative; and
 - introducing a `leaf` property for the procedural imperative.
 
-## The descriptive imperative: `type`
+### The descriptive imperative: `type`
 
-The roadmap for Redux-Leaves includes adding a [configuration key](../leafReducers.md#configuration-keys) so that developers can customise the `type`s of [action creators](../create/README.md).
+The roadmap for Redux-Leaves includes adding a [configuration key](../leafReducers.md#configuration-keys) so that developers can customise the `type` used by a given [action creator](../create/README.md).
+
+The default (and, for now, only) behaviour is such that:
+
+```js
+const action = actions.foo.bar.create.creatorKey()
+console.log(action.type)  // foo/bar/CREATOR_KEY
+```
