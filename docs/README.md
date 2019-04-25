@@ -9,6 +9,8 @@ sidebar_label: reduxLeaves
 
 Returns a reducer function and an object.
 
+**See the [30 second demo](intro/demo.md)** for usage.
+
 ## Parameters
 - [`initialState`](#initialstate) *(object)*: the state shape and initial values for your Redux store
 - [`reducersDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](leafReducers.md) keyed by their [creator keys](creatorKeys.md)

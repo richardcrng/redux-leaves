@@ -21,13 +21,13 @@ const initialState = {
   nest: { deep: {} }
 }
 
-const reducers = {
+const reducersDict = {
   increment: leafState => leafState + 1,
   push: (leafState, { payload }) => [...leafState, payload],
   recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
 }
 
-const [reducer, actions] = reduxLeaves(initialState, reducers)
+const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 const store = createStore(reducer)
 ```
 
