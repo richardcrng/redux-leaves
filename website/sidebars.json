@@ -12,6 +12,8 @@
       "creator-keys"
     ],
     "Actions": [
+      "create/creators",
+      "leaf/standard-actions",
       "create/defaults",
       "create/type-specific",
       {
