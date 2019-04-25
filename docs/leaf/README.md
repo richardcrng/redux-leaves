@@ -52,10 +52,12 @@ Thus, each of the following is a leaf:
 - `todos.allIds`; and
 - `visibilityFilter`.
 
+Additionally, we can consider the whole state tree to be a leaf (as the ancestral node).
+
 Here are some non-leaves:
 - `{ byId: {}, allIds: [] }`: this is the initial state of a leaf, but not a leaf itself;
 - `SHOW_ALL`: this is the initial state of a leaf, but not a leaf itself;
-- `todos.byStatus`: there is no `todos.byStatus` provided in the initial state shape; and
+- `todos.current`: there is no `todos.current` provided in the initial state shape; and
 - `todos.byId.007`: there is no `todos.byId.007` provided in the initial state shape.
 
 ### Nothing else is a leaf
@@ -72,13 +74,23 @@ const preloadedState = {
         completed: true
       }
     },
-    allIds: ['f23f']
+    allIds: ['f23f'],
+    current: 'f23f'
   },
   visibilityFilter: "SHOW_INCOMPLETE"
 }
 
 const store = createStore(initialState, preloadedState)
 ```
+The following are all still leaves:
+- `todos`;
+- `todos.byId`;
+- `todos.allIds`; and
+- `visibilityFilter`.
+
+However, neither `todos.byId.f23f` nor `todos.current` have become leaves.
+
+(Even though they are nodes in the Redux state tree, since they were not nodes on the initial state shape, they are not leaves.)
 
 ## Leaves and action creators
 
@@ -102,4 +114,10 @@ Every single leaf of `actions` has a `create` property, that is an object:
 console.log(typeof actions.todos.create)              // object
 console.log(typeof actions.todos.allIds.create)       // object
 console.log(typeof actions.visibilityFilter.create)   // object
+
+// Won't work for non-leaves under actions
+console.log(typeof actions.todos.byId.f23f.create)    // Uncaught TypeError
+console.log(typeof actions.todos.current.create)      // Uncaught TypeError
 ```
+
+For details of this object, please see the [`create` API](#../create/README.md).
