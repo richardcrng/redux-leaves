@@ -22,17 +22,14 @@ describe("Redux-Leaves. Write once. Reduce anywhere.", () => {
     beforeEach(() => store = createStore(reducer))
 
     test("THEN actions has defined action creators for increment, push and recurse", () => {
-      expect(typeof actions.counter.create.increment).toBe("function")
-      expect(typeof actions.counter.create.push).toBe("function")
-      expect(typeof actions.counter.create.recurse).toBe("function")
-      
-      expect(typeof actions.foo.create.increment).toBe("function")
-      expect(typeof actions.foo.create.push).toBe("function")
-      expect(typeof actions.foo.create.recurse).toBe("function")
-
-      expect(typeof actions.nest.create.increment).toBe("function")
-      expect(typeof actions.nest.create.push).toBe("function")
-      expect(typeof actions.nest.create.recurse).toBe("function")
+      [actions.counter, actions.foo, actions.nest, actions.nest.deep].forEach(
+        leaf => {
+          expect(typeof leaf.create).toBe("object")
+          expect(typeof leaf.create.increment).toBe("function")
+          expect(typeof leaf.create.push).toBe("function")
+          expect(typeof leaf.create.recurse).toBe("function")
+        }
+      )
     })
 
     describe("WHEN we dispatch actions.counter.create.increment() to the store", () => {
