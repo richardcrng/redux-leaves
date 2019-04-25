@@ -10,10 +10,10 @@ sidebar_label: Leaves in Redux-Leaves
 *Leaves* are a simple but important concept in Redux-Leaves.
 
 In short:
-- **Every node** of the [initial state shape](../README.md#initialstate) is a leaf;
-- **Nothing else** is a leaf.
+- [**Every node** of the initial state shape is a leaf](#every-node-of-the-initial-state-shape-is-a-leaf); and
+- [**Nothing else** is a leaf](#nothing-else-is-a-leaf).
 
-In particular: *not every node of the Redux state is a leaf*, since the Redux state can have nodes that weren't present in the initial state shape [passed to `reduxLeaves`](../README.md).
+In particular: *not every node of the Redux state is a leaf*, since the Redux state can have nodes that weren't present in the [initial state shape passed to `reduxLeaves`](../README.md#initialstate).
 
 This is explored further through a worked example of a simple todo app.
 
