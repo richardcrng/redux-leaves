@@ -37,13 +37,14 @@ Using the configuration object longhand allows greater customisation, through ad
 
 The list of configuration keys that can be provided are below:
 
-| Key | Value |
-| --- | --- |
-| [`reducer`](#reducer) | function |
-| [`argsToPayload`](#argstopayload) | function *(optional)* |
+| Key | Value | Description | Optional? | 
+| --- | --- | --- | --- |
+| [`reducer`](#reducer) | function | Updates the leaf's state | |
+| [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
 
 ### `reducer`
-A *function* that takes in the leaf's current state and returns its new state.
+*(function)*
+Updates the leaf's state.
 
 #### Arguments
 - `leafState` *(any)*: the current state of the given leaf
@@ -54,18 +55,20 @@ A *function* that takes in the leaf's current state and returns its new state.
 The new state value for the leaf.
 
 ### `argsToPayload`
+*(function, optional)*
+Converts action creator arguments to an action payload.
+
+By default: if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
+
+```js
+const argsToPayload = (first, ...rest) => first
+```
 
 #### Arguments
 - `...args` *(...any)*: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
 #### Returns
 A `payload` used by the action creator.
-
-#### Default
-If a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
-```js
-const argsToPayload = (first, ...rest) => first
-```
 
 ## Example
 ```js
