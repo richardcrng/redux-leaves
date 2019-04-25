@@ -43,8 +43,7 @@ The list of configuration keys that can be provided are below:
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
 
 ### `reducer`
-*(function)*
-Updates the leaf's state.
+*(function)*: Updates the leaf's state.
 
 #### Arguments
 - `leafState` *(any)*: the current state of the given leaf
@@ -55,10 +54,9 @@ Updates the leaf's state.
 The new state value for the leaf.
 
 ### `argsToPayload`
-*(function, optional)*
-Converts action creator arguments to an action payload.
+*(function, optional)*: Converts action creator arguments to an action payload.
 
-By default: if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
+**Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
 ```js
 const argsToPayload = (first, ...rest) => first
