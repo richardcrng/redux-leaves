@@ -37,12 +37,15 @@ const store = createStore(reducer)
 ## Reduce anywhere.
 
 ```js
+// Increment state.counter
 store.dispatch(actions.counter.create.increment())
 console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
 
+// Push 'bar' to state.foo
 store.dispatch(actions.foo.create.push('bar'))
 console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
 
+// Recurse the 'counter' property at state.nest.deep
 store.dispatch(actions.nest.deep.create.recurse('counter'))
 console.log(store.getState())
 /*
