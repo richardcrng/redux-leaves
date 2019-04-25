@@ -7,10 +7,12 @@ sidebar_label: Leaf reducers
 
 # Leaf reducers
 
-A leaf reducer is a function or configuration object that updates the state of an arbitrary leaf in your state tree.
+A leaf reducer is a function or configuration object that updates the state of an arbitrary [leaf](leaf/README.md) in your state tree.
 
 
-## As a function
+## Syntax
+
+### Function (shorthand)
 ```js
 const leafReducer = (leafState, action, treeState) => {
   // some logic here
@@ -18,7 +20,7 @@ const leafReducer = (leafState, action, treeState) => {
 }
 ```
 
-## As a configuration object
+### Configuration object (longhand)
 The above leafReducer function is shorthand for the following configuration object:
 ```js
 const leafReducer = {
@@ -29,7 +31,11 @@ const leafReducer = {
 }
 ```
 
-The list of configuration options that can be provided are below:
+Using the configuration object longhand allows greater customisation, through additional [configuration keys](#configuration-keys).
+
+## Configuration keys
+
+The list of configuration keys that can be provided are below:
 
 | Key | Value |  |
 | --- | --- | -- |
