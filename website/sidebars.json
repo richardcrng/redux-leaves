@@ -12,7 +12,7 @@
       "creator-keys"
     ],
     "Actions": [
-      "create/core-creators",
+      "create/defaults",
       "create/type-specific",
       {
         "type": "subcategory",

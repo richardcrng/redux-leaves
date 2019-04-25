@@ -7,7 +7,7 @@ sidebar_label: customReducers
 
 # `customReducers`
 
-The [`create` API](create/README.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
+The [`create` API](create/defaults.md) comes with several action creators, which our initialised `reducer` already knows how to respond to.
 
 However, perhaps we want to initialise with a custom action creator and reducer reducers.
 

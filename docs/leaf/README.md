@@ -106,9 +106,9 @@ console.log(typeof actions.visibilityFilter)   // object
 console.log(typeof actions.todos.current)    // undefined - todos.current is not a leaf
 ```
 
-### Every leaf of `actions` has a [`create`](../create/README.md) property
+### Every leaf of `actions` has a [`create`](../create/defaults.md) property
 
-Each of these action leaves has a [`create`](../create/README.md) property that is an object:
+Each of these action leaves has a [`create`](../create/defaults.md) property that is an object:
 
 ```js
 console.log(typeof actions.todos.create)              // object
@@ -120,4 +120,4 @@ console.log(typeof actions.todos.byId.f23f.create)    // Uncaught TypeError - to
 console.log(typeof actions.todos.current.create)      // Uncaught TypeError - todos.current is not a leaf
 ```
 
-Every actions leaf can therefore create actions appropriate to that leaf through the [`create` API](../create/README.md).
+Every actions leaf can therefore create actions appropriate to that leaf through the [`create` API](../create/defaults.md).
