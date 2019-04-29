@@ -57,3 +57,7 @@ The default (and, for now, only) behaviour is such that:
 const action = actions.foo.bar.create.creatorKey()
 console.log(action.type)  // foo/bar/CREATOR_KEY
 ```
+
+### The procedural imperative: `leaf`
+
+WIP here
