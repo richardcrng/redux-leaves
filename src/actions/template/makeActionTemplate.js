@@ -1,9 +1,11 @@
+import { leafReducerDefaults } from "../../reducersDict/standardise/defaults";
+
 export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
-  return (creatorKey, payload, typeProp = defaultTypeProp) => {
+  return (creatorKey, payload, typeDef = leafReducerDefaults.type) => {
     const leaf = { path, condition, creatorKey, custom }
-    const type = (typeof typeProp === "function")
-      ? typeProp(leaf, payload)
-      : typeProp
+    const type = (typeof typeDef === "function")
+      ? typeDef(leaf, payload)
+      : typeDef
 
     return {
       leaf,
@@ -11,12 +13,4 @@ export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
       payload
     }
   }
-}
-
-const defaultTypeProp = (leaf, payload) => {
-  const { path, condition, creatorKey } = leaf;
-  const suffix = condition
-    ? `${condition}.${creatorKey}`
-    : creatorKey
-  return [...path, suffix].join('/')
 }
