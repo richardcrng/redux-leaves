@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { makeActionTemplate } from '../for/utils';
+import { makeActionTemplate } from '../template/makeActionTemplate';
 
 export const makeCustomActions = (customReducers = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
