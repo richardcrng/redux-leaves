@@ -1,5 +1,5 @@
 import { atomicActions } from "../../atomic";
-import { makeActionTemplate } from "../utils";
+import { makeActionTemplate } from "../../template/makeActionTemplate";
 
 export const forAny = (pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch)

@@ -25,13 +25,21 @@
         "title": "String Action Creators",
         "sidebar_label": "String"
       },
-      "create/core-creators": {
-        "title": "Core Action Creators",
-        "sidebar_label": "Core creators"
+      "create/defaults": {
+        "title": "Default Action Creators",
+        "sidebar_label": "Default action creators"
+      },
+      "create/creators": {
+        "title": "Action Creators",
+        "sidebar_label": "Action creators"
       },
       "create/type-specific": {
         "title": "Type-Specific Action Creators",
         "sidebar_label": "Type-specific creators"
+      },
+      "creator-keys": {
+        "title": "Creator Keys",
+        "sidebar_label": "Creator keys"
       },
       "custom-reducers": {
         "title": "Advanced Usage",
@@ -47,6 +55,18 @@
       "intro/overview": {
         "title": "Overview"
       },
+      "leaf/about": {
+        "title": "Leaves in Redux-Leaves",
+        "sidebar_label": "About 'leaves'"
+      },
+      "leaf/standard-actions": {
+        "title": "Leaf-Standard-Actions",
+        "sidebar_label": "Leaf-Standard-Actions"
+      },
+      "leaf-reducers": {
+        "title": "Leaf Reducers",
+        "sidebar_label": "Leaf reducers"
+      },
       "motivation": {
         "title": "Motivation",
         "sidebar_label": "Motivation"
@@ -57,6 +77,8 @@
       }
     },
     "links": {
+      "Overview": "Overview",
+      "Demo": "Demo",
       "Docs": "Docs",
       "GitHub": "GitHub"
     },
