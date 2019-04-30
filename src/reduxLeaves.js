@@ -11,13 +11,13 @@ export const reduxLeaves = (initialState, customReducers = {}) => {
     { leaf = {}, type, payload } = {}
   ) {
     return produce(state, draftState => {
-      const { path, condition, modifier, custom } = leaf
+      const { path, condition, creatorKey, custom } = leaf
 
       const prevLeafState = getState(draftState, path)
 
       const newLeafState = leafReducer(
         prevLeafState,
-        { path, condition, modifier, payload, custom },
+        { path, condition, creatorKey, payload, custom },
         draftState,
         initialState,
         customReducers

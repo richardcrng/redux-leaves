@@ -2,9 +2,9 @@ import _ from 'lodash';
 import { atomicActions } from "../../actions/atomic";
 import { replaceAtIndex, insertAtIndex } from "../../actions/for/array/utils";
 
-export const leafReducerArray = (leafState, { modifier, payload }) => {
+export const leafReducerArray = (leafState, { creatorKey, payload }) => {
   const state = _.isArray(leafState) ? leafState : _.toArray(leafState)
-  switch (modifier) {
+  switch (creatorKey) {
     case atomicActions.CONCAT: return concat(state, payload)
     case atomicActions.DROP: return drop(state, payload)
     case atomicActions.FILTER: return filter(state, payload)

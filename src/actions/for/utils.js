@@ -1,14 +1,14 @@
 export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
-  return (modifier, payload, customType = null) => {
+  return (creatorKey, payload, customType = null) => {
     const type = condition
-      ? `${condition}.${modifier}`
-      : modifier
+      ? `${condition}.${creatorKey}`
+      : creatorKey
 
     return {
       leaf: {
         path,
         condition,
-        modifier,
+        creatorKey,
         custom
       },
       type: customType || [...path, type].join('/'),
