@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import { makeActionTemplate } from '../template/makeActionTemplate';
 
-export const makeCustomActions = (customReducers = {}, pathToLeafOrBranch = []) => {
+export const makeCustomActions = (leafReducersDict = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
 
   return _.mapValues(
-    customReducers,
+    leafReducersDict,
     (obj, key) => makeCustomActionCreator(obj, key, actionTemplate)
   )
 }

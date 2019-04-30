@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-export const leafReducerCustom = (customReducers, leafState, { creatorKey, payload }, wholeState) => {
+export const leafReducerCustom = (customReducers, leafState, { leaf = {}, payload }, wholeState) => {
+  const { creatorKey } = leaf;
   const key = creatorKey.toLowerCase()
 
   if (Object.keys(customReducers).includes(key)) {

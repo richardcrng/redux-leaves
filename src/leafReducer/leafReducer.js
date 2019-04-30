@@ -10,15 +10,18 @@ import { leafReducerCustom } from './custom/leafReducerCustom';
 
 export const leafReducer = (
   leafState,
-  { path, condition, creatorKey, payload, custom },
+  action,
   wholeState,
   initialWhole,
   customReducers
   ) => {
 
+  const { leaf = {}, payload } = action;
+  const { condition, custom, creatorKey, path } = leaf;
+
   // Custom actions
   if (custom) {
-    return leafReducerCustom(customReducers, leafState, { creatorKey, payload }, wholeState)
+    return leafReducerCustom(customReducers, leafState, action, wholeState)
   }
   
   // Type-specific actions
@@ -40,7 +43,7 @@ export const leafReducer = (
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
     case atomicActions.RESET: return reset(initialWhole, path)
-    case atomicActions.UPDATE: return update(leafState, payload)
+    case atomicActions.UPDATE: return payload
     default: return leafState
   }
 }
