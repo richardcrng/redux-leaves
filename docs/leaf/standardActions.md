@@ -36,7 +36,7 @@ Although Redux doesn't require that actions be FSA, it is [given as a recommenda
 
 ## Motivation
 
-There *can* be a conflict between:
+There *could conceivably* be a conflict between:
 - `type` being maximally useful for Redux DevTools debugging ('the *descriptive* imperative'); and
 - `type` being maximally useful as a director of reducer logic ('the *procedural* imperative').
 
@@ -54,10 +54,22 @@ The roadmap for Redux-Leaves includes adding a [configuration key](../leafReduce
 The default (and, for now, only) behaviour is such that:
 
 ```js
-const action = actions.foo.bar.create.creatorKey()
-console.log(action.type)  // foo/bar/CREATOR_KEY
+const action = actions.foo.bar.create.myCustomActionCreator()
+console.log(action.type)  // foo/bar/MY_CUSTOM_ACTION_CREATOR
 ```
 
 ### The procedural imperative: `leaf`
 
-WIP here
+In order to free `type` up to focus entirely on the *descriptive* imperative, Redux-Leaves introduces the **`leaf`** property to take care of the *procedural* imperative.
+
+```js
+const action = actions.foo.bar.create.myCustomActionCreator()
+console.log(action.leaf)
+/*
+{
+  path: ['foo', 'bar'],
+  creatorKey: 'MY_CUSTOM_ACTION_CREATOR',
+  custom: true
+}
+/*
+```
