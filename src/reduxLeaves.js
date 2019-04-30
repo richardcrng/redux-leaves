@@ -4,8 +4,11 @@ import { updateState } from './utils';
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
 import { getState } from './utils/index';
+import { standardiseReducersDict } from './reducersDict/standardise/standardiseReducersDict';
 
 export const reduxLeaves = (initialState, reducersDict = {}) => {
+  const leafReducersDict = standardiseReducersDict(reducersDict)
+
   function immeredReducer(
     state = initialState,
     action
@@ -21,14 +24,14 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
         action,
         draftState,
         initialState,
-        reducersDict
+        leafReducersDict
       )
 
       return updateState(draftState, path, newLeafState)
     })
   }
 
-  const actions = actionsFor(_.cloneDeep(initialState), reducersDict)
+  const actions = actionsFor(_.cloneDeep(initialState), leafReducersDict)
 
   return [immeredReducer, actions]
 }
