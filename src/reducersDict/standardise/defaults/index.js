@@ -1,14 +1,5 @@
-const argsToPayload = first => first
+import { leafReducerDefaults } from './leafReducerDefaults';
 
-const type = (leaf, payload) => {
-  const { path, condition, creatorKey } = leaf;
-  const suffix = condition
-    ? `${condition}.${creatorKey}`
-    : creatorKey
-  return [...path, suffix].join('/')
-}
-
-export const leafReducerDefaults = {
-  argsToPayload,
-  type
+export {
+  leafReducerDefaults
 }
