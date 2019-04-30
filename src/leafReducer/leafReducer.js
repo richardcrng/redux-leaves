@@ -13,7 +13,7 @@ export const leafReducer = (
   action,
   wholeState,
   initialWhole,
-  customReducers
+  reducersDict
   ) => {
 
   const { leaf = {}, payload } = action;
@@ -21,7 +21,7 @@ export const leafReducer = (
 
   // Custom actions
   if (custom) {
-    return leafReducerCustom(customReducers, leafState, action, wholeState)
+    return leafReducerCustom(reducersDict, leafState, action, wholeState)
   }
   
   // Type-specific actions
