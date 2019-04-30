@@ -6,13 +6,7 @@ export const leafReducerCustom = (reducersDict, leafState, { leaf = {}, payload 
 
   if (Object.keys(reducersDict).includes(key)) {
     const logic = reducersDict[key]
-
-    if (typeof logic === "function") {
-      return logic(_.cloneDeep(leafState), { payload }, wholeState)
-    } else {
-      return logic.reducer(_.cloneDeep(leafState), { payload }, wholeState)
-    }
-
+    return logic.reducer(_.cloneDeep(leafState), { payload }, wholeState)
   } else {
     return leafState
   }
