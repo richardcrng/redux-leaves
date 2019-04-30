@@ -8,6 +8,7 @@
     "url": "https://github.com/richardcrng/"
   },
   "dependencies": {
+    "change-case": "^3.1.0",
     "immer": "^3.0.0",
     "lodash": "^4.17.11",
     "redux": "^4.0.1"
