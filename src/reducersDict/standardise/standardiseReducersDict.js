@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { argsToPayload, makeType } from './defaults/index';
+import { leafReducerDefaults } from './defaults';
 
 export const standardiseReducersDict = (reducersDict = {}) => {
   return _.mapValues(
@@ -15,8 +15,7 @@ const defineLeafReducer = definition => {
 }
 
 const defineLeafReducerFromConfig = config => ({
-  argsToPayload,
-  makeType,
+  ...leafReducerDefaults,
   ...config
 })
 

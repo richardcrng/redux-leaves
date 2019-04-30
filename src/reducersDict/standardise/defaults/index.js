@@ -1,9 +1,14 @@
-export const argsToPayload = first => first
+const argsToPayload = first => first
 
-export const makeType = (leaf, payload) => {
+const type = (leaf, payload) => {
   const { path, condition, creatorKey } = leaf;
   const suffix = condition
     ? `${condition}.${creatorKey}`
     : creatorKey
   return [...path, suffix].join('/')
+}
+
+export const leafReducerDefaults = {
+  argsToPayload,
+  type
 }

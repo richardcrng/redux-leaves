@@ -1,9 +1,9 @@
 export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
-  return (creatorKey, payload, makeType = defaultMakeType) => {
+  return (creatorKey, payload, typeProp = defaultTypeProp) => {
     const leaf = { path, condition, creatorKey, custom }
-    const type = typeof makeType === "function"
-      ? makeType(leaf, payload)
-      : makeType
+    const type = (typeof typeProp === "function")
+      ? typeProp(leaf, payload)
+      : typeProp
 
     return {
       leaf,
@@ -13,7 +13,7 @@ export const makeActionTemplate = (path = [], { condition, custom } = {}) => {
   }
 }
 
-const defaultMakeType = (leaf, payload) => {
+const defaultTypeProp = (leaf, payload) => {
   const { path, condition, creatorKey } = leaf;
   const suffix = condition
     ? `${condition}.${creatorKey}`
