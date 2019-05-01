@@ -68,7 +68,7 @@ const argsToPayload = (first, ...rest) => first
 ```
 
 #### Arguments
-- `...args` *(...any)*: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
+- `...args`: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
 #### Returns
 A `payload` used by the action creator.
@@ -90,10 +90,11 @@ const actionType = (leaf, payload) => {
 ```
 
 #### Arguments
-- `leaf` *(object)*: the [`leaf` property](leaf/standardActions.md#properties) of a [Leaf Standard Action](leaf/standardActions.md)
+- `leaf`: the [`leaf` property](leaf/standardActions.md#properties) of the [Leaf Standard Action](leaf/standardActions.md) being created
+- `payload`: the `payload` property of the Leaf Standard Action being created
 
 #### Returns
-A `type` which the action takes on.
+A `type` property for the created action.
 
 ## Example
 ```js
