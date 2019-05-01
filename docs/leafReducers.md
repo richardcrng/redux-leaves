@@ -44,6 +44,7 @@ The list of configuration keys that can be provided are below:
 | --- | --- | --- | --- |
 | [`reducer`](#reducer) | function | Updates the leaf's state | |
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
+| [`actionType`](#actiontype) | string \| function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
 
 ### `reducer`
 *(function)*: Updates the leaf's state.
@@ -62,6 +63,7 @@ The new state value for the leaf.
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
 ```js
+// Demonstration of default behaviour:
 const argsToPayload = (first, ...rest) => first
 ```
 
@@ -70,6 +72,28 @@ const argsToPayload = (first, ...rest) => first
 
 #### Returns
 A `payload` used by the action creator.
+
+### `actionType`
+*(string | function, optional)*: A string constant, or a function that returns a string, that becomes the action's `type` property
+
+**Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
+
+```js
+// Demonstration of default behaviour:
+const actionType = (leaf, payload) => {
+  const {
+    path,           // e.g. ['path', 'to', 'nested', 'state'] 
+    CREATOR_KEY     // e.g. 'CUSTOM_CREATOR'
+  } = leaf
+  return [...path, CREATOR_KEY].join('/')   // 'path/to/nested/state/CUSTOM_CREATOR'
+}
+```
+
+#### Arguments
+- `leaf` *(object)*: the [`leaf` property](leaf/standardActions.md#properties) of a [Leaf Standard Action](leaf/standardActions.md)
+
+#### Returns
+A `type` which the action takes on.
 
 ## Example
 ```js
