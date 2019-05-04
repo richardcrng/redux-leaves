@@ -2,7 +2,7 @@ const changeCase = require('change-case')
 
 const argsToPayload = first => first
 
-const type = (leaf, payload) => {
+const actionType = (leaf, payload) => {
   const { path, condition, CREATOR_KEY } = leaf;
   const suffix = condition
     ? `${condition}.${CREATOR_KEY}`
@@ -12,5 +12,5 @@ const type = (leaf, payload) => {
 
 export const leafReducerDefaults = {
   argsToPayload,
-  type
+  actionType
 }
