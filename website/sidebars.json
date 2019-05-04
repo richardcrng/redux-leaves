@@ -1,14 +1,20 @@
 {
   "docs": {
     "Introduction": [
-      "motivation"
+      "intro/overview",
+      "intro/demo",
+      "intro/features"
     ],
     "Core API":[
       "redux-leaves",
-      "custom-logic"
+      "leaf/about",
+      "leaf-reducers",
+      "creator-keys"
     ],
     "Actions": [
-      "create/core-creators",
+      "create/creators",
+      "leaf/standard-actions",
+      "create/defaults",
       "create/type-specific",
       {
         "type": "subcategory",

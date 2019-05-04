@@ -1,17 +1,11 @@
 import _ from 'lodash';
 
-export const leafReducerCustom = (customLogic, leafState, { modifier, payload }, wholeState) => {
-  const key = modifier.toLowerCase()
+export const leafReducerCustom = (reducersDict, leafState, { leaf = {}, payload }, wholeState) => {
+  const { creatorKey } = leaf;
 
-  if (Object.keys(customLogic).includes(key)) {
-    const logic = customLogic[key]
-
-    if (typeof logic === "function") {
-      return logic(_.cloneDeep(leafState), { payload }, wholeState)
-    } else {
-      return logic.reducer(_.cloneDeep(leafState), { payload }, wholeState)
-    }
-
+  if (Object.keys(reducersDict).includes(creatorKey)) {
+    const logic = reducersDict[creatorKey]
+    return logic.reducer(_.cloneDeep(leafState), { payload }, wholeState)
   } else {
     return leafState
   }

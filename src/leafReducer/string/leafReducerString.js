@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import { atomicActions } from "../../actions/atomic";
 
-export const leafReducerString = (leafState, { modifier, payload }) => {
+export const leafReducerString = (leafState, { creatorKey, payload }) => {
   const state = _.isString(leafState) ? leafState : _.toString(leafState)
-  switch (modifier) {
+  switch (creatorKey) {
     case atomicActions.CONCAT: return concat(state, ...payload)
     case atomicActions.REPLACE: return replace(state, payload)
     default: return state

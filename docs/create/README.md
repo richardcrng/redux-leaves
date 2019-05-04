@@ -1,246 +1,71 @@
 ---
-id: core-creators
-title: Core Action Creators
+id: creators
+title: Action Creators
 hide_title: true
-sidebar_label: Core creators
+sidebar_label: Action creators
 ---
 
-# `create`
+# Action Creators
 
-Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
+With Redux-Leaves, all [leaf reducers](../leafReducers.md) that you define in your [`reducersDict`](../README.md#reducersdict) are automatically given a corresponding action creator.
 
-## Action creators
-- [`.apply(callback)`](#applycallback)
-- [`.clear([toNull = false])`](#cleartonull--false)
-- [`.reset()`](#reset)
-- [`.update(value)`](#updatevalue)
+The action creator has a [creator key](../creatorKeys.md) (`creatorKey`) corresponding to the one which the leaf reducer is defined with.
 
-### Type-specific
-These are [spread into the `create` object](typeSpecific.md) depending on the `initialLeafState`, or accessible through their respective APIs:
+`create[creatorKey]` is then an action creator function available at every single [leaf](../leaf/README.md) on our `actions` object.
 
-- [`create.asArray`](asArray/README.md#createasarray)
-- [`create.asBoolean`](asBoolean/README.md#createasboolean)
-- [`create.asNumber`](asNumber/README.md#createasnumber)
-- [`create.asObject`](asObject/README.md#createasobject)
-- [`create.asString`](asString/README.md#createasstring)
+Dispatch an action created by `create[creatorKey]` will trigger the matching leaf reducer.
 
-### Custom`
-
-It is also possible to add [custom action creators](../customLogic.md) by passing in a `customLogic` argument to [`reduxLeaves`](../README.md).
-
-
-## `apply(callback)`
-**`create.apply`**
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, entireState)`.
+## `create[creatorKey]`
 
 ### Parameters
-- `callback` *(function)*: invoked by the leaf's reducer with two arguments, `leafState` and `entireState`
+- `...args` *(...any)*: passed to the leaf reducer's [`argsToPayload`](../leafReducers.md#argstopayload) function
 
 ### Returns
-`action` *(object)*: an object to dispatch to the `store`
+`action` *(object)*: a Leaf-Standard-Action
 
-#### Example
+## Example
+
+### 1. Grab actions from `reduxLeaves`
+
 ```js
+import reduxLeaves from 'redux-leaves'
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  bool: false,
-  num: 2,
-  str: 'foo',
-  arr: [1, 2, 3]
+  foo: 1
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-
-Calling `create.apply` on a leaf:
-
-```js
-store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
-console.log(store.getState().str) // 'FOO'
-```
-
-Calling `create.apply` on a branch:
-
-```js
-store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr }))
-console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
-```
-
-Calling `create.apply` with two arguments:
-
-```js
-store.dispatch(actions.arr.create.apply(
-  (leafState, entireState) => leafState.map(element => element * entireState.num)
-))
-console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
-```
-
-[Back to all `create` action creators](#action-creators)
-
-## `clear([toNull = false])`
-**`create.clear`**
-
-Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
-
-If `toNull === true`, then it updates it to `null`, otherwise it follows the type of the leaf's initial state:
-- *number*: `0`
-- *string*: `''`
-- *boolean*: `false`
-- *array*: `[]`
-- *object*: `{}`
-
-### Parameters
-- `toNull` *(boolean, optional)*: defaults to `false`
-
-### Returns
-`action` *(object)*: an object to dispatch to the `store`
-
-#### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  bool: true,
-  num: 2,
-  str: 'foo',
-  arr: [1, 2, 3]
+const reducersDict = {
+  addOne: leafState => leafState + 1,
+  double: leafState => 2 * n,
+  exponentiate: (leafState, { payload }) => leafState ** payload
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
+const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 ```
-#### bool
+
+### 2. Create actions using creator keys
 ```js
-store.dispatch(actions.bool.create.clear())
-console.log(store.getState().bool) // false
+const { create } = actions.foo    // action creators for the foo leaf of state
 
-store.dispatch(actions.bool.create.clear(true))
-console.log(store.getState().bool) // null
+const actionToAddOneToFoo = create.addOne()
+const actionToDoubleFoo = create.double()
+const actionToCubeFoo = create.exponentiate(3)
 ```
-#### num
+Redux-Leaves' action creators can take optional arguments. By default, the first argument (if it exists) becomes the action's payload, but [this behaviour can be configured](../leafReducers.md#argstopayload).
+
+### 3. Dispatch actions to the store
 ```js
-store.dispatch(actions.num.create.clear())
-console.log(store.getState().num) // 0
+const store = createStore(initialState)
 
-store.dispatch(actions.num.create.clear(true))
-console.log(store.getState().num) // null
-```
-#### str
-```js
-store.dispatch(actions.str.create.clear(true))
-console.log(store.getState().str) // null
+store.dispatch(actionToAddOneToFoo)
+store.dispatch(actionToDoubleFoo)
+store.dispatch(actionToCubeFoo)
 
-store.dispatch(actions.str.create.clear())
-console.log(store.getState().str) // ''
-```
-#### arr
-```js
-store.dispatch(actions.arr.create.clear(true))
-console.log(store.getState().arr) // null
-
-store.dispatch(actions.arr.create.clear())
-console.log(store.getState().arr) // []
-```
-#### obj
-```js
-store.dispatch(actions.create.clear(true))
-console.log(store.getState()) // null
-
-store.dispatch(actions.create.clear())
-console.log(store.getState()) // {}
+// ((1+1)*2)^3 = 64
+console.log(store.getState())   // { foo: 64 }; success!
 ```
 
-[Back to all `create` action creators](#action-creators)
+## Defaults
 
-## `reset()`
-**`create.reset`**
-
-Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the actions.
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-#### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  num: 2,
-  arr: [1, 2, 3]
-
-const otherState = {
-  num: 11,
-  arr: ['a', 'b', 'c']
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer, otherState)        // preloads otherState
-
-/* store.getState()
-* {
-*   num: 11,
-*   arr: ['a', 'b', 'c']
-* }
-*/
-
-```
-Calling `create.reset` on a leaf:
-```js
-store.dispatch(actions.num.create.reset())
-console.log(store.getState().num) // 2
-```
-Calling `create.reset` on a branch:
-```js
-store.dispatch(actions.create.reset())
-console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
-```
-
-[Back to all `create` action creators](#action-creators)
-
-## `update(value)`
-**`create.update`**
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
-
-### Parameters
-- `value` *(any)*: the new value for the leaf's state
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-#### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  bool: false,
-  num: 2,
-  str: 'foo',
-  arr: [1, 2, 3]
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-
-Calling `create.update` on a leaf:
-
-```js
-store.dispatch(actions.str.create.update("I can put anything here"))
-console.log(store.getState().str) // 'I can put anything here'
-```
-
-Calling `create.update` on a branch:
-```js
-store.dispatch(actions.create.update({ any: { properties: true }}))
-console.log(store.getState()) // { any: { properties: true } }
-```
-
-[Back to all `create` action creators](#action-creators)
+Redux-Leaves also ships with some [default action creators](defaults.md) available.

@@ -1,29 +1,18 @@
 import _ from 'lodash';
-import { makeActionTemplate } from '../for/utils';
+import { makeActionTemplate } from '../template/makeActionTemplate';
 
-export const makeCustomActions = (customLogic = {}, pathToLeafOrBranch = []) => {
+export const makeCustomActions = (reducersDict = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
-
   return _.mapValues(
-    customLogic,
-    (obj, key) => makeCustomActionCreator(obj, key, actionTemplate)
+    reducersDict,
+    (leafReducer, creatorKey) => makeCustomActionCreator(leafReducer, creatorKey, actionTemplate)
   )
 }
 
-const makeCustomActionCreator = (creatorDefinition, actionName, actionTemplate) => {
-
-  if (typeof creatorDefinition === "function") {
-    return (firstArg) => actionTemplate(actionName.toUpperCase(), firstArg)
-  }
-  
-  if (_.isPlainObject(creatorDefinition)) {
-    const { argsToPayload } = creatorDefinition;
-    return (firstArg, ...remArgs) => {
-      const payload = (typeof argsToPayload === "function")
-        ? argsToPayload(firstArg, ...remArgs)
-        : firstArg
-
-      return actionTemplate(actionName.toUpperCase(), payload, creatorDefinition.type)
-    }
+const makeCustomActionCreator = (leafReducer, creatorKey, actionTemplate) => {
+  const { argsToPayload } = leafReducer;
+  return (...args) => {
+    const payload = argsToPayload(...args)
+    return actionTemplate(creatorKey, payload, leafReducer.type)
   }
 }

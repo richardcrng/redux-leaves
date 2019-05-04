@@ -25,16 +25,47 @@
         "title": "String Action Creators",
         "sidebar_label": "String"
       },
-      "create/core-creators": {
+      "create/defaults": {
+        "title": "Default Action Creators",
+        "sidebar_label": "Default action creators"
+      },
+      "create/creators": {
         "title": "Action Creators",
-        "sidebar_label": "Core action creators"
+        "sidebar_label": "Action creators"
       },
       "create/type-specific": {
-        "title": "Type-specific creators"
+        "title": "Type-Specific Action Creators",
+        "sidebar_label": "Type-specific creators"
       },
-      "custom-logic": {
+      "creator-keys": {
+        "title": "Creator Keys",
+        "sidebar_label": "Creator keys"
+      },
+      "custom-reducers": {
         "title": "Advanced Usage",
-        "sidebar_label": "customLogic"
+        "sidebar_label": "customReducers"
+      },
+      "intro/demo": {
+        "title": "30 Second Demo",
+        "sidebar_label": "30 second demo"
+      },
+      "intro/features": {
+        "title": "Features"
+      },
+      "intro/overview": {
+        "title": "Overview"
+      },
+      "leaf/about": {
+        "title": "Leaves in Redux-Leaves",
+        "sidebar_label": "About 'leaves'"
+      },
+      "leaf/standard-actions": {
+        "title": "Leaf-Standard-Actions",
+        "sidebar_label": "Leaf-Standard-Actions"
+      },
+      "leaf-reducers": {
+        "title": "Leaf Reducers",
+        "sidebar_label": "Leaf reducers"
       },
       "motivation": {
         "title": "Motivation",
@@ -46,6 +77,8 @@
       }
     },
     "links": {
+      "Overview": "Overview",
+      "Demo": "Demo",
       "Docs": "Docs",
       "GitHub": "GitHub"
     },

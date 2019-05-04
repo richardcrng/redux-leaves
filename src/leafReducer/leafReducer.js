@@ -10,37 +10,40 @@ import { leafReducerCustom } from './custom/leafReducerCustom';
 
 export const leafReducer = (
   leafState,
-  { path, condition, modifier, payload, custom },
+  action,
   wholeState,
   initialWhole,
-  customLogic
+  reducersDict
   ) => {
+
+  const { leaf = {}, payload } = action;
+  const { condition, custom, creatorKey, path } = leaf;
 
   // Custom actions
   if (custom) {
-    return leafReducerCustom(customLogic, leafState, { modifier, payload }, wholeState)
+    return leafReducerCustom(reducersDict, leafState, action, wholeState)
   }
   
   // Type-specific actions
   switch (condition) {
     case conditions.ARRAY:
-      return leafReducerArray(leafState, {  modifier, payload })
+      return leafReducerArray(leafState, { creatorKey, payload })
     case conditions.BOOLEAN:
-      return leafReducerBoolean(leafState, { modifier })
+      return leafReducerBoolean(leafState, { creatorKey })
     case conditions.NUMBER:
-      return leafReducerNumber(leafState, { modifier, payload })
+      return leafReducerNumber(leafState, { creatorKey, payload })
     case conditions.OBJECT:
-      return leafReducerObject(leafState, { modifier, payload })
+      return leafReducerObject(leafState, { creatorKey, payload })
     case conditions.STRING:
-      return leafReducerString(leafState, { modifier, payload })
+      return leafReducerString(leafState, { creatorKey, payload })
   }
 
   // Type-agnostic actions
-  switch (modifier) {
+  switch (creatorKey) {
     case atomicActions.APPLY: return apply(payload, leafState, wholeState)
     case atomicActions.CLEAR: return clear(leafState, payload)
     case atomicActions.RESET: return reset(initialWhole, path)
-    case atomicActions.UPDATE: return update(leafState, payload)
+    case atomicActions.UPDATE: return payload
     default: return leafState
   }
 }

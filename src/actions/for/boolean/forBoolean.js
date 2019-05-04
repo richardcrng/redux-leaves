@@ -1,6 +1,6 @@
 import { atomicActions } from "../../atomic";
 import { conditions } from "../../condtions/conditions";
-import { makeActionTemplate } from "../utils";
+import { makeActionTemplate } from "../../template/makeActionTemplate";
 
 export const forBoolean = (pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(

@@ -7,37 +7,37 @@ import { forAny } from './any';
 import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
 
-export const actionsFor = (stateShape, customLogic) => {
+export const actionsFor = (stateShape, customReducers) => {
   const paths = recursivelyGeneratePaths(stateShape)
-  const actions = { create: createFor(stateShape, customLogic) }
+  const actions = { create: createFor(stateShape, customReducers) }
 
   paths.forEach(path => {
     const isPathToBranch = isBranch(_.get(stateShape, path))
     if (isPathToBranch) {
-      addActionsToBranch(actions, path, stateShape, customLogic)
+      addActionsToBranch(actions, path, stateShape, customReducers)
     } else {
-      addActionsToLeaf(actions, path, stateShape, customLogic)
+      addActionsToLeaf(actions, path, stateShape, customReducers)
     }
   })
   
   return actions
 }
 
-const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape, customLogic) => {
-  leafOrBranch.create = createFor(stateShape, customLogic, pathToLeafOrBranch)
+const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape, customReducers) => {
+  leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
   return leafOrBranch
 }
 
-const addActionsToBranch = (actions, path, stateShape, customLogic) => {
+const addActionsToBranch = (actions, path, stateShape, customReducers) => {
   const branch = _.get(stateShape, path)
-  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape, customLogic))
+  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape, customReducers))
 }
 
-const addActionsToLeaf = (actions, path, stateShape, customLogic) => {
-  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape, customLogic))
+const addActionsToLeaf = (actions, path, stateShape, customReducers) => {
+  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape, customReducers))
 }
 
-const createFor = (stateShape, customLogic, pathToLeafOrBranch = []) => {
+const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
   const initialState = pathToLeafOrBranch.length >= 1
     ? _.get(stateShape, pathToLeafOrBranch)
     : stateShape
@@ -50,7 +50,7 @@ const createFor = (stateShape, customLogic, pathToLeafOrBranch = []) => {
   const asNumber = forNumber(pathToLeafOrBranch)
   const asObject = forObject(pathToLeafOrBranch)
   const asString = forString(pathToLeafOrBranch)
-  const custom = makeCustomActions(customLogic, pathToLeafOrBranch)
+  const custom = makeCustomActions(customReducers, pathToLeafOrBranch)
 
   if (_.isBoolean(initialState)) {
     actionCreators = asBoolean
@@ -72,7 +72,8 @@ const createFor = (stateShape, customLogic, pathToLeafOrBranch = []) => {
     asNumber,
     asObject,
     asString,
-    custom
+    custom,
+    ...custom
   }
 }
 

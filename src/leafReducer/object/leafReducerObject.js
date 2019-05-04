@@ -2,9 +2,9 @@ import _ from 'lodash';
 import { atomicActions } from "../../actions/atomic";
 import { updateState } from '../..';
 
-export const leafReducerObject = (leafState, { modifier, payload }) => {
+export const leafReducerObject = (leafState, { creatorKey, payload }) => {
   const state = _.isPlainObject(leafState) ? leafState : _.toPlainObject(leafState)
-  switch (modifier) {
+  switch (creatorKey) {
     case atomicActions.ASSIGN: return assign(state, payload)
     case atomicActions.SET: return set(state, payload)
     default: return state

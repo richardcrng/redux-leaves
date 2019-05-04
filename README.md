@@ -1,6 +1,6 @@
 # redux-leaves
 
-Manage every leaf of your state tree with *pleasure*, *precision* and *predictability*.
+Write once. Reduce anywhere.
 
 ![Travis (.org)](https://img.shields.io/travis/richardcrng/redux-leaves.svg)
 [![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons)
@@ -11,20 +11,14 @@ Manage every leaf of your state tree with *pleasure*, *precision* and *predictab
 
 #### Getting started
 - [30 second demo](#30-second-demo)
-- [Motivation](#motivation)
+- [Motivation](docs/motivation.md)
 
 #### API reference
-- [Core: `reduxLeaves(initialState)`](reduxLeaves.md)
-- [Action creators: `create`](create.md)
-- [Custom action creators via `customLogic`](customLogic.md)
-
-#### [FAQs](#faqs)
-- [What actions can I dispatch to the store?](#what-actions-can-i-dispatch-to-the-store)
-- [Will dispatched actions mutate the store state?](#will-dispatched-actions-mutate-the-stores-state)
+- [Core: `reduxLeaves(initialState, reducers)`](docs/README.md)
 
 ## 30 second demo
 
-### 1. Pleasingly little boilerplate
+### 1. Write once.
 
 ```bash
 npm install --save redux-leaves
@@ -37,96 +31,37 @@ import reduxLeaves from 'redux-leaves'
 const initialState = {
   counter: 1,
   foo: ['foo'],
-  nested: {
-    deep: {},
-    state: {
-      manageable: 'you bet'
-    }
-  }
+  nest: { deep: {} }
 }
 
-const [reducer, actions] = reduxLeaves(initialState) // ES6 array destructuring
+const reducers = {
+  increment: leafState => leafState + 1,
+  push: (leafState, { payload }) => [...leafState, payload],
+  recurse: (leafState, { payload }, wholeState) => ({ ...leafState, [payload]: wholeState[payload] })
+}
+
+const [reducer, actions] = reduxLeaves(initialState, reducers)
 const store = createStore(reducer)
-
-// Setup complete!
 ```
 
-### 2. Precise updates
+### 2. Reduce anywhere.
 
 ```js
-// actions API allows us to access action creators targeted at any leaf of our state shape
-
 store.dispatch(actions.counter.create.increment())
-store.dispatch(actions.foo.create.push('bar'))
-store.dispatch(actions.nested.state.deep.create.set('arbitrarily', true))
-store.dispatch(actions.nested.state.manageable.create.apply(state => state.toUpperCase()))
-```
+console.log(store.getState()) // { counter: 2, foo: ['foo'], nest: { deep: {} } }
 
-### 3. Predictable changes
-```js
-// store.getState()
-{
-  counter: 2,
-  foo: ['foo', 'bar'],
-  nested: {
-    deep: {
-      arbitrarily: true
-    },
-    state: {
-      manageable: 'YOU BET'
+store.dispatch(actions.foo.create.push('bar'))
+console.log(store.getState()) // { counter: 2, foo: ['foo', 'bar'], nest: { deep: {} } }
+
+store.dispatch(actions.nest.deep.create.recurse('counter'))
+console.log(store.getState())
+/*
+  {
+    counter: 2,
+    foo: ['foo', 'bar'],
+    nest: {
+      deep: { counter: 2 }
     }
   }
-}
+*/
 ```
-
-## Motivation
-
-### Problem
-
-[Redux](https://redux.js.org/) and [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) both work great for following what is happening in your app.<sup>1</sup>
-
-However, there are three pain points that at least one developer has encountered:
-
-1. **Ugly boilerplate maintenance**: one more slice of state =  another load of action types, creators and reducers to write.
-2. **Unhelpfully named constants**: what was `NONTRIVIAL_THING_HAPPENED` meant to do, again...?
-3. **Repetitive reducer logic**: an action that updates some slice of state to `true`? *How novel!*
-
-<sup>1</sup> *cf. what you* intended *to happen in your app...*
-
-### Solution
-
-`redux-leaves` is a library that is written to provide:
-
-1. **Pleasingly little boilerplate**: set up your reducer and actions in one line
-```js
-const [reducer, actions] = reduxLeaves(initialState)
-```
-
-2. **Precise updates**: easily increment that counter, no matter how deeply you nested it
-```js
-dispatch(actions.distressingly.and.foolishly.deeply.nested.counter.create.increment(2))
-```
-3. **Predictable changes**: understand exactly what's happening with clear and consistently named action types:
-```js
-// action type dispatched above:
-'distressingly/and/foolishly/deeply/nested/counter/asNumber.INCREMENT'
-``` 
-
-## FAQs
-
-### What actions can I dispatch to the store?
-
-The `reducer` produced by `reduxLeaves` only knows how to update state in response to the `actions` produced by `reduxLeaves` - but there's a full [`create` API](create.md) which shows what actions you can dispatch (including [`create.apply`](create.md#createapplycallback), which takes a callback function to update state).
-
-If you desire further customisation, you can add custom action creators to the `actions` returned by `reduxLeaves`, via an optional [`customLogic`](customLogic.md) argument.
-
-
-### Will dispatched actions mutate the store's state?
-
-Even if you dispatch an action that looks like it will mutate state (e.g. `create.apply(n => n++)`), `reduxLeaves`'s reducer enforces immutability (using [Immer](https://github.com/immerjs/immer)).
-
-
-## API reference
-- [Core: `reduxLeaves(initialState, [customLogic = {}])`](reduxLeaves.md)
-- [Action creators: `create`](create.md)
-- [Custom action creators via `customLogic`](customLogic.md)
