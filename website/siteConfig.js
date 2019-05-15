@@ -22,8 +22,8 @@ const users = [
 
 const siteConfig = {
   title: 'Redux-Leaves', // Title for your website.
-  tagline: 'Manage every leaf of your state tree',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
+  tagline: 'Write one. Reduce anywhere.',
+  url: 'https://redux-leaves.netlify.com/', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
