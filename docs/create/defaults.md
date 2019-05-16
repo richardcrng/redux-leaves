@@ -24,7 +24,7 @@ These are [spread into the `create` object](typeSpecific.md) depending on the `i
 - [`create.asObject`](asObject/README.md#createasobject)
 - [`create.asString`](asString/README.md#createasstring)
 
-### Custom`
+### Custom
 
 It is also possible to add [custom action creators](../customReducers.md) by passing in a `customReducers` argument to [`reduxLeaves`](../README.md).
 
