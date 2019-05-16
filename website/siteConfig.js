@@ -38,10 +38,10 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'intro/overview', label: 'Overview'},
-    {doc: 'intro/demo', label: 'Demo'},
-    {doc: 'redux-leaves', label: 'Docs'},
-    {href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub'}
+    { doc: 'intro/overview', label: 'Overview' },
+    { href: 'https://codesandbox.io/s/reduxleaves-iwc4f', label: 'Sandbox', external: true },
+    { doc: 'redux-leaves', label: 'Docs' },
+    { href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub', external: true }
   ],
 
   // If you have users set above, you add it here:
@@ -54,8 +54,8 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#9c5f94',
-    secondaryColor: '#6d4267',
+    primaryColor: '#348334',
+    secondaryColor: '#4c9f27',
   },
 
   /* Custom fonts for website */
@@ -104,7 +104,7 @@ const siteConfig = {
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
-  //   repoUrl: 'https://github.com/facebook/test-site',
+  repoUrl: 'https://github.com/richardcrng/redux-leaves',
 };
 
 module.exports = siteConfig;
