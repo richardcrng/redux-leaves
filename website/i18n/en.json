@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Manage every leaf of your state tree",
+    "tagline": "Write one. Reduce anywhere.",
     "docs": {
       "create/asArray/array-creators": {
         "title": "Array Action Creators",
@@ -78,7 +78,7 @@
     },
     "links": {
       "Overview": "Overview",
-      "Demo": "Demo",
+      "Sandbox": "Sandbox",
       "Docs": "Docs",
       "GitHub": "GitHub"
     },

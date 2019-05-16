@@ -60,13 +60,13 @@ class HomeSplash extends React.Component {
 
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/docusaurus.svg`} />
+        <Logo img_src={`${baseUrl}img/Icon.png`} />
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href="#try">Try It Out</Button>
-            <Button href={docUrl('doc1.html')}>Example Link</Button>
-            <Button href={docUrl('doc2.html')}>Example Link 2</Button>
+            <Button href={docUrl('intro/overview')}>Overview</Button>
+            <Button href="https://codesandbox.io/s/reduxleaves-iwc4f">Sandbox</Button>
+            <Button href="https://github.com/richardcrng/redux-leaves">GitHub</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -77,13 +77,18 @@ class HomeSplash extends React.Component {
 class Index extends React.Component {
   render() {
     const {config: siteConfig, language = ''} = this.props;
-    const {baseUrl} = siteConfig;
+    const {baseUrl, docsUrl} = siteConfig;
+    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
+    const langPart = `${language ? `${language}/` : ''}`;
+    const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
 
     const Block = props => (
       <Container
         padding={['bottom', 'top']}
         id={props.id}
-        background={props.background}>
+        background={props.background}
+        docUrl={docUrl}
+      >
         <GridBlock
           align="center"
           contents={props.children}
@@ -145,16 +150,28 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'This is the content of my feature',
-            image: `${baseUrl}img/docusaurus.svg`,
+            title: 'Write once.',
+            content: 'Tired of writing repetitive reducer logic for different slices of state? With Redux-Leaves, you can <b>define reducer logic for an arbitrary leaf</b>.',
+            image: `${baseUrl}img/code.png`,
             imageAlign: 'top',
-            title: 'Feature One',
           },
           {
-            content: 'The content of my second feature',
-            image: `${baseUrl}img/docusaurus.svg`,
+            title: 'Reduce anywhere.',
+            content: 'Redux-Leaves makes that reducer logic instantly available to you for any leaf of your state shape, through <b>an intuitive action creator API</b>.',
+            image: `${baseUrl}img/hierarchy.png`,
             imageAlign: 'top',
-            title: 'Feature Two',
+          },
+          {
+            title: 'No boilerplate.',
+            content: 'No more need to write action creators. Redux-Leaves <b>writes your action creators for you</b> based on the reducer logic that you supply.',
+            image: `${baseUrl}img/ban.svg`,
+            imageAlign: 'top',
+          },
+          {
+            title: 'Quick setup.',
+            content: `It takes <a href=${docUrl('intro/demo')}>just 30 seconds</a> to get up and running with Redux-Leaves.`,
+            image: `${baseUrl}img/ban.svg`,
+            imageAlign: 'top',
           },
         ]}
       </Block>
@@ -194,11 +211,11 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
-          <FeatureCallout />
+          {/* <FeatureCallout />
           <LearnHow />
           <TryOut />
           <Description />
-          <Showcase />
+          <Showcase /> */}
         </div>
       </div>
     );
