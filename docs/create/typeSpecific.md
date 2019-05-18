@@ -2,7 +2,7 @@
 id: type-specific
 title: Type-Specific Action Creators
 hide_title: true
-sidebar_label: Type-specific creators
+sidebar_label: Type-specific
 ---
 
 # Type-specific `create` methods

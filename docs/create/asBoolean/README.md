@@ -9,7 +9,7 @@ sidebar_label: Boolean
 
 Every single leaf on our `actions` object has access to `create.asBoolean` methods.
 
-If the leaf was initialised with boolean state, then these methods are also accessible directly through the [`create` API](../README.md).
+If the leaf was initialised with boolean state, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
 If the current `leafState` is *not* a boolean, then it is first coerced into a boolean as `!!leafState`, before the state is updated according to the action dispatched.
 
@@ -18,7 +18,7 @@ If the current `leafState` is *not* a boolean, then it is first coerced into a b
 - [`.on()`](#on)
 - [`.toggle()`](#toggle)
 
-[Back to all `create` action creators](../README.md#action-creators)
+[Back to all `create` action creators](../defaults.md)
 
 ## `off()`
 **`create.asBoolean.off`**

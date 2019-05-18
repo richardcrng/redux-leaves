@@ -40,11 +40,11 @@ Using the configuration object longhand allows greater customisation, through ad
 
 The list of configuration keys that can be provided are below:
 
-| Key | Value | Description | Optional? | 
+| Key | Value (type) | Description | Optional? | 
 | --- | --- | --- | --- |
 | [`reducer`](#reducer) | function | Updates the leaf's state | |
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
-| [`actionType`](#actiontype) | string \| function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
+| [`actionType`](#actiontype) | string / function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
 
 ### `reducer`
 *(function)*: Updates the leaf's state.
