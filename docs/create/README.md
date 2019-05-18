@@ -9,9 +9,7 @@ sidebar_label: Actions
 
 ## Action creators
 
-With Redux-Leaves, all [leaf reducers](../leafReducers.md) that you define in your [`reducersDict`](../README.md#reducersdict) are automatically given a corresponding action creator.
-
-The action creator has a [creator key](../creatorKeys.md) (`creatorKey`) corresponding to the one which the leaf reducer is defined with.
+With Redux-Leaves, all [leaf reducers](../leafReducers.md) that you define in your [`reducersDict`](../README.md#reducersdict) are automatically given a corresponding action creator, keyed by the same [`creatorKey`](../creatorKeys.md).
 
 `create[creatorKey]` is then an action creator function available at every single [leaf](../leaf/README.md) on our `actions` object.
 
