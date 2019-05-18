@@ -1,6 +1,8 @@
 {
   "name": "redux-leaves",
-  "version": "0.3.0",
+  "version": "0.3.2",
+  "description": "Write once, reduce anywhere",
+  "main": "dist/index.js",
   "license": "MIT",
   "author": {
     "name": "Richard Ng",

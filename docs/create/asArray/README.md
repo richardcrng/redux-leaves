@@ -9,7 +9,7 @@ sidebar_label: Array
 
 Every single leaf on our `actions` object has access to `create.asArray` methods.
 
-If the leaf was initialised with array state, then these methods are also accessible directly through the [`create` API](../README.md).
+If the leaf was initialised with array state, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
 If the current `leafState` is *not* an array, then it is first coerced into an array via lodash's [`_.toArray(leafState)`](https://lodash.com/docs/4.17.11#toArray) method, before the state is updated according to the action dispatched.
 
@@ -19,7 +19,7 @@ If the current `leafState` is *not* an array, then it is first coerced into an a
 - [`.filter(callback)`](#filter(callback))
 - [`.push(element, [index = -1], [replace = false])`](#createpushelement-index---1-replace--false)
 
-[Back to all `create` action creators](../README.md#action-creators)
+[Back to all `create` action creators](../defaults.md)
 
 ## `concat(array)`
 **`create.asArray.concat`**

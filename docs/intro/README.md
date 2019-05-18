@@ -10,7 +10,7 @@ The guiding philosophy of Redux-Leaves is *"write once, reduce anywhere"*.
 
 This page explains more about the motivation of Redux-Leaves and how its design philosophy is put into practice.
 
-**Just want to see some code? Check out the [30 second demo](demo.md).**
+> **Just want to see some code? Check out the [30 second demo](demo.md) or [Code Sandbox](https://codesandbox.io/s/reduxleaves-iwc4f).**
 
 ## Motivation
 
@@ -18,7 +18,7 @@ This page explains more about the motivation of Redux-Leaves and how its design 
 
 Redux is great, but some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7).
 
-**Redux-Leaves aims to make Redux easier to learn *and* quicker to scale**.
+> **Redux-Leaves aims to make Redux easier to learn *and* quicker to scale**.
 
 ### How?
 
@@ -33,7 +33,7 @@ Achieving this can feel like it requires a lot of boilerplate in:
 
 ... for *every single slice of state*.
 
-**What if we could write reducer logic and have it available *throughout our state tree?***
+> **What if we could write reducer logic and have it available *throughout our state tree?***
 
 ### What?
 
