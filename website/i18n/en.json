@@ -41,10 +41,6 @@
         "title": "Creator Keys",
         "sidebar_label": "Creator keys"
       },
-      "custom-reducers": {
-        "title": "Advanced Usage",
-        "sidebar_label": "customReducers"
-      },
       "intro/demo": {
         "title": "30 Second Demo",
         "sidebar_label": "30 second demo"
