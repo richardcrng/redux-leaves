@@ -2,10 +2,12 @@
 id: creators
 title: Action Creators
 hide_title: true
-sidebar_label: Action creators
+sidebar_label: Actions
 ---
 
-# Action Creators
+# `actions`
+
+## Action creators
 
 With Redux-Leaves, all [leaf reducers](../leafReducers.md) that you define in your [`reducersDict`](../README.md#reducersdict) are automatically given a corresponding action creator.
 

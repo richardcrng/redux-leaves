@@ -73,7 +73,7 @@
       },
       "redux-leaves": {
         "title": "Core API",
-        "sidebar_label": "reduxLeaves"
+        "sidebar_label": "reduxLeaves API"
       }
     },
     "links": {
@@ -84,8 +84,9 @@
     },
     "categories": {
       "Introduction": "Introduction",
-      "Core API": "Core API",
-      "Actions": "Actions"
+      "Leaves & Reducers": "Leaves & Reducers",
+      "Actions": "Actions",
+      "Default creators": "Default creators"
     }
   },
   "pages-strings": {
