@@ -9,7 +9,7 @@ sidebar_label: String
 
 Every single leaf on our `actions` object has access to `create.asString` methods.
 
-If the leaf was initialised with string state, then these methods are also accessible directly through the [`create` API](../README.md).
+If the leaf was initialised with string state, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
 If the current `leafState` is *not* a string, then it is first coerced into a string via lodash's [`_.toString(leafState)`](https://lodash.com/docs/4.17.11#toString) method, before the state is updated according to the action dispatched.
 
@@ -17,7 +17,7 @@ If the current `leafState` is *not* a string, then it is first coerced into a st
 - [`.concat(...strings)`](#concatstrings)
 - [`.replace(pattern, replacement)`](#replacepattern-replacement)
 
-[Back to all `create` action creators](../README.md#action-creators)
+[Back to all `create` action creators](../defaults.md)
 
 ## `concat(...strings)`
 **`create.asString.concat`**

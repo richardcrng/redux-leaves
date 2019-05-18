@@ -5,7 +5,7 @@
       "intro/demo",
       "intro/features"
     ],
-    "Core API":[
+    "Leaves & Reducers":[
       "redux-leaves",
       "leaf/about",
       "leaf-reducers",
@@ -13,7 +13,9 @@
     ],
     "Actions": [
       "create/creators",
-      "leaf/standard-actions",
+      "leaf/standard-actions"
+    ],
+    "Default creators": [
       "create/defaults",
       "create/type-specific",
       {

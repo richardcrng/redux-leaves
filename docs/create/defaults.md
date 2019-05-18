@@ -2,14 +2,19 @@
 id: defaults
 title: Default Action Creators
 hide_title: true
-sidebar_label: Default action creators
+sidebar_label: Universal
 ---
 
 # `create`
 
-Every single leaf on our `actions` object has a `create` property, through which we can access action creator functions.
+Every single [leaf](../leaf/README.md) on our [`actions`](README.md) object has a `create` property, through which we can access action creator functions corresponding to the [`reducersDict`](../README.md#reducersdict) passed to to [`reduxLeaves`](../README.md).
+
+In addition, `create` also contains a number of default action creators, which are listed below.
+
+The default action creators can be overwritten by supplying your own [leaf reducer](../leafReducers.md) definition (with the same [`creatorKey`](../creatorKeys.md)) in your `reducersDict`.
 
 ## Action creators
+### Universal
 - [`.apply(callback)`](#applycallback)
 - [`.clear([toNull = false])`](#cleartonull--false)
 - [`.reset()`](#reset)
@@ -24,15 +29,13 @@ These are [spread into the `create` object](typeSpecific.md) depending on the `i
 - [`create.asObject`](asObject/README.md#createasobject)
 - [`create.asString`](asString/README.md#createasstring)
 
-### Custom
-
-It is also possible to add [custom action creators](../customReducers.md) by passing in a `customReducers` argument to [`reduxLeaves`](../README.md).
-
 
 ## `apply(callback)`
 **`create.apply`**
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, entireState)`.
+
+*Note: creating an action using `apply(callback)` violates Redux's recommendation that [actions should always be serializable](https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants), since the resultant action will have the function `callback` as its `payload`.*
 
 ### Parameters
 - `callback` *(function)*: invoked by the leaf's reducer with two arguments, `leafState` and `entireState`

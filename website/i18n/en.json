@@ -27,23 +27,19 @@
       },
       "create/defaults": {
         "title": "Default Action Creators",
-        "sidebar_label": "Default action creators"
+        "sidebar_label": "Universal"
       },
       "create/creators": {
         "title": "Action Creators",
-        "sidebar_label": "Action creators"
+        "sidebar_label": "Actions"
       },
       "create/type-specific": {
         "title": "Type-Specific Action Creators",
-        "sidebar_label": "Type-specific creators"
+        "sidebar_label": "Type-specific"
       },
       "creator-keys": {
         "title": "Creator Keys",
         "sidebar_label": "Creator keys"
-      },
-      "custom-reducers": {
-        "title": "Advanced Usage",
-        "sidebar_label": "customReducers"
       },
       "intro/demo": {
         "title": "30 Second Demo",
@@ -73,7 +69,7 @@
       },
       "redux-leaves": {
         "title": "Core API",
-        "sidebar_label": "reduxLeaves"
+        "sidebar_label": "reduxLeaves API"
       }
     },
     "links": {
@@ -84,8 +80,9 @@
     },
     "categories": {
       "Introduction": "Introduction",
-      "Core API": "Core API",
-      "Actions": "Actions"
+      "Leaves & Reducers": "Leaves & Reducers",
+      "Actions": "Actions",
+      "Default creators": "Default creators"
     }
   },
   "pages-strings": {
