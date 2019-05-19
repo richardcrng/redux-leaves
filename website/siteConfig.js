@@ -39,7 +39,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: 'intro/overview', label: 'Overview' },
-    { href: 'https://codesandbox.io/s/reduxleaves-iwc4f', label: 'Sandbox', external: true },
+    { href: 'https://codesandbox.io/s/github/richardcrng/redux-leaves-demo', label: 'Sandbox', external: true },
     { doc: 'redux-leaves', label: 'Docs' },
     { href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub', external: true }
   ],
