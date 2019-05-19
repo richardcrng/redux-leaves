@@ -65,7 +65,7 @@ class HomeSplash extends React.Component {
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
             <Button href={docUrl('intro/overview')}>Overview</Button>
-            <Button href="https://codesandbox.io/s/github/richardcrng/redux-leaves-demo">Sandbox</Button>
+            <Button href={siteConfig.sandboxUrl}>Sandbox</Button>
             <Button href={docUrl('redux-leaves')}>Core API</Button>
           </PromoSection>
         </div>

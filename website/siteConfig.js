@@ -20,6 +20,8 @@ const users = [
   },
 ];
 
+const sandboxUrl = 'https://codesandbox.io/s/github/richardcrng/redux-leaves-demo'
+
 const siteConfig = {
   title: 'Redux-Leaves', // Title for your website.
   tagline: 'Write one. Reduce anywhere.',
@@ -39,7 +41,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: 'intro/overview', label: 'Overview' },
-    { href: 'https://codesandbox.io/s/github/richardcrng/redux-leaves-demo', label: 'Sandbox', external: true },
+    { href: sandboxUrl, label: 'Sandbox', external: true },
     { doc: 'redux-leaves', label: 'Docs' },
     { href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub', external: true }
   ],
@@ -105,6 +107,7 @@ const siteConfig = {
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
   repoUrl: 'https://github.com/richardcrng/redux-leaves',
+  sandboxUrl
 };
 
 module.exports = siteConfig;
