@@ -11,7 +11,7 @@ Every single leaf on our `actions` object has access to `create.asNumber` method
 
 If the leaf was initialised with number state, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
-If the current `leafState` is *not* a number, then it is first coerced into an array via lodash's [`_.toNumber(leafState)`](https://lodash.com/docs/4.17.11#toNumber) method, before the state is updated according to the action dispatched.
+If the current `leafState` is *not* a number, then it is first coerced into an array, before the state is updated according to the action dispatched.
 
 ## Action creators
 - [`.increment([n = 1])`](#incrementn--1)

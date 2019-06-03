@@ -12,7 +12,6 @@
   "dependencies": {
     "change-case": "^3.1.0",
     "immer": "^3.0.0",
-    "lodash": "^4.17.11",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.18.0",
     "redux": "^4.0.1"

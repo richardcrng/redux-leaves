@@ -9,9 +9,11 @@ sidebar_label: Object
 
 Every single leaf on our `actions` object has access to `create.asObject` methods.
 
-If the leaf was initialised with [plain object](https://lodash.com/docs/4.17.11#isPlainObject) state, then these methods are also accessible directly through the [`create` API](../defaults.md).
+If the leaf was initialised with [plain object] state<sup>1</sup>, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
-If the current `leafState` is *not* a plain object, then it is first coerced into a plain object via lodash's [`_.toPlainObject(leafState)`](https://lodash.com/docs/4.17.11#toPlainObject) method, before the state is updated according to the action dispatched.
+If the current `leafState` is *not* a plain object, then it is first coerced into a plain object, before the state is updated according to the action dispatched.
+
+<sup>1</sup>A plain object is created using `{}`, `new Object()` or `Object.create(null)`
 
 ## Action creators
 - [`.assign(...sources)`](#assignsources)
