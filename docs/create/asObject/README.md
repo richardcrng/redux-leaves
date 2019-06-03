@@ -9,11 +9,12 @@ sidebar_label: Object
 
 Every single leaf on our `actions` object has access to `create.asObject` methods.
 
-If the leaf was initialised with [plain object] state<sup>1</sup>, then these methods are also accessible directly through the [`create` API](../defaults.md).
+If the leaf was initialised with [plain object](#plain-object) state, then these methods are also accessible directly through the [`create` API](../defaults.md).
 
 If the current `leafState` is *not* a plain object, then it is first coerced into a plain object, before the state is updated according to the action dispatched.
 
-<sup>1</sup>A plain object is created using `{}`, `new Object()` or `Object.create(null)`
+#### Plain object
+A plain object is created using `{}`, `new Object()` or `Object.create(null)`
 
 ## Action creators
 - [`.assign(...sources)`](#assignsources)
@@ -24,7 +25,7 @@ If the current `leafState` is *not* a plain object, then it is first coerced int
 ## `assign(...sources)`
 **`create.asObject.assign`**
 
-**alias: `create.assign`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
+**alias: `create.assign`** *(when `initialLeafState` is a [plain object](#plain-object))*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the copies all properties from `sources` into the leaf's state.
 
@@ -64,11 +65,9 @@ Back to:
 ## `set(path, value)`
 **`create.asObject.set`**
 
-**alias: `create.set`** *(when `initialLeafState` is a [plain object](https://lodash.com/docs/4.17.11#toPlainObject))*
+**alias: `create.set`** *(when `initialLeafState` is a [plain object](#plain-object))*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
-
-(This uses lodash's [`_.set(object, path, value)`](https://lodash.com/docs/4.17.11#set), where `object` is `leafState`.)
 
 ### Parameters
 - `path` *(array | string)*: the path of the property to set
