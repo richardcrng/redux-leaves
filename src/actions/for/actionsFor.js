@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import * as R from 'ramda'
+import * as RA from 'ramda-adjunct'
 import { forArray } from './array';
 import { forObject } from './object';
 import { forBoolean } from './boolean';
@@ -9,14 +10,14 @@ import { makeCustomActions } from '../custom';
 
 export const actionsFor = (stateShape, customReducers) => {
   const paths = recursivelyGeneratePaths(stateShape)
-  const actions = { create: createFor(stateShape, customReducers) }
+  let actions = { create: createFor(stateShape, customReducers) }
 
   paths.forEach(path => {
-    const isPathToBranch = isBranch(_.get(stateShape, path))
+    const isPathToBranch = isBranch(R.path(path, stateShape))
     if (isPathToBranch) {
-      addActionsToBranch(actions, path, stateShape, customReducers)
+      actions = addActionsToBranch(actions, path, stateShape, customReducers)
     } else {
-      addActionsToLeaf(actions, path, stateShape, customReducers)
+      actions = addActionsToLeaf(actions, path, stateShape, customReducers)
     }
   })
   
@@ -29,17 +30,17 @@ const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShap
 }
 
 const addActionsToBranch = (actions, path, stateShape, customReducers) => {
-  const branch = _.get(stateShape, path)
-  _.set(actions, path, actionsForLeafOrBranch(branch, path, stateShape, customReducers))
+  const branch = R.path(path, stateShape)
+  return R.assocPath(path, actionsForLeafOrBranch(branch, path, stateShape, customReducers), actions)
 }
 
 const addActionsToLeaf = (actions, path, stateShape, customReducers) => {
-  _.set(actions, path, actionsForLeafOrBranch({}, path, stateShape, customReducers))
+  return R.assocPath(path, actionsForLeafOrBranch({}, path, stateShape, customReducers), actions)
 }
 
 const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
   const initialState = pathToLeafOrBranch.length >= 1
-    ? _.get(stateShape, pathToLeafOrBranch)
+    ? R.path(pathToLeafOrBranch, stateShape)
     : stateShape
 
   let actionCreators
@@ -52,15 +53,15 @@ const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
   const asString = forString(pathToLeafOrBranch)
   const custom = makeCustomActions(customReducers, pathToLeafOrBranch)
 
-  if (_.isBoolean(initialState)) {
+  if (RA.isBoolean(initialState)) {
     actionCreators = asBoolean
-  } else if (_.isArray(initialState)) {
+  } else if (RA.isArray(initialState)) {
     actionCreators = asArray
-  } else if (_.isNumber(initialState)) {
+  } else if (RA.isNumber(initialState)) {
     actionCreators = asNumber
-  } else if (_.isPlainObject(initialState)) {
+  } else if (RA.isPlainObject(initialState)) {
     actionCreators = asObject
-  } else if (_.isString(initialState)) {
+  } else if (RA.isString(initialState)) {
     actionCreators = asString
   }
 
@@ -78,14 +79,13 @@ const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
 }
 
 const isBranch = leafOrBranch => (
-  (!Array.isArray(leafOrBranch) && typeof leafOrBranch === "object" && _.size(leafOrBranch) >= 1)
+  (!Array.isArray(leafOrBranch) && typeof leafOrBranch === "object" && Object.values(leafOrBranch).length >= 1)
 )
 
 const recursivelyGeneratePaths = (stateShape, paths = [], currentPath = []) => {
-  if (_.isPlainObject(stateShape)) {
-    _.forEach(
-      stateShape,
-      (val, key) => {
+  if (RA.isPlainObject(stateShape)) {
+    Object.entries(stateShape).forEach(
+      ([key, val]) => {
         const newPath = [...currentPath, key]
         paths.push(newPath)
         recursivelyGeneratePaths(val, paths, newPath)
