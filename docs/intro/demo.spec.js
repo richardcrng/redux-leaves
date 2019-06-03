@@ -11,6 +11,7 @@ describe("Redux-Leaves. Write once. Reduce anywhere.", () => {
 
     const reducersDict = {
       double: leafState => leafState * 2,
+      splice: (leafState, { payload: { begin, end } }) => leafState.splice(begin, end),
       appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
       countKeys: (leafState, action, wholeState) => Object.keys(wholeState).length
     }
@@ -116,6 +117,22 @@ describe("Redux-Leaves. Write once. Reduce anywhere.", () => {
                     newKey: true
                   })
                   expect(initialState.nested.arbitrarily.deep).toBe(0)
+                })
+
+                describe("AND we dispatch actions.list.splice({ begin: 0, end: 1 })", () => {
+                  beforeEach(() => {
+                    store.dispatch(actions.list.create.splice({ begin: 0, end: 1 }))
+                  })
+
+                  test.skip("THEN the store's state.nested.arbitrarily.deep updates non-mutatively", () => {
+                    expect(store.getState()).toEqual({
+                      counter: 4,
+                      list: ['second item'],
+                      nested: { arbitrarily: { deep: 4 } },
+                      newKey: true
+                    })
+                    expect(initialState.list).toEqual(['first'])
+                  })
                 })
               })
             })
