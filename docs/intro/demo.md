@@ -19,7 +19,7 @@ import reduxLeaves from 'redux-leaves'
 const initialState = {
   counter: 1,
   list: ['first'],
-  nested: { arbitrarily: { deep: 1 } }
+  nested: { arbitrarily: { deep: 0 } }
 }
 
 // 2. (Optional) Define custom reducers dictionary
@@ -57,11 +57,11 @@ console.log(store.getState().list) // ['first', 'second']
 store.dispatch(actions.list.create.appendToEach(' item'))
 console.log(store.getState().list) // ['first item', 'second item']
 
-// Default: assign true to key 'newKey' in state
+// Default: assign true to key 'newKey' at the top-level of state
 store.dispatch(actions.create.assign({ newKey: true }))
 console.log(store.getState().newKey) // true 
 
-// Custom: update state.nested.arbitrarily.deep with state's number of keys
+// Custom: update state.nested.arbitrarily.deep with state's number of top-level keys
 store.dispatch(actions.nested.arbitrarily.deep.create.countKeys())
 console.log(store.getState().nested.arbitrarily.deep) // 4
 
