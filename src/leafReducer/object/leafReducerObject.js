@@ -1,9 +1,9 @@
-import _ from 'lodash';
+import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
 import { updateState } from '../..';
 
 export const leafReducerObject = (leafState, { creatorKey, payload }) => {
-  const state = _.isPlainObject(leafState) ? leafState : _.toPlainObject(leafState)
+  const state = RA.isPlainObject(leafState) ? leafState : Object(leafState)
   switch (creatorKey) {
     case atomicActions.ASSIGN: return assign(state, payload)
     case atomicActions.SET: return set(state, payload)
@@ -12,7 +12,7 @@ export const leafReducerObject = (leafState, { creatorKey, payload }) => {
 }
 
 const assign = (state, sources) => Object.assign(
-  { ...state },   // stop immer complaining
+  state,   // stop immer complaining
   ...sources
 )
 

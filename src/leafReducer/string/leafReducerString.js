@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
 
 export const leafReducerString = (leafState, { creatorKey, payload }) => {
-  const state = _.isString(leafState) ? leafState : _.toString(leafState)
+  const state = RA.isString(leafState) ? leafState : String(leafState)
   switch (creatorKey) {
     case atomicActions.CONCAT: return concat(state, ...payload)
     case atomicActions.REPLACE: return replace(state, payload)

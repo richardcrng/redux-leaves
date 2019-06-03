@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import * as R from 'ramda'
 import { leafReducerDefaults } from './defaults';
 
 export const standardiseReducersDict = (reducersDict = {}) => {
-  return _.mapValues(
-    reducersDict,
-    defineLeafReducer
+  return R.mapObjIndexed(
+    defineLeafReducer,
+    reducersDict
   )
 }
 
