@@ -79,7 +79,9 @@ const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
 }
 
 const isBranch = leafOrBranch => (
-  (!Array.isArray(leafOrBranch) && typeof leafOrBranch === "object" && Object.values(leafOrBranch).length >= 1)
+  (!Array.isArray(leafOrBranch)
+    && typeof leafOrBranch === "object"
+    && Object.values(leafOrBranch).length >= 1)
 )
 
 const recursivelyGeneratePaths = (stateShape, paths = [], currentPath = []) => {
