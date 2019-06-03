@@ -1,9 +1,7 @@
-import _ from 'lodash';
+import * as R from 'ramda'
 import produce from 'immer';
-import { updateState } from './utils';
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
-import { getState } from './utils/index';
 import { standardiseReducersDict } from './reducersDict/standardise/standardiseReducersDict';
 
 export const reduxLeaves = (initialState, reducersDict = {}) => {
@@ -15,9 +13,10 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
   ) {
     return produce(state, draftState => {
       const { leaf = {} } = action;
-      const { path, condition, creatorKey, custom } = leaf
+      const { path = [], condition, creatorKey, custom } = leaf
 
-      const prevLeafState = getState(draftState, path)
+      // const prevLeafState = getState(draftState, path)
+      const prevLeafState = R.path(path, draftState)
 
       const newLeafState = leafReducer(
         prevLeafState,
@@ -26,12 +25,12 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
         initialState,
         leafReducersDict
       )
-
-      return updateState(draftState, path, newLeafState)
+      
+      return R.assocPath(path, newLeafState, draftState)
     })
   }
 
-  const actions = actionsFor(_.cloneDeep(initialState), leafReducersDict)
+  const actions = actionsFor(R.clone(initialState), leafReducersDict)
 
   return [immeredReducer, actions]
 }
