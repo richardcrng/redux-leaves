@@ -69,6 +69,10 @@ Back to:
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
 
+```js
+// TODO update this
+```
+
 ### Parameters
 - `path` *(array | string)*: the path of the property to set
 
