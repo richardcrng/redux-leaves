@@ -13,9 +13,8 @@ export const leafReducerCustom = (reducersDict, leafState, action, wholeState) =
 
 const applyReducer = (logic, leafState, action, wholeState) => {
   if (logic.mutate) {
-    return produce(leafState, draftState => {
-      logic.reducer(draftState, action, wholeState)
-      // don't return - we're mutating draftState
+    return produce(leafState, draftLeafState => {
+      logic.reducer(draftLeafState, action, wholeState)
     })
   } else {
     return logic.reducer(leafState, action, wholeState)
