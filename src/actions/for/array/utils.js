@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 export const atIndex = (array, index) => array[positiveIndex(array, index)];
 
 export const deleteAtIndex = (arr, idx) => [
@@ -14,9 +12,7 @@ export const insertAtIndex = (arr, idx, newVal) => (
 )
 
 export const replaceAtIndex = (arr, idx, newVal) =>
-  _.map(arr, (value, index) =>
-    positiveIndex(arr, idx) === index ? newVal : value
-  );
+  arr.map((value, index) => positiveIndex(arr, idx) === index ? newVal : value);
 
 const insertAfterIndex = (arr, idx, newVal) => [
   ...arr.slice(0, positiveIndex(arr, idx) + 1),

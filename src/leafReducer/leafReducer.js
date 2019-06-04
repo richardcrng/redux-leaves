@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import * as R from 'ramda'
+import * as RA from 'ramda-adjunct'
 import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
 import { leafReducerArray } from './array/leafReducerArray';
@@ -55,21 +56,19 @@ const apply = (callback, leafState, wholeState) => (
 const clear = (leafState, toNull) => {
   if (toNull) {
     return null
-  } else if (_.isBoolean(leafState)) {
+  } else if (RA.isBoolean(leafState)) {
     return false
-  } else if (_.isString(leafState)) {
+  } else if (RA.isString(leafState)) {
     return ''
-  } else if (_.isArray(leafState)) {
+  } else if (RA.isArray(leafState)) {
     return []
-  } else if (_.isNumber(leafState)) {
+  } else if (RA.isNumber(leafState)) {
     return 0
-  } else if (_.isPlainObject(leafState)) {
+  } else if (RA.isPlainObject(leafState)) {
     return {}
   }
 }
 
 const reset = (initialWholeState, path) => (
-  _.size(path) >= 1 ? _.get(initialWholeState, path) : initialWholeState
+  path.length >= 1 ? R.path(path, initialWholeState) : initialWholeState
 )
-
-const update = (leafState, payload) => payload

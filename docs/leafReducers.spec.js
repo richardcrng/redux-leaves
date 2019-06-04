@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { createStore } from "redux";
 import reduxLeaves from '../src';
 

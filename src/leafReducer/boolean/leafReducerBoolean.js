@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
 
 export const leafReducerBoolean = (leafState, { creatorKey }) => {
-  const state = _.isBoolean(leafState) ? leafState : !!leafState
+  const state = RA.isBoolean(leafState) ? leafState : !!leafState
 
   switch (creatorKey) {
     case atomicActions.OFF: return false
