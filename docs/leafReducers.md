@@ -96,17 +96,6 @@ argsToPayload = (first, second, ...rest) => ({ first, second, rest })
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
-```js
-// Demonstration of default behaviour:
-const actionType = (leaf, payload) => {
-  const {
-    path,           // e.g. ['path', 'to', 'nested', 'state'] 
-    CREATOR_KEY     // e.g. 'CUSTOM_CREATOR'
-  } = leaf
-  return [...path, CREATOR_KEY].join('/')   // 'path/to/nested/state/CUSTOM_CREATOR'
-}
-```
-
 #### Arguments
 - `leaf`: the [`leaf` property](leaf/standardActions.md#properties) of the [Leaf Standard Action](leaf/standardActions.md) being created
 - `payload`: the `payload` property of the Leaf Standard Action being created
@@ -114,16 +103,52 @@ const actionType = (leaf, payload) => {
 #### Returns
 A `type` property for the created action.
 
-## Example
+#### Examples
 ```js
-const leafReducer = {
-  argsToPayload: (...args) => {
-    // some logic here
-    // return an action payload
+let argsToPayload
+
+// Default behaviour: action payload is the first argument only
+argsToPayload = firstArgOnly => firstArgOnly
+
+// Payload as an array of the first 5 arguments
+argsToPayload = (...args) => args.slice(0, 5)
+
+// Payload as an object
+argsToPayload = (first, second, ...rest) => ({ first, second, rest })
+```
+
+### `mutate`
+*(boolean, optional)*: If true, wraps `reducer` in [`immer`'s `produce`](https://github.com/immerjs/immer)
+
+**Default value:** `false`
+
+#### When to set to `true`
+It is necessary to set `mutate` to `true` *only* if:
+- `reducer` 'mutates'<sup>1</sup> `leafState`; *and*
+- You wish to update `leafState` to its new, 'mutated' value; *and*
+- You do not `return` the 'mutated' value of `leafState` in `reducer`.
+
+<sup>1</sup> `reduxLeaves` uses `produce` at a prior point to prevent mutation of global state, so you are never *actually* mutating `leafState`.
+
+
+#### Examples
+```js
+const setPropTrue = {
+  reducer: (leafState, { payload }) => {
+    leafState[payload] = true
   },
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
+  mutate: true
+  // Set mutate true as it satisfies all three conditions:
+  //  1. We are 'mutating' leafState by setting a property
+  //  2. We wish to update leafState by updating its property
+  //  3. We are not `return`ing within the `reducer` function
 }
+
+// Test it out
+const [reducer, actions] = reduxLeaves({}, { setPropTrue })
+const store = createStore(reducer)
+
+store.getState() // => {}
+store.dispatch(actions.create.setPropTrue('foobar'))
+store.getState() // => { foobar: true }
 ```
