@@ -10,3 +10,11 @@ export const leafReducerCustom = (reducersDict, leafState, { leaf = {}, payload 
     return leafState
   }
 }
+
+const applyReducer = (logic, leafState, action, wholeState) => {
+  if (logic.mutate) {
+    return logic.reducer(leafState, { payload }, wholeState)
+  } else {
+    // immerify
+  }
+}
