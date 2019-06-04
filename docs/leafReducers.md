@@ -79,16 +79,38 @@ A `payload` used by the action creator.
 
 #### Examples
 ```js
-let argsToPayload
+// Action payload is the first argument only (default behaviour)
+const firstArgToPayload = firstArgOnly => firstArgOnly
 
-// Default behaviour: action payload is the first argument only
-argsToPayload = firstArgOnly => firstArgOnly
+// Action payload as an array of the first 5 arguments
+const firstFiveArgsToPayload = (...args) => args.slice(0, 5)
 
-// Payload as an array of the first 5 arguments
-argsToPayload = (...args) => args.slice(0, 5)
+// Action payload as an object
+const spreadArgsToObjectPayload = (first, second, ...rest) => ({ first, second, rest })
+```
 
-// Payload as an object
-argsToPayload = (first, second, ...rest) => ({ first, second, rest })
+We can check that these are behaving as expected:
+```js
+// Test them out by creating actions using reduxLeaves
+const returnPayload = (leafState, { payload }) => payload
+[
+  firstArgToPayload,
+  firstFiveArgsToPayload,
+  spreadArgsToObjectPayload
+].forEach(argsToPayload => {
+  // Use each as an argsToPayload
+  const returnPayload = {
+    reducer: (leafState, { payload }) => payload,
+    argsToPayload
+  }
+  const [reducer, actions] = reduxLeaves({}, { returnPayload })
+  // log out the payload for an action passed seven arguments
+  console.log(actions.create.returnPayload(1, 2, 3, 4, 5, 6, 7).payload)
+})
+
+// 1
+// [1, 2, 3, 4, 5]
+// { first: 1, second: 2, rest: [3, 4, 5, 6, 7] }
 ```
 
 ### `actionType`
