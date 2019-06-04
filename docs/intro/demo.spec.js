@@ -14,11 +14,7 @@ describe("Redux-Leaves. Write once. Reduce anywhere.", () => {
       splice: {
         argsToPayload: (first, second) => [first, second],
         mutate: true,
-        reducer: (leafState, { payload }) => {
-          console.log(leafState, payload)
-          leafState.splice(...payload)
-          console.log(leafState)
-        }
+        reducer: (leafState, { payload }) => { leafState.splice(...payload) }
       },
       appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
       countKeys: (leafState, action, wholeState) => Object.keys(wholeState).length
