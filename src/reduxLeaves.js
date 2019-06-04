@@ -17,7 +17,7 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
       const { path = [], condition, creatorKey, custom } = leaf
 
       // const prevLeafState = getState(draftState, path)
-      const prevLeafState = getState(draftState, draftState)
+      const prevLeafState = getState(draftState, path)
 
       const newLeafState = leafReducer(
         prevLeafState,
@@ -27,7 +27,7 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
         leafReducersDict
       )
       
-      return updateState(state, path, newLeafState)
+      return updateState(draftState, path, newLeafState)
     })
   }
 
