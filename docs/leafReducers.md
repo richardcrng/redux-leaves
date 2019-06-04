@@ -17,20 +17,28 @@ They are:
 
 ### Function (shorthand)
 ```js
-const leafReducer = (leafState, action, treeState) => {
+const shorthandFunction = (leafState, action, treeState) => {
   // some logic here
   // return the new leafState
 }
 ```
 
 ### Configuration object (longhand)
-The above leafReducer function is shorthand for the following configuration object:
+The above leafReducer function is shorthand for a configuration object with presets:
 ```js
-const leafReducer = {
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
+const longhandConfig = {
+  reducer: shorthandFunction,
+
+  // below are the configuration keys and their default values
+
+  argsToPayload: firstArgOnly => firstArgOnly,
+  // by default, if the action creator is invoked with arguments,
+  //  the first argument only becomes the action's payload property.
+
+  mutate: false,
+  // if true, wraps the reducer in immer's produce function
+  //  use this if your reducer is intended to update state
+  //  not with a return value, but by 'mutating' the state
 }
 ```
 
@@ -45,6 +53,7 @@ The list of configuration keys that can be provided are below:
 | [`reducer`](#reducer) | function | Updates the leaf's state | |
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
 | [`actionType`](#actiontype) | string / function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
+| [`mutate`](#mutate) | boolean | If true, wraps `reducer` in [`immer`'s `produce`](https://github.com/immerjs/immer) | Optional |
 
 ### `reducer`
 *(function)*: Updates the leaf's state.
@@ -62,32 +71,52 @@ The new state value for the leaf.
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
-```js
-// Demonstration of default behaviour:
-const argsToPayload = (first, ...rest) => first
-```
-
 #### Arguments
 - `...args`: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
 #### Returns
 A `payload` used by the action creator.
 
+#### Examples
+```js
+// Action payload is the first argument only (default behaviour)
+const firstArgToPayload = firstArgOnly => firstArgOnly
+
+// Action payload as an array of the first 5 arguments
+const firstFiveArgsToPayload = (...args) => args.slice(0, 5)
+
+// Action payload as an object
+const spreadArgsToObjectPayload = (first, second, ...rest) => ({ first, second, rest })
+```
+
+We can check that these are behaving as expected:
+```js
+// Test them out by creating actions using reduxLeaves
+const returnPayload = (leafState, { payload }) => payload
+[
+  firstArgToPayload,
+  firstFiveArgsToPayload,
+  spreadArgsToObjectPayload
+].forEach(argsToPayload => {
+  // Use each as an argsToPayload
+  const returnPayload = {
+    reducer: (leafState, { payload }) => payload,
+    argsToPayload
+  }
+  const [reducer, actions] = reduxLeaves({}, { returnPayload })
+  // log out the payload for an action passed seven arguments
+  console.log(actions.create.returnPayload(1, 2, 3, 4, 5, 6, 7).payload)
+})
+
+// 1
+// [1, 2, 3, 4, 5]
+// { first: 1, second: 2, rest: [3, 4, 5, 6, 7] }
+```
+
 ### `actionType`
 *(string | function, optional)*: A string constant, or a function that returns a string, that becomes the action's `type` property
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
-
-```js
-// Demonstration of default behaviour:
-const actionType = (leaf, payload) => {
-  const {
-    path,           // e.g. ['path', 'to', 'nested', 'state'] 
-    CREATOR_KEY     // e.g. 'CUSTOM_CREATOR'
-  } = leaf
-  return [...path, CREATOR_KEY].join('/')   // 'path/to/nested/state/CUSTOM_CREATOR'
-}
-```
 
 #### Arguments
 - `leaf`: the [`leaf` property](leaf/standardActions.md#properties) of the [Leaf Standard Action](leaf/standardActions.md) being created
@@ -96,16 +125,52 @@ const actionType = (leaf, payload) => {
 #### Returns
 A `type` property for the created action.
 
-## Example
+#### Examples
 ```js
-const leafReducer = {
-  argsToPayload: (...args) => {
-    // some logic here
-    // return an action payload
+let argsToPayload
+
+// Default behaviour: action payload is the first argument only
+argsToPayload = firstArgOnly => firstArgOnly
+
+// Payload as an array of the first 5 arguments
+argsToPayload = (...args) => args.slice(0, 5)
+
+// Payload as an object
+argsToPayload = (first, second, ...rest) => ({ first, second, rest })
+```
+
+### `mutate`
+*(boolean, optional)*: If true, wraps `reducer` in [`immer`'s `produce`](https://github.com/immerjs/immer)
+
+**Default value:** `false`
+
+#### When to set to `true`
+It is necessary to set `mutate` to `true` *only* if:
+- `reducer` 'mutates'<sup>1</sup> `leafState`; *and*
+- You wish to update `leafState` to its new, 'mutated' value; *and*
+- You do not `return` the 'mutated' value of `leafState` in `reducer`.
+
+<sup>1</sup> `reduxLeaves` uses `produce` at a prior point to prevent mutation of global state, so you are never *actually* mutating `leafState`.
+
+
+#### Examples
+```js
+const setPropTrue = {
+  reducer: (leafState, { payload }) => {
+    leafState[payload] = true
   },
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
+  mutate: true
+  // Set mutate true as reducer satisfies all three conditions:
+  //  1. We are 'mutating' leafState by setting a property
+  //  2. We wish to update leafState by updating its property
+  //  3. We are not `return`ing within the `reducer` function
 }
+
+// Test it out
+const [reducer, actions] = reduxLeaves({}, { setPropTrue })
+const store = createStore(reducer)
+
+store.getState() // => {}
+store.dispatch(actions.create.setPropTrue('foobar'))
+store.getState() // => { foobar: true }
 ```
