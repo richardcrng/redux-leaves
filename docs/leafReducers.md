@@ -17,20 +17,28 @@ They are:
 
 ### Function (shorthand)
 ```js
-const leafReducer = (leafState, action, treeState) => {
+const shorthandFunction = (leafState, action, treeState) => {
   // some logic here
   // return the new leafState
 }
 ```
 
 ### Configuration object (longhand)
-The above leafReducer function is shorthand for the following configuration object:
+The above leafReducer function is shorthand for a configuration object with presets:
 ```js
-const leafReducer = {
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
+const longhandConfig = {
+  reducer: shorthandFunction,
+
+  // below are the configuration keys and their default values
+
+  argsToPayload: firstArgOnly => firstArgOnly,
+  // by default, if the action creator is invoked with arguments,
+  //  the first argument only becomes the action's payload property.
+
+  mutate: false,
+  // if true, wraps the reducer in immer's produce function
+  //  use this if your reducer is intended to update state
+  //  not with a return value, but by 'mutating' the state
 }
 ```
 
@@ -63,16 +71,25 @@ The new state value for the leaf.
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
-```js
-// Demonstration of default behaviour:
-const argsToPayload = (first, ...rest) => first
-```
-
 #### Arguments
 - `...args`: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
 #### Returns
 A `payload` used by the action creator.
+
+#### Examples
+```js
+let argsToPayload
+
+// Default behaviour: action payload is the first argument only
+argsToPayload = firstArgOnly => firstArgOnly
+
+// Payload as an array of the first 5 arguments
+argsToPayload = (...args) => args.slice(0, 5)
+
+// Payload as an object
+argsToPayload = (first, second, ...rest) => ({ first, second, rest })
+```
 
 ### `actionType`
 *(string | function, optional)*: A string constant, or a function that returns a string, that becomes the action's `type` property
