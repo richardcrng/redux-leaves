@@ -45,6 +45,7 @@ The list of configuration keys that can be provided are below:
 | [`reducer`](#reducer) | function | Updates the leaf's state | |
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
 | [`actionType`](#actiontype) | string / function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
+| [`mutate`](#mutate) | boolean | If true, wraps `reducer` in [`immer`'s `produce`](https://github.com/immerjs/immer) | Optional |
 
 ### `reducer`
 *(function)*: Updates the leaf's state.
