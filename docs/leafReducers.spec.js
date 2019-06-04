@@ -188,7 +188,89 @@ describe("Function shorthand", () => {
 })
 
 describe("Object longhand", () => {
-  describe("mutate key", () => {
+  describe("argsToPayload", () => {
+    describe("GIVEN no argsToPayload defined in identity config object", () => {
+      const identity = {
+        reducer: leafState => leafState
+      }
+
+      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = reduxLeaves({}, { identity })
+        let store
+        beforeEach(() => {
+          store = createStore(reducer)
+        })
+
+        test("THEN the store's state is {}", () => {
+          expect(store.getState()).toEqual({})
+        })
+
+        describe("AND we create action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)", () => {
+          const action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)
+
+          test("THEN action.payload is 1", () => {
+            expect(action.payload).toBe(1)
+          })
+        })
+      })
+    })
+
+    describe("GIVEN argsToPayload = (..args) => args.slice(0, 5) in the identity config object", () => {
+      const identity = {
+        reducer: leafState => leafState,
+        argsToPayload: (...args) => args.slice(0, 5)
+      }
+
+      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = reduxLeaves({}, { identity })
+        let store
+        beforeEach(() => {
+          store = createStore(reducer)
+        })
+
+        test("THEN the store's state is {}", () => {
+          expect(store.getState()).toEqual({})
+        })
+
+        describe("AND we create action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)", () => {
+          const action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)
+
+          test("THEN action.payload is [1, 2, 3, 4, 5]", () => {
+            expect(action.payload).toEqual([1, 2, 3, 4, 5])
+          })
+        })
+      })
+    })
+
+    describe("GIVEN argsToPayload = (first, second, ...rest) => ({ first, second, rest }) in the identity config object", () => {
+      const identity = {
+        reducer: leafState => leafState,
+        argsToPayload: (first, second, ...rest) => ({  first, second, rest })
+      }
+
+      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = reduxLeaves({}, { identity })
+        let store
+        beforeEach(() => {
+          store = createStore(reducer)
+        })
+
+        test("THEN the store's state is {}", () => {
+          expect(store.getState()).toEqual({})
+        })
+
+        describe("AND we create action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)", () => {
+          const action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)
+
+          test("THEN action.payload is { first: 1, second: 2, rest: [3, 4, 5, 6, 7] }", () => {
+            expect(action.payload).toEqual({ first: 1, second: 2, rest: [3, 4, 5, 6, 7] })
+          })
+        })
+      })
+    })
+  })
+
+  describe("mutate", () => {
     describe("GIVEN the leaf reducer setPropTrue", () => {
       const setPropTrue = {
         reducer: (leafState, { payload }) => {
