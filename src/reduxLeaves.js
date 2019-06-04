@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { actionsFor } from './actions/';
 import { leafReducer } from './leafReducer';
 import { standardiseReducersDict } from './reducersDict/standardise/standardiseReducersDict';
+import { getState, updateState } from './utils';
 
 export const reduxLeaves = (initialState, reducersDict = {}) => {
   const leafReducersDict = standardiseReducersDict(reducersDict)
@@ -10,7 +11,7 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
     const { leaf = {} } = action;
     const { path = [], condition, creatorKey, custom } = leaf
 
-    const prevLeafState = R.path(path, state)
+    const prevLeafState = getState(state, path)
 
     const newLeafState = leafReducer(
       prevLeafState,
@@ -20,7 +21,7 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
       leafReducersDict
     )
 
-    return R.assocPath(path, newLeafState, state)
+    return updateState(state, path, newLeafState)
   }
 
   const actions = actionsFor(R.clone(initialState), leafReducersDict)
