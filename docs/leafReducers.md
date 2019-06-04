@@ -138,7 +138,7 @@ const setPropTrue = {
     leafState[payload] = true
   },
   mutate: true
-  // Set mutate true as it satisfies all three conditions:
+  // Set mutate true as reducer satisfies all three conditions:
   //  1. We are 'mutating' leafState by setting a property
   //  2. We wish to update leafState by updating its property
   //  3. We are not `return`ing within the `reducer` function

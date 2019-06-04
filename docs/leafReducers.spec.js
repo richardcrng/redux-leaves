@@ -186,3 +186,38 @@ describe("Function shorthand", () => {
     })
   })
 })
+
+describe("Object longhand", () => {
+  describe("mutate key", () => {
+    describe("GIVEN the leaf reducer setPropTrue", () => {
+      const setPropTrue = {
+        reducer: (leafState, { payload }) => {
+          leafState[payload] = true
+        },
+        mutate: true
+      }
+
+      describe("WHEN we initialise reduxLeaves with empty state and setPropTrue in the dictionary", () => {
+        const [reducer, actions] = reduxLeaves({}, { setPropTrue })
+        let store
+        beforeEach(() => {
+          store = createStore(reducer)
+        })
+
+        test("THEN the store's state is {}", () => {
+          expect(store.getState()).toEqual({})
+        })
+
+        describe("AND we dispatch actions.create.setPropTrue('foobar')", () => {
+          beforeEach(() => {
+            store.dispatch(actions.create.setPropTrue('foobar'))
+          })
+
+          test("THEN the store's state is { foobar: true }", () => {
+            expect(store.getState()).toEqual({ foobar: true })
+          })
+        })
+      })
+    })
+  })
+})
