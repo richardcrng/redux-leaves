@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
+import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
 import { leafReducerArray } from './array/leafReducerArray';
@@ -20,33 +21,35 @@ export const leafReducer = (
   const { leaf = {}, payload } = action;
   const { condition, custom, creatorKey, path } = leaf;
 
-  // Custom actions
-  if (custom) {
-    return leafReducerCustom(reducersDict, leafState, action, wholeState)
-  }
-  
-  // Type-specific actions
-  switch (condition) {
-    case conditions.ARRAY:
-      return leafReducerArray(leafState, { creatorKey, payload })
-    case conditions.BOOLEAN:
-      return leafReducerBoolean(leafState, { creatorKey })
-    case conditions.NUMBER:
-      return leafReducerNumber(leafState, { creatorKey, payload })
-    case conditions.OBJECT:
-      return leafReducerObject(leafState, { creatorKey, payload })
-    case conditions.STRING:
-      return leafReducerString(leafState, { creatorKey, payload })
-  }
+  return produce(leafState, draftLeafState => {
+    // Custom actions
+    if (custom) {
+      return leafReducerCustom(reducersDict, draftLeafState, action, wholeState)
+    }
 
-  // Type-agnostic actions
-  switch (creatorKey) {
-    case atomicActions.APPLY: return apply(payload, leafState, wholeState)
-    case atomicActions.CLEAR: return clear(leafState, payload)
-    case atomicActions.RESET: return reset(initialWhole, path)
-    case atomicActions.UPDATE: return payload
-    default: return leafState
-  }
+    // Type-specific actions
+    switch (condition) {
+      case conditions.ARRAY:
+        return leafReducerArray(draftLeafState, { creatorKey, payload })
+      case conditions.BOOLEAN:
+        return leafReducerBoolean(draftLeafState, { creatorKey })
+      case conditions.NUMBER:
+        return leafReducerNumber(draftLeafState, { creatorKey, payload })
+      case conditions.OBJECT:
+        return leafReducerObject(draftLeafState, { creatorKey, payload })
+      case conditions.STRING:
+        return leafReducerString(draftLeafState, { creatorKey, payload })
+    }
+
+    // Type-agnostic actions
+    switch (creatorKey) {
+      case atomicActions.APPLY: return apply(payload, draftLeafState, wholeState)
+      case atomicActions.CLEAR: return clear(draftLeafState, payload)
+      case atomicActions.RESET: return reset(initialWhole, path)
+      case atomicActions.UPDATE: return payload
+      default: return draftLeafState
+    }
+  })
 }
 
 const apply = (callback, leafState, wholeState) => (
