@@ -17,20 +17,23 @@ They are:
 
 ### Function (shorthand)
 ```js
-const leafReducer = (leafState, action, treeState) => {
+const shorthandFunction = (leafState, action, treeState) => {
   // some logic here
   // return the new leafState
 }
 ```
 
 ### Configuration object (longhand)
-The above leafReducer function is shorthand for the following configuration object:
+The above leafReducer function is shorthand for a configuration object with presets:
 ```js
-const leafReducer = {
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
+const longhandConfig = {
+  reducer: shorthandFunction,
+
+  // below are the configuration keys and their default values
+
+  argsToPayload: firstArgOnly => firstArgOnly,
+  // by default, if the action creator is invoked with arguments,
+  //  the first argument only becomes the action's payload property.
 }
 ```
 
@@ -62,32 +65,52 @@ The new state value for the leaf.
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
 
-```js
-// Demonstration of default behaviour:
-const argsToPayload = (first, ...rest) => first
-```
-
 #### Arguments
 - `...args`: the arguments supplied to an action creator that triggers [`reducer`](#reducer)
 
 #### Returns
 A `payload` used by the action creator.
 
+#### Examples
+```js
+// Action payload is the first argument only (default behaviour)
+const firstArgToPayload = firstArgOnly => firstArgOnly
+
+// Action payload as an array of the first 5 arguments
+const firstFiveArgsToPayload = (...args) => args.slice(0, 5)
+
+// Action payload as an object
+const spreadArgsToObjectPayload = (first, second, ...rest) => ({ first, second, rest })
+```
+
+We can check that these are behaving as expected:
+```js
+// Test them out by creating actions using reduxLeaves
+const returnPayload = (leafState, { payload }) => payload
+[
+  firstArgToPayload,
+  firstFiveArgsToPayload,
+  spreadArgsToObjectPayload
+].forEach(argsToPayload => {
+  // Use each as an argsToPayload
+  const returnPayload = {
+    reducer: (leafState, { payload }) => payload,
+    argsToPayload
+  }
+  const [reducer, actions] = reduxLeaves({}, { returnPayload })
+  // log out the payload for an action passed seven arguments
+  console.log(actions.create.returnPayload(1, 2, 3, 4, 5, 6, 7).payload)
+})
+
+// 1
+// [1, 2, 3, 4, 5]
+// { first: 1, second: 2, rest: [3, 4, 5, 6, 7] }
+```
+
 ### `actionType`
 *(string | function, optional)*: A string constant, or a function that returns a string, that becomes the action's `type` property
 
 **Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
-
-```js
-// Demonstration of default behaviour:
-const actionType = (leaf, payload) => {
-  const {
-    path,           // e.g. ['path', 'to', 'nested', 'state'] 
-    CREATOR_KEY     // e.g. 'CUSTOM_CREATOR'
-  } = leaf
-  return [...path, CREATOR_KEY].join('/')   // 'path/to/nested/state/CUSTOM_CREATOR'
-}
-```
 
 #### Arguments
 - `leaf`: the [`leaf` property](leaf/standardActions.md#properties) of the [Leaf Standard Action](leaf/standardActions.md) being created
@@ -96,16 +119,16 @@ const actionType = (leaf, payload) => {
 #### Returns
 A `type` property for the created action.
 
-## Example
+#### Examples
 ```js
-const leafReducer = {
-  argsToPayload: (...args) => {
-    // some logic here
-    // return an action payload
-  },
-  reducer: (leafState, action, treeState) => {
-    // some logic here
-    // return the new leafState
-  }
-}
+let argsToPayload
+
+// Default behaviour: action payload is the first argument only
+argsToPayload = firstArgOnly => firstArgOnly
+
+// Payload as an array of the first 5 arguments
+argsToPayload = (...args) => args.slice(0, 5)
+
+// Payload as an object
+argsToPayload = (first, second, ...rest) => ({ first, second, rest })
 ```

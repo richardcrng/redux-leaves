@@ -10,7 +10,10 @@ const actionType = (leaf, payload) => {
   return [...path, suffix].join('/')
 }
 
+const mutate = false
+
 export const leafReducerDefaults = {
   argsToPayload,
-  actionType
+  actionType,
+  mutate
 }

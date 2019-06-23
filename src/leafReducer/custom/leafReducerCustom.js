@@ -1,10 +1,19 @@
-export const leafReducerCustom = (reducersDict, leafState, { leaf = {}, payload }, wholeState) => {
-  const { creatorKey } = leaf;
+import produce from 'immer'
 
-  if (Object.keys(reducersDict).includes(creatorKey)) {
-    const logic = reducersDict[creatorKey]
-    return logic.reducer(leafState, { payload }, wholeState)
+export const leafReducerCustom = (reducersDict, leafState, action, wholeState) => {
+  const { leaf: { creatorKey } } = action;
+
+  return Object.keys(reducersDict).includes(creatorKey)
+    ? applyReducer(reducersDict[creatorKey], leafState, action, wholeState)
+    : leafState
+}
+
+const applyReducer = (config, leafState, action, wholeState) => {
+  if (config.mutate) {
+    return produce(leafState, draftLeafState => {
+      config.reducer(draftLeafState, action, wholeState)
+    })
   } else {
-    return leafState
+    return config.reducer(leafState, action, wholeState)
   }
 }

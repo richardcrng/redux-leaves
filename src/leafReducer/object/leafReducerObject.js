@@ -12,7 +12,7 @@ export const leafReducerObject = (leafState, { creatorKey, payload }) => {
 }
 
 const assign = (state, sources) => Object.assign(
-  state,   // stop immer complaining
+  { ...state },   // stop immer complaining
   ...sources
 )
 

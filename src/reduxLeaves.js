@@ -11,6 +11,7 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
     const { leaf = {} } = action;
     const { path = [], condition, creatorKey, custom } = leaf
 
+    // const prevLeafState = getState(draftState, path)
     const prevLeafState = getState(state, path)
 
     const newLeafState = leafReducer(
@@ -27,5 +28,4 @@ export const reduxLeaves = (initialState, reducersDict = {}) => {
   const actions = actionsFor(R.clone(initialState), leafReducersDict)
 
   return [reducer, actions]
-  // return [immeredReducer, actions]
 }
