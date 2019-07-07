@@ -80,7 +80,7 @@ const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
 
 const isBranch = leafOrBranch => (
   (!Array.isArray(leafOrBranch)
-    && typeof leafOrBranch === "object"
+    && RA.isPlainObj(leafOrBranch)
     && Object.values(leafOrBranch).length >= 1)
 )
 
