@@ -47,7 +47,6 @@ The list of configuration keys that can be provided are below:
 | --- | --- | --- | --- |
 | [`reducer`](#reducer) | function | Updates the leaf's state | |
 | [`argsToPayload`](#argstopayload) | function | Converts action creator arguments to an action payload | Optional |
-| [`actionType`](#actiontype) | string / function | A string constant, or a function that returns a string, that becomes the action's `type` property | Optional |
 
 ### `reducer`
 *(function)*: Updates the leaf's state.
@@ -105,30 +104,4 @@ const returnPayload = (leafState, { payload }) => payload
 // 1
 // [1, 2, 3, 4, 5]
 // { first: 1, second: 2, rest: [3, 4, 5, 6, 7] }
-```
-
-### `actionType`
-*(string | function, optional)*: A string constant, or a function that returns a string, that becomes the action's `type` property
-
-**Default behaviour:** if a first argument is provided, it is supplied as the action's payload. All other arguments are discarded.
-
-#### Arguments
-- `leaf`: the [`leaf` property](leaf/standardActions.md#properties) of the [Leaf Standard Action](leaf/standardActions.md) being created
-- `payload`: the `payload` property of the Leaf Standard Action being created
-
-#### Returns
-A `type` property for the created action.
-
-#### Examples
-```js
-let argsToPayload
-
-// Default behaviour: action payload is the first argument only
-argsToPayload = firstArgOnly => firstArgOnly
-
-// Payload as an array of the first 5 arguments
-argsToPayload = (...args) => args.slice(0, 5)
-
-// Payload as an object
-argsToPayload = (first, second, ...rest) => ({ first, second, rest })
 ```
