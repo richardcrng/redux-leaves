@@ -2,15 +2,15 @@ import { atomicActions } from "../../atomic";
 import { conditions } from '../../condtions/conditions';
 import { makeActionTemplate } from "../../template/makeActionTemplate";
 
-export const forObject = (pathToLeafOrBranch = []) => {
+export const forObject = (pathToLeafOrBranch: string[] = []) => {
   const actionTemplate = makeActionTemplate(
     pathToLeafOrBranch,
     { condition: conditions.OBJECT }
   )
 
-  const assign = (...sources) => actionTemplate(atomicActions.ASSIGN, sources)
+  const assign = (...sources: object[]) => actionTemplate(atomicActions.ASSIGN, sources)
 
-  const set = (path, value) => actionTemplate(atomicActions.SET, { path, value })
+  const set = (path: string[], value: any) => actionTemplate(atomicActions.SET, { path, value })
 
   return {
     assign,
