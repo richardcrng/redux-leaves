@@ -1,4 +1,4 @@
-import FluxStandardAction from '../FluxStandardAction';
+import FluxStandardAction from '..';
 
 type FluxStandardActionCreator = (...args: any[]) => FluxStandardAction
 

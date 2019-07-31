@@ -1,4 +1,5 @@
-import FluxStandardActionCreatorTypeAware from "../../types/FluxStandardActionCreatorTypeAware";
+import FluxStandardActionCreatorTypeAware from "../../types/FluxStandardAction/Creator/TypeAware";
+
 
 // Returns a function to create actions of given type
 export const makeActionCreator = (type: string) => {
