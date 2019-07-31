@@ -1,5 +1,5 @@
-import * as R from 'ramda'
-import { actionsFor } from './actions/';
+import R from 'ramda'
+import { actionsFor } from './actions';
 import { leafReducer } from './leafReducer';
 import { standardiseReducersDict } from './reducersDict/standardise/standardiseReducersDict';
 import { getState, updateState } from './utils';

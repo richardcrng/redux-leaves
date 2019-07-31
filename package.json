@@ -10,6 +10,8 @@
     "url": "https://github.com/richardcrng/"
   },
   "dependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/ramda": "^0.26.18",
     "change-case": "^3.1.0",
     "immer": "^3.1.2",
     "ramda": "^0.26.1",
