@@ -1,4 +1,4 @@
-import LeafStandardAction from "../LeafStandardAction";
+import LeafStandardAction from "..";
 
 type LeafStandardActionCreator = (...args: any[]) => LeafStandardAction
 
