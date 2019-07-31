@@ -1,10 +1,8 @@
 import FluxStandardAction from "../FluxStandardAction";
+import LeafActionData from "../LeafActionData";
 
 type LeafStandardAction = FluxStandardAction & {
-  path: string[]
-  creatorKey: string
-  CREATOR_KEY: string
-  custom?: boolean
+  leaf: LeafActionData
 }
 
 export default LeafStandardAction
