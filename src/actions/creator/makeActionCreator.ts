@@ -1,10 +1,10 @@
-import { ActionCreator, Action } from "redux";
+import FluxStandardActionCreatorTypeAware from "../../types/FluxStandardActionCreatorTypeAware";
 
 // Returns a function to create actions of given type
 export const makeActionCreator = (type: string) => {
   // First argument passed becomes payload property of action
   //  Second argument is object that becomes spread inside action
-  const actionCreator = (payload: any, meta: any, spread = {}) => ({ type, payload, meta, ...spread })
+  const actionCreator: FluxStandardActionCreatorTypeAware = (payload: any, meta: any, spread = {}) => ({ type, payload, meta, ...spread })
 
   actionCreator.type = type
 
