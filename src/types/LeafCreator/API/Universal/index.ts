@@ -1,3 +1,3 @@
-import LeafCreatorsUniversal from './LeafCreatorsUniversal.type';
+import LeafCreatorAPIUniversal from './LeafCreatorAPIUniversal.type';
 
-export default LeafCreatorsUniversal
+export default LeafCreatorAPIUniversal
