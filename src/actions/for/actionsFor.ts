@@ -8,10 +8,11 @@ import { forAny } from './any';
 import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
 import Dictionary from '../../types/Dictionary';
-import LeafReducerConfig from '../../types/LeafReducerConfig';
-import LeafReducerFunction from '../../types/LeafReducerFunction';
+import LeafReducer from '../../types/LeafReducer';
+import StateShapeBranch from '../../types/StateShapeBranch';
+import StateShapeLeaf from '../../types/StateShapeLeaf';
 
-export const actionsFor = (stateShape: any, customReducers: Dictionary<LeafReducerFunction|LeafReducerConfig>) => {
+export const actionsFor = (stateShape: any, customReducers: Dictionary<LeafReducer>) => {
   const paths = recursivelyGeneratePaths(stateShape)
   let actions: object = { create: createFor(stateShape, customReducers) }
 
@@ -27,8 +28,8 @@ export const actionsFor = (stateShape: any, customReducers: Dictionary<LeafReduc
   return actions
 }
 
-const actionsForLeafOrBranch = (leafOrBranch, pathToLeafOrBranch = [], stateShape, customReducers) => {
-  leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
+const actionsForLeafOrBranch = (leafOrBranch: StateShapeLeaf | StateShapeBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dictionary<LeafReducer>) => {
+  if (leafOrBranch) leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
   return leafOrBranch
 }
 
