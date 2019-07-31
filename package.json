@@ -28,11 +28,16 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.3",
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "typescript": "^3.5.3"
   }
 }
