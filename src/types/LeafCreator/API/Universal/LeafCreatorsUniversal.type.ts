@@ -1,4 +1,4 @@
-import LeafStandardAction from "../../LeafStandardAction";
+import LeafStandardAction from "../../../LeafStandardAction";
 
 type LeafCreatorsUniversal = {
   apply(callback: (leafState: any, treeState: any) => any): LeafStandardAction

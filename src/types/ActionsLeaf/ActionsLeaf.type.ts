@@ -1,5 +1,5 @@
 import LeafStandardAction from '../LeafStandardAction';
-import LeafCreatorsUniversal from '../LeafCreators/Universal';
+import LeafCreatorsUniversal from '../LeafCreator/API/Universal';
 
 type ActionsLeaf = {
   create: LeafCreatorsUniversal
