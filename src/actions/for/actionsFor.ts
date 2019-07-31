@@ -9,8 +9,8 @@ import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
 import Dictionary from '../../types/Dictionary';
 import LeafReducer from '../../types/LeafReducer';
-import StateShapeBranch from '../../types/StateShapeBranch';
-import StateShapeLeaf from '../../types/StateShapeLeaf';
+import StateShapeBranch from '../../types/StateShape/Branch';
+import StateShapeLeaf from '../../types/StateShape/Leaf';
 
 export const actionsFor = (stateShape: any, customReducers: Dictionary<LeafReducer>) => {
   const paths = recursivelyGeneratePaths(stateShape)
