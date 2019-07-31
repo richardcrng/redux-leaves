@@ -1,4 +1,4 @@
-import LeafActionData from "../LeafActionData";
+import LeafActionData from "../../../Data";
 
 type LeafActionTypeConfigFunction = (leaf: LeafActionData) => string
 

@@ -3,7 +3,7 @@ import { makeActionTemplate } from '../template/makeActionTemplate';
 import LeafStandardActionCreator from '../../types/LeafStandardActionCreator';
 import LeafStandardAction from '../../types/LeafStandardAction';
 import LeafReducerConfig from '../../types/LeafReducerConfig';
-import LeafActionTemplate from '../../types/LeafActionTemplate';
+import LeafActionTemplate from '../../types/LeafAction/Template';
 
 export const makeCustomActions = (reducersDict = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })

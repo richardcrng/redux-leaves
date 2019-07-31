@@ -1,4 +1,4 @@
-import LeafCreatorCondition from '../LeafCreatorCondition';
+import LeafCreatorCondition from "../../LeafCreatorCondition";
 
 type LeafActionData = {
   path: string[]

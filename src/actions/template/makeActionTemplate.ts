@@ -1,7 +1,7 @@
 import { leafReducerDefaults } from "../../reducersDict/standardise/defaults";
 import LeafStandardAction from "../../types/LeafStandardAction";
 import LeafCreatorCondition from "../../types/LeafCreatorCondition";
-import LeafActionTemplate from '../../types/LeafActionTemplate';
+import LeafActionTemplate from '../../types/LeafAction/Template';
 
 const changeCase = require('change-case')
 
