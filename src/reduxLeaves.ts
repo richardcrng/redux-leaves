@@ -1,4 +1,4 @@
-import R from 'ramda'
+import * as R from 'ramda'
 import { actionsFor } from './actions';
 import { leafReducer } from './leafReducer';
 import { standardiseReducersDict } from './reducersDict/standardise/standardiseReducersDict';
