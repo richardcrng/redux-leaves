@@ -7,7 +7,7 @@ import LeafActionTemplate from '../../types/LeafActionTemplate';
 
 export const makeCustomActions = (reducersDict = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
-  return R.mapObjIndexed(
+  return R.mapObjIndexed<LeafReducerConfig, LeafStandardActionCreator>(
     makeCustomActionCreator(actionTemplate),
     reducersDict
   )
