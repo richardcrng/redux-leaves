@@ -1,8 +1,8 @@
-const changeCase = require('change-case')
+import LeafActionData from "../../../types/LeafActionData";
 
-const argsToPayload = first => first
+const argsToPayload = (first: any) => first
 
-const actionType = (leaf, payload) => {
+const actionType = (leaf: LeafActionData, payload: any) : string => {
   const { path, condition, CREATOR_KEY } = leaf;
   const suffix = condition
     ? `${condition}.${CREATOR_KEY}`
