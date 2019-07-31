@@ -1,6 +1,7 @@
 import { leafReducerDefaults } from "../../reducersDict/standardise/defaults";
 import LeafStandardAction from "../../types/LeafStandardAction";
 import LeafCreatorCondition from "../../types/LeafCreatorCondition";
+import LeafStandardActionCreator from "../../types/LeafStandardActionCreator";
 
 const changeCase = require('change-case')
 
@@ -9,7 +10,7 @@ type MakeActionTemplateOptions = {
   custom?: boolean
 }
 
-export const makeActionTemplate = (path = [], { condition, custom } : MakeActionTemplateOptions = {}) => {
+export const makeActionTemplate = (path = [], { condition, custom } : MakeActionTemplateOptions = {}) : LeafStandardActionCreator => {
   return (creatorKey: string, payload: any, actionType = leafReducerDefaults.actionType) : LeafStandardAction => {
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
     const leaf = { path, condition, creatorKey, CREATOR_KEY, custom }
