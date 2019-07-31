@@ -1,8 +1,10 @@
+import { ActionCreator, Action } from "redux";
+
 // Returns a function to create actions of given type
-export const makeActionCreator = type => {
+export const makeActionCreator = (type: string) => {
   // First argument passed becomes payload property of action
   //  Second argument is object that becomes spread inside action
-  const actionCreator = (payload, meta, spread = {}) => ({ type, payload, meta, ...spread })
+  const actionCreator = (payload: any, meta: any, spread = {}) => ({ type, payload, meta, ...spread })
 
   actionCreator.type = type
 
