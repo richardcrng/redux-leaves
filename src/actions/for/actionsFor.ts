@@ -8,15 +8,16 @@ import { forAny } from './any';
 import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
 import Dict from '../../types/Dict';
-import LeafReducer from '../../types/Leaf/Reducer';
 import StateBranch from '../../types/State/Branch';
 import StateLeaf from '../../types/State/Leaf';
 import ActionsTree from '../../types/Actions/Tree';
 import StateTree from '../../types/State/Tree';
+import LeafCreatorAPI from '../../types/Leaf/Creator/API';
+import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
 
-export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>): ActionsTree => {
+export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducerConfig>): ActionsTree => {
   const paths = recursivelyGeneratePaths(stateShape)
-  let actions: object = { create: createFor(stateShape, customReducers) }
+  let actions: LeafCreatorAPI = { create: createFor(stateShape, customReducers) }
 
   paths.forEach(path => {
     const isPathToBranch = isBranch(R.path(path, stateShape))
@@ -30,21 +31,21 @@ export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>): 
   return actions
 }
 
-const actionsForLeafOrBranch = (leafOrBranch: StateLeaf | StateBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dict<LeafReducer>) => {
+const actionsForLeafOrBranch = (leafOrBranch: StateLeaf | StateBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dict<LeafReducerConfig>) => {
   if (leafOrBranch) leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
   return leafOrBranch
 }
 
-const addActionsToBranch = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducer>) => {
+const addActionsToBranch = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
   const branch = R.path(path, stateShape)
   return R.assocPath(path, actionsForLeafOrBranch(branch, path, stateShape, customReducers), actions)
 }
 
-const addActionsToLeaf = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducer>) => {
+const addActionsToLeaf = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
   return R.assocPath(path, actionsForLeafOrBranch({}, path, stateShape, customReducers), actions)
 }
 
-const createFor = (stateShape: StateTree, customReducers: Dict<LeafReducer>, pathToLeafOrBranch = []) => {
+const createFor = (stateShape: StateTree, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) => {
   const initialState = pathToLeafOrBranch.length >= 1
     ? R.path(pathToLeafOrBranch, stateShape)
     : stateShape
