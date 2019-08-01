@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../../src';
 
-describe("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
+describe("leaf.create.path(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively pathting value at state object's path", () => {
 
   describe("GIVEN non-trivially nested API (as in the documentation)", () => {
     const initialState = {
@@ -18,8 +18,8 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
     describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
       const [reducer, actions] = reduxLeaves(initialState)
 
-      test("THEN actions.nested.deep.create.set is a function", () => {
-        expect(typeof actions.nested.deep.create.set).toBe("function")
+      test("THEN actions.nested.deep.create.path is a function", () => {
+        expect(typeof actions.nested.deep.create.path).toBe("function")
       })
 
       describe("AND store = createStore(reducer)", () => {
@@ -32,9 +32,9 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
           expect(store.getState()).toEqual(initialState)
         })
 
-        describe("AND we dispatch actions.nested.deep.create.set('arbitrarily', true)", () => {
+        describe("AND we dispatch actions.nested.deep.create.path(['arbitrarily'], true)", () => {
           beforeEach(() => {
-            store.dispatch(actions.nested.deep.create.set('arbitrarily', true))
+            store.dispatch(actions.nested.deep.create.path(['arbitrarily'], true))
           })
 
           test("THEN actions.counter state non-mutatively updates to { arbitrarily: true }", () => {
@@ -50,18 +50,18 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
           })
         })
 
-        describe("AND we dispatch actions.nested.deep.create.set('arbitrarily.so', true)", () => {
+        describe("AND we dispatch actions.nested.deep.create.path(['arbitrarily', 'so'], true)", () => {
           beforeEach(() => {
-            store.dispatch(actions.nested.deep.create.set('arbitrarily.so', true))
+            store.dispatch(actions.nested.deep.create.path(['arbitrarily', 'so'], true))
           })
 
-          test("THEN actions.counter state non-mutatively updates to { 'arbitrarily.so': true }", () => {
+          test("THEN actions.counter state non-mutatively updates to { arbitrarily: {so : true } }", () => {
             const state = store.getState()
             expect(state).toEqual({
               ...initialState,
               nested: {
                 ...initialState.nested,
-                deep: { 'arbitrarily.so': true }
+                deep: { arbitrarily: { so: true } }
               }
             })
             expect(initialState.nested.deep).toEqual({})

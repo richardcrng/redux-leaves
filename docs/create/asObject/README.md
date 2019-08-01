@@ -62,19 +62,19 @@ Back to:
 * [all `create` action creators](../README.md#action-creators)
 
 
-## `set(path, value)`
+## `set(key, value)`
 **`create.asObject.set`**
 
 **alias: `create.set`** *(when `initialLeafState` is a [plain object](#plain-object))*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at `path` with `value`.
+Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at the property `key` with `value`.
 
 ```js
 // TODO update this
 ```
 
 ### Parameters
-- `path` *(array | string)*: the path of the property to set
+- `key` *(string)*: the path of the property to set
 
 ### Returns
 `action` *(object)*: an object to dispatch to the store
@@ -94,11 +94,11 @@ const store = createStore(reducer)
 ```
 ```js
 store.dispatch(actions.foo.create.asObject.set('accessed', true))
-console.log(store.getState().foo.bar) // { accessed: true }
+console.log(store.getState().foo) // { accessed: true }
 ```
 ```js
-store.dispatch(actions.ar.create.asObject.set('other.thing', false))
-console.log(store.getState().foobar) // { props: true, other: { thing: false } }
+store.dispatch(actions.bar.create.asObject.set('props', false))
+console.log(store.getState().bar.props) // false
 ```
 Back to:
 * [`create.asObject` action creators](#action-creators)
