@@ -3,7 +3,7 @@ import * as RA from 'ramda-adjunct'
 import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
-import { leafReducerArray } from './array/leafReducerArray';
+import leafReducerArray from './array/';
 import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
 import { leafReducerBoolean } from './boolean/leafReducerBoolean';
@@ -34,15 +34,15 @@ export const leafReducer = (
     // Type-specific actions
     switch (condition) {
       case conditions.ARRAY:
-        return leafReducerArray(draftLeafState, { creatorKey, payload })
+        return leafReducerArray(draftLeafState, action)
       case conditions.BOOLEAN:
-        return leafReducerBoolean(draftLeafState, { creatorKey })
+        return leafReducerBoolean(draftLeafState, action)
       case conditions.NUMBER:
-        return leafReducerNumber(draftLeafState, { creatorKey, payload })
+        return leafReducerNumber(draftLeafState, action)
       case conditions.OBJECT:
-        return leafReducerObject(draftLeafState, { creatorKey, payload })
+        return leafReducerObject(draftLeafState, action)
       case conditions.STRING:
-        return leafReducerString(draftLeafState, { creatorKey, payload })
+        return leafReducerString(draftLeafState, action)
     }
 
     // Type-agnostic actions
