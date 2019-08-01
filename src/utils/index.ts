@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-export const getState = (state, path) => (
+export const getState = (state: any, path: string | string[]) => (
   (pathIsEmpty(path))
     ? state
     : Array.isArray(path)
@@ -8,7 +8,7 @@ export const getState = (state, path) => (
       : R.path(path.split('.'), state)
 )
 
-export const resetState = (state, path, initialState) => (
+export const resetState = (state: any, path: string | string[], initialState: any) => (
   updateState(
     state,
     path,
@@ -16,7 +16,7 @@ export const resetState = (state, path, initialState) => (
   )
 )
 
-export const updateState = (state, path, val) => (
+export const updateState = (state: any, path: string | string[], val: any) => (
   (pathIsEmpty(path))
     ? val
     : Array.isArray(path)
@@ -24,6 +24,6 @@ export const updateState = (state, path, val) => (
       : R.assocPath(path.split('.'), val, state)
 )
 
-const pathIsEmpty = path => (
-  ['', null, undefined].includes(path) || path.length === 0
+const pathIsEmpty = (path: string | string[]) => (
+  ['', null, undefined].includes(path as string) || path.length === 0
 )

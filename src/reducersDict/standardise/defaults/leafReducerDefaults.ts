@@ -12,8 +12,10 @@ const actionType = (leaf: LeafActionData) : string => {
 
 const mutate = false
 
-export const leafReducerDefaults = {
+const leafReducerDefaults = {
   argsToPayload,
   actionType,
   mutate
 }
+
+export default leafReducerDefaults
