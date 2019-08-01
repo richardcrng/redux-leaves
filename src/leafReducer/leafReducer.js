@@ -24,7 +24,7 @@ export const leafReducer = (
   return produce(leafState, draftLeafState => {
     // Custom actions
     if (custom) {
-      return leafReducerCustom(reducersDict, action, draftLeafState, wholeState)
+      return leafReducerCustom(draftLeafState, action, wholeState, reducersDict)
     }
 
     // Type-specific actions
