@@ -11,8 +11,10 @@ import Dict from '../../types/Dict';
 import LeafReducer from '../../types/Leaf/Reducer';
 import StateBranch from '../../types/State/Branch';
 import StateLeaf from '../../types/State/Leaf';
+import ActionsTree from '../../types/Actions/Tree';
+import StateTree from '../../types/State/Tree';
 
-export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>) => {
+export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>): ActionsTree => {
   const paths = recursivelyGeneratePaths(stateShape)
   let actions: object = { create: createFor(stateShape, customReducers) }
 
@@ -28,21 +30,21 @@ export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>) =
   return actions
 }
 
-const actionsForLeafOrBranch = (leafOrBranch: StateLeaf | StateBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dictionary<LeafReducer>) => {
+const actionsForLeafOrBranch = (leafOrBranch: StateLeaf | StateBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dict<LeafReducer>) => {
   if (leafOrBranch) leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
   return leafOrBranch
 }
 
-const addActionsToBranch = (actions, path, stateShape, customReducers) => {
+const addActionsToBranch = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducer>) => {
   const branch = R.path(path, stateShape)
   return R.assocPath(path, actionsForLeafOrBranch(branch, path, stateShape, customReducers), actions)
 }
 
-const addActionsToLeaf = (actions, path, stateShape, customReducers) => {
+const addActionsToLeaf = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducer>) => {
   return R.assocPath(path, actionsForLeafOrBranch({}, path, stateShape, customReducers), actions)
 }
 
-const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
+const createFor = (stateShape: StateTree, customReducers: Dict<LeafReducer>, pathToLeafOrBranch = []) => {
   const initialState = pathToLeafOrBranch.length >= 1
     ? R.path(pathToLeafOrBranch, stateShape)
     : stateShape
@@ -82,13 +84,13 @@ const createFor = (stateShape, customReducers, pathToLeafOrBranch = []) => {
   }
 }
 
-const isBranch = leafOrBranch => (
+const isBranch = (leafOrBranch: StateLeaf | StateBranch) => (
   (!Array.isArray(leafOrBranch)
     && RA.isPlainObj(leafOrBranch)
     && Object.values(leafOrBranch).length >= 1)
 )
 
-const recursivelyGeneratePaths = (stateShape, paths = [], currentPath = []) => {
+const recursivelyGeneratePaths = (stateShape: any, paths: string[][] = [], currentPath: string[] = []) => {
   if (RA.isPlainObject(stateShape)) {
     Object.entries(stateShape).forEach(
       ([key, val]) => {

@@ -18,5 +18,6 @@ export type BooleanLeafCreatorAPI = LeafCreatorAPI & LeafCreatorAPIAsBoolean
 export type NumberLeafCreatorAPI = LeafCreatorAPI & LeafCreatorAPIAsNumber
 export type ObjectLeafCreatorAPI = LeafCreatorAPI & LeafCreatorAPIAsObject
 export type StringLeafCreatorAPI = LeafCreatorAPI & LeafCreatorAPIAsString
+export type LeafCreatorAPITyped = ArrayLeafCreatorAPI | BooleanLeafCreatorAPI | NumberLeafCreatorAPI | ObjectLeafCreatorAPI | StringLeafCreatorAPI
 
 export default LeafCreatorAPI
