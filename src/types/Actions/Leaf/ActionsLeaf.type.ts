@@ -1,7 +1,7 @@
 import LeafCreatorAPI, { LeafCreatorAPITyped } from '../../Leaf/Creator/API';
 
 type ActionsLeaf = {
-  create: LeafCreatorAPI | LeafCreatorAPITyped
+  create: LeafCreatorAPI
 }
 
 export default ActionsLeaf

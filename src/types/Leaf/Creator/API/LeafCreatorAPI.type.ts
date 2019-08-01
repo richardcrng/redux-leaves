@@ -5,8 +5,7 @@ import LeafCreatorAPIAsString from './AsString';
 import LeafCreatorAPIAsNumber from './AsNumber';
 import LeafCreatorAPIAsObject from './AsObject';
 
-type LeafCreatorAPI = {
-  create: LeafCreatorAPIUniversal
+type LeafCreatorAPI = LeafCreatorAPIUniversal & {
   asArray: LeafCreatorAPIAsArray
   asBoolean: LeafCreatorAPIAsBoolean
   asNumber: LeafCreatorAPIAsNumber
