@@ -55,13 +55,13 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
             store.dispatch(actions.nested.deep.create.set('arbitrarily.so', true))
           })
 
-          test("THEN actions.counter state non-mutatively updates to { arbitrarily: { so: true } }", () => {
+          test("THEN actions.counter state non-mutatively updates to { 'arbitrarily.so': true }", () => {
             const state = store.getState()
             expect(state).toEqual({
               ...initialState,
               nested: {
                 ...initialState.nested,
-                deep: { arbitrarily: { so: true } }
+                deep: { 'arbitrarily.so': true }
               }
             })
             expect(initialState.nested.deep).toEqual({})
