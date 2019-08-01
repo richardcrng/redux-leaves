@@ -9,11 +9,12 @@ export const forObject = (pathToLeafOrBranch: string[] = []) => {
   )
 
   const assign = (...sources: object[]) => actionTemplate(atomicActions.ASSIGN, sources)
-
-  const set = (path: string[], value: any) => actionTemplate(atomicActions.SET, { path, value })
+  const path = (path: string[], value: any) => actionTemplate(atomicActions.SET, { path, value })
+  const set = (key: string, value: any) => actionTemplate(atomicActions.SET, { path: [key], value })
 
   return {
     assign,
+    path,
     set
   }
 }

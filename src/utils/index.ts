@@ -1,14 +1,12 @@
 import * as R from 'ramda'
 
-export const getState = (state: any, path: string | string[]) => (
+export const getState = (state: any, path: string[]) => (
   (pathIsEmpty(path))
     ? state
-    : Array.isArray(path)
-      ? R.path(path, state)
-      : R.path(path.split('.'), state)
+    : R.path(path, state)
 )
 
-export const resetState = (state: any, path: string | string[], initialState: any) => (
+export const resetState = (state: any, path: string[], initialState: any) => (
   updateState(
     state,
     path,
@@ -16,12 +14,10 @@ export const resetState = (state: any, path: string | string[], initialState: an
   )
 )
 
-export const updateState = (state: any, path: string | string[], val: any) => (
+export const updateState = (state: any, path: string[], val: any) => (
   (pathIsEmpty(path))
     ? val
-    : Array.isArray(path)
-      ? R.assocPath(path, val, state)
-      : R.assocPath(path.split('.'), val, state)
+    : R.assocPath(path, val, state)
 )
 
 const pathIsEmpty = (path: string | string[]) => (
