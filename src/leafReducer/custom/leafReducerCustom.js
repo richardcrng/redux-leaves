@@ -1,6 +1,6 @@
 import produce from 'immer'
 
-export const leafReducerCustom = (reducersDict, leafState, action, wholeState) => {
+export const leafReducerCustom = (reducersDict, action, leafState, wholeState) => {
   const { leaf: { creatorKey } } = action;
 
   return Object.keys(reducersDict).includes(creatorKey)
