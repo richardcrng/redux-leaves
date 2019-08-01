@@ -6,7 +6,7 @@ import { conditions } from '../actions/condtions';
 import leafReducerArray from './array/';
 import leafReducerBoolean from './boolean';
 import leafReducerObject from './object';
-import { leafReducerString } from './string/leafReducerString';
+import leafReducerString from './string';
 import leafReducerNumber from './number';
 import leafReducerCustom from './custom';
 import LeafStandardAction from '../types/Actions/LSA';
