@@ -15,6 +15,7 @@ import StateTree from '../../types/State/Tree';
 import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
 import LeafStandardActionCreator from '../../types/Actions/LSA/Creator';
 import LeafCreatorAPI from '../../types/Leaf/Creator/API';
+import ActionsBranch from '../../types/Actions/Branch';
 
 export const actionsFor = (stateShape: StateTree, customReducers: Dict<LeafReducerConfig>): ActionsTree => {
   const paths = recursivelyGeneratePaths(stateShape)
@@ -35,18 +36,18 @@ export const actionsFor = (stateShape: StateTree, customReducers: Dict<LeafReduc
   return actions
 }
 
-const actionsForLeafOrBranch = (leafOrBranch: StateLeaf | StateBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dict<LeafReducerConfig>) => {
-  if (leafOrBranch) leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
+const actionsForLeafOrBranch = (leafOrBranch: ActionsBranch, pathToLeafOrBranch: string[] = [], stateShape: any, customReducers: Dict<LeafReducerConfig>) => {
+  if (!R.isNil(leafOrBranch)) leafOrBranch.create = createFor(stateShape, customReducers, pathToLeafOrBranch)
   return leafOrBranch
 }
 
-const addActionsToBranch = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
-  const branch = R.path(path, stateShape)
+const addActionsToBranch = (actions: ActionsTree, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
+  const branch = R.path(path, stateShape) as ActionsBranch
   return R.assocPath(path, actionsForLeafOrBranch(branch, path, stateShape, customReducers), actions)
 }
 
-const addActionsToLeaf = (actions, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
-  return R.assocPath(path, actionsForLeafOrBranch({}, path, stateShape, customReducers), actions)
+const addActionsToLeaf = (actions: ActionsTree, path: string[], stateShape: StateTree, customReducers: Dict<LeafReducerConfig>) => {
+  return R.assocPath(path, actionsForLeafOrBranch({} as ActionsBranch, path, stateShape, customReducers), actions)
 }
 
 const createFor = (stateShape: StateTree, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []): LeafCreatorAPI => {
@@ -84,6 +85,7 @@ const createFor = (stateShape: StateTree, customReducers: Dict<LeafReducerConfig
     asNumber,
     asObject,
     asString,
+    custom,
     ...custom
   }
 }

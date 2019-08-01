@@ -4,6 +4,8 @@ import LeafCreatorAPIAsBoolean from './AsBoolean';
 import LeafCreatorAPIAsString from './AsString';
 import LeafCreatorAPIAsNumber from './AsNumber';
 import LeafCreatorAPIAsObject from './AsObject';
+import Dict from '../../../Dict';
+import LeafStandardActionCreator from '../../../Actions/LSA/Creator';
 
 type LeafCreatorAPI = LeafCreatorAPIUniversal & {
   asArray: LeafCreatorAPIAsArray
@@ -11,6 +13,7 @@ type LeafCreatorAPI = LeafCreatorAPIUniversal & {
   asNumber: LeafCreatorAPIAsNumber
   asObject: LeafCreatorAPIAsObject
   asString: LeafCreatorAPIAsString
+  custom?: Dict<LeafStandardActionCreator>
 }
 
 export type ArrayLeafCreatorAPI = LeafCreatorAPI & LeafCreatorAPIAsArray
