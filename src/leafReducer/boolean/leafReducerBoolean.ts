@@ -1,7 +1,8 @@
 import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
+import LeafReducerTyped from '../../types/Leaf/Reducer/Typed';
 
-export const leafReducerBoolean = (leafState, { creatorKey }) => {
+const leafReducerBoolean: LeafReducerTyped<boolean> = (leafState, { leaf: { creatorKey } }) => {
   const state = RA.isBoolean(leafState) ? leafState : !!leafState
 
   switch (creatorKey) {
@@ -11,3 +12,5 @@ export const leafReducerBoolean = (leafState, { creatorKey }) => {
     default: return state
   }
 }
+
+export default leafReducerBoolean

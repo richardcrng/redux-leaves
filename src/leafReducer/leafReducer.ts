@@ -4,9 +4,9 @@ import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
 import leafReducerArray from './array/';
+import leafReducerBoolean from './boolean';
 import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
-import { leafReducerBoolean } from './boolean/leafReducerBoolean';
 import { leafReducerNumber } from './number/leafReducerNumber';
 import { leafReducerCustom } from './custom/leafReducerCustom';
 import LeafStandardAction from '../types/Actions/LSA';

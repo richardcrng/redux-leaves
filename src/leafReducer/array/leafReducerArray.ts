@@ -2,9 +2,9 @@ import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
 import { replaceAtIndex, insertAtIndex } from "../../actions/for/array/utils";
-import LeafStandardAction from '../../types/Actions/LSA';
+import LeafReducerTyped from '../../types/Leaf/Reducer/Typed';
 
-const leafReducerArray = (leafState: any[], { leaf: { creatorKey }, payload } : LeafStandardAction) => {
+const leafReducerArray : LeafReducerTyped<any[]> = (leafState, { leaf: { creatorKey }, payload }) => {
   const state = RA.isArray(leafState) ? leafState : [leafState]
   switch (creatorKey) {
     case atomicActions.CONCAT: return concat(state, payload)

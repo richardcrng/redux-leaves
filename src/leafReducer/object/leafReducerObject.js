@@ -2,7 +2,7 @@ import * as RA from 'ramda-adjunct'
 import { atomicActions } from "../../actions/atomic";
 import { updateState } from '../..';
 
-export const leafReducerObject = (leafState, { creatorKey, payload }) => {
+export const leafReducerObject = (leafState, { leaf: { creatorKey }, payload }) => {
   const state = RA.isPlainObject(leafState) ? leafState : Object(leafState)
   switch (creatorKey) {
     case atomicActions.ASSIGN: return assign(state, payload)
