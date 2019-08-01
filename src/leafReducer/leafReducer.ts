@@ -7,7 +7,7 @@ import leafReducerArray from './array/';
 import leafReducerBoolean from './boolean';
 import { leafReducerObject } from './object/leafReducerObject';
 import { leafReducerString } from './string/leafReducerString';
-import { leafReducerNumber } from './number/leafReducerNumber';
+import leafReducerNumber from './number';
 import leafReducerCustom from './custom';
 import LeafStandardAction from '../types/Actions/LSA';
 import Dict from '../types/Dict';
