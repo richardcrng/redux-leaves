@@ -1,5 +1,5 @@
 import FluxStandardAction from "../FSA";
-import LeafActionData from "../../LeafAction/Data";
+import LeafActionData from "../../Leaf/Action/Data";
 
 type LeafStandardAction = FluxStandardAction & {
   leaf: LeafActionData

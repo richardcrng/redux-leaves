@@ -8,7 +8,7 @@ import { forAny } from './any';
 import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
 import Dictionary from '../../types/Dictionary';
-import LeafReducer from '../../types/LeafReducer';
+import LeafReducer from '../../types/Leaf/Reducer';
 import StateShapeBranch from '../../types/StateShape/Branch';
 import StateShapeLeaf from '../../types/StateShape/Leaf';
 

@@ -1,4 +1,4 @@
-import LeafCreatorCondition from "../../types/LeafCreator/Condition";
+import LeafCreatorCondition from "../../types/Leaf/Creator/Condition";
 
 export const conditions: {
   ARRAY: LeafCreatorCondition

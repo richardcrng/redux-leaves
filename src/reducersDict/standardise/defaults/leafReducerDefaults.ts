@@ -1,4 +1,4 @@
-import LeafActionData from "../../../types/LeafAction/Data";
+import LeafActionData from "../../../types/Leaf/Action/Data";
 
 const argsToPayload = (first: any) => first
 

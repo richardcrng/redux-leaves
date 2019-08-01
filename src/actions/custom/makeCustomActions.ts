@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { makeActionTemplate } from '../template/makeActionTemplate';
-import LeafActionTemplate from '../../types/LeafAction/Template';
-import LeafReducerConfig from '../../types/LeafReducer/Config';
+import LeafActionTemplate from '../../types/Leaf/Action/Template';
+import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
 import LeafStandardAction from '../../types/Actions/LSA';
 import LeafStandardActionCreator from '../../types/Actions/LSA/Creator';
 

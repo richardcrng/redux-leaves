@@ -1,5 +1,5 @@
 import LeafReducerFunction from "../Function";
-import LeafActionTypeConfig from "../../LeafAction/Type/Config";
+import LeafActionTypeConfig from "../../Action/Type/Config";
 
 type LeafReducerConfig = {
   reducer: LeafReducerFunction
