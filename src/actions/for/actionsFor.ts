@@ -7,12 +7,12 @@ import { forNumber } from './number';
 import { forAny } from './any';
 import { forString } from './string/forString';
 import { makeCustomActions } from '../custom';
-import Dictionary from '../../types/Dictionary';
+import Dict from '../../types/Dict';
 import LeafReducer from '../../types/Leaf/Reducer';
 import StateShapeBranch from '../../types/StateShape/Branch';
 import StateShapeLeaf from '../../types/StateShape/Leaf';
 
-export const actionsFor = (stateShape: any, customReducers: Dictionary<LeafReducer>) => {
+export const actionsFor = (stateShape: any, customReducers: Dict<LeafReducer>) => {
   const paths = recursivelyGeneratePaths(stateShape)
   let actions: object = { create: createFor(stateShape, customReducers) }
 
