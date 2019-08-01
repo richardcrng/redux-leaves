@@ -3,42 +3,46 @@ import * as RA from 'ramda-adjunct'
 import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
-import { leafReducerArray } from './array/leafReducerArray';
-import { leafReducerObject } from './object/leafReducerObject';
-import { leafReducerString } from './string/leafReducerString';
-import { leafReducerBoolean } from './boolean/leafReducerBoolean';
-import { leafReducerNumber } from './number/leafReducerNumber';
-import { leafReducerCustom } from './custom/leafReducerCustom';
+import leafReducerArray from './array/';
+import leafReducerBoolean from './boolean';
+import leafReducerObject from './object';
+import leafReducerString from './string';
+import leafReducerNumber from './number';
+import leafReducerCustom from './custom';
+import LeafStandardAction from '../types/Actions/LSA';
+import Dict from '../types/Dict';
+import LeafReducerConfig from '../types/Leaf/Reducer/Config';
+import LeafActionData from '../types/Leaf/Action/Data';
 
 export const leafReducer = (
-  leafState,
-  action,
-  wholeState,
-  initialWhole,
-  reducersDict
+  leafState: any,
+  action: LeafStandardAction,
+  wholeState: any,
+  initialWhole: any,
+  reducersDict: Dict<LeafReducerConfig>
   ) => {
 
   const { leaf = {}, payload } = action;
-  const { condition, custom, creatorKey, path } = leaf;
+  const { condition, custom, creatorKey, path } = leaf as LeafActionData;
 
-  return produce(leafState, draftLeafState => {
+  return produce(leafState, (draftLeafState: any) : any => {
     // Custom actions
     if (custom) {
-      return leafReducerCustom(reducersDict, draftLeafState, action, wholeState)
+      return leafReducerCustom(draftLeafState, action, wholeState, reducersDict)
     }
 
     // Type-specific actions
     switch (condition) {
       case conditions.ARRAY:
-        return leafReducerArray(draftLeafState, { creatorKey, payload })
+        return leafReducerArray(draftLeafState, action)
       case conditions.BOOLEAN:
-        return leafReducerBoolean(draftLeafState, { creatorKey })
+        return leafReducerBoolean(draftLeafState, action)
       case conditions.NUMBER:
-        return leafReducerNumber(draftLeafState, { creatorKey, payload })
+        return leafReducerNumber(draftLeafState, action)
       case conditions.OBJECT:
-        return leafReducerObject(draftLeafState, { creatorKey, payload })
+        return leafReducerObject(draftLeafState, action)
       case conditions.STRING:
-        return leafReducerString(draftLeafState, { creatorKey, payload })
+        return leafReducerString(draftLeafState, action)
     }
 
     // Type-agnostic actions
@@ -52,11 +56,11 @@ export const leafReducer = (
   })
 }
 
-const apply = (callback, leafState, wholeState) => (
+const apply = (callback: (leafState: any, treeState: any) => any, leafState: any, wholeState: any) => (
   callback(leafState, wholeState)
 )
 
-const clear = (leafState, toNull) => {
+const clear = (leafState: any, toNull?: boolean) => {
   if (toNull) {
     return null
   } else if (RA.isBoolean(leafState)) {
@@ -72,6 +76,6 @@ const clear = (leafState, toNull) => {
   }
 }
 
-const reset = (initialWholeState, path) => (
+const reset = (initialWholeState: any, path: string[]) => (
   path.length >= 1 ? R.path(path, initialWholeState) : initialWholeState
 )
