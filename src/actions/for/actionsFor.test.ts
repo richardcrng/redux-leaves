@@ -1,4 +1,5 @@
 import { actionsFor } from "..";
+import LeafCreatorAPI from "../../types/Leaf/Creator/API";
 
 describe('actionsFor', () => {
   describe('GIVEN an initialState of { foo: 1, bar: [] }', () => {
