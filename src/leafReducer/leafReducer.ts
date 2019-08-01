@@ -5,7 +5,7 @@ import { atomicActions } from '../actions/atomic';
 import { conditions } from '../actions/condtions';
 import leafReducerArray from './array/';
 import leafReducerBoolean from './boolean';
-import { leafReducerObject } from './object/leafReducerObject';
+import leafReducerObject from './object';
 import { leafReducerString } from './string/leafReducerString';
 import leafReducerNumber from './number';
 import leafReducerCustom from './custom';
