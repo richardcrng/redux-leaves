@@ -1,4 +1,4 @@
-import LeafStandardAction from "../../../LeafStandardAction";
+import LeafStandardAction from "../../../Actions/LSA";
 
 type LeafCreatorAPIAsBoolean = {
   off(): LeafStandardAction

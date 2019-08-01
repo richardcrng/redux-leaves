@@ -1,5 +1,5 @@
 import { leafReducerDefaults } from "../../reducersDict/standardise/defaults";
-import LeafStandardAction from "../../types/LeafStandardAction";
+import LeafStandardAction from "../../types/Actions/LSA";
 import LeafCreatorCondition from "../../types/LeafCreator/Condition";
 import LeafActionTemplate from '../../types/LeafAction/Template';
 

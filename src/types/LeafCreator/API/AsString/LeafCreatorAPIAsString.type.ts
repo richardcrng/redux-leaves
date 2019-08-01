@@ -1,4 +1,4 @@
-import LeafStandardAction from "../../../LeafStandardAction";
+import LeafStandardAction from "../../../Actions/LSA";
 
 type LeafCreatorAPIAsString = {
   concat(...strings: string[]): LeafStandardAction

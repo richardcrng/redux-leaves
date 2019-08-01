@@ -1,4 +1,4 @@
-import FluxStandardActionCreatorTypeAware from "../../types/FluxStandardAction/Creator/TypeAware";
+import FluxStandardActionCreatorTypeAware from "../../types/Actions/FSA/Creator/TypeAware";
 
 
 // Returns a function to create actions of given type

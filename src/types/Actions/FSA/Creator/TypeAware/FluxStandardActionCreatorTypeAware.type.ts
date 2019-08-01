@@ -1,4 +1,4 @@
-import FluxStandardActionCreator from "..";
+import FluxStandardActionCreator from "../../Creator";
 
 type FluxStandardActionCreatorTypeAware = FluxStandardActionCreator & {
   type: string

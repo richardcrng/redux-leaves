@@ -1,4 +1,4 @@
-import LeafStandardAction from "../../../LeafStandardAction";
+import LeafStandardAction from "../../../Actions/LSA";
 
 type LeafCreatorAPIAsNumber = {
   increment(n?: number): LeafStandardAction

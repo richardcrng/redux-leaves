@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 import { makeActionTemplate } from '../template/makeActionTemplate';
-import LeafStandardActionCreator from '../../types/LeafStandardAction/Creator';
-import LeafStandardAction from '../../types/LeafStandardAction';
-import LeafReducerConfig from '../../types/LeafReducer/Config';
 import LeafActionTemplate from '../../types/LeafAction/Template';
+import LeafReducerConfig from '../../types/LeafReducer/Config';
+import LeafStandardAction from '../../types/Actions/LSA';
+import LeafStandardActionCreator from '../../types/Actions/LSA/Creator';
 
 export const makeCustomActions = (reducersDict = {}, pathToLeafOrBranch = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
