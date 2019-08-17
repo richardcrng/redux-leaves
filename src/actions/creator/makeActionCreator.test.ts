@@ -51,25 +51,6 @@ describe("**Feature**: when provided one argument (type), it returns an action c
           expect(result.meta).toBe(argTwo)
         })
       })
-
-      describe("AND the returned function is executed with three arguments: 'arg one', 'arg two', { arg: 'three' }", () => {
-        const argOne = "arg one"
-        const argTwo = "arg two"
-        const three = 'three'
-        const argThree = { arg: three }
-        const result = actionCreator(argOne, argTwo, argThree)
-
-        test("THEN the result is { type: 'ACTION_TYPE_CONSTANT', payload: 'arg one', meta: 'arg two', arg: 'three' }", () => {
-          // Check overall object
-          expect(result).toEqual({ type: ACTION_TYPE_CONSTANT, payload: argOne, meta: argTwo, arg: three })
-          // Check type, payload, meta for referential identity
-          expect(result.type).toBe(ACTION_TYPE_CONSTANT)
-          expect(result.payload).toBe(argOne)
-          expect(result.meta).toBe(argTwo)
-          // Check arg for referential identity
-          expect(result.arg).toBe(three)
-        })
-      })
     })
   })
 })

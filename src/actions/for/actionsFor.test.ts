@@ -1,4 +1,5 @@
 import { actionsFor } from "..";
+import LeafCreatorAPI from "../../types/Leaf/Creator/API";
 
 describe('actionsFor', () => {
   describe('GIVEN an initialState of { foo: 1, bar: [] }', () => {
@@ -50,8 +51,10 @@ describe('actionsFor', () => {
     describe('WHEN doNothing = state => state', () => {
       const doNothing = (state: any) => state
 
-      describe('AND customReducers = { doNothing }', () => {
-        const customReducers = { doNothing }
+      describe('AND customReducers = { doNothing: { reducer: doNothing } }', () => {
+        const customReducers = { doNothing: {
+          reducer: doNothing
+        }}
 
         describe('AND result = actionsFor(initialState, customReducers)', () => {
           const result = actionsFor(initialState, customReducers)
