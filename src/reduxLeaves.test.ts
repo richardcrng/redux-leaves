@@ -1,5 +1,5 @@
 import { reduxLeaves } from './reduxLeaves';
-import { createStore } from "redux";
+import { createStore, Store } from "redux";
 
 describe("API: reduxLeaves(initialState)", () => {
 
@@ -47,7 +47,7 @@ describe("API: reduxLeaves(initialState)", () => {
       })
 
       describe("AND store = createStore(reducer)", () => {
-        let store
+        let store: Store
         beforeEach(() => {
           store = createStore(reducer)
         })

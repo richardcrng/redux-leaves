@@ -14,15 +14,16 @@ import ActionsBranch from '../../types/Actions/Branch';
 import ActionsTree from '../../types/Actions/Tree';
 import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
 import ActionsLeaf from '../../types/Actions/Leaf';
+import NestedDict from '../../types/Dict/Nested';
 
-export const actionsFor = (stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>) => {
+export const actionsFor = (stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>): NestedDict => {
   const paths = recursivelyGeneratePaths(stateShape)
-  let actions: ActionsTree = { create: createFor(stateShape, customReducers) }
+  let actions: NestedDict = { create: createFor(stateShape, customReducers) }
 
   paths.forEach(path => {
     const isPathToBranch = isBranch(R.path(path, stateShape) as ActionsLeaf | ActionsBranch)
     if (isPathToBranch) {
-      actions = addActionsToBranch(actions, path, stateShape, customReducers)
+      actions = addActionsToBranch(actions as ActionsTree, path, stateShape, customReducers)
     } else {
       actions = addActionsToLeaf(actions, path, stateShape, customReducers)
     }
@@ -41,8 +42,8 @@ const addActionsToBranch = (actions: ActionsTree, path: string[], stateShape: Di
   return R.assocPath(path, actionsForLeafOrBranch(branch, path, stateShape, customReducers), actions)
 }
 
-const addActionsToLeaf = (actions: ActionsTree, path: string[], stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>) => {
-  return R.assocPath(path, actionsForLeafOrBranch({} as ActionsTree, path, stateShape, customReducers), actions)
+const addActionsToLeaf = (actions: NestedDict, path: string[], stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>) => {
+  return R.assocPath(path, actionsForLeafOrBranch({} as ActionsBranch, path, stateShape, customReducers), actions)
 }
 
 const createFor = (stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) => {

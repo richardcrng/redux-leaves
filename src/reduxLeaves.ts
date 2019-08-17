@@ -6,11 +6,12 @@ import { getState, updateState } from './utils';
 import LeafStandardAction from './types/Actions/LSA';
 import LeafActionData from './types/Leaf/Action/Data';
 import Dict from './types/Dict';
+import { Reducer } from 'redux';
 
-export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}) => {
+export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, Dict<any>] => {
   const leafReducersDict = standardiseReducersDict(reducersDict)
 
-  function reducer(state = initialState, action: LeafStandardAction) {
+  const reducer: Reducer<any, LeafStandardAction> = function(state = initialState, action: LeafStandardAction) {
     const { leaf = {} } = action;
     const { path = [] } = leaf as LeafActionData
 
