@@ -15,8 +15,6 @@ function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConf
     ? R.path(pathToLeafOrBranch, stateShape)
     : stateShape
 
-  let actionCreators
-
   const basicActionCreators = forAny(pathToLeafOrBranch)
   const asArray = forArray(pathToLeafOrBranch)
   const asBoolean = forBoolean(pathToLeafOrBranch)
@@ -24,6 +22,8 @@ function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConf
   const asObject = forObject(pathToLeafOrBranch)
   const asString = forString(pathToLeafOrBranch)
   const custom = makeCustomActions(customReducers, pathToLeafOrBranch)
+
+  let actionCreators
 
   if (RA.isBoolean(initialState)) {
     actionCreators = asBoolean
