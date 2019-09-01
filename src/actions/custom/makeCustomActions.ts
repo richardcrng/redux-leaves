@@ -6,7 +6,7 @@ import LeafStandardAction from '../../types/Actions/LSA';
 import LeafStandardActionCreator from '../../types/Actions/LSA/Creator';
 import Dict from '../../types/Dict';
 
-export const makeCustomActions = (reducersDict: Dict<LeafReducerConfig> = {}, pathToLeafOrBranch: (string|number)[] = []) => {
+export const makeCustomActions = (reducersDict: Dict<LeafReducerConfig> = {}, pathToLeafOrBranch: string[] = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch, { custom: true })
   return R.mapObjIndexed(
     makeCustomActionCreator(actionTemplate),

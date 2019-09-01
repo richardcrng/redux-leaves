@@ -1,7 +1,7 @@
 import { atomicActions } from "../../atomic";
 import { makeActionTemplate } from "../../template/makeActionTemplate";
 
-export const forAny = (pathToLeafOrBranch: (string | number)[] = []) => {
+export const forAny = (pathToLeafOrBranch: string[] = []) => {
   const actionTemplate = makeActionTemplate(pathToLeafOrBranch)
 
   const apply = (callback: (leafState: any, treeState: any) => any) => actionTemplate(atomicActions.APPLY, callback)

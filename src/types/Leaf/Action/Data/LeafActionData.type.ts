@@ -1,7 +1,7 @@
 import LeafCreatorCondition from "../../Creator/Condition";
 
 type LeafActionData = {
-  path: (string | number)[]
+  path: string[]
   creatorKey: string
   CREATOR_KEY: string
   condition?: LeafCreatorCondition

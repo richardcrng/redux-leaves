@@ -10,7 +10,7 @@ import { forObject } from '../for/object';
 import { forString } from '../for/string';
 import { makeCustomActions } from '../custom';
 
-function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: (string | number)[] = []) {
+function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) {
   const initialState = pathToLeafOrBranch.length >= 1
     ? R.path(pathToLeafOrBranch, stateShape)
     : stateShape
