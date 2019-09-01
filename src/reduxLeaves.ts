@@ -7,7 +7,7 @@ import Dict from './types/Dict';
 import { Reducer } from 'redux';
 import ActionsProxy from './actions/proxy';
 
-export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, Dict<any>] => {
+export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, ActionsProxy] => {
   const leafReducersDict = standardiseReducersDict(reducersDict)
 
   const reducer: Reducer<any, LeafStandardAction> = function(state = initialState, action: LeafStandardAction) {
