@@ -10,7 +10,7 @@ type MakeActionTemplateOptions = {
   custom?: boolean
 }
 
-export const makeActionTemplate = (path: string[] = [], { condition, custom } : MakeActionTemplateOptions = {}) : LeafActionTemplate => {
+export const makeActionTemplate = (path: (string | number)[] = [], { condition, custom } : MakeActionTemplateOptions = {}) : LeafActionTemplate => {
   return (creatorKey: string, payload: any, actionType = leafReducerDefaults.actionType) : LeafStandardAction => {
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
     const leaf = { path, condition, creatorKey, CREATOR_KEY, custom }

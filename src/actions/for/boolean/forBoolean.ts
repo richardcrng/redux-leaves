@@ -2,7 +2,7 @@ import { atomicActions } from "../../atomic";
 import { conditions } from "../../condtions/conditions";
 import { makeActionTemplate } from "../../template/makeActionTemplate";
 
-export const forBoolean = (pathToLeafOrBranch: string[] = []) => {
+export const forBoolean = (pathToLeafOrBranch: (string|number)[] = []) => {
   const actionTemplate = makeActionTemplate(
     pathToLeafOrBranch,
     { condition: conditions.BOOLEAN }
