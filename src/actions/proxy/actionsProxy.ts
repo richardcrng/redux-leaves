@@ -1,3 +1,17 @@
+import Dict from "../../types/Dict";
+
+function createActionsProxy(path: (string | number | symbol)[] = []): Dict<any> {
+  return new Proxy({}, {
+    get: (obj, prop) => {
+      if (prop === 'create') {
+        // return create API
+      } else {
+        return createActionsProxy([...path, prop])
+      }
+    }
+  })
+}
+
 class ActionsProxy {
   // private path: (string | number | symbol)[]
 
@@ -17,3 +31,6 @@ class ActionsProxy {
 }
 
 export default ActionsProxy
+export {
+  createActionsProxy
+}
