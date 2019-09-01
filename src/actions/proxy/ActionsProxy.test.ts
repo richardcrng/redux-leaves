@@ -94,5 +94,29 @@ describe('ActionsProxy class with empty state and non-empty leaf reducers dictio
         })
       })
     })
+
+    describe('WHEN result = actions.test[0][3].numbers', () => {
+      const result = actions.test[0][3].numbers
+
+      it('THEN result is a Proxy instance', () => {
+        expect(util.types.isProxy(result)).toBeTruthy()
+      })
+
+      it('AND result._path is equal to ["test", "0", "3", "numbers"]', () => {
+        expect(result._path).toEqual(["test", "0", "3", "numbers"])
+      })
+
+      it('AND result.create.didAThing is a function', () => {
+        expect(typeof result.create.didAThing).toBe('function')
+      })
+
+      describe('AND action = result.create.didAThing()', () => {
+        const action = result.create.didAThing()
+
+        test('THEN action.leaf.path is equal to ["test", "0", "3", "numbers"]', () => {
+          expect(action.leaf.path).toEqual(["test", "0", "3", "numbers"])
+        })
+      })
+    })
   })
 })
