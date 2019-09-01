@@ -46,6 +46,7 @@
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.3",
     "jest": "^24.7.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "util": "^0.12.1"
   }
 }
