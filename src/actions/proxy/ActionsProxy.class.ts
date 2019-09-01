@@ -5,7 +5,7 @@ class ActionsProxy {
   _path: (string | number)[]
   [key: string]: any;
 
-  constructor(actionsDict: Dict<LeafReducerConfig>, path: (string | number)[] = []) {
+  constructor(stateShape: Dict<any>, actionsDict: Dict<LeafReducerConfig>, path: (string | number)[] = []) {
     this._path = path
 
     return new Proxy(this, {
@@ -17,7 +17,7 @@ class ActionsProxy {
 
           }
         } else {
-          return new ActionsProxy(actionsDict, [...path, prop])
+          return new ActionsProxy(stateShape, actionsDict, [...path, prop])
         }
       }
     })
