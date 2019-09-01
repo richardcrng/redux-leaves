@@ -1,5 +1,3 @@
-import * as R from 'ramda'
-import { actionsFor } from './actions';
 import { leafReducer } from './leafReducer';
 import standardiseReducersDict from './reducersDict/standardise';
 import { getState, updateState } from './utils';
@@ -7,8 +5,9 @@ import LeafStandardAction from './types/Actions/LSA';
 import LeafActionData from './types/Leaf/Action/Data';
 import Dict from './types/Dict';
 import { Reducer } from 'redux';
+import ActionsProxy from './actions/proxy';
 
-export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, Dict<any>] => {
+export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, ActionsProxy] => {
   const leafReducersDict = standardiseReducersDict(reducersDict)
 
   const reducer: Reducer<any, LeafStandardAction> = function(state = initialState, action: LeafStandardAction) {
@@ -29,7 +28,7 @@ export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reduce
     return updateState(state, path, newLeafState)
   }
 
-  const actions = actionsFor(R.clone(initialState), leafReducersDict)
+  const actions = new ActionsProxy(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
