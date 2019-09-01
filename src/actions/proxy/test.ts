@@ -1,6 +1,5 @@
 import util from 'util'
-import ActionsProxy from "./";
-import { createActionsProxy } from "./actionsProxy";
+import createActionsProxy from "./";
 
 describe('createActionsProxy', () => {
   describe('GIVEN actions = createActionsProxy()', () => {
