@@ -11,12 +11,10 @@ class ActionsProxy {
 
     return new Proxy(this, {
       get: (obj, prop: string | number) => {
-        if (prop === '_path') {
-          return path
-        } else if (prop === 'create') {
-          return actionsAPI(stateShape, actionsDict, path)
-        } else {
-          return new ActionsProxy(stateShape, actionsDict, [...path, prop])
+        switch (prop) {
+          case '_path': return path
+          case 'create': return actionsAPI(stateShape, actionsDict, path)
+          default: return new ActionsProxy(stateShape, actionsDict, [...path, prop])
         }
       }
     })
