@@ -1,6 +1,5 @@
 import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import Dict from "../../types/Dict";
-import createActionsProxy from "./createActionsProxy";
 
 class ActionsProxy {
   _path: (string | number | symbol)[]
@@ -16,7 +15,7 @@ class ActionsProxy {
         } else if (prop === 'create') {
           // return create API
         } else {
-          return createActionsProxy([...path, prop])
+          return new ActionsProxy(actionsDict, [...path, prop])
         }
       }
     })

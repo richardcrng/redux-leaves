@@ -1,3 +1,3 @@
-import createActionsProxy from "./createActionsProxy";
+import ActionsProxy from "./ActionsProxy.class";
 
-export default createActionsProxy
+export default ActionsProxy
