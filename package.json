@@ -1,6 +1,6 @@
 {
   "name": "redux-leaves",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Write once. Reduce anywhere",
   "main": "dist/index.js",
   "license": "MIT",
