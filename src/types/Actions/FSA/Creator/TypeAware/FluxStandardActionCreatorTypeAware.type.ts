@@ -1,6 +1,6 @@
 import FluxStandardActionCreator from "../../Creator";
 
-type FluxStandardActionCreatorTypeAware = FluxStandardActionCreator & {
+type FluxStandardActionCreatorTypeAware<P = any, M = any> = FluxStandardActionCreator<P, M> & {
   type: string
 }
 
