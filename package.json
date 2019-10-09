@@ -1,6 +1,6 @@
 {
   "name": "redux-leaves",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Write once. Reduce anywhere",
   "main": "dist/index.js",
   "license": "MIT",
@@ -15,6 +15,7 @@
     "@types/ramda": "^0.26.18",
     "change-case": "^3.1.0",
     "immer": "^3.1.2",
+    "lodash": "^4.17.15",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.18.0",
     "redux": "^4.0.1"
