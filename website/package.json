@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "docusaurus": "^1.8.1"
+  },
+  "dependencies": {
+    "set-value": "^3.0.1"
   }
 }
