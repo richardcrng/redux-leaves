@@ -25,11 +25,14 @@ const makeProducerOfLeafStandardActions = (actionType: string | LeafActionTypeCr
 }
 
 const makeCreateDefaults = R.curry((path: string[], actionType: string | LeafActionTypeCreator) => {
-  const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)
+  const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)(path)
 
   return {
-    apply: producerOfLeafStandardActions(path, atomicActions.APPLY),
-    update: producerOfLeafStandardActions(path, atomicActions.UPDATE)
+    apply: producerOfLeafStandardActions( atomicActions.APPLY),
+    assign: producerOfLeafStandardActions( atomicActions.ASSIGN),
+    clear: producerOfLeafStandardActions( atomicActions.CLEAR),
+    drop: producerOfLeafStandardActions(atomicActions.DROP),
+    update: producerOfLeafStandardActions( atomicActions.UPDATE)
   }
 })
 
