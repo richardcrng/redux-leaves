@@ -2,17 +2,13 @@ import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
-import { conditions } from '../actions/condtions';
-import leafReducerArray from './array/';
-import leafReducerBoolean from './boolean';
-import leafReducerObject from './object';
-import leafReducerString from './string';
-import leafReducerNumber from './number';
 import leafReducerCustom from './custom';
 import LeafStandardAction from '../types/Actions/LSA';
 import Dict from '../types/Dict';
 import LeafReducerConfig from '../types/Leaf/Reducer/Config';
 import LeafActionData from '../types/Leaf/Action/Data';
+import { replaceAtIndex, insertAtIndex } from '../actions/for/array/utils';
+import { updateState } from '../utils';
 
 export const leafReducer = (
   leafState: any,
@@ -23,7 +19,7 @@ export const leafReducer = (
   ) => {
 
   const { leaf = {}, payload } = action;
-  const { condition, custom, creatorKey, path } = leaf as LeafActionData;
+  const { custom, creatorKey, path } = leaf as LeafActionData;
 
   return produce(leafState, (draftLeafState: any) : any => {
     // Custom actions
@@ -31,25 +27,22 @@ export const leafReducer = (
       return leafReducerCustom(draftLeafState, action, wholeState, reducersDict)
     }
 
-    // Type-specific actions
-    switch (condition) {
-      case conditions.ARRAY:
-        return leafReducerArray(draftLeafState, action)
-      case conditions.BOOLEAN:
-        return leafReducerBoolean(draftLeafState, action)
-      case conditions.NUMBER:
-        return leafReducerNumber(draftLeafState, action)
-      case conditions.OBJECT:
-        return leafReducerObject(draftLeafState, action)
-      case conditions.STRING:
-        return leafReducerString(draftLeafState, action)
-    }
-
     // Type-agnostic actions
     switch (creatorKey) {
       case atomicActions.APPLY: return apply(payload, draftLeafState, wholeState)
+      case atomicActions.ASSIGN: return assign(draftLeafState, payload)
       case atomicActions.CLEAR: return clear(draftLeafState, payload)
+      case atomicActions.CONCAT: return concat(draftLeafState, payload)
+      case atomicActions.DROP: return drop(draftLeafState, payload)
+      case atomicActions.FILTER: return filter(draftLeafState, payload)
+      case atomicActions.INCREMENT: return draftLeafState + payload
+      case atomicActions.OFF: return false
+      case atomicActions.ON: return true
+      case atomicActions.PUSH: return push(draftLeafState, payload)
+      case atomicActions.REPLACE: return replace(draftLeafState, payload)
       case atomicActions.RESET: return reset(initialWhole, path)
+      case atomicActions.SET: return set(draftLeafState, payload)
+      case atomicActions.TOGGLE: return !draftLeafState
       case atomicActions.UPDATE: return payload
       default: return draftLeafState
     }
@@ -58,6 +51,11 @@ export const leafReducer = (
 
 const apply = (callback: (leafState: any, treeState: any) => any, leafState: any, wholeState: any) => (
   callback(leafState, wholeState)
+)
+
+const assign = (state: object, sources: object[]) => Object.assign(
+  { ...state },   // stop immer complaining
+  ...sources
 )
 
 const clear = (leafState: any, toNull?: boolean) => {
@@ -76,6 +74,29 @@ const clear = (leafState: any, toNull?: boolean) => {
   }
 }
 
+const concat = (leafState: any[] | string, payload: any) => leafState.concat(payload)
+
+const drop = (leafState: any[], n: number = 1) => R.drop(n, leafState)
+
+const filter = (leafState: any[], callback: (element: any, index: number, array: any[]) => any[]) => leafState.filter(callback)
+
+const push = (
+  leafState: any[],
+  { element, index = -1, replace = false }: {
+    element: any, index?: number, replace?: boolean
+  }) => (
+    replace
+      ? replaceAtIndex(leafState, index, element)
+      : insertAtIndex(leafState, index, element)
+  )
+
+const replace = (
+  leafState: string,
+  { pattern, replacement }: { pattern: string | RegExp, replacement: string }
+) => leafState.replace(pattern, replacement)
+
 const reset = (initialWholeState: any, path: string[]) => (
   path.length >= 1 ? R.path(path, initialWholeState) : initialWholeState
 )
+
+const set = (state: object, { path, value }: { path: string[], value: any }) => updateState(state, path, value)

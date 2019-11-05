@@ -10,6 +10,7 @@ import { forObject } from '../for/object';
 import { forString } from '../for/string';
 import { makeCustomActions } from '../custom';
 import makeCreateDefaults from './defaults';
+import makeCreateCustoms from './customs';
 
 function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) {
   const initialState = pathToLeafOrBranch.length >= 1
@@ -50,9 +51,12 @@ function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerCo
     ...custom
   }
 
-  const create = makeCreateDefaults(pathToLeafOrBranch)
+  const createDefaults = makeCreateDefaults(pathToLeafOrBranch)
+  const createCustoms = makeCreateCustoms(pathToLeafOrBranch, customReducers)
 
-  Object.assign(create, api)
+  const create = (actionType?: string) => R.mergeRight(createDefaults(actionType), createCustoms(actionType))
+
+  Object.assign(create, create())
 
   return create
 }

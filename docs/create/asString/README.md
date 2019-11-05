@@ -19,36 +19,6 @@ If the current `leafState` is *not* a string, then it is first coerced into a st
 
 [Back to all `create` action creators](../defaults.md)
 
-## `concat(...strings)`
-**`create.asString.concat`**
-
-**alias: `create.concat`** *(when `initialLeafState` is a string)*
-
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `strings`.
-
-### Parameters
-- `strings` *(...strings)*: the strings to concatenate
-
-### Returns
-`action` *(object)*: an object to dispatch to the store
-
-#### Example
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
-
-const initialState = {
-  foo: 'foo'
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-```js
-store.dispatch(actions.foo.create.asString.concat('bar', '!'))
-console.log(store.getState().foo) // 'foobar!'
-```
-
 ## `replace(pattern, replacement)`
 **`create.asString.replace`**
 

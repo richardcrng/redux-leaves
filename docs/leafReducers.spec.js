@@ -87,17 +87,17 @@ describe("Function shorthand", () => {
           expect(store.getState()).toEqual(initialState)
         })
 
-        test("AND create.custom.exponentiate is defined for actions.foo", () => {
-          expect(typeof actions.foo.create.custom.exponentiate).toBe("function")
+        test("AND create.exponentiate is defined for actions.foo", () => {
+          expect(typeof actions.foo.create.exponentiate).toBe("function")
         })
 
-        test("AND create.custom is defined for actions.bar", () => {
-          expect(typeof actions.bar.create.custom.remove).toBe("function")
+        test("AND create.remove is defined for actions.bar", () => {
+          expect(typeof actions.bar.create.remove).toBe("function")
         })
 
         describe("AND we pass arguments to custom.exponentiate before dispatching", () => {
-          const expWithOneArg = actions.foo.create.custom.exponentiate(2)
-          const expWithTwoArgs = actions.foo.create.custom.exponentiate(3, 4)
+          const expWithOneArg = actions.foo.create.exponentiate(2)
+          const expWithTwoArgs = actions.foo.create.exponentiate(3, 4)
 
           beforeEach(() => {
             store.dispatch(expWithTwoArgs)
@@ -113,7 +113,7 @@ describe("Function shorthand", () => {
           })
 
           describe("AND we pass an argument to custom.remove before dispatching", () => {
-            const removeUsingFoo = actions.bar.create.custom.remove("foo")
+            const removeUsingFoo = actions.bar.create.remove("foo")
 
             beforeEach(() => {
               store.dispatch(removeUsingFoo)
@@ -156,13 +156,13 @@ describe("Function shorthand", () => {
           expect(store.getState()).toEqual(initialState)
         })
 
-        test("AND create.custom.remove is defined for actions.foo", () => {
-          expect(typeof actions.foo.create.custom.remove).toBe("function")
+        test("AND create.remove is defined for actions.foo", () => {
+          expect(typeof actions.foo.create.remove).toBe("function")
         })
         
         describe("AND we pass arguments to custom.remove before dispatching", () => {
-          const removeWithOneArg = actions.foo.create.custom.remove(4)
-          const removeWithTwoArgs = actions.foo.create.custom.remove(4, 8)
+          const removeWithOneArg = actions.foo.create.remove(4)
+          const removeWithTwoArgs = actions.foo.create.remove(4, 8)
 
           beforeEach(() => {
             store.dispatch(removeWithTwoArgs)
