@@ -9,6 +9,7 @@ import { forNumber } from '../for/number';
 import { forObject } from '../for/object';
 import { forString } from '../for/string';
 import { makeCustomActions } from '../custom';
+import makeCreateDefaults from './defaults';
 
 function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) {
   const initialState = pathToLeafOrBranch.length >= 1
@@ -49,9 +50,7 @@ function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerCo
     ...custom
   }
 
-  const create = (actionType: string) => {
-    return api
-  }
+  const create = makeCreateDefaults(pathToLeafOrBranch)
 
   Object.assign(create, api)
 

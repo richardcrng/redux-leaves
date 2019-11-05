@@ -40,6 +40,16 @@ describe("leaf.create.update(value): returns an action that, when dispatched, up
           })
         })
       })
+
+      describe("WHEN we execute store.dispatch(actions.str.create('DID_AN_UPDATE').update('I can put anything here'))", () => {
+        beforeEach(() => {
+          store.dispatch(actions.str.create('DID_AN_UPDATE').update('I can put anything here'))
+        })
+
+        test("THEN the store's state.str is 'I can put anything here'", () => {
+          expect(store.getState().str).toBe('I can put anything here')
+        })
+      })
     })
 
 
