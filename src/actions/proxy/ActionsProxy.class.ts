@@ -1,6 +1,6 @@
 import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import Dict from "../../types/Dict";
-import actionsAPI from '../api';
+import createAPI from '../create/api';
 
 class ActionsProxy {
   [key: string]: any;
@@ -9,7 +9,7 @@ class ActionsProxy {
     return new Proxy(this, {
       get: (obj, prop: string) => {
         switch (prop) {
-          case 'create': return actionsAPI(stateShape, actionsDict, path)
+          case 'create': return createAPI(stateShape, actionsDict, path)
           default: return new ActionsProxy(stateShape, actionsDict, [...path, prop])
         }
       }
