@@ -37,7 +37,7 @@ function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConf
     actionCreators = asString
   }
 
-  return {
+  const api = {
     ...basicActionCreators,
     ...actionCreators,
     asArray,
@@ -48,6 +48,14 @@ function actionsAPI (stateShape: Dict<any>, customReducers: Dict<LeafReducerConf
     custom,
     ...custom
   }
+
+  const create = (actionType: string) => {
+    return api
+  }
+
+  Object.assign(create, api)
+
+  return create
 }
 
 export default actionsAPI
