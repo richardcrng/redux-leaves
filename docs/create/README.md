@@ -23,9 +23,9 @@ Dispatch an action created by `create[creatorKey]` will trigger the matching lea
 ### Returns
 `action` *(object)*: a Leaf-Standard-Action
 
-## Example
+### Example
 
-### 1. Grab actions from `reduxLeaves`
+#### 1. Grab actions from `reduxLeaves`
 
 ```js
 import reduxLeaves from 'redux-leaves'
@@ -44,7 +44,7 @@ const reducersDict = {
 const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 ```
 
-### 2. Create actions using creator keys
+#### 2. Create actions using creator keys
 ```js
 const { create } = actions.foo    // action creators for the foo leaf of state
 
@@ -54,7 +54,7 @@ const actionToCubeFoo = create.exponentiate(3)
 ```
 Redux-Leaves' action creators can take optional arguments. By default, the first argument (if it exists) becomes the action's payload, but [this behaviour can be configured](../leafReducers.md#argstopayload).
 
-### 3. Dispatch actions to the store
+#### 3. Dispatch actions to the store
 ```js
 const store = createStore(initialState)
 
@@ -64,6 +64,33 @@ store.dispatch(actionToCubeFoo)
 
 // ((1+1)*2)^3 = 64
 console.log(store.getState())   // { foo: 64 }; success!
+```
+
+## `create(actionType)`
+
+### Parameters
+- `actionType` *(string)*
+
+## Example
+```js
+import reduxLeaves from 'redux-leaves'
+import { createStore } from 'redux'
+
+const initialState = {
+  counter: 1
+}
+
+const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const store = createStore(initialState)
+
+const createIncrementCounter = actions.foo.create('INCREMENT_FOO').increment
+console.log(typeof createIncrementCounter) // 'function'
+
+const actionToIncrementCounter = createIncrementCounter()
+console.log(actionToIncrementCounter.type) // 'INCREMENT_FOO'
+
+store.dispatch(actionToIncrementCounter)
+console.log(store.getState()) // { counter: 2 }
 ```
 
 ## Defaults
