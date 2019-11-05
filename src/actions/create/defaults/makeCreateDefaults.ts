@@ -32,6 +32,14 @@ const makeCreateDefaults = R.curry((path: string[], actionType: string | LeafAct
     assign: producerOfLeafStandardActions( atomicActions.ASSIGN),
     clear: producerOfLeafStandardActions( atomicActions.CLEAR),
     drop: producerOfLeafStandardActions(atomicActions.DROP),
+    filter: producerOfLeafStandardActions(atomicActions.FILTER),
+    increment: producerOfLeafStandardActions(atomicActions.INCREMENT),
+    off: producerOfLeafStandardActions(atomicActions.OFF),
+    on: producerOfLeafStandardActions(atomicActions.ON),
+    replace: producerOfLeafStandardActions(atomicActions.REPLACE),
+    reset: producerOfLeafStandardActions(atomicActions.RESET),
+    set: producerOfLeafStandardActions(atomicActions.SET),
+    toggle: producerOfLeafStandardActions(atomicActions.TOGGLE),
     update: producerOfLeafStandardActions( atomicActions.UPDATE)
   }
 })
