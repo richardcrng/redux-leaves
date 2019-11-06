@@ -29,7 +29,6 @@ describe("Redux-Leaves. Write once. Reduce anywhere.", () => {
     test("THEN actions has defined action creators for double, appendToEach and countKeys", () => {
       [actions.counter, actions.list, actions.nested, actions.nested.arbitrarily, actions.nested.arbitrarily.deep].forEach(
         leaf => {
-          expect(typeof leaf.create).toBe("object")
           expect(typeof leaf.create.double).toBe("function")
           expect(typeof leaf.create.appendToEach).toBe("function")
           expect(typeof leaf.create.countKeys).toBe("function")
