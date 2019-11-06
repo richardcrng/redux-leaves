@@ -7,7 +7,7 @@ import LeafStandardAction from '../types/Actions/LSA';
 import Dict from '../types/Dict';
 import LeafReducerConfig from '../types/Leaf/Reducer/Config';
 import LeafActionData from '../types/Leaf/Action/Data';
-import { replaceAtIndex, insertAtIndex } from '../actions/for/array/utils';
+import { replaceAtIndex, insertAtIndex } from '../utils/array-utils';
 import { updateState } from '../utils';
 
 export const leafReducer = (
