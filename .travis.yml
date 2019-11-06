@@ -4,7 +4,7 @@ jobs:
   include:
     - stage: Check compilation
       node_js: node
-      script: npm build
+      script: npm run build
       
     - stage: Produce Coverage
       node_js: node
