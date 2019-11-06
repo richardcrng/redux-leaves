@@ -26,7 +26,7 @@ const initialState = {
 const reducersDict = {
   double: leafState => leafState * 2,
   appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
-  countKeys: (leafState, action, wholeState) => Object.keys(wholeState).length
+  countKeys: (leafState, action, treeState) => Object.keys(treeState).length
 }
 
 // 3. Grab reducer and actions from reduxLeaves, then create the Redux store
