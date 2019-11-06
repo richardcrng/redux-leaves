@@ -15,10 +15,6 @@ describe('ActionsProxy class with empty state and empty leaf reducers dictionary
       it('THEN result is a Proxy instance', () => {
         expect(util.types.isProxy(result)).toBeTruthy()
       })
-
-      it('AND result._path is equal to ["test"]', () => {
-        expect(result._path).toEqual(['test'])
-      })
     })
 
     describe('WHEN result = actions.test.arbitrarily.deep', () => {
@@ -26,10 +22,6 @@ describe('ActionsProxy class with empty state and empty leaf reducers dictionary
 
       it('THEN result is a Proxy instance', () => {
         expect(util.types.isProxy(result)).toBeTruthy()
-      })
-
-      it('AND result._path is equal to ["test", "arbitrarily", "deep"]', () => {
-        expect(result._path).toEqual(["test", "arbitrarily", "deep"])
       })
     })
   })
@@ -54,10 +46,6 @@ describe('ActionsProxy class with empty state and non-empty leaf reducers dictio
         expect(util.types.isProxy(result)).toBeTruthy()
       })
 
-      it('AND result._path is equal to ["test"]', () => {
-        expect(result._path).toEqual(['test'])
-      })
-
       it('AND result.create.didAThing is a function', () => {
         expect(typeof result.create.didAThing).toBe('function')
       })
@@ -78,10 +66,6 @@ describe('ActionsProxy class with empty state and non-empty leaf reducers dictio
         expect(util.types.isProxy(result)).toBeTruthy()
       })
 
-      it('AND result._path is equal to ["test", "arbitrarily", "deep"]', () => {
-        expect(result._path).toEqual(["test", "arbitrarily", "deep"])
-      })
-
       it('AND result.create.didAThing is a function', () => {
         expect(typeof result.create.didAThing).toBe('function')
       })
@@ -100,10 +84,6 @@ describe('ActionsProxy class with empty state and non-empty leaf reducers dictio
 
       it('THEN result is a Proxy instance', () => {
         expect(util.types.isProxy(result)).toBeTruthy()
-      })
-
-      it('AND result._path is equal to ["test", "0", "3", "numbers"]', () => {
-        expect(result._path).toEqual(["test", "0", "3", "numbers"])
       })
 
       it('AND result.create.didAThing is a function', () => {

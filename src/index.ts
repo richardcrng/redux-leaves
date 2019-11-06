@@ -1,6 +1,6 @@
 import { reduxLeaves } from "./reduxLeaves";
 import { getState, updateState, resetState } from './utils/index';
-import { makeActionCreator } from './actions/creator/makeActionCreator';
+import { makeActionCreator } from './actions/creators/make/makeActionCreator';
 
 export {
   makeActionCreator,

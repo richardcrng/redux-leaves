@@ -40,6 +40,24 @@ describe("leaf.create.update(value): returns an action that, when dispatched, up
           })
         })
       })
+
+      describe("WHEN we create an action with actions.str.create('DID_AN_UPDATE').update('I can put anything here')", () => {
+        const action = actions.str.create('DID_AN_UPDATE').update('I can put anything here')
+
+        test("THEN the action's type is 'DID_AN_UPDATE'", () => {
+          expect(action.type).toBe('DID_AN_UPDATE')
+        })
+
+        describe('WHEN we dispatch that action to the store', () => {
+          beforeEach(() => {
+            store.dispatch(actions.str.create('DID_AN_UPDATE').update('I can put anything here'))
+          })
+
+          test("THEN the store's state.str is 'I can put anything here'", () => {
+            expect(store.getState().str).toBe('I can put anything here')
+          })
+        })
+      })
     })
 
 

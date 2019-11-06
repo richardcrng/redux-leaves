@@ -19,9 +19,9 @@ describe("leaf.create.assign(...sources): returns an action that, when dispatche
         expect(store.getState()).toEqual(initialState)
       })
 
-      describe("WHEN we dispatch actions.foo.create.asObject.assign({ string: 'foo' })", () => {
+      describe("WHEN we dispatch actions.foo.create.assign({ string: 'foo' })", () => {
         beforeEach(() => {
-          store.dispatch(actions.foo.create.asObject.assign({ string: 'foo' }))
+          store.dispatch(actions.foo.create.assign({ string: 'foo' }))
         })
 
         test("THEN store state.foo updates to { props: true, string: 'foo' }", () => {
