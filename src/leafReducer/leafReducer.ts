@@ -39,7 +39,7 @@ export const leafReducer = (
       case atomicActions.OFF: return false
       case atomicActions.ON: return true
       case atomicActions.PUSH: return push(draftLeafState, payload)
-      case atomicActions.REPLACE: return replace(draftLeafState, payload)
+      // case atomicActions.REPLACE: return replace(draftLeafState, payload)
       case atomicActions.RESET: return reset(initialWhole, path)
       case atomicActions.SET: return set(draftLeafState, payload)
       case atomicActions.TOGGLE: return !draftLeafState
