@@ -36,7 +36,7 @@ const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 
 ## `create[creatorKey]`
 ### Action creators
-You can access action creators (functions) from the `create` API at any leaf by using their `creatorKey` as a property, both for the default ones and any custom ones you've defined.
+You can access action creators (functions) from the `create` API at any leaf by using their [`creatorKey`](creatorKeys.md) as a property, both for the default ones and any custom ones you've defined.
 
 ```js
 // Example defaults: update, set, push
