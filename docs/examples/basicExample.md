@@ -55,7 +55,9 @@ console.log(store.getState()) // { counterOne: 3, counterTwo: 10 }
 ## Default action creators
 `increment` is one of many default action creators that Redux-Leaves writes for you.
 
-Here are some other common ones that you might like to use:
+If you want to add some custom action creators, look at the [intermediate example](intermediateExample.md).
+
+Here are some other common defaults that you might like to use:
 
 ```js
 import { createStore } from 'redux'
