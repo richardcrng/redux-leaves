@@ -22,52 +22,52 @@
         "type": "subcategory",
         "label": "any",
         "ids": [
-          "create/apply",
-          "create/clear",
-          "create/reset",
-          "create/update"
+          "defaults/apply",
+          "defaults/clear",
+          "defaults/reset",
+          "defaults/update"
         ]
       },
       {
         "type": "subcategory",
         "label": "array",
         "ids": [
-          "create/concat",
-          "create/drop",
-          "create/filter",
-          "create/push"
+          "defaults/concat",
+          "defaults/drop",
+          "defaults/filter",
+          "defaults/push"
         ]
       },
       {
         "type": "subcategory",
         "label": "boolean",
         "ids": [
-          "create/off",
-          "create/on",
-          "create/toggle"
+          "defaults/off",
+          "defaults/on",
+          "defaults/toggle"
         ]
       },
       {
         "type": "subcategory",
         "label": "number",
         "ids": [
-          "create/increment"
+          "defaults/increment"
         ]
       },
       {
         "type": "subcategory",
         "label": "object",
         "ids": [
-          "create/assign",
-          "create/path",
-          "create/set"
+          "defaults/assign",
+          "defaults/path",
+          "defaults/set"
         ]
       },
       {
         "type": "subcategory",
         "label": "string",
         "ids": [
-          "create/concat"
+          "defaults/concat"
         ]
       }
     ]
