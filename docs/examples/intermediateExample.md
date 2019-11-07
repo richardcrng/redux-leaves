@@ -30,7 +30,7 @@ const initialState = {
 const reducersDict = {
   double: leafState => leafState * 2,
   appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
-  countKeys: (leafState, action, treeState) => Object.keys(treeState).length
+  countTreeKeys: (leafState, action, treeState) => Object.keys(treeState).length
 }
 
 // Provide the dictionary of your reducer logic to reduxLeaves
@@ -43,10 +43,23 @@ const store = createStore(reducer)
 store.dispatch(actions.counter.create.double())
 console.log(store.getState().counter) // 4
 
-store.dispatch(actions.list.create.appendToEach(' item'))
+store.dispatch(actions.list.create.appendToEach(' item')) // ' item' will be the action payload
 console.log(store.getState().list) // ['first item', 'second item']
 
-// Custom: update state.nested.arbitrarily.deep with state's number of top-level keys
-store.dispatch(actions.nested.arbitrarily.deep.create.countKeys())
+store.dispatch(actions.nested.arbitrarily.deep.create.countTreeKeys())
 console.log(store.getState().nested.arbitrarily.deep) // 3
+
+// And to demonstrate reusing logic at an arbitrary leaf:
+store.dispatch(actions.nested.arbitrarily.deep.create.double())
+console.log(store.getState().nested.arbitrarily.deep) // 6
+```
+
+## Default handling of arguments
+When you supply `reduxLeaves` with custom reducer logic, it provides the corresponding action creators, e.g. `actions.list.create.appendToEach` used above.
+
+The *default behaviour* of these action creators is that, if they receive any arguments, *only the first argument* is passed to the created action as a payload:
+
+```js
+const actionToAppend = actions.list.create.appendToEach('foo', 'bar')
+console.log(actionToAppend.payload) // 'foo'
 ```
