@@ -8,6 +8,7 @@ sidebar_label: update
 # `update(value)`
 **`create.update`**
 **`create(actionType).update`**
+*Appropriate leaf state: any*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
 

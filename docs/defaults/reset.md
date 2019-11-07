@@ -8,6 +8,7 @@ sidebar_label: reset
 # `reset()`
 **`create.reset`**
 **`create(actionType).reset`**
+*Appropriate leaf state: any*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the actions.
 
