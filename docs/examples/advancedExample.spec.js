@@ -15,7 +15,7 @@ describe('Advanced example', () => {
     }
 
     const reducersDict = {
-      duplicate: (leafState, { payload }) => leafState.concat(leafState)
+      duplicate: leafState => leafState.concat(leafState)
     }
 
     const [reducer, actions] = reduxLeaves(initialState, reducersDict)
@@ -61,9 +61,6 @@ describe('Advanced example', () => {
         argsToPayload: (...args) => args,
         reducer: (leafState, { payload }) => payload.reduce((acc, val) => acc + val, leafState)
       },
-
-      // function shorthand
-      // uses default payload behaviour
       addFirstThing: (leafState, { payload }) => leafState + payload
     }
 

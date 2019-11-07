@@ -27,7 +27,7 @@ const initialState = {
 }
 
 const reducersDict = {
-  duplicate: (leafState, { payload }) => leafState.concat(leafState)
+  duplicate: leafState => leafState.concat(leafState)
 }
 
 const [reducer, actions] = reduxLeaves(initialState, reducersDict)
