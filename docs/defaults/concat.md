@@ -8,6 +8,7 @@ sidebar_label: concat
 # `concat(arrayOrString)`
 **`create.concat`**
 **`create(actionType).concat`**
+*Appropriate leaf state: array | string*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `arrayOrString`.
 

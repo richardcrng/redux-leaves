@@ -36,7 +36,7 @@ const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
-Calling `create.apply` on a leaf:
+### Calling `create.apply` on a leaf:
 
 ```js
 const applyToString = actions.str.create.apply
@@ -44,7 +44,7 @@ store.dispatch(applyToString(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
 
-Calling `create(actionType).apply` on a leaf:
+### Calling `create(actionType).apply` on a leaf:
 
 ```js
 const applyToBoolean = actions.bool.create('APPLY_TO_BOOLEAN').apply
@@ -52,7 +52,7 @@ store.dispatch(applyToBoolean(state => !state))
 console.log(store.getState().bool) // true
 ```
 
-Calling `create.apply` on a branch:
+### Calling `create.apply` on a branch:
 
 ```js
 const applyToState = actions.create.apply
@@ -60,7 +60,7 @@ store.dispatch(applyToState(state => ({ num: state.num, arr: state.arr }))
 console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
 
-Calling `create.apply` with two arguments:
+### Calling `create.apply` with two arguments:
 
 ```js
 const applyToArray = actions.arr.create.apply

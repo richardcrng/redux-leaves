@@ -34,7 +34,7 @@ const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
-Calling `create.update` on a leaf:
+### Calling `create.update` on a leaf:
 
 ```js
 const updateStr = actions.str.create.update
@@ -42,7 +42,7 @@ store.dispatch(updateStr("I can put anything here"))
 console.log(store.getState().str) // 'I can put anything here'
 ```
 
-Calling `create(actionType).update` on a leaf:
+### Calling `create(actionType).update` on a leaf:
 
 ```js
 const updateNum = actions.num.create('UPDATE_NUM').update
@@ -50,7 +50,7 @@ store.dispatch(updateNum(9001))
 console.log(store.getState().num) // 9001
 ```
 
-Calling `create.update` on a branch:
+### Calling `create.update` on a branch:
 ```js
 const updateState = actions.create.update
 store.dispatch(updateState({ any: { properties: true }}))

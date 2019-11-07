@@ -44,21 +44,21 @@ const store = createStore(reducer, otherState)        // preloads otherState
 
 ```
 
-Calling `create.reset` on a leaf:
+### Calling `create.reset` on a leaf:
 ```js
 const resetNum = actions.num.create.reset
 store.dispatch(resetNum())
 console.log(store.getState().num) // 2
 ```
 
-Calling `create(actionType).reset` on a leaf:
+### Calling `create(actionType).reset` on a leaf:
 ```js
 const resetBool = actions.bool.create.reset
 store.dispatch(resetBool())
 console.log(store.getState().bool) // true
 ```
 
-Calling `create.reset` on a branch:
+### Calling `create.reset` on a branch:
 ```js
 const resetState = actions.create.reset
 store.dispatch(resetState())
