@@ -8,6 +8,7 @@ sidebar_label: apply
 # `apply(callback)`
 **`create.apply`**
 **`create(actionType).apply`**
+*Appropriate leaf state: any*
 
 Returns an action object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, treeState)`.
 
