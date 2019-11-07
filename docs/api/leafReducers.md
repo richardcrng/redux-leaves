@@ -7,11 +7,11 @@ sidebar_label: Leaf reducers
 
 # Leaf reducers
 
-A leaf reducer is a function or configuration object that updates the state of an arbitrary [leaf](leaf/README.md) in your state tree.
+A leaf reducer is a function or configuration object that updates the state of an arbitrary leaf in your state tree.
 
 They are:
-- passed into [`reduxLeaves`](README.md) with a unique `creatorKey` as part of [`reducersDict`](README.md#reducersdict); and
-- triggered at an arbitrary leaf only by dispatching an action created by the leaf's [`create[creatorKey]`](create/README.md) method.
+- passed into [`reduxLeaves`](../README.md) with a unique `creatorKey` as part of [`reducersDict`](README.md#reducersdict); and
+- triggered at an arbitrary leaf only by dispatching an action created by the leaf's [`create[creatorKey]`](create.mdd#createcreatorkey) method.
 
 ## Syntax
 
