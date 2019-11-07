@@ -39,7 +39,7 @@ const store = createStore(reducer)
 console.log(store.getState()) // { counterOne: 0, counterTwo: 0 }
 
 // Let's create an action to increment counterOne by 3
-const actionToIncrementCounterOneByThree = actions.storeOne.create.increment(3)
+const actionToIncrementCounterOneByThree = actions.counterOne.create.increment(3)
 
 // Dispatch our created action to the store
 store.dispatch(actionToIncrementCounterOneByThree)
