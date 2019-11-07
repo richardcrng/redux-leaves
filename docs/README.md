@@ -1,8 +1,8 @@
 ---
 id: redux-leaves
-title: Core API
+title: reduxLeaves
 hide_title: true
-sidebar_label: reduxLeaves API
+sidebar_label: reduxLeaves
 ---
 
 # `reduxLeaves(initialState, [reducersDict = {}])`
