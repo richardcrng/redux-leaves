@@ -10,7 +10,7 @@ sidebar_label: Advanced example
 ## Custom action types
 
 ### Default action types
-When you create an action through Redux-Leaves, it gives the action a `type` property based on the path to the state leaf you are acting on:
+When you create an action through Redux-Leaves - whether using a default creator or some custom reducer logic you've supplied - it gives the action an informative `type` property:
 
 ```js
 import { createStore } from 'redux'
@@ -44,3 +44,13 @@ console.log(actionToUpdateDeepState.payload)
 
 ### Overriding the default action type
 You may find benefits, e.g. with Redux DevTools, to overriding the default action type.
+
+You can do this by providing a string argument to `create`:
+
+```js
+const appendLetterC = actions.list.create('APPEND_LETTER_C').push('c')
+console.log(appendLetterC) // 'APPEND_LETTER_C'
+
+const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate()
+console.log(duplicateList) // 'DUPLICATE LIST'
+```
