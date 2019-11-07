@@ -1,5 +1,5 @@
 ---
-id: by-type
+id:
 title: Default action creators by type
 hide_title: true
 sidebar_label: By type
