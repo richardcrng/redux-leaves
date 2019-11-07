@@ -169,7 +169,7 @@ class Index extends React.Component {
           },
           {
             title: 'Quick setup.',
-            content: `With multiple action creators built in by default, it takes <a href=${docUrl('intro/demo')}>just 30 seconds</a> to get up and running.`,
+            content: `With multiple action creators built in by default, it takes <a href=${docUrl('example/simple-example')}>just 30 seconds</a> to get up and running.`,
             image: `${baseUrl}img/fast.png`,
             imageAlign: 'top',
           },
