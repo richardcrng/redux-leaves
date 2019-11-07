@@ -8,7 +8,9 @@ sidebar_label: Intermediate example
 # Intermediate example: custom logic
 
 **Situation**: I want to define a general type of reducer logic that can be reused on any arbitrary slice of state.
+
 **Complication**: I want to do this as quickly, painlessly and intuitively as possible.
+
 **Question**: Do I really have to create sub-reducers with the same underlying logic?
 
 Answer: no! Just provide Redux-Leaves once with your custom reducer logic, and you can automatically use it at any leaf of your state tree.

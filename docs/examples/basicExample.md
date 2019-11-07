@@ -8,7 +8,9 @@ sidebar_label: Basic example
 # Basic example: 30 second demo
 
 **Situation**: I want to be able to increment two different counters in Redux state, `counterOne` and `counterTwo`.
+
 **Complication**: I want to do this as quickly, painlessly and intuitively as possible.
+
 **Question**: Do I really have to define reducers, action types and creators to do this?
 
 Answer: no! Just provide Redux-Leaves with your state shape, i.e. the two counters, and it'll do the rest for you!
