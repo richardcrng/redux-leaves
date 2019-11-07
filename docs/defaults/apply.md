@@ -39,28 +39,32 @@ const store = createStore(reducer)
 Calling `create.apply` on a leaf:
 
 ```js
-store.dispatch(actions.str.create.apply(state => state.toUpperCase()))
+const applyToString = actions.str.create.apply
+store.dispatch(applyToString(state => state.toUpperCase()))
 console.log(store.getState().str) // 'FOO'
 ```
 
 Calling `create(actionType).apply` on a leaf:
 
 ```js
-store.dispatch(actions.bool.create('TOGGLE_BOOLEAN').apply(state => !state))
+const applyToBoolean = actions.bool.create('APPLY_TO_BOOLEAN').apply
+store.dispatch(applyToBoolean(state => !state))
 console.log(store.getState().bool) // true
 ```
 
 Calling `create.apply` on a branch:
 
 ```js
-store.dispatch(actions.create.apply(state => ({ num: state.num, arr: state.arr }))
+const applyToState = actions.create.apply
+store.dispatch(applyToState(state => ({ num: state.num, arr: state.arr }))
 console.log(store.getState()) // { num: 2, arr: [1, 2, 3] }
 ```
 
 Calling `create.apply` with two arguments:
 
 ```js
-store.dispatch(actions.arr.create.apply(
+const applyToArray = actions.arr.create.apply
+store.dispatch(applyToArray(
   (leafState, treeState) => leafState.map(element => element * treeState.num)
 ))
 console.log(store.getState()) // { num: 2, arr: [2, 4, 6] }
