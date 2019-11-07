@@ -8,7 +8,7 @@ sidebar_label: off
 # `off()`
 **`create.off`**
 **`create(actionType).off`**
-*Appropriate leaf state:*
+*Appropriate leaf state: boolean*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `false`.
 

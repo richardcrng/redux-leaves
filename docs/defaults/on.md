@@ -8,7 +8,7 @@ sidebar_label: on
 # `on()`
 **`create.on`**
 **`create(actionType).on`**
-*Appropriate leaf state:*
+*Appropriate leaf state: boolean*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `true`.
 
