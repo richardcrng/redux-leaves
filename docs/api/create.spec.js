@@ -1,6 +1,7 @@
+import { createStore } from 'redux'
 import reduxLeaves from '../../src';
 
-describe('actions can take an arbitrary path of properties after it', () => {
+describe('create has action creators keyed by default and custom creatorKeys', () => {
   const initialState = {
     counter: 0,
     arbitrary: {
@@ -27,4 +28,32 @@ describe('actions can take an arbitrary path of properties after it', () => {
     expect(typeof actions.arbitrary.nested.path.create.convertToFoobar).toBe('function')
   })
 
+  const store = createStore(reducer)
+
+  test("Executing an action creator returns an action to dispatch to the Redux store", () => {
+    const updateCounter = actions.counter.create.update
+
+    store.dispatch(updateCounter(5))
+    expect(store.getState().counter).toBe(5)
+
+    store.dispatch(updateCounter(3))
+    expect(store.getState().counter).toBe(3)
+  })
+
+  describe('create can take a string argument as actionType', () => {
+    test('If given this argument, it still has properties corresponding to default and custom provided creators', () => {
+      expect(typeof actions.counter.create('UPDATE_COUNTER').update).toBe('function')
+      expect(typeof actions.create('CONVERT_TO_FOOBAR').convertToFoobar).toBe('function')
+    })
+
+    test('The created actions have the supplied actionType as type', () => {
+      const createNamedIncrement = actions.counter.create('NAMED_INCREMENT').increment
+      const namedIncrement = createNamedIncrement()
+
+      expect(namedIncrement.type).toBe('NAMED_INCREMENT')
+      const currVal = store.getState().counter
+      store.dispatch(namedIncrement)
+      expect(store.getState().counter).toBe(currVal + 1)
+    })
+  })
 })
