@@ -26,23 +26,23 @@ import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
   foo: {}
-  bar: {}
+  bar: { arbitrary: { keys: 3 } }
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 ```
 
-### Calling create.path
+### Setting a new property
 ```js
 const setAtPathInFoo = actions.foo.create.path
 store.dispatch(setAtPathInFoo(['nested', 'deep'], true))
 console.log(store.getState().foo) // { nested: { deep: true } }
 
 ```
-### Calling create(actionType).path
+### Overwriting a property
 ```js
 const setAtPathInBar = actions.bar.create("SET_AT_PATH_IN_BAR").path
-store.dispatch(setAtPathInBar(['arbitrary', 'keys'], 4))
-console.log(store.getState().bar) // { arbitrary: { keys: 4 } }
+store.dispatch(setAtPathInBar(['arbitrary', 'keys'], 5))
+console.log(store.getState().bar) // { arbitrary: { keys: 5 } }
 ```

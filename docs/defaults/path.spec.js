@@ -10,15 +10,15 @@ describe("leaf.create.path(path, value): returns an action that, when dispatched
   const [reducer, actions] = reduxLeaves(initialState)
   const store = createStore(reducer)
   
-  test("Calling create.path", () => {
+  test("Setting a new property", () => {
     const setAtPathInFoo = actions.foo.create.path
     store.dispatch(setAtPathInFoo(['nested', 'deep'], true))
     expect(store.getState().foo).toEqual({ nested: { deep: true } })
   })
 
-  test("Calling create(actionType)", () => {
-    const setAtPathInBar = actions.bar.create("SET_AT_PATH_IN_BAR").path
-    store.dispatch(setAtPathInBar(['arbitrary', 'keys'], 4))
-    expect(store.getState().bar).toEqual({ arbitrary: { keys: 4 }})
+  test("Overwriting a property", () => {
+    const setAtPathInBar = actions.bar.create.path
+    store.dispatch(setAtPathInBar(['arbitrary', 'keys'], 5))
+    expect(store.getState().bar).toEqual({ arbitrary: { keys: 5 }})
   })
 })
