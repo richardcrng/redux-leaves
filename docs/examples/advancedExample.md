@@ -19,6 +19,7 @@ import reduxLeaves from 'redux-leaves'
 const initialState = {
   list: ['a', 'b'],
   nested: {
+    counter: 0,
     state: {
       deep: 'somewhat'
     }
@@ -48,11 +49,11 @@ You may find benefits, e.g. with Redux DevTools, to overriding the default actio
 You can do this by providing a string argument to `create`:
 
 ```js
-const appendLetterC = actions.list.create('APPEND_LETTER_C').push('c')
-console.log(appendLetterC) // 'APPEND_LETTER_C'
+const appendLetter = actions.list.create('APPEND_LETTER').push
+console.log(appendLetter('c').type) // 'APPEND_LETTER'
 
-const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate()
-console.log(duplicateList) // 'DUPLICATE LIST'
+const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate
+console.log(duplicateList().type) // 'DUPLICATE LIST'
 ```
 
 Overriding the default action type won't change how the Redux-Leaves `reducer` responds to the action:
@@ -60,10 +61,21 @@ Overriding the default action type won't change how the Redux-Leaves `reducer` r
 const store = createStore(reducer)
 console.log(store.getState().list) // ['a', 'b']
 
-store.dispatch(appendLetterC)
+store.dispatch(appendLetter('c'))
 console.log(store.getState().list) // ['a', 'b', 'c']
 
-store.dispatch(duplicateList)
+store.dispatch(duplicateList())
 console.log(store.getState().list)
 // ['a', 'b', 'c', 'a', 'b', 'c']
 ```
+
+### Usage pattern
+An expected pattern that this facilitates is the defining of action creators in one file, e.g. `actions.js`:
+```js
+// import the actions object created by Redux-Leaves
+import { actions } from './some/location'
+
+export const incrementCounter = actions.counter.create('INCREMENT_COUNTER').increment
+export const updateDeepState = actions.nested.state.deep.create('UPDATE_DEEP_STATE').update
+```
+and then import these action creators into whichever file needs access to them.

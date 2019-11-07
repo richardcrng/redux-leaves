@@ -7,6 +7,7 @@ describe('Advanced example', () => {
     const initialState = {
       list: ['a', 'b'],
       nested: {
+        counter: 0,
         state: {
           deep: 'somewhat'
         }
@@ -31,18 +32,18 @@ describe('Advanced example', () => {
     })
 
     test('You can override the default action type', () => {
-      const appendLetterC = actions.list.create('APPEND_LETTER_C').push('c')
-      expect(appendLetterC.type).toBe('APPEND_LETTER_C')
+      const appendLetter = actions.list.create('APPEND_LETTER').push
+      expect(appendLetter('c').type).toBe('APPEND_LETTER')
 
-      const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate()
-      expect(duplicateList.type).toBe('DUPLICATE_LIST')
+      const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate
+      expect(duplicateList().type).toBe('DUPLICATE_LIST')
     })
 
     test("Overriding action type doesn't change how the reducer responds", () => {
       const store = createStore(reducer)
       expect(store.getState().list).toEqual(['a', 'b'])
 
-      store.dispatch(actions.list.create('APPEND_LETTER_C').push('c'))
+      store.dispatch(actions.list.create('APPEND_LETTER').push('c'))
       expect(store.getState().list).toEqual(['a', 'b', 'c'])
 
       store.dispatch(actions.list.create('DUPLICATE_LIST').duplicate())
