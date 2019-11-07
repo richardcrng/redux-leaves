@@ -7,7 +7,7 @@ sidebar_label: create
 
 # `create`
 
-When you access the `create` property from any arbitrary path from the `actions` object, you access the Redux-Leaves action creators API.
+When you access the `create` property from any arbitrary path from the [`actions`](actions.md) object, you access the Redux-Leaves action creators API.
 
 Consider the `actions` object returned below.
 ```js
