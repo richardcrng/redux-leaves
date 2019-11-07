@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: Basic example
 ---
 
-# Basic Example: 30 second demo
+# Basic example: 30 second demo
 
 **Situation**: I want to be able to increment two different counters in Redux state, `counterOne` and `counterTwo`.
 **Complication**: I want to do this as quickly, painlessly and intuitively as possible.
