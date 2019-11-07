@@ -24,7 +24,7 @@ describe('actions can take an arbitrary path of properties after it', () => {
 
   test('All creates also have supplied custom creatorKeys', () => {
     expect(typeof actions.create.convertToFoobar).toBe('function')
-    expect(actions.arbitrary.nested.path.create.converToFoobar).toBe('function')
+    expect(typeof actions.arbitrary.nested.path.create.convertToFoobar).toBe('function')
   })
 
 })
