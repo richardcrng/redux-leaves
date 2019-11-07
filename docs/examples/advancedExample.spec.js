@@ -37,5 +37,16 @@ describe('Advanced example', () => {
       const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate()
       expect(duplicateList.type).toBe('DUPLICATE_LIST')
     })
+
+    test("Overriding action type doesn't change how the reducer responds", () => {
+      const store = createStore(reducer)
+      expect(store.getState().list).toEqual(['a', 'b'])
+
+      store.dispatch(actions.list.create('APPEND_LETTER_C').push('c'))
+      expect(store.getState().list).toEqual(['a', 'b', 'c'])
+
+      store.dispatch(actions.list.create('DUPLICATE_LIST').duplicate())
+      expect(store.getState().list).toEqual(['a', 'b', 'c', 'a', 'b', 'c'])
+    })
   })
 })

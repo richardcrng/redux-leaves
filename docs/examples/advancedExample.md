@@ -54,3 +54,16 @@ console.log(appendLetterC) // 'APPEND_LETTER_C'
 const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate()
 console.log(duplicateList) // 'DUPLICATE LIST'
 ```
+
+Overriding the default action type won't change how the Redux-Leaves `reducer` responds to the action:
+```js
+const store = createStore(reducer)
+console.log(store.getState().list) // ['a', 'b']
+
+store.dispatch(appendLetterC)
+console.log(store.getState().list) // ['a', 'b', 'c']
+
+store.dispatch(duplicateList)
+console.log(store.getState().list)
+// ['a', 'b', 'c', 'a', 'b', 'c']
+```
