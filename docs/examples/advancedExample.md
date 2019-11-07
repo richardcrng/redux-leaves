@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: Advanced example
 ---
 
-# Advanced example: custom types and payloads
+# Advanced example: custom types and controlling payloads
 
 ## Custom action types
 
@@ -79,3 +79,41 @@ export const incrementCounter = actions.counter.create('INCREMENT_COUNTER').incr
 export const updateDeepState = actions.nested.state.deep.create('UPDATE_DEEP_STATE').update
 ```
 and then import these action creators into whichever file needs access to them.
+
+## Controlling payloads
+Suppose I want to create a custom creator, `addMultiple`, such that I can pass multiple numbers as arguments and have them all added to a given leaf's state.
+
+The default behaviour of a custom action creator is that only the first argument is passed as an action's payload, but we can configure that:
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves from 'redux-leaves'
+
+const initialState = {
+  counter: 0
+}
+
+const reducersDict = {
+  // object configuration longhand
+  addMultiple: {
+    // Capture all arguments and pass them to the reducer:
+    argsToPayload: (...args) => args,
+    reducer: (leafState, { payload }) => payload.reduce((acc, val) => acc + val, leafState)
+  },
+
+  // function shorthand
+  // uses default payload behaviour
+  addFirstThing: (leafState, { payload }) => leafState + payload
+}
+
+const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const store = createStore(reducer)
+
+console.log(store.getState().counter) // 0
+
+store.dispatch(actions.counter.create.addMultiple(4, 2, 10))
+console.log(store.getState().counter) // 16
+
+store.dispatch(actions.counter.create.addFirstThing(1, 100))
+console.log(store.getState().counter) // 17
+```

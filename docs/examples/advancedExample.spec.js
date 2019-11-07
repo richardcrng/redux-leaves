@@ -50,4 +50,38 @@ describe('Advanced example', () => {
       expect(store.getState().list).toEqual(['a', 'b', 'c', 'a', 'b', 'c'])
     })
   })
+
+  describe('Controlling payloads', () => {
+    const initialState = {
+      counter: 0
+    }
+
+    const reducersDict = {
+      addMultiple: {
+        argsToPayload: (...args) => args,
+        reducer: (leafState, { payload }) => payload.reduce((acc, val) => acc + val, leafState)
+      },
+
+      // function shorthand
+      // uses default payload behaviour
+      addFirstThing: (leafState, { payload }) => leafState + payload
+    }
+
+    const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+    const store = createStore(reducer)
+
+    test('We can configure to use custom argsToPayload', () => {
+      expect(store.getState().counter).toBe(0)
+
+      store.dispatch(actions.counter.create.addMultiple(4, 2, 10))
+      expect(store.getState().counter).toBe(16)
+    })
+
+    test("If we don't configure, it uses only the first argument as payload", () => {
+      expect(store.getState().counter).toBe(16)
+
+      store.dispatch(actions.counter.create.addFirstThing(1, 100))
+      expect(store.getState().counter).toBe(17)
+    })
+  })
 })
