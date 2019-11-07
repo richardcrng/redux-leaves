@@ -10,7 +10,7 @@ function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerCo
 
   const create = (actionType?: string) => R.mergeRight(createDefaults(actionType), createCustoms(actionType))
 
-  Object.assign(create, create())
+  Object.assign(create, create(), { _path: pathToLeafOrBranch })
 
   return create
 }

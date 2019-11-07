@@ -1,6 +1,6 @@
 ---
 id: actions
-title: actions (Action Creators)
+title: actions
 hide_title: true
 sidebar_label: actions
 ---
