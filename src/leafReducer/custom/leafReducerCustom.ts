@@ -12,13 +12,7 @@ const leafReducerCustom: LeafReducerTyped = (leafState, action, wholeState, redu
 }
 
 const applyReducer = (config: LeafReducerConfig, leafState: any, action: LeafStandardAction, wholeState: any) => {
-  if (config.mutate) {
-    return produce(leafState, (draftLeafState: any) => {
-      config.reducer(draftLeafState, action, wholeState)
-    })
-  } else {
-    return config.reducer(leafState, action, wholeState)
-  }
+  return config.reducer(leafState, action, wholeState)
 }
 
 export default leafReducerCustom

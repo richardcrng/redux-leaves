@@ -1,0 +1,33 @@
+import reduxLeaves from '../../src';
+
+describe('actions can take an arbitrary path of properties after it', () => {
+  const initialState = {
+    counter: 0,
+    arbitrary: {
+      nested: {
+        path: ['hi!']
+      }
+    }
+  }
+
+  const [reducer, actions] = reduxLeaves(initialState)
+
+  test('Any arbitrary path returns an object', () => {
+    expect(typeof actions.counter).toBe('object')
+    expect(typeof actions.arbitrary.nested).toBe('object')
+    expect(typeof actions.arbitrary.nested.path).toBe('object')
+    expect(typeof actions.not.in.my.initial.state).toBe('object')
+  })
+
+  test('Any arbitrary path has the create function property', () => {
+    expect(typeof actions.create).toBe('function')
+    expect(typeof actions.counter.create).toBe('function')
+    expect(typeof actions.arbitrary.nested.create).toBe('function')
+    expect(typeof actions.arbitrary.nested.path.create).toBe('function')
+    expect(typeof actions.not.in.my.initial.state.create).toBe('function')
+  })
+
+  test("You can't access arbitrary paths from create", () => {
+    expect(typeof actions.create.arbitrary).toBe('undefined')
+  })
+})

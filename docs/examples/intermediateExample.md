@@ -63,3 +63,5 @@ The *default behaviour* of these action creators is that, if they receive any ar
 const actionToAppend = actions.list.create.appendToEach('foo', 'bar')
 console.log(actionToAppend.payload) // 'foo'
 ```
+
+If you would like to customise this behaviour, look at the [advanced example](advancedExample.md).

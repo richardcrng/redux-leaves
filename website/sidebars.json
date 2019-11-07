@@ -2,31 +2,72 @@
   "docs": {
     "Introduction": [
       "intro/overview",
-      "intro/demo",
       "intro/features"
     ],
-    "Leaves & Reducers":[
-      "redux-leaves",
-      "leaf/about",
-      "leaf-reducers",
-      "creator-keys"
+    "Examples":[
+      "examples/basic-example",
+      "examples/intermediate-example",
+      "examples/advanced-example"
     ],
-    "Actions": [
-      "create/creators",
-      "leaf/standard-actions"
+    "API Reference": [
+      "redux-leaves",
+      "api/leaf-reducers",
+      "api/creator-keys",
+      "api/actions",
+      "api/create"
     ],
     "Default creators": [
-      "create/defaults",
-      "create/type-specific",
+      "defaults/by-type",
       {
         "type": "subcategory",
-        "label": "create.as",
+        "label": "any",
         "ids": [
-          "create/asArray/array-creators",
-          "create/asBoolean/boolean-creators",
-          "create/asNumber/number-creators",
-          "create/asObject/object-creators",
-          "create/asString/string-creators"
+          "create/apply",
+          "create/clear",
+          "create/reset",
+          "create/update"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "array",
+        "ids": [
+          "create/concat",
+          "create/drop",
+          "create/filter",
+          "create/push"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "boolean",
+        "ids": [
+          "create/off",
+          "create/on",
+          "create/toggle"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "number",
+        "ids": [
+          "create/increment"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "object",
+        "ids": [
+          "create/assign",
+          "create/path",
+          "create/set"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "string",
+        "ids": [
+          "create/concat"
         ]
       }
     ]
