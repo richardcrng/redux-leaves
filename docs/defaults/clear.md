@@ -52,33 +52,41 @@ console.log(store.getState().bool) // null
 ```
 ### Number state
 ```js
-store.dispatch(actions.num.create.clear())
+const clearNum = actions.num.create.clear
+
+store.dispatch(clearNum())
 console.log(store.getState().num) // 0
 
-store.dispatch(actions.num.create.clear(true))
+store.dispatch(clearNum(true))
 console.log(store.getState().num) // null
 ```
 ### String state
 ```js
-store.dispatch(actions.str.create.clear())
+const clearStr = actions.str.create.clear
+
+store.dispatch(clearStr())
 console.log(store.getState().str) // ''
 
-store.dispatch(actions.str.create.clear(true))
+store.dispatch(clearStr(true))
 console.log(store.getState().str) // null
 ```
 ### Array state
 ```js
-store.dispatch(actions.arr.create.clear())
+const clearArr = actions.arr.create.clear
+
+store.dispatch(clearArr())
 console.log(store.getState().arr) // []
 
-store.dispatch(actions.arr.create.clear(true))
+store.dispatch(clearArr(true))
 console.log(store.getState().arr) // null
 ```
 ### Object state
 ```js
-store.dispatch(actions.create.clear())
+const clearState = actions.create.clear
+
+store.dispatch(clearState())
 console.log(store.getState()) // {}
 
-store.dispatch(actions.create.clear(true))
+store.dispatch(clearState(true))
 console.log(store.getState()) // null
 ```
