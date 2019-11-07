@@ -40,7 +40,7 @@ console.log(typeof actions.not.in.my.initial.state) // 'object'
 
 ## Accessing `create`
 
-For a given arbitrary property path, you have two options: navigating to a deeper property / leaf, or accessing the `create` property.
+For a given arbitrary property path, you have two options: navigating to a deeper property / leaf, or accessing the [`create`](create.md) property.
 
 ```js
 // Access create at the state root
@@ -64,4 +64,4 @@ Once you've accessed `create`, you can't go arbitrarily deeper beyond that.
 console.log(typeof actions.create.arbitrary) // 'undefined'
 ```
 
-This is because the `create` key accesses the Redux-Leaves action creator (`create`) API at the corresponding leaf of state.
+This is because the `create` key accesses the Redux-Leaves [action creator (`create`) API](create.md) at the corresponding leaf of state.
