@@ -25,7 +25,7 @@ import { createStore } from 'redux'
 import reduxLeaves from 'reduxLeaves'
 
 const initialState = {
-  foo: { someProps: true }
+  foo: {}
   bar: {}
 }
 
@@ -42,7 +42,7 @@ console.log(store.getState().foo) // { nested: { deep: true } }
 ```
 ### Calling create(actionType).path
 ```js
-const setAtPathInBar = actions.bar.create.path
+const setAtPathInBar = actions.bar.create("SET_AT_PATH_IN_BAR").path
 store.dispatch(setAtPathInBar(['arbitrary', 'keys'], 4))
-console.log(store.getState().bar) // { arbitrary: { keys: 12 } }
+console.log(store.getState().bar) // { arbitrary: { keys: 4 } }
 ```
