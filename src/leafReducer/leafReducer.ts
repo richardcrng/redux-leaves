@@ -39,7 +39,7 @@ export const leafReducer = (
       case atomicActions.OFF: return false
       case atomicActions.ON: return true
       case atomicActions.PUSH: return push(draftLeafState, payload)
-      case atomicActions.REPLACE: return replace(draftLeafState, payload)
+      // case atomicActions.REPLACE: return replace(draftLeafState, payload)
       case atomicActions.RESET: return reset(initialWhole, path)
       case atomicActions.SET: return set(draftLeafState, payload)
       case atomicActions.TOGGLE: return !draftLeafState
@@ -90,10 +90,10 @@ const push = (
       : insertAtIndex(leafState, index, element)
   )
 
-const replace = (
-  leafState: string,
-  { pattern, replacement }: { pattern: string | RegExp, replacement: string }
-) => leafState.replace(pattern, replacement)
+// const replace = (
+//   leafState: string,
+//   { pattern, replacement }: { pattern: string | RegExp, replacement: string }
+// ) => leafState.replace(pattern, replacement)
 
 const reset = (initialWholeState: any, path: string[]) => (
   path.length >= 1 ? R.path(path, initialWholeState) : initialWholeState

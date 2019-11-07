@@ -10,7 +10,7 @@ The guiding philosophy of Redux-Leaves is *"write once, reduce anywhere"*.
 
 This page explains more about the motivation of Redux-Leaves and how its design philosophy is put into practice.
 
-> **Just want to see some code? Check out the [30 second demo](demo.md) or [Code Sandbox](https://codesandbox.io/s/reduxleaves-iwc4f).**
+> **Just want to see some code? Check out the basic [30 second demo](examples/basicExample.md).**
 
 ## Motivation
 
