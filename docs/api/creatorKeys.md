@@ -9,9 +9,9 @@ sidebar_label: Creator keys
 
 A creator key (`creatorKey`) serves two roles:
 
-1. In a [`reducersDict`](README.md#reducersdict), it uniquely identifies a given [leaf reducer](leafReducers.md); and
+1. In a [`reducersDict`](../README.md#reducersdict), it uniquely identifies a given [leaf reducer](leafReducers.md); and
 2. In the `actions` API, it:
-  - is an action creator available at a given [leaf](leaf/README.md) through [`.create[creatorKey]`](create/defaults.md), that
+  - is an action creator available at a given leaf through [`.create[creatorKey]`](create.md), that
   - triggers the corresponding leaf reducer logic (when said action creator is called and its resultant action is dispatched).
 
 ## Example
