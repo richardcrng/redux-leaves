@@ -90,10 +90,10 @@ const push = (
       : insertAtIndex(leafState, index, element)
   )
 
-const replace = (
-  leafState: string,
-  { pattern, replacement }: { pattern: string | RegExp, replacement: string }
-) => leafState.replace(pattern, replacement)
+// const replace = (
+//   leafState: string,
+//   { pattern, replacement }: { pattern: string | RegExp, replacement: string }
+// ) => leafState.replace(pattern, replacement)
 
 const reset = (initialWholeState: any, path: string[]) => (
   path.length >= 1 ? R.path(path, initialWholeState) : initialWholeState
