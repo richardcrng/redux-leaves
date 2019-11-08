@@ -94,9 +94,11 @@ const capitalise = (leafState) => leafState.toUpperCase()
 const [reducer, actions] = reduxLeaves(initialState, { capitalise })
 const store = createStore(reducer)
 
+// Access the action creator by the same key
 store.dispatch(actions.title.create.capitalise())
 console.log(store.getState().title) // 'FOOBAR'
 
+// Dispatch it to any arbitrary slice of state
 store.dispatch(actions.some.long.description.capitalise())
 console.log(store.getState().some.long.description) // 'PRETTY GREAT'
 ```
