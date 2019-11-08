@@ -16,28 +16,32 @@ This page explains more about the motivation of Redux-Leaves and how its design 
 
 ### Why?
 
-Redux is great, but some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7).
+Redux is useful, powerful and great! :heart_eyes:
+
+Some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7). :grimacing:
+
+Can we make it easier for developers to get the use, power and great developer experience from Redux? :thinking:
 
 > **Redux-Leaves aims to make Redux easier to learn *and* quicker to scale**.
 
 ### How?
 
-One of the three core principles of Redux is: "[Changes \[to global state\] are made with pure \[reducer\] functions"](https://redux.js.org/introduction/three-principles#changes-are-made-with-pure-functions).
+Let's consider some of the developer complaints against Redux.
 
-This can be easier said than done.
+* "Redux requires a ton of tedious code to do the most basic things"
+* "It often feels tedious to do trivial state changes"
+* "Redux has too much boilerplate, and I have to maintain all of it"
+* "New developers have a problem with flux architecture and functional concepts"
+* "Redux requires a ton of files to establish a new reducer"
 
-Achieving this can feel like it requires a lot of boilerplate in:
-- action types;
-- action creators; and
-- switch/case logic...
-
-... for *every single slice of state*.
-
-> **What if we could write reducer logic and have it available *throughout our state tree?***
+Maybe that developer experience would be better if we could:
+1. Quickly set up Redux for basic state changes;
+2. Make working with actions more intuitive; and
+3. Drastically cut down reducer boilerplate?
 
 ### What?
 
 Redux-Leaves lets you *write once, reduce anywhere* with:
 - [Quick setup](features.md#quick-setup);
 - [Intuitive API](features.md#intuitive-api); and
-- [Advanced customisation](features.md#advanced-customisation).
+- [Minimal boilerplate](features.md#minimal-boilerplate).
