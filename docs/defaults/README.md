@@ -1,11 +1,11 @@
 ---
-id:
-title: Default action creators by type
+id: overview
+title: Default action creators
 hide_title: true
-sidebar_label: By type
+sidebar_label: Overview
 ---
 
-# Default action creators by type
+# Default action creators
 
 All of the below action creators are availble through the [`create`](../api/create.md) API at any arbitrary leaf of [`actions`](../api/actions.md).
 
