@@ -17,7 +17,7 @@
       "api/create"
     ],
     "Default creators": [
-      "defaults/by-type",
+      "defaults/overview",
       {
         "type": "subcategory",
         "label": "any",

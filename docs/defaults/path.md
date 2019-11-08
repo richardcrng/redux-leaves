@@ -13,7 +13,7 @@ sidebar_label: path
 Returns an object that, *when dispatched to a store created with the original state tree*, sets a property at `path` as `value`.
 
 ## Parameters
-- `path` *(string[])*: the property path to set at
+- `path` *(string[])*: an array of strings which represent the property path to set at
 - `value` *(any)*: the value to set
 
 ## Returns

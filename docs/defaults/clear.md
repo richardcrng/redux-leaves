@@ -6,8 +6,8 @@ sidebar_label: clear
 ---
 
 # `clear(toNull = false)`
-**create.clear**
-**create(actionType).clear**
+**`create.clear`**
+**`create(actionType).clear`**
 *Appropriate leaf state: any*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.

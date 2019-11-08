@@ -54,71 +54,8 @@ store.dispatch(actions.counterTwo.create.increment(10))
 console.log(store.getState()) // { counterOne: 3, counterTwo: 10 }
 ```
 
-## Default action creators
-`increment` is one of many default action creators that Redux-Leaves writes for you.
+Redux-Leaves has done all the hard work in providing you with a `reducer` and appropriate `actions` to `.create`!
+
+`increment` is one of many [default action creators](../defaults/README.md) that Redux-Leaves writes for you, which cover most basic needs.
 
 If you want to add some custom action creators, look at the [intermediate example](intermediateExample.md).
-
-Here are some other common defaults that you might like to use:
-
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
-
-const initialState = {
-  arr: [3, 'things', 'here'],
-  bool: false,
-  obj: {
-    nested: true
-  }
-  title: 'Redux-Leaves',
-}
-
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-```
-
-### Arrays
-```js
-// push: push an element to an array
-store.dispatch(actions.arr.create.push('new element'))
-console.log(store.getState().arr) // [3, 'things', 'here', 'new element']
-
-// drop: drop n elements from an array
-store.dispatch(actions.arr.create.drop(2))
-console.log(store.getState().arr) // [3, 'things']
-```
-
-### Booleans
-```js
-// toggle: toggles a boolean
-store.dispatch(actions.bool.create.toggle())
-console.log(store.getState().bool) // true
-
-// off: make a boolean false (or 'on' for true)
-store.dispatch(actions.bool.create.off())
-console.log(store.getState().bool) // false
-```
-
-### Plain objects
-```js
-// assign: spreads properties
-store.dispatch(actions.obj.create.assign({ deep: false }))
-console.log(store.getState().obj) // { nested: true, deep: false }
-
-// path: sets a value at a given path in the object
-store.dispatch(actions.obj.create.path(['arbitrary', 'property'], 3))
-console.log(store.getState().obj.arbitrary) // { property: 3 } 
-```
-
-### Type agnostic
-```js
-// apply: updates state by applying a callback
-store.dispatch(actions.title.create.apply(str => str.toUpperCase())
-console.log(store.getState().title) // 'REDUX-LEAVES'
-
-// update: changes state to the value provided
-store.dispatch(actions.title.create.update('Redux-Leaves is GREAT'))
-console.log(store.getState().title) // 'Redux-Leaves is GREAT'
-```
-

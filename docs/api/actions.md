@@ -9,7 +9,7 @@ sidebar_label: actions
 
 ## Arbitrary property paths
 
-The `actions` object returned by `reduxLeaves` can take an arbitrary path of properties after it, which typically correspond to a 'leaf' at the corresponding path from your state.
+The `actions` object returned by [`reduxLeaves`](../README.md) can take an arbitrary path of properties after it, which typically correspond to a 'leaf' at the corresponding path from your state.
 
 ```js
 import reduxLeaves from 'redux-leaves'
