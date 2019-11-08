@@ -44,4 +44,4 @@ Maybe that developer experience would be better if we could:
 Redux-Leaves lets you *write once, reduce anywhere* with:
 - [Quick setup](features.md#quick-setup);
 - [Intuitive API](features.md#intuitive-api); and
-- [Advanced customisation](features.md#advanced-customisation).
+- [Minimal boilerplate](features.md#minimal-boilerplate).

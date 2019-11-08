@@ -7,72 +7,74 @@ hide_title: true
 # Features
 
 ## Quick setup
-1. Define initial state and reducer logic;
-2. Pass to `reduxLeaves`;
-3. Done!
+It takes just 30 seconds to set up your reducer, actions and store with Redux-Leaves
 
-Let's demonstrate this by using Redux-Leaves to increment arbitrarily nested counters.
+1. Pass some initial state to `reduxLeaves`
+2. Grab the returned `reducer` and `actions`
+3. Create your store and dispatch away!
 
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
 
-const initialState = {
-  topLevel: 0,
-  nested: {
-    once: 1,
-    deeper: {
-      twice: 2,
-    }
-  }
-}
+// 1. Pass some initial state to reduxLeaves; and
+// 2. Grab the returned reducer and actions
+const [reducer, actions] = reduxLeaves({
+  counter: 0,
+  list: [],
+  arbitrary: {  nested: { property: false } }
+})
 
-const increment = leafState => leafState + 1
-
-const [reducer, actions] = reduxLeaves(initialState, { increment })
+// 3. Create your store and dispatch away!
 const store = createStore(reducer)
-```
-
-The *'write once, reduce anywhere'* philosophy in action means that **we can use `actions` to trigger our `increment` logic at any slice of state**.
-
-## Intuitive API
-
-To create an action that increments at a given leaf:
-1. Navigate through the `actions` object to the state leaf;
-2. Access the `create` property at that leaf; and
-3. Execute the present `increment` function.
-
-```js
-const actionToIncrementTopLevel = actions.topLevel.create.increment()
-const actionToIncrementNestedOnce = actions.nested.once.create.increment()
-const actionToIncrementNestedDeeperTwice = actions.nested.deeper.twice.create.increment()
-```
-
-The reducer produced by `reduxLeaves` uses the supplied increment reducer logic to update the store's state at each of these leaves:
-
-```js
-store.dispatch(actionToIncrementTopLevel)
-console.log(store.getState().topLevel)  // 1
-
-store.dispatch(actionToIncrementNestedOnce)
-console.log(store.getState().nested.once) // 2
-
-store.dispatch(actionToIncrementNestedDeeperTwice)
-console.log(store.getState().nested.deeper.twice) // 3
+store.dispatch(actions.counter.create.increment())
+store.dispatch(actions.list.create.push('foobar'))
+store.dispatch(actions.arbitrary.nested.property.create.toggle())
 
 console.log(store.getState())
+
 /*
-*  {
-*    topLevel: 1,
-*    nested: {
-*      once: 2,
-*      deeper: { twice: 3 }
-*    }
-*  }
+{
+  counter: 0,
+  list: ['foobar'],
+  arbitrary: { nested: { property: true } }
+}
 */
 ```
 
-## Advanced customisation
+Here's the [full list of action creators](../defaults/README.md) that can be accessed from `actions`.
+
+## Intuitive API
+
+Continuing on from the example above: suppose that I want to set a new property at `arbitrary.nested` state, with the key `deep` and the value `true`.
+
+Here are the steps to update our store's state:
+
+1. Navigate to the appropriate path from `actions`
+2. Access action creators through `create`
+3. Key into the appropriate action creator
+4. Execute to create the action, and dispatch it!
+
+```js
+// 1. Navigate to the appropriate path from actions
+const arbitaryNestedPathFromActions = actions.arbitrary.nested
+
+// 2. Access action creators through create
+const arbitraryNestedActionCreators = arbitraryNestedPathFromActions.create
+
+// 3. Key into the appropriate action creator
+const setArbitraryNestedState = arbitraryNestedActionCreators.set
+
+// 4. Execute to create the action, and dispatch it!
+store.dispatch(setArbitraryNestedState('deep', true))
+console.log(store.getState().arbitrary.nested.deep) // true
+
+// or, in one line:
+store.dispatch(actions.arbitrary.nested.create.set('deep', false))
+console.log(store.getState().arbitrary.nested.deep) // false
+```
+
+## Minimal boilerplate
 
 The reducer logic supplied to `reduxLeaves` can:
 - Take an argument supplied to an action creator (received as the action's `payload`);
