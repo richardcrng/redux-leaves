@@ -7,7 +7,7 @@ sidebar_label: drop
 
 # `drop([n = 1])`
 **`create.drop`**
-**`create(actionType).drop**
+**`create(actionType).drop`**
 *Appropriate leaf state: array*
 
 Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
