@@ -76,48 +76,27 @@ console.log(store.getState().arbitrary.nested.deep) // false
 
 ## Minimal boilerplate
 
-The reducer logic supplied to `reduxLeaves` can:
-- Take an argument supplied to an action creator (received as the action's `payload`);
-- Update a given `leafState` using the store's `wholeState`; and
-- Be customised further with additional properties.
-
-For example:
+If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `reduxLeaves` in a `reducersDict`.
 
 ```js
 import { createStore } from 'redux'
 import reduxLeaves from 'redux-leaves'
 
 const initialState = {
-  foo: ['foo'],
-  nest: {}
+  title: 'foobar',
+  some: { long: { description: 'pretty great' } }
 }
 
-// Update a leaf state (array) by pushing a supplied element
-const push = (leafState, { payload }) => [...leafState, payload]
+// Reducer logic: capitalise some leaf state
+const capitalise = (leafState) => leafState.toUpperCase()
 
-// Update a leaf state (object) with a property of the whole state
-const recurse = (leafState, { payload }, wholeState) => ({
-  ...leafState, [payload]: wholeState[payload]
-})
-
-const [reducer, actions] = reduxLeaves(initialState, { push, recurse })
+// Second optional argument of reduxLeaves is a reducersDict
+const [reducer, actions] = reduxLeaves(initialState, { capitalise })
 const store = createStore(reducer)
-```
 
-```js
-store.dispatch(actions.foo.create.push('bar'))
-console.log(store.getState().foo) // ['foo', 'bar']
+store.dispatch(actions.title.create.capitalise())
+console.log(store.getState().title) // 'FOOBAR'
 
-store.dispatch(actions.nest.create.recurse('foo'))
-console.log(store.getState().nest)  // { foo: ['foo', 'bar'] }
-
-console.log(store.getState())
-/*
-* {
-*   foo: ['foo', 'bar'],
-*   nest: {
-*     foo: ['foo', 'bar']
-*   }
-* }
-*/
+store.dispatch(actions.some.long.description.capitalise())
+console.log(store.getState().some.long.description) // 'PRETTY GREAT'
 ```
