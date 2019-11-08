@@ -7,7 +7,7 @@ sidebar_label: reduxLeaves
 
 # `reduxLeaves(initialState, [reducersDict = {}])`
 
-Returns a reducer function and an object.
+Returns a reducer function and an actions object.
 
 **See the [30 second demo](intro/demo.md)** for usage.
 

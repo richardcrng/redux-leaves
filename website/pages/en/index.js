@@ -151,19 +151,19 @@ class Index extends React.Component {
         {[
           {
             title: 'Write once.',
-            content: 'Tired of writing repetitive reducer logic for different slices of state? With Redux-Leaves, you can <b>define reducer logic for an arbitrary leaf</b>.',
+            content: `Tired of writing repetitive reducer logic? With Redux-Leaves, you <a href=${docUrl('example/intermediate-example')}><b>define reducer logic once</b> and can <b>use it on an arbitrary leaf of state</b></a>.`,
             image: `${baseUrl}img/code.png`,
             imageAlign: 'top',
           },
           {
             title: 'Reduce anywhere.',
-            content: 'Redux-Leaves makes that reducer logic instantly available to you for any leaf of your state shape, through <b>an intuitive action creator API</b>.',
+            content: `Redux-Leaves makes that reducer logic instantly available to you for any leaf of your state shape, through <a href=${docUrl('api/create')}><b>an intuitive action creator API</b></a>.`,
             image: `${baseUrl}img/hierarchy.png`,
             imageAlign: 'top',
           },
           {
             title: 'No boilerplate.',
-            content: 'No more need to write action creators. Redux-Leaves <b>writes your action creators for you</b> based on the reducer logic that you supply.',
+            content: `No more need to write action creators. Redux-Leaves <a href=${docUrl('api/actions')}><b>writes your action creators for you</b></a> based on the reducer logic that you supply.`,
             image: `${baseUrl}img/ban.svg`,
             imageAlign: 'top',
           },
