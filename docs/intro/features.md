@@ -7,7 +7,7 @@ hide_title: true
 # Features
 
 ## Quick setup
-It takes just 30 seconds to set up your reducer, actions and store with Redux-Leaves
+It takes just 30 seconds to set up your reducer, actions and store with Redux-Leaves!
 
 1. Pass some initial state to `reduxLeaves`
 2. Grab the returned `reducer` and `actions`
@@ -76,7 +76,7 @@ console.log(store.getState().arbitrary.nested.deep) // false
 
 ## Minimal boilerplate
 
-If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `reduxLeaves` in a `reducersDict`.
+If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `reduxLeaves` in a [`reducersDict`](../README.md#reducersdict).
 
 ```js
 import { createStore } from 'redux'
