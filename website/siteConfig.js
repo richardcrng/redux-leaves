@@ -24,7 +24,7 @@ const sandboxUrl = 'https://codesandbox.io/s/github/richardcrng/redux-leaves-dem
 
 const siteConfig = {
   title: 'Redux-Leaves', // Title for your website.
-  tagline: 'Write one. Reduce anywhere.',
+  tagline: 'Write once. Reduce anywhere.',
   url: 'https://redux-leaves.netlify.com/', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
