@@ -16,11 +16,11 @@ This page explains more about the motivation of Redux-Leaves and how its design 
 
 ### Why?
 
-Redux is useful, powerful and great! :heart_eyes:
+Redux is useful, powerful and great!
 
-Some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7). :grimacing:
+But some developers complain about the boilerplate being [tedious, cumbersome and convoluted](https://medium.com/@Charles_Stover/no-boilerplate-global-state-management-in-react-41e905944eb7).
 
-Can we make it easier for developers to get the use, power and great developer experience from Redux? :thinking:
+Can we make it easier for developers to get the use, power and great developer experience from Redux?
 
 > **Redux-Leaves aims to make Redux easier to learn *and* quicker to scale**.
 
@@ -35,9 +35,11 @@ Let's consider some of the developer complaints against Redux.
 * "Redux requires a ton of files to establish a new reducer"
 
 Maybe that developer experience would be better if we could:
-1. Quickly set up Redux for basic state changes;
-2. Make working with actions more intuitive; and
-3. Drastically cut down reducer boilerplate?
+1. **Quickly set up** Redux for basic state changes;
+2. **Intuitively create actions** for arbitrary needs; and
+3. **Cut down boilerplate** of reducers drastically?
+
+> **What if Redux state management could be quicker, more intuitive and leaner?**
 
 ### What?
 
