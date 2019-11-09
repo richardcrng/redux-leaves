@@ -41,7 +41,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: 'intro/overview', label: 'Overview' },
-    { href: sandboxUrl, label: 'Sandbox', external: true },
+    { href: 'https://scrimba.com/c/cNqRmKtZ', label: 'Course', external: true },
     { doc: 'redux-leaves', label: 'Docs' },
     { href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub', external: true }
   ],
