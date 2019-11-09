@@ -47,3 +47,9 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - [Quick setup](features.md#quick-setup);
 - [Intuitive API](features.md#intuitive-api); and
 - [Minimal boilerplate](features.md#minimal-boilerplate).
+
+### Scrimba course
+
+There's an interactive [Scrimba course](https://scrimba.com/c/cNqRmKtZ) which demonstrates Redux-Leaves used with the [React-Redux hooks](https://react-redux.js.org/api/hooks).
+
+It's aimed at new developers, to show how Redux-Leaves can be an easier way to learn Redux, although it also demonstrates the library to more experienced developers who want an interactive playground.
