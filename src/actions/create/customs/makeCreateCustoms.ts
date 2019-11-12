@@ -24,7 +24,7 @@ const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActi
     const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
 
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
-    const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, custom: true }
+    const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, custom: true, compound: false }
     const type = actionType
       ? (typeof actionType === "function")
         ? actionType(leaf)
