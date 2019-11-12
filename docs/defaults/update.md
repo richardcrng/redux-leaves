@@ -10,7 +10,7 @@ sidebar_label: update
 **`create(actionType).update`**
 *Appropriate leaf state: any*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `value`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to update the leaf's state to `value`.
 
 ## Parameters
 - `value` *(any)*: the new value for the leaf's state

@@ -10,7 +10,7 @@ sidebar_label: filter
 **`create(actionType).filter`**
 *Appropriate leaf state: array*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by selecting elements that return true when passed to `callback`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state by selecting elements that return true when passed to `callback`.
 
 (Effectively, this uses the vanilla javascript [`Array.prototype.filter(callback)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) API.)
 

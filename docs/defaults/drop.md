@@ -10,7 +10,7 @@ sidebar_label: drop
 **`create(actionType).drop`**
 *Appropriate leaf state: array*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, drops the first `n` elements from the leaf's state.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively drop the first `n` elements from the leaf's state.
 
 ## Parameters
 - `n` *(number, optional)*: the number of elements to drop

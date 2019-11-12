@@ -10,7 +10,7 @@ sidebar_label: path
 **`create(actionType).path`**
 *Appropriate leaf type: object*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, sets a property at `path` as `value`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively set a property at `path` from the leaf as `value`.
 
 ## Parameters
 - `path` *(string[])*: an array of strings which represent the property path to set at
