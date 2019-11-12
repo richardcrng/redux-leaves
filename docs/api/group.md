@@ -18,7 +18,9 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Returns
 `type` *(optional, string)*: the type of the returned action
 
-## Example
+## Examples
+
+### Actions array, no type
 ```js
 import { createStore } from 'redux'
 import reduxLeaves, { group } from 'reduxLeaves'
@@ -35,6 +37,31 @@ const incrementAndPush = group([
   actions.counter.create.increment(),
   actions.list.create.push('b')
 ])
+
+store.dispatch(incrementAndPush)
+console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
+```
+
+### Actions array, type provided
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { group } from 'reduxLeaves'
+
+const initialState = {
+  counter: 0,
+  list: ['a']
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+const incrementAndPush = group([
+  actions.counter.create.increment(),
+  actions.list.create.push('b'),
+  'INCREMENT_AND_PUSH'
+])
+
+console.log(incrementAndPush.type) // 'INCREMENT_AND_PUSH'
 
 store.dispatch(incrementAndPush)
 console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
