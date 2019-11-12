@@ -66,3 +66,25 @@ console.log(incrementAndPush.type) // 'INCREMENT_AND_PUSH'
 store.dispatch(incrementAndPush)
 console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
 ```
+
+### Order matters
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { group } from 'reduxLeaves'
+
+const initialState = {
+  counter: 0,
+  list: ['a']
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+const pushIncrementedValue = group([
+  actions.counter.create.increment(),
+  actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
+])
+
+store.dispatch(pushIncrementedValue)
+console.log(store.getState()) // { counter: 1, list: ['a', 1] }
+```

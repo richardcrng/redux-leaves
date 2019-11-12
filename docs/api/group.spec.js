@@ -43,4 +43,24 @@ describe('group groups together actions into a single one', () => {
       expect(store.getState()).toEqual({ counter: 1, list: ['a', 'b'] })
     })
   })
+
+  describe("Order matters", () => {
+    const initialState = {
+      counter: 0,
+      list: ['a']
+    }
+
+    const [reducer, actions] = reduxLeaves(initialState)
+    const store = createStore(reducer)
+
+    test('Group bundles actions together into a single update', () => {
+      const pushIncrementedValue = group([
+        actions.counter.create.increment(),
+        actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
+      ])
+
+      store.dispatch(pushIncrementedValue)
+      expect(store.getState()).toEqual({ counter: 1, list: ['a', 1] })
+    })
+  })
 })
