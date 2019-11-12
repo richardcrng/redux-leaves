@@ -6,16 +6,24 @@ import LeafActionData from './types/Leaf/Action/Data';
 import Dict from './types/Dict';
 import { Reducer } from 'redux';
 import ActionsProxy from './actions/proxy';
+import LeafCompoundAction from './types/Actions/LCA';
 
-export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reducer<any, LeafStandardAction>, ActionsProxy] => {
+export const reduxLeaves = <T = Dict<any>>(initialState: T, reducersDict = {}): [Reducer<any, LeafStandardAction | LeafCompoundAction>, ActionsProxy] => {
   const leafReducersDict = standardiseReducersDict(reducersDict)
 
-  const reducer: Reducer<any, LeafStandardAction> = function(state = initialState, action: LeafStandardAction) {
+  const reducer: Reducer<any, LeafStandardAction | LeafCompoundAction> = function(state = initialState, action: LeafStandardAction | LeafCompoundAction) {
     const { leaf = {} } = action;
     const { path = [] } = leaf as LeafActionData
 
     // const prevLeafState = getState(draftState, path)
     const prevLeafState = getState(state, path)
+
+    if (isLCA(action)) {
+      return action.payload.reduce(
+        reducer,
+        state
+      )
+    }
 
     const newLeafState = leafReducer(
       prevLeafState,
@@ -31,4 +39,8 @@ export const reduxLeaves = (initialState: Dict<any>, reducersDict = {}): [Reduce
   const actions = new ActionsProxy(initialState, leafReducersDict)
 
   return [reducer, actions]
+}
+
+function isLCA(action: LeafStandardAction | LeafCompoundAction): action is LeafCompoundAction {
+  return action && action.leaf && action.leaf.compound
 }

@@ -32,7 +32,7 @@ const makeCreateDefaults = (path: string[]) => (actionType?: string | LeafAction
 const makeProducerOfLeafStandardActions = (actionType: string | LeafActionTypeCreator = leafReducerDefaults.actionType) => {
   return (path: string[]) => (creatorKey: string) => (payload?: any): LeafStandardAction => {
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
-    const leaf = { path, creatorKey, CREATOR_KEY }
+    const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, compound: false }
     const type = (typeof actionType === "function")
       ? actionType(leaf)
       : actionType
