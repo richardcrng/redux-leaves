@@ -88,3 +88,30 @@ const pushIncrementedValue = group([
 store.dispatch(pushIncrementedValue)
 console.log(store.getState()) // { counter: 1, list: ['a', 1] }
 ```
+
+### Compound grouping
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { group } from 'reduxLeaves'
+
+const initialState = {
+  counter: 0,
+  list: ['a']
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+const incrementAndPush = group([
+  actions.counter.create.increment(),
+  actions.list.create.push('b')
+])
+
+const incrementAndPushAndIncrement = group([
+  incrementAndPush,
+  actions.counter.create.increment()
+])
+
+store.dispatch(incrementAndPushAndIncrement)
+console.log(store.getState()) // { counter: 2, list: ['a', 'b'] }
+```

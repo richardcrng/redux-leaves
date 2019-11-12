@@ -31,7 +31,7 @@ describe('group groups together actions into a single one', () => {
     const [reducer, actions] = reduxLeaves(initialState)
     const store = createStore(reducer)
 
-    test('Returns an action of appropriate type and effect', () => {
+    test('Returns an action of appropriate type and effect in reducer', () => {
       const incrementAndPush = group([
         actions.counter.create.increment(),
         actions.list.create.push('b')
@@ -53,7 +53,7 @@ describe('group groups together actions into a single one', () => {
     const [reducer, actions] = reduxLeaves(initialState)
     const store = createStore(reducer)
 
-    test('Group bundles actions together into a single update', () => {
+    test('Processes actions in the order passed into the array', () => {
       const pushIncrementedValue = group([
         actions.counter.create.increment(),
         actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
@@ -61,6 +61,31 @@ describe('group groups together actions into a single one', () => {
 
       store.dispatch(pushIncrementedValue)
       expect(store.getState()).toEqual({ counter: 1, list: ['a', 1] })
+    })
+  })
+
+  describe("Compound grouping", () => {
+    const initialState = {
+      counter: 0,
+      list: ['a']
+    }
+
+    const [reducer, actions] = reduxLeaves(initialState)
+    const store = createStore(reducer)
+
+    test('Group bundles actions together into a single update', () => {
+      const incrementAndPush = group([
+        actions.counter.create.increment(),
+        actions.list.create.push('b')
+      ])
+
+      const incrementAndPushAndIncrement = group([
+        incrementAndPush,
+        actions.counter.create.increment()
+      ])
+
+      store.dispatch(incrementAndPushAndIncrement)
+      expect(store.getState()).toEqual({ counter: 2, list: ['a', 'b'] })
     })
   })
 })
