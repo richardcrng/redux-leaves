@@ -13,16 +13,12 @@ export const reduxLeaves = <T = Dict<any>>(initialState: T, reducersDict = {}): 
 
   const reducer: Reducer<any, FluxStandardAction | LeafStandardAction | LeafCompoundAction> = function(state = initialState, action: FluxStandardAction | LeafStandardAction | LeafCompoundAction) {
 
-    if (!isLeafAction(action)) {
-      return state
-    }
+    if (!isLeafAction(action)) return state
 
-    if (isLCA(action)) {
-      return action.payload.reduce(
-        reducer,
-        state
-      )
-    }
+    if (isLCA(action)) return action.payload.reduce(
+      reducer,
+      state
+    )
 
     const { leaf } = action;
     const { path } = leaf
