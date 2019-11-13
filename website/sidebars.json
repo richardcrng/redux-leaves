@@ -11,6 +11,7 @@
     ],
     "API Reference": [
       "redux-leaves",
+      "api/bundle",
       "api/leaf-reducers",
       "api/creator-keys",
       "api/actions",
