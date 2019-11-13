@@ -1,11 +1,11 @@
 ---
-id: group
-title: group
+id: bundle
+title: bundle
 hide_title: true
-sidebar_label: group
+sidebar_label: bundle
 ---
 
-# `group(actions, type = 'GROUPED_UPDATE')`
+# `bundle(actions, type = 'GROUPED_UPDATE')`
 
 Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to process the individual actions in the `actions` array sequentially (but, through the store, one dispatch).
 
@@ -23,7 +23,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ### Actions array, no type
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { group } from 'reduxLeaves'
+import reduxLeaves, { bundle } from 'reduxLeaves'
 
 const initialState = {
   counter: 0,
@@ -33,7 +33,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-const incrementAndPush = group([
+const incrementAndPush = bundle([
   actions.counter.create.increment(),
   actions.list.create.push('b')
 ])
@@ -45,7 +45,7 @@ console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
 ### Actions array, type provided
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { group } from 'reduxLeaves'
+import reduxLeaves, { bundle } from 'reduxLeaves'
 
 const initialState = {
   counter: 0,
@@ -55,7 +55,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-const incrementAndPush = group([
+const incrementAndPush = bundle([
   actions.counter.create.increment(),
   actions.list.create.push('b'),
   'INCREMENT_AND_PUSH'
@@ -70,7 +70,7 @@ console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
 ### Order matters
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { group } from 'reduxLeaves'
+import reduxLeaves, { bundle } from 'reduxLeaves'
 
 const initialState = {
   counter: 0,
@@ -80,7 +80,7 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-const pushIncrementedValue = group([
+const pushIncrementedValue = bundle([
   actions.counter.create.increment(),
   actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
 ])
@@ -89,10 +89,10 @@ store.dispatch(pushIncrementedValue)
 console.log(store.getState()) // { counter: 1, list: ['a', 1] }
 ```
 
-### Compound grouping
+### Compound bundleing
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { group } from 'reduxLeaves'
+import reduxLeaves, { bundle } from 'reduxLeaves'
 
 const initialState = {
   counter: 0,
@@ -102,12 +102,12 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-const incrementAndPush = group([
+const incrementAndPush = bundle([
   actions.counter.create.increment(),
   actions.list.create.push('b')
 ])
 
-const incrementAndPushAndIncrement = group([
+const incrementAndPushAndIncrement = bundle([
   incrementAndPush,
   actions.counter.create.increment()
 ])

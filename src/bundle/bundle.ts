@@ -1,7 +1,7 @@
 import LeafStandardAction from "../types/Actions/LSA";
 import LeafCompoundAction from "../types/Actions/LCA";
 
-function group(actions: (LeafStandardAction | LeafCompoundAction)[], type: string = 'GROUPED_UPDATE'): LeafCompoundAction {
+function bundle(actions: (LeafStandardAction | LeafCompoundAction)[], type: string = 'GROUPED_UPDATE'): LeafCompoundAction {
   return {
     type,
     payload: actions,
@@ -9,4 +9,4 @@ function group(actions: (LeafStandardAction | LeafCompoundAction)[], type: strin
   }
 }
 
-export default group
+export default bundle
