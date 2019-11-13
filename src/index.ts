@@ -1,10 +1,10 @@
 import { reduxLeaves } from "./reduxLeaves";
 import { getState, updateState, resetState } from './utils/index';
 import { makeActionCreator } from './actions/creators/make/makeActionCreator';
-import group from './group';
+import bundle from './bundle';
 
 export {
-  group,
+  bundle,
   makeActionCreator,
   getState,
   resetState,
