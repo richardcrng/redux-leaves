@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: bundle
 ---
 
-# `bundle(actions, type?)`
+# `bundle(actions[, type])`
 
 Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to process the individual actions in the `actions` array sequentially (but, through the store, one dispatch).
 
