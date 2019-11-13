@@ -64,7 +64,11 @@ const incrementAndPush = bundle([
   'INCREMENT_AND_PUSH'
 ])
 
+// Action has the provided type
 console.log(incrementAndPush.type) // 'INCREMENT_AND_PUSH'
+
+// But you can still see the action types bundled if you wish
+console.log(incrementAndPush.leaf.bundled) // ['counter/INCREMENT', 'list/PUSH']
 
 store.dispatch(incrementAndPush)
 console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
@@ -99,7 +103,7 @@ store.dispatch(pushThenIncrement)
 console.log(store.getState()) // { counter: 2, list: ['a', 1, 1] }
 ```
 
-### Compound bundleing
+### Compound bundling
 ```js
 import { createStore } from 'redux'
 import reduxLeaves, { bundle } from 'reduxLeaves'

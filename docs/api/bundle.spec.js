@@ -40,6 +40,7 @@ describe('bundle bundles together actions into a single one', () => {
       ], 'INCREMENT_AND_PUSH')
 
       expect(incrementAndPush.type).toBe('INCREMENT_AND_PUSH')
+      expect(incrementAndPush.leaf.bundled).toEqual(['counter/INCREMENT', 'list/PUSH'])
 
       store.dispatch(incrementAndPush)
       expect(store.getState()).toEqual({ counter: 1, list: ['a', 'b'] })

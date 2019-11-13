@@ -3,7 +3,8 @@ import LeafStandardAction from '../LSA';
 
 type LeafCompoundAction = FluxStandardAction & {
   leaf: {
-    compound: true
+    compound: true,
+    bundled: string[]
   },
   payload: (LeafStandardAction | LeafCompoundAction)[]
 }
