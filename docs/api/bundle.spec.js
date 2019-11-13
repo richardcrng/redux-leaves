@@ -56,13 +56,20 @@ describe('bundle bundles together actions into a single one', () => {
     const store = createStore(reducer)
 
     test('Processes actions in the order passed into the array', () => {
-      const pushIncrementedValue = bundle([
+      const incrementThenPush = bundle([
         actions.counter.create.increment(),
         actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
       ])
 
-      store.dispatch(pushIncrementedValue)
+      const pushThenIncrement = bundle([
+        actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter]), actions.counter.create.increment()
+      ])
+
+      store.dispatch(incrementThenPush)
       expect(store.getState()).toEqual({ counter: 1, list: ['a', 1] })
+
+      store.dispatch(pushThenIncrement)
+      expect(store.getState()).toEqual({ counter: 2, list: ['a', 1, 1] })
     })
   })
 

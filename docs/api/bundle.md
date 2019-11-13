@@ -38,7 +38,7 @@ const incrementAndPush = bundle([
   actions.list.create.push('b')
 ])
 
-// Default type created
+// Action has a default type based on bundled action types:
 console.log(incrementAndPush.type) // 'counter/INCREMENT; list/PUSH'
 
 store.dispatch(incrementAndPush)
@@ -83,13 +83,20 @@ const initialState = {
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
 
-const pushIncrementedValue = bundle([
+const incrementThenPush = bundle([
   actions.counter.create.increment(),
   actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
 ])
 
-store.dispatch(pushIncrementedValue)
+const pushThenIncrement = bundle([
+  actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter]),    actions.counter.create.increment()
+])
+
+store.dispatch(incrementThenPush)
 console.log(store.getState()) // { counter: 1, list: ['a', 1] }
+
+store.dispatch(pushThenIncrement)
+console.log(store.getState()) // { counter: 2, list: ['a', 1, 1] }
 ```
 
 ### Compound bundleing
