@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: bundle
 ---
 
-# `bundle(actions, type = 'GROUPED_UPDATE')`
+# `bundle(actions, type?)`
 
 Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to process the individual actions in the `actions` array sequentially (but, through the store, one dispatch).
 
@@ -13,10 +13,10 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 
 ## Parameters
 - `actions` *(object[])*: an array where each element should be an action created through the Redux-Leaves [`create`](create.md) API
-- `actionType`
+- `type` *(string, optional)*: a string that will be the type of the returned action
 
 ## Returns
-`type` *(optional, string)*: the type of the returned action
+`action` *(object)*: a single object to dispatch to the `store`
 
 ## Examples
 
