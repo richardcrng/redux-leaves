@@ -8,4 +8,4 @@ jobs:
       
     - stage: Run tests
       node_js: node
-      script: npm test
+      script: jest
