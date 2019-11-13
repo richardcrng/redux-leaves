@@ -11,11 +11,13 @@ describe('bundle bundles together actions into a single one', () => {
     const [reducer, actions] = reduxLeaves(initialState)
     const store = createStore(reducer)
 
-    test('Group bundles actions together into a single update', () => {
+    test('Group bundles actions together into a single update with default type provided', () => {
       const incrementAndPush = bundle([
         actions.counter.create.increment(),
         actions.list.create.push('b')
       ])
+
+      expect(incrementAndPush.type).toBe('counter/INCREMENT; list/PUSH')
 
       store.dispatch(incrementAndPush)
       expect(store.getState()).toEqual({ counter: 1, list: ['a', 'b'] })

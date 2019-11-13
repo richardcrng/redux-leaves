@@ -20,7 +20,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 
 ## Examples
 
-### Actions array, no type
+### Actions array, no type provided
 ```js
 import { createStore } from 'redux'
 import reduxLeaves, { bundle } from 'reduxLeaves'
@@ -37,6 +37,9 @@ const incrementAndPush = bundle([
   actions.counter.create.increment(),
   actions.list.create.push('b')
 ])
+
+// Default type created
+console.log(incrementAndPush.type) // 'counter/INCREMENT; list/PUSH'
 
 store.dispatch(incrementAndPush)
 console.log(store.getState()) // { counter: 1, list: ['a', 'b'] }
