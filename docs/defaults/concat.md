@@ -10,7 +10,7 @@ sidebar_label: concat
 **`create(actionType).concat`**
 *Appropriate leaf state: array | string*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state by concatening it with `arrayOrString`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to update the leaf's state by concatening it with `arrayOrString`.
 
 ## Parameters
 - `arrayOrString` *(array | string)*: the array to concatenate

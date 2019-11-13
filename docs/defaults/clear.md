@@ -10,7 +10,7 @@ sidebar_label: clear
 **`create(actionType).clear`**
 *Appropriate leaf state: any*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, clears the leaf's state.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to clears the leaf's state.
 
 If `toNull === true`, then it updates it to `null`, otherwise it follows the type of the leaf's state:
 - *number* clears to `0`

@@ -9,7 +9,7 @@ sidebar_label: assign
 **`create.assign`**
 **`create(actionType).assign`**
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the copies all properties from `sources` into the leaf's state.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively copy all properties from `sources` into the leaf's state.
 
 (This is essentially a convenience wrapper on top of the vanilla JavaScript [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).)
 

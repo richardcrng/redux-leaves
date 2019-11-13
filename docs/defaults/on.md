@@ -10,7 +10,7 @@ sidebar_label: on
 **`create(actionType).on`**
 *Appropriate leaf state: boolean*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to `true`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to update the leaf's state to `true`.
 
 ## Returns
 `action` *(object)*: an object to dispatch to the store

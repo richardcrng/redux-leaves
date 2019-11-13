@@ -5,7 +5,12 @@ hide_title: true
 sidebar_label: Advanced example
 ---
 
-# Advanced example: custom types and controlling payloads
+# Advanced example: bundling actions, custom types and controlling payloads
+
+## Bundling actions
+Perhaps you're worried that the atomic actions you're creating at each leaf will cause too much rerendering or clog up your Redux DevTools inspector.
+
+You can bundle together actions with [`bundle`](../api/bundle.md), to produce a new compound action that will update your store's state in a single `dispatch`.
 
 ## Custom action types
 
