@@ -20,7 +20,7 @@ const users = [
   },
 ];
 
-const sandboxUrl = 'https://codesandbox.io/s/github/richardcrng/redux-leaves-demo'
+const sandboxUrl = 'https://runkit.com/richardcrng/redux-leaves-playground'
 
 const siteConfig = {
   title: 'Redux-Leaves', // Title for your website.
