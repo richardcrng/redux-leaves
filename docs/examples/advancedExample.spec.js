@@ -1,8 +1,43 @@
 import { createStore } from 'redux';
-import reduxLeaves from '../../src';
+import reduxLeaves, { bundle } from '../../src';
 
 
 describe('Advanced example', () => {
+  describe("Bundling actions", () => {
+    const initialState = {
+      list: ['a', 'b'],
+      nested: {
+        counter: 0,
+        state: {
+          deep: 'somewhat'
+        }
+      }
+    }
+
+    const [reducer, actions] = reduxLeaves(initialState)
+    const store = createStore(reducer)
+
+    test("Actions get bundled into a single action which updates multiple leaves of state", () => {
+      const actionBundle = bundle([
+        actions.list.create.push('c'),
+        actions.nested.counter.create.increment(5),
+        actions.nested.state.create.set('arbitrary', true)
+      ])
+
+      store.dispatch(actionBundle)
+      expect(store.getState()).toEqual({
+        list: ['a', 'b', 'c'],
+        nested: {
+          counter: 5,
+          state: {
+            arbitrary: true,
+            deep: 'somewhat'
+          }
+        }
+      })
+    })
+  })
+
   describe('Custom types', () => {
     const initialState = {
       list: ['a', 'b'],

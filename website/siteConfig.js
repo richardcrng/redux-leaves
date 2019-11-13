@@ -20,7 +20,7 @@ const users = [
   },
 ];
 
-const sandboxUrl = 'https://codesandbox.io/s/github/richardcrng/redux-leaves-demo'
+const sandboxUrl = 'https://runkit.com/richardcrng/redux-leaves-playground'
 
 const siteConfig = {
   title: 'Redux-Leaves', // Title for your website.
@@ -41,8 +41,9 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: 'intro/overview', label: 'Overview' },
-    { doc: 'examples/basic-example', label: 'Example' },
-    { href: 'https://scrimba.com/c/cNqRmKtZ', label: 'Course', external: true },
+    { href: 'https://runkit.com/richardcrng/redux-leaves-playground', label: 'Demo', external: true },
+    // { doc: 'examples/basic-example', label: 'Example' },
+    // { href: 'https://scrimba.com/c/cNqRmKtZ', label: 'Course', external: true },
     { doc: 'redux-leaves', label: 'Docs' },
     { href: "https://github.com/richardcrng/redux-leaves", label: 'GitHub', external: true }
   ],

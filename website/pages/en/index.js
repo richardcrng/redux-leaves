@@ -66,7 +66,7 @@ class HomeSplash extends React.Component {
           <PromoSection>
             <Button href={docUrl('intro/overview')}>Overview</Button>
             <Button href={docUrl('examples/basic-example')}>Example</Button>
-            <Button href={docUrl('redux-leaves')}>Core API</Button>
+            <Button href='https://runkit.com/richardcrng/redux-leaves-playground' target='_blank'>Demo</Button>
           </PromoSection>
         </div>
       </SplashContainer>

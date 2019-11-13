@@ -7,6 +7,8 @@ sidebar_label: Basic example
 
 # Basic example: 30 second demo
 
+[Play around with this code on Runkit](https://runkit.com/richardcrng/redux-leaves-basic-example)
+
 **Situation**: I want to be able to increment two different counters in Redux state, `counterOne` and `counterTwo`.
 
 **Complication**: I want to do this as quickly, painlessly and intuitively as possible.

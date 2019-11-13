@@ -12,6 +12,47 @@ Perhaps you're worried that the atomic actions you're creating at each leaf will
 
 You can bundle together actions with [`bundle`](../api/bundle.md), to produce a new compound action that will update your store's state in a single `dispatch`.
 
+[Bundling example on Runkit](https://runkit.com/richardcrng/redux-leaves-bundling-actions)
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { bundle } from 'redux-leaves'
+
+const initialState = {
+  list: ['a', 'b'],
+  nested: {
+    counter: 0,
+    state: {
+      deep: 'somewhat'
+    }
+  }
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+const actionBundle = bundle([
+  actions.list.create.push('c'),
+  actions.nested.counter.create.increment(5),
+  actions.nested.state.create.set('arbitrary', true)
+])
+
+store.dispatch(actionBundle)
+console.log(store.getState())
+/*
+  {
+    list: ['a', 'b', 'c'],
+    nested: {
+      counter: 5,
+      state: {
+        arbitrary: true,
+        deep: 'somewhat'
+      }
+    }
+  }
+*/
+```
+
 ## Custom action types
 
 ### Default action types
