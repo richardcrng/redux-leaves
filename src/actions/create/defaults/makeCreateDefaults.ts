@@ -21,6 +21,7 @@ const makeCreateDefaults = (path: string[]) => (actionType?: string | LeafAction
     on: () => producerOfLeafStandardActions(atomicActions.ON)(),
     path: (path: string[], value: any) => producerOfLeafStandardActions(atomicActions.SET)({ path, value }),
     push: (element: any, index: number = -1, replace: boolean = false) => producerOfLeafStandardActions(atomicActions.PUSH)({ element, index, replace }),
+    pushedSet: (value: any) => producerOfLeafStandardActions(atomicActions.PUSHED_SET)(value),
     // replace: (pattern: string | RegExp, replacement: string) => producerOfLeafStandardActions(atomicActions.REPLACE)({ pattern, replacement }),
     reset: () => producerOfLeafStandardActions(atomicActions.RESET)(),
     set: (key: string, value: any) => producerOfLeafStandardActions(atomicActions.SET)({ path: [key], value }),

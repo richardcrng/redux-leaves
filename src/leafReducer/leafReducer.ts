@@ -9,6 +9,7 @@ import LeafReducerConfig from '../types/Leaf/Reducer/Config';
 import LeafActionData from '../types/Leaf/Action/Data';
 import { replaceAtIndex, insertAtIndex } from '../utils/array-utils';
 import { updateState } from '../utils';
+import generatePushID from '../utils/generate-pushid';
 
 export const leafReducer = (
   leafState: any,
@@ -39,6 +40,7 @@ export const leafReducer = (
       case atomicActions.OFF: return false
       case atomicActions.ON: return true
       case atomicActions.PUSH: return push(draftLeafState, payload)
+      case atomicActions.PUSHED_SET: return pushedSet(draftLeafState, payload)
       // case atomicActions.REPLACE: return replace(draftLeafState, payload)
       case atomicActions.RESET: return reset(initialWhole, path)
       case atomicActions.SET: return set(draftLeafState, payload)
@@ -89,6 +91,13 @@ const push = (
       ? replaceAtIndex(leafState, index, element)
       : insertAtIndex(leafState, index, element)
   )
+
+const pushedSet = (state: object, valueOrCallback: any) => {
+  const pushId: string = generatePushID()
+  return typeof valueOrCallback === 'function'
+    ? set(state, { path: [pushId], value: valueOrCallback(pushId) })
+    : set(state, { path: [pushId], value: valueOrCallback })
+}
 
 // const replace = (
 //   leafState: string,
