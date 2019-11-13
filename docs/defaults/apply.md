@@ -10,7 +10,7 @@ sidebar_label: apply
 **`create(actionType).apply`**
 *Appropriate leaf state: any*
 
-Returns an action object that, *when dispatched to a store created with the original state tree*, updates the leaf's state to the return value of `callback(leafState, treeState)`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state to the return value of `callback(leafState, treeState)`.
 
 *Note: creating an action using `apply(callback)` does not follow Redux's non-enforced recommendation that [actions should always be serializable](https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants), since the resultant action will have the function `callback` as its `payload`.*
 

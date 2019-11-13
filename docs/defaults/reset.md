@@ -10,7 +10,7 @@ sidebar_label: reset
 **`create(actionType).reset`**
 *Appropriate leaf state: any*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, resets the leaf's state to its initial state stored in the actions.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively reset the leaf's state to its initial state as passed into `reduxLeaves`.
 
 ## Returns
 `action` *(object)*: an object to dispatch to the store

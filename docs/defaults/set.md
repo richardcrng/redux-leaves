@@ -10,7 +10,7 @@ sidebar_label: set
 **`create(actionType).set`**
 *Appropriate leaf type: object*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, updates the leaf's state at the property `key` with `value`.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state at the property `key` with `value`.
 
 ## Parameters
 - `key` *(string)*: the path of the property to set

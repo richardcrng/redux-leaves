@@ -10,7 +10,7 @@ sidebar_label: push
 **`create(actionType).push`**
 *Appropriate leaf type: array*
 
-Returns an object that, *when dispatched to a store created with the original state tree*, non-mutatively pushes `element` to the leaf's state at index `index`. If `replace` is `true`, then `element` replaces the existing element with that index.
+Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively push `element` to the leaf's state at index `index`. If `replace` is `true`, then `element` replaces the existing element with that index.
 
 ## Parameters
 - `element` *(any)*: the element to insert to the leaf's state
