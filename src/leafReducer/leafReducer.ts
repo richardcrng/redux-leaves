@@ -92,9 +92,11 @@ const push = (
       : insertAtIndex(leafState, index, element)
   )
 
-const pushedSet = (state: object, value: any) => {
+const pushedSet = (state: object, valueOrCallback: any) => {
   const pushId: string = generatePushID()
-  return set(state, { path: [pushId], value })
+  return typeof valueOrCallback === 'function'
+    ? set(state, { path: [pushId], value: valueOrCallback(pushId) })
+    : set(state, { path: [pushId], value: valueOrCallback })
 }
 
 // const replace = (
