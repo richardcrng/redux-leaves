@@ -21,7 +21,7 @@ const generatePushID: () => string = (function () {
   // timestamp to prevent collisions with other clients.  We store the last characters we
   // generated because in the event of a collision, we'll use those same characters except
   // "incremented" by one.
-  var lastRandChars = [];
+  var lastRandChars: any[] = [];
 
   return function () {
     var now = new Date().getTime();
