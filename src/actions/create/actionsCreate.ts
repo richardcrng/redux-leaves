@@ -4,7 +4,7 @@ import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
 
-function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: string[] = []) {
+function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: (string | number)[] = []) {
   const createDefaults = makeCreateDefaults(pathToLeafOrBranch)
   const createCustoms = makeCreateCustoms(pathToLeafOrBranch, customReducers)
 

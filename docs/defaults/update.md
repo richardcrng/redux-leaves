@@ -42,12 +42,12 @@ store.dispatch(updateStr("I can put anything here"))
 console.log(store.getState().str) // 'I can put anything here'
 ```
 
-### Calling `create(actionType).update` on a leaf:
+### Calling `create.update` on an array element:
 
 ```js
-const updateNum = actions.num.create('UPDATE_NUM').update
-store.dispatch(updateNum(9001))
-console.log(store.getState().num) // 9001
+const updateFirstElementOfArr = actions.arr[1].create.update
+store.dispatch(updateFirstElementOfArr('second'))
+console.log(store.getState().arr) // [1, 'second', 3]
 ```
 
 ### Calling `create.update` on a branch:

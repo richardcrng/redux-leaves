@@ -7,7 +7,7 @@ const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-const makeCreateDefaults = (path: string[]) => (actionType?: string | LeafActionTypeCreator) => {
+const makeCreateDefaults = (path: (string | number)[]) => (actionType?: string | LeafActionTypeCreator) => {
   const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)(path)
   return {
     apply: (callback: (leafState: any, treeState: any) => any) => producerOfLeafStandardActions(atomicActions.APPLY)(callback),

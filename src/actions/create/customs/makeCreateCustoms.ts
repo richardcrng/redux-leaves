@@ -10,7 +10,7 @@ const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-const makeCreateCustoms = (path: string[], reducersDict: Dict<LeafReducerConfig> = {}) => (actionType?: string | LeafActionTypeCreator) => {
+const makeCreateCustoms = (path: (string | number)[], reducersDict: Dict<LeafReducerConfig> = {}) => (actionType?: string | LeafActionTypeCreator) => {
   const leafReducerConfigToCreator = makeProducerOfLeafReducerConfigToCreator(actionType)
 
   return R.mapObjIndexed(
