@@ -19,7 +19,7 @@ const makeCreateDefaults = (path: (string | number)[]) => (actionType?: string |
     increment: (n: number = 1) => producerOfLeafStandardActions(atomicActions.INCREMENT)(n),
     off: () => producerOfLeafStandardActions(atomicActions.OFF)(),
     on: () => producerOfLeafStandardActions(atomicActions.ON)(),
-    path: (path: string[], value: any) => producerOfLeafStandardActions(atomicActions.SET)({ path, value }),
+    path: (path: (string | number)[], value: any) => producerOfLeafStandardActions(atomicActions.SET)({ path, value }),
     push: (element: any, index: number = -1, replace: boolean = false) => producerOfLeafStandardActions(atomicActions.PUSH)({ element, index, replace }),
     pushedSet: (value: any) => producerOfLeafStandardActions(atomicActions.PUSHED_SET)(value),
     // replace: (pattern: string | RegExp, replacement: string) => producerOfLeafStandardActions(atomicActions.REPLACE)({ pattern, replacement }),
@@ -31,7 +31,7 @@ const makeCreateDefaults = (path: (string | number)[]) => (actionType?: string |
 }
 
 const makeProducerOfLeafStandardActions = (actionType: string | LeafActionTypeCreator = leafReducerDefaults.actionType) => {
-  return (path: string[]) => (creatorKey: string) => (payload?: any): LeafStandardAction => {
+  return (path: (string | number)[]) => (creatorKey: string) => (payload?: any): LeafStandardAction => {
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
     const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, compound: false }
     const type = (typeof actionType === "function")

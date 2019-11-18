@@ -20,7 +20,7 @@ const makeCreateCustoms = (path: (string | number)[], reducersDict: Dict<LeafRed
 }
 
 const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActionTypeCreator) => {
-  const leafReducerConfigToCreator = R.curry((path: string[], leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
+  const leafReducerConfigToCreator = R.curry((path: (string | number)[], leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
     const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
 
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
