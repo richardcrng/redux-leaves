@@ -27,7 +27,7 @@ const initialState = {
   bool: false,
   num: 2,
   str: 'foo',
-  arr: [1, 2, 3]
+  arr: [1, 2, { number: 3 }]
 }
 
 const [reducer, actions] = reduxLeaves(initialState)
@@ -47,7 +47,15 @@ console.log(store.getState().str) // 'I can put anything here'
 ```js
 const updateFirstElementOfArr = actions.arr[1].create.update
 store.dispatch(updateFirstElementOfArr('second'))
-console.log(store.getState().arr) // [1, 'second', 3]
+console.log(store.getState().arr) // [1, 'second', { number: 3 }]
+```
+
+### Calling `create.update` within an array element:
+
+```js
+const updateSecondElementNumberProp = actions.arr[2].number.create.update
+store.dispatch(updateSecondElementNumberProp(1337))
+console.log(store.getState().arr) // [1, 'second', { number: 1337 }]
 ```
 
 ### Calling `create.update` on a branch:
