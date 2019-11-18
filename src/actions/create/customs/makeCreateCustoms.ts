@@ -10,7 +10,7 @@ const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-const makeCreateCustoms = (path: string[], reducersDict: Dict<LeafReducerConfig> = {}) => (actionType?: string | LeafActionTypeCreator) => {
+const makeCreateCustoms = (path: (string | number)[], reducersDict: Dict<LeafReducerConfig> = {}) => (actionType?: string | LeafActionTypeCreator) => {
   const leafReducerConfigToCreator = makeProducerOfLeafReducerConfigToCreator(actionType)
 
   return R.mapObjIndexed(
@@ -20,7 +20,7 @@ const makeCreateCustoms = (path: string[], reducersDict: Dict<LeafReducerConfig>
 }
 
 const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActionTypeCreator) => {
-  const leafReducerConfigToCreator = R.curry((path: string[], leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
+  const leafReducerConfigToCreator = R.curry((path: (string | number)[], leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
     const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
 
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()

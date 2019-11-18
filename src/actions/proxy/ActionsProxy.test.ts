@@ -93,8 +93,8 @@ describe('ActionsProxy class with empty state and non-empty leaf reducers dictio
       describe('AND action = result.create.didAThing()', () => {
         const action = result.create.didAThing()
 
-        test('THEN action.leaf.path is equal to ["test", "0", "3", "numbers"]', () => {
-          expect(action.leaf.path).toEqual(["test", "0", "3", "numbers"])
+        test('THEN action.leaf.path is equal to ["test", 0, 3, "numbers"]', () => {
+          expect(action.leaf.path).toEqual(["test", 0, 3, "numbers"])
         })
       })
     })

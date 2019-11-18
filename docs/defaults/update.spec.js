@@ -7,7 +7,7 @@ describe("leaf.create.update(value): returns an action that, when dispatched, up
     bool: false,
     num: 2,
     str: 'foo',
-    arr: [1, 2, 3]
+    arr: [1, 2, { number: 3 }]
   }
 
   const [reducer, actions] = reduxLeaves(initialState)
@@ -19,10 +19,16 @@ describe("leaf.create.update(value): returns an action that, when dispatched, up
     expect(store.getState().str).toBe('I can put anything here')
   })
 
-  test('Calling create(actionType).update on a leaf', () => {
-    const updateNum = actions.num.create('UPDATE_NUM').update
-    store.dispatch(updateNum(9001))
-    expect(store.getState().num).toBe(9001)
+  test('Calling create.update on an array element', () => {
+    const updateFirstElementOfArr = actions.arr[1].create.update
+    store.dispatch(updateFirstElementOfArr('second'))
+    expect(store.getState().arr).toEqual([1, 'second', { number: 3 }])
+  })
+
+  test('Calling create.update within an array element', () => {
+    const updateSecondElementNumberProp = actions.arr[2].number.create.update
+    store.dispatch(updateSecondElementNumberProp(1337))
+    expect(store.getState().arr).toEqual([1, 'second', { number: 1337 }])
   })
 
   test('Calling create.update on a branch', () => {
