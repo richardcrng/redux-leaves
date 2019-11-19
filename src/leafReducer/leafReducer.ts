@@ -22,33 +22,30 @@ export const leafReducer = (
   const { leaf = {}, payload } = action;
   const { custom, creatorKey, path } = leaf as LeafActionData;
 
-  return produce(leafState, (draftLeafState: any) : any => {
-    // Custom actions
-    if (custom) {
-      return leafReducerCustom(draftLeafState, action, wholeState, reducersDict)
-    }
+  if (custom) {
+    return leafReducerCustom(leafState, action, wholeState, reducersDict)
+  }
 
-    // Type-agnostic actions
-    switch (creatorKey) {
-      case atomicActions.APPLY: return apply(payload, draftLeafState, wholeState)
-      case atomicActions.ASSIGN: return assign(draftLeafState, payload)
-      case atomicActions.CLEAR: return clear(draftLeafState, payload)
-      case atomicActions.CONCAT: return concat(draftLeafState, payload)
-      case atomicActions.DROP: return drop(draftLeafState, payload)
-      case atomicActions.FILTER: return filter(draftLeafState, payload)
-      case atomicActions.INCREMENT: return draftLeafState + payload
-      case atomicActions.OFF: return false
-      case atomicActions.ON: return true
-      case atomicActions.PUSH: return push(draftLeafState, payload)
-      case atomicActions.PUSHED_SET: return pushedSet(draftLeafState, payload)
-      // case atomicActions.REPLACE: return replace(draftLeafState, payload)
-      case atomicActions.RESET: return reset(initialWhole, path)
-      case atomicActions.SET: return set(draftLeafState, payload)
-      case atomicActions.TOGGLE: return !draftLeafState
-      case atomicActions.UPDATE: return payload
-      default: return draftLeafState
-    }
-  })
+  // Type-agnostic actions
+  switch (creatorKey) {
+    case atomicActions.APPLY: return apply(payload, leafState, wholeState)
+    case atomicActions.ASSIGN: return assign(leafState, payload)
+    case atomicActions.CLEAR: return clear(leafState, payload)
+    case atomicActions.CONCAT: return concat(leafState, payload)
+    case atomicActions.DROP: return drop(leafState, payload)
+    case atomicActions.FILTER: return filter(leafState, payload)
+    case atomicActions.INCREMENT: return leafState + payload
+    case atomicActions.OFF: return false
+    case atomicActions.ON: return true
+    case atomicActions.PUSH: return push(leafState, payload)
+    case atomicActions.PUSHED_SET: return pushedSet(leafState, payload)
+    // case atomicActions.REPLACE: return replace(leafState, payload)
+    case atomicActions.RESET: return reset(initialWhole, path)
+    case atomicActions.SET: return set(leafState, payload)
+    case atomicActions.TOGGLE: return !leafState
+    case atomicActions.UPDATE: return payload
+    default: return leafState
+  }
 }
 
 const apply = (callback: (leafState: any, treeState: any) => any, leafState: any, wholeState: any) => (

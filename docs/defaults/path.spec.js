@@ -4,7 +4,7 @@ import reduxLeaves from '../../src';
 describe("leaf.create.path(path, value): returns an action that, when dispatched, updates the leaf's state by setting a proprety at path as value", () => {
   const initialState = {
     foo: {},
-    bar: {}
+    bar: { arbitrary: { keys: 3 } }
   }
 
   const [reducer, actions] = reduxLeaves(initialState)
