@@ -3,47 +3,107 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Write one. Reduce anywhere.",
+    "tagline": "Write once. Reduce anywhere.",
     "docs": {
-      "create/asArray/array-creators": {
-        "title": "Array Action Creators",
-        "sidebar_label": "Array"
+      "api/actions": {
+        "title": "actions",
+        "sidebar_label": "actions"
       },
-      "create/asBoolean/boolean-creators": {
-        "title": "Boolean Action Creators",
-        "sidebar_label": "Boolean"
+      "api/bundle": {
+        "title": "bundle",
+        "sidebar_label": "bundle"
       },
-      "create/asNumber/number-creators": {
-        "title": "Number Action Creators",
-        "sidebar_label": "Number"
+      "api/create": {
+        "title": "create",
+        "sidebar_label": "create"
       },
-      "create/asObject/object-creators": {
-        "title": "Object Action Creators",
-        "sidebar_label": "Object"
-      },
-      "create/asString/string-creators": {
-        "title": "String Action Creators",
-        "sidebar_label": "String"
-      },
-      "create/defaults": {
-        "title": "Default Action Creators",
-        "sidebar_label": "Universal"
-      },
-      "create/creators": {
-        "title": "Action Creators",
-        "sidebar_label": "Actions"
-      },
-      "create/type-specific": {
-        "title": "Type-Specific Action Creators",
-        "sidebar_label": "Type-specific"
-      },
-      "creator-keys": {
+      "api/creator-keys": {
         "title": "Creator Keys",
         "sidebar_label": "Creator keys"
       },
-      "intro/demo": {
-        "title": "30 Second Demo",
-        "sidebar_label": "30 second demo"
+      "api/leaf-reducers": {
+        "title": "Leaf Reducers",
+        "sidebar_label": "Leaf reducers"
+      },
+      "defaults/apply": {
+        "title": "apply",
+        "sidebar_label": "apply"
+      },
+      "defaults/assign": {
+        "title": "assign",
+        "sidebar_label": "assign"
+      },
+      "defaults/clear": {
+        "title": "clear",
+        "sidebar_label": "clear"
+      },
+      "defaults/concat": {
+        "title": "concat",
+        "sidebar_label": "concat"
+      },
+      "defaults/drop": {
+        "title": "drop",
+        "sidebar_label": "drop"
+      },
+      "defaults/filter": {
+        "title": "filter",
+        "sidebar_label": "filter"
+      },
+      "defaults/increment": {
+        "title": "increment",
+        "sidebar_label": "increment"
+      },
+      "defaults/off": {
+        "title": "off",
+        "sidebar_label": "off"
+      },
+      "defaults/on": {
+        "title": "on",
+        "sidebar_label": "on"
+      },
+      "defaults/path": {
+        "title": "path",
+        "sidebar_label": "path"
+      },
+      "defaults/push": {
+        "title": "push",
+        "sidebar_label": "push"
+      },
+      "defaults/pushed-set": {
+        "title": "pushed-set",
+        "sidebar_label": "pushed-set"
+      },
+      "defaults/overview": {
+        "title": "Default action creators",
+        "sidebar_label": "Overview"
+      },
+      "defaults/reset": {
+        "title": "reset",
+        "sidebar_label": "reset"
+      },
+      "defaults/set": {
+        "title": "set",
+        "sidebar_label": "set"
+      },
+      "defaults/toggle": {
+        "title": "toggle",
+        "sidebar_label": "toggle"
+      },
+      "defaults/update": {
+        "title": "update",
+        "sidebar_label": "update"
+      },
+      "examples/advanced-example": {
+        "title": "Advanced example",
+        "sidebar_label": "Advanced example"
+      },
+      "examples/basic-example": {
+        "title": "Basic example",
+        "sidebar_label": "Basic example"
+      },
+      "examples/intermediate-example": {
+        "title": "Intermediate example",
+        "sidebar_label": "Intermediate example"
       },
       "intro/features": {
         "title": "Features"
@@ -51,37 +111,25 @@
       "intro/overview": {
         "title": "Overview"
       },
-      "leaf/about": {
-        "title": "Leaves in Redux-Leaves",
-        "sidebar_label": "About 'leaves'"
-      },
-      "leaf/standard-actions": {
-        "title": "Leaf-Standard-Actions",
-        "sidebar_label": "Leaf-Standard-Actions"
-      },
-      "leaf-reducers": {
-        "title": "Leaf Reducers",
-        "sidebar_label": "Leaf reducers"
-      },
       "motivation": {
         "title": "Motivation",
         "sidebar_label": "Motivation"
       },
       "redux-leaves": {
-        "title": "Core API",
-        "sidebar_label": "reduxLeaves API"
+        "title": "reduxLeaves",
+        "sidebar_label": "reduxLeaves"
       }
     },
     "links": {
       "Overview": "Overview",
-      "Sandbox": "Sandbox",
+      "Demo": "Demo",
       "Docs": "Docs",
       "GitHub": "GitHub"
     },
     "categories": {
       "Introduction": "Introduction",
-      "Leaves & Reducers": "Leaves & Reducers",
-      "Actions": "Actions",
+      "Examples": "Examples",
+      "API Reference": "API Reference",
       "Default creators": "Default creators"
     }
   },

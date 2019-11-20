@@ -13,6 +13,49 @@ const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
+const source = `// Runkit doesn't support import
+const { reduxLeaves, bundle } = require('redux-leaves')
+const { createStore } = require('redux')
+
+// set up with initial state
+const initialState = {
+  counter: 0,
+  list: [],
+  props: {}
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+// setup complete! Now dispatch actions to your heart's content
+
+console.log(store.getState())
+// => { counter: 0, list: [], props: {} } 
+
+store.dispatch(actions.counter.create.increment(10))
+console.log(store.getState())
+// => { counter: 10, list: [], props: {} }
+
+store.dispatch(actions.list.create.push('foo'))
+console.log(store.getState())
+// => { counter: 10, list: ['foo'], props: {} }
+
+const compoundAction = bundle([
+  actions.counter.create.reset(),
+  actions.list[0].create.concat('bar'),
+  actions.props.at.arbitrary.path.create.update('here I am!')
+])
+
+store.dispatch(compoundAction)
+console.log(store.getState())
+/*
+  => {
+    counter: 0,
+    list: ['foobar'],
+    props: { at: { arbitrary: { path: 'here I am!' } } }
+  }
+*/`
+
 class HomeSplash extends React.Component {
   render() {
     const {siteConfig, language = ''} = this.props;
@@ -208,7 +251,22 @@ class Index extends React.Component {
 
     return (
       <div>
+        <script
+          src="https://embed.runkit.com"
+          data-element-id="redux-leaves-demo"
+          // preamble={preamble}
+        />
         <HomeSplash siteConfig={siteConfig} language={language} />
+        <div
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          <div
+            id="redux-leaves-demo"
+            style={{ width: '80vw' }}
+          >
+            {source}
+          </div>
+        </div>
         <div className="mainContainer">
           <Features />
           {/* <FeatureCallout />
