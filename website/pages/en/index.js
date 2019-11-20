@@ -17,6 +17,7 @@ const source = `// Runkit doesn't support import
 const { reduxLeaves, bundle } = require('redux-leaves')
 const { createStore } = require('redux')
 
+// set up with initial state
 const initialState = {
   counter: 0,
   list: [],
@@ -25,6 +26,8 @@ const initialState = {
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
+
+// setup complete! Now dispatch actions to your heart's content
 
 console.log(store.getState())
 // => { counter: 0, list: [], props: {} } 
@@ -37,13 +40,13 @@ store.dispatch(actions.list.create.push('foo'))
 console.log(store.getState())
 // => { counter: 10, list: ['foo'], props: {} }
 
-const complexAction = bundle([
+const compoundAction = bundle([
   actions.counter.create.reset(),
   actions.list[0].create.concat('bar'),
   actions.props.at.arbitrary.path.create.update('here I am!')
 ])
 
-store.dispatch(complexAction)
+store.dispatch(compoundAction)
 console.log(store.getState())
 /*
   => {
