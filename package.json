@@ -18,7 +18,6 @@
     "lodash": "^4.17.15",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.18.0",
-    "redux": "^4.0.1",
     "set-value": ">=2.0.1"
   },
   "repository": {
@@ -48,6 +47,7 @@
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.3",
     "jest": "^24.7.1",
+    "redux": "^4.0.4",
     "typescript": "^3.5.3",
     "util": "^0.12.1"
   }
