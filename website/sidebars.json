@@ -7,7 +7,8 @@
     "Examples":[
       "examples/basic-example",
       "examples/intermediate-example",
-      "examples/advanced-example"
+      "examples/advanced-example",
+      "examples/usereducer-example"
     ],
     "API Reference": [
       "redux-leaves",
