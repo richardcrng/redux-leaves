@@ -37,9 +37,7 @@ Let's consider some of the developer complaints against Redux.
 Maybe that developer experience would be better if we could:
 
 > 1. **Quickly set up** Redux for basic state changes;
-
 > 2. **Intuitively create actions** for arbitrary needs; and
-
 > 3. **Cut down boilerplate** of reducers drastically?
 
 ### What?
