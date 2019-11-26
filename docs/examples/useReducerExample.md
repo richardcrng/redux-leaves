@@ -29,7 +29,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div className="App">
+    <>
       <h1>Hello, {state.name}!</h1>
       <div>
         <b>Name: </b>
@@ -58,7 +58,7 @@ function App() {
         <b>Greeted: </b>
         {state.list.join(", ")}
       </div>
-    </div>
+    </>
   );
 }
 ```
