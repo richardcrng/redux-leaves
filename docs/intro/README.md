@@ -35,11 +35,12 @@ Let's consider some of the developer complaints against Redux.
 * "Redux requires a ton of files to establish a new reducer"
 
 Maybe that developer experience would be better if we could:
-1. **Quickly set up** Redux for basic state changes;
-2. **Intuitively create actions** for arbitrary needs; and
-3. **Cut down boilerplate** of reducers drastically?
 
-> **What if Redux state management could be quicker, more intuitive and leaner?**
+> 1. **Quickly set up** Redux for basic state changes;
+
+> 2. **Intuitively create actions** for arbitrary needs; and
+
+> 3. **Cut down boilerplate** of reducers drastically?
 
 ### What?
 
@@ -48,8 +49,6 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - [Intuitive API](features.md#intuitive-api); and
 - [Minimal boilerplate](features.md#minimal-boilerplate).
 
-### Scrimba course
+### Bonus: `useReducer` usage
 
-There's an interactive [Scrimba course](https://scrimba.com/c/cNqRmKtZ) which demonstrates Redux-Leaves used with the [React-Redux hooks](https://react-redux.js.org/api/hooks).
-
-It's aimed at new developers, to show how Redux-Leaves can be an easier way to learn Redux, although it also demonstrates the library to more experienced developers who want an interactive playground.
+Although Redux-Leaves was written to make it easier to work with Redux, [it also works great with `useReducer`](../examples/useReducerExample.md)!
