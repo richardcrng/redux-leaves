@@ -17,8 +17,8 @@ npm install --save redux-leaves
 [Main documentation website](https://redux-leaves.js.org)
 
 ### Getting started
-- [Overview](intro/README.md)
-- [30 second demo](docs/examples/basic-example.md)
+- [Overview](docs/intro/README.md)
+- [30 second demo](docs/examples/basicExample.md)
 
 ### API reference
 - [Core: `reduxLeaves(initialState, reducers)`](docs/README.md)
