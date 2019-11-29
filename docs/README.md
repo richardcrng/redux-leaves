@@ -9,7 +9,7 @@ sidebar_label: reduxLeaves
 
 Returns a reducer function and an actions object.
 
-**See the [30 second demo](intro/demo.md)** for usage.
+**See the [30 second demo](examples/basicExample.md)** for usage.
 
 ## Parameters
 - [`initialState`](#initialstate) *(object)*: the state shape and initial values for your Redux store
