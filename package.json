@@ -10,14 +10,14 @@
     "url": "https://github.com/richardcrng/"
   },
   "dependencies": {
-    "@types/jest": "^24.0.16",
-    "@types/node": "^12.6.8",
-    "@types/ramda": "^0.26.18",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^12.12.24",
+    "@types/ramda": "^0.26.39",
     "change-case": "^3.1.0",
     "immer": "^3.1.2",
     "lodash": "^4.17.15",
     "ramda": "^0.26.1",
-    "ramda-adjunct": "^2.18.0",
+    "ramda-adjunct": "^2.23.0",
     "set-value": ">=2.0.1"
   },
   "repository": {
@@ -37,18 +37,18 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
     "babel-jest": "^24.7.1",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.9",
     "jest": "^24.7.1",
-    "redux": "^4.0.4",
-    "typescript": "^3.5.3",
+    "redux": "^4.0.5",
+    "typescript": "^3.7.4",
     "util": "^0.12.1"
   }
 }
