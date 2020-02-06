@@ -5,22 +5,36 @@ import LeafActionData from '../../../types/Leaf/Action/Data'
 import Dict from '../../../types/Dict'
 import LeafReducerConfig from '../../../types/Leaf/Reducer/Config'
 import LeafStandardActionCreator from '../../../types/Actions/LSA/Creator'
+import { Dictionary } from 'ramda'
+import LeafCreatorAPICustoms from '../../../types/Leaf/Creator/API/Customs'
 
 const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-const makeCreateCustoms = (path: (string | number)[], reducersDict: Dict<LeafReducerConfig> = {}) => (actionType?: string | LeafActionTypeCreator) => {
-  const leafReducerConfigToCreator = makeProducerOfLeafReducerConfigToCreator(actionType)
+type LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => LeafReducerConfigToCreator
+type LeafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string) => LeafStandardActionCreator 
 
-  return R.mapObjIndexed(
-    leafReducerConfigToCreator(path),
-    reducersDict
-  )
+function makeCreateCustoms<T extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>>(
+  path: (string | number)[],
+  reducersDict: T
+) {
+  return (actionType?: string | LeafActionTypeCreator): LeafCreatorAPICustoms<T> => {
+    const leafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = makeProducerOfLeafReducerConfigToCreator(actionType)
+
+    const customEntries = Object.entries(reducersDict).map(([creatorKey, leafReducerConfig]) => ([
+      creatorKey,
+      leafReducerConfigToCreator(path)(leafReducerConfig, creatorKey)
+    ]))
+
+    const customs: LeafCreatorAPICustoms<T> = Object.fromEntries(customEntries)
+
+    return customs
+  }
 }
 
 const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActionTypeCreator) => {
-  const leafReducerConfigToCreator = R.curry((path: (string | number)[], leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
+  const leafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => (leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
     const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
 
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
@@ -41,7 +55,7 @@ const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActi
         payload
       }
     }
-  })
+  }
 
   return leafReducerConfigToCreator
 }
