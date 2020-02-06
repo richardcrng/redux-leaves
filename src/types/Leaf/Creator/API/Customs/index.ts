@@ -1,3 +1,3 @@
-import LeafCreatorAPICustoms from './LeafCreatorAPICustoms.interface';
+import LeafCreatorAPICustoms from './LeafCreatorAPICustoms.type';
 
 export default LeafCreatorAPICustoms

@@ -9,10 +9,12 @@ import FluxStandardAction from './types/Actions/FSA';
 import { Dictionary } from 'ramda';
 import LeafReducer from './types/Leaf/Reducer';
 
-export const reduxLeaves = <T = Dictionary<any>>(initialState: T, reducersDict: Dictionary<LeafReducer> = {}): [Reducer<T, FluxStandardAction | LeafStandardAction | LeafCompoundAction>, ActionsProxy] => {
+type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
+
+function reduxLeaves<S = Dictionary<any>, D extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsProxy] {
   const leafReducersDict = standardiseReducersDict(reducersDict)
 
-  const reducer: Reducer<T, FluxStandardAction | LeafStandardAction | LeafCompoundAction> = function(state = initialState, action: FluxStandardAction | LeafStandardAction | LeafCompoundAction) {
+  const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {
 
     if (!isLeafAction(action)) return state
 
@@ -43,11 +45,14 @@ export const reduxLeaves = <T = Dictionary<any>>(initialState: T, reducersDict: 
   return [reducer, actions]
 }
 
-function isLeafAction(action: FluxStandardAction | LeafStandardAction | LeafCompoundAction): action is LeafStandardAction | LeafCompoundAction {
+function isLeafAction(action: Action): action is LeafStandardAction | LeafCompoundAction {
   // @ts-ignore
   return action.leaf
 }
 
-function isCompoundAction(action: FluxStandardAction | LeafStandardAction | LeafCompoundAction): action is LeafCompoundAction {
+function isCompoundAction(action: Action): action is LeafCompoundAction {
   return isLeafAction(action) && action.leaf.compound
 }
+
+export { reduxLeaves }
+export default reduxLeaves
