@@ -6,7 +6,7 @@ import { LeafCreateFunction } from '../../types/Leaf/Creator';
 import LeafCreatorAPI from '../../types/Leaf/Creator/API';
 import { Dictionary } from 'ramda';
 
-function actionsCreate<S = Dictionary<any>, D extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>>(stateShape: S, customReducers: D, pathToLeafOrBranch: (string | number)[] = []) {
+function actionsCreate<D extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>>(customReducers: D, pathToLeafOrBranch: (string | number)[] = []) {
   const createDefaults = makeCreateDefaults(pathToLeafOrBranch)
   const createCustoms = makeCreateCustoms(pathToLeafOrBranch, customReducers)
 

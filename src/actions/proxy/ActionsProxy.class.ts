@@ -1,15 +1,15 @@
 import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
-import Dict from "../../types/Dict";
 import actionsCreate from "../create";
+import { Dictionary } from "ramda";
 
-class ActionsProxy {
-  [key: string]: any;
+class ActionsProxy<S extends Dictionary<any> = Dictionary<any>, D extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>> {
+  // [K in S]: any;
 
-  constructor(stateShape: Dict<any>, actionsDict: Dict<LeafReducerConfig>, path: (string | number)[] = []) {
-    return new Proxy(this, {
+  constructor(stateShape: S, actionsDict: D, path: (string | number)[] = []) {
+    return new Proxy(stateShape, {
       get: (obj, prop: string) => {
         switch (prop) {
-          case 'create': return actionsCreate(stateShape, actionsDict, path)
+          case 'create': return actionsCreate<D>(actionsDict, path)
           default: return new ActionsProxy(stateShape, actionsDict, [...path, propForPath(prop)])
         }
       }

@@ -8,11 +8,12 @@ import LeafCompoundAction from './types/Actions/LCA';
 import FluxStandardAction from './types/Actions/FSA';
 import { Dictionary } from 'ramda';
 import LeafReducer from './types/Leaf/Reducer';
+import LeafReducerDict from './types/Leaf/Reducer/Dict';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<S = Dictionary<any>, D extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsProxy] {
-  const leafReducersDict = standardiseReducersDict(reducersDict)
+function reduxLeaves<S extends Dictionary<any> = Dictionary<any>, D extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsProxy] {
+  const leafReducersDict: LeafReducerDict<D> = standardiseReducersDict<D>(reducersDict || {} as D)
 
   const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {
 
@@ -40,7 +41,7 @@ function reduxLeaves<S = Dictionary<any>, D extends Dictionary<LeafReducer> = Di
     return updateState(state, path, newLeafState)
   }
 
-  const actions = new ActionsProxy(initialState, leafReducersDict)
+  const actions = new ActionsProxy<S, LeafReducerDict<D>>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
