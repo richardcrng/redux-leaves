@@ -1,4 +1,4 @@
-import LeafCreatorAPI, { LeafCreatorAPITyped } from '../../Leaf/Creator/API';
+import LeafCreatorAPI from '../../Leaf/Creator/API';
 
 type ActionsLeaf = {
   create: LeafCreatorAPI
