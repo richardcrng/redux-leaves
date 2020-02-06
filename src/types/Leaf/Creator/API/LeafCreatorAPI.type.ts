@@ -1,9 +1,8 @@
 import LeafCreatorAPIDefaults from './Defaults';
-import Dict from '../../../Dict';
-import LeafStandardActionCreator from '../../../Actions/LSA/Creator';
+import { Dictionary } from 'ramda';
+import LeafReducerConfig from '../../Reducer/Config';
+import LeafCreatorAPICustoms from './Customs';
 
-type LeafCreatorAPI = LeafCreatorAPIDefaults & {
-  custom?: Dict<LeafStandardActionCreator>
-}
+type LeafCreatorAPI<T extends Dictionary<LeafReducerConfig>> = LeafCreatorAPIDefaults & LeafCreatorAPICustoms<T>
 
 export default LeafCreatorAPI
