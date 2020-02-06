@@ -7,6 +7,7 @@ interface LeafCreatorAPIDefaults {
   concat: (arrayOrString: any[] | string) => LeafStandardAction,
   drop: (n?: number) => LeafStandardAction,
   filter: (callback: (element: any, index: number, array: any[]) => any[]) => LeafStandardAction,
+  increment: (n?: number) => LeafStandardAction
   off: () => LeafStandardAction,
   on: () => LeafStandardAction,
   path: (path: (string | number)[], value: any) => LeafStandardAction,

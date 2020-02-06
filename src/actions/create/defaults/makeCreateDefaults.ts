@@ -2,12 +2,13 @@ import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
 import LeafStandardAction from "../../../types/Actions/LSA"
 import LeafActionData from '../../../types/Leaf/Action/Data'
 import { atomicActions } from '../../atomic'
+import LeafCreatorAPIDefaults from "../../../types/Leaf/Creator/API/Defaults"
 
 const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-const makeCreateDefaults = (path: (string | number)[]) => (actionType?: string | LeafActionTypeCreator) => {
+const makeCreateDefaults = (path: (string | number)[]) => (actionType?: string | LeafActionTypeCreator): LeafCreatorAPIDefaults => {
   const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)(path)
   return {
     apply: (callback: (leafState: any, treeState: any) => any) => producerOfLeafStandardActions(atomicActions.APPLY)(callback),
