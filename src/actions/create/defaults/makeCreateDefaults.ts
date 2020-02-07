@@ -13,10 +13,10 @@ function makeCreateDefaults<TS = Dict<any>, LS = any>(path: (string | number)[])
   const createDefaults = (actionType?: string | LeafActionTypeCreator): LeafCreatorAPIDefaults<TS, LS> => {
     const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)(path)
     return {
-      apply: (callback: (leafState: any, treeState: any) => any) => producerOfLeafStandardActions(atomicActions.APPLY)(callback),
       assign: (...sources: object[]) => producerOfLeafStandardActions(atomicActions.ASSIGN)(sources),
       clear: (toNull: boolean = false) => producerOfLeafStandardActions(atomicActions.CLEAR)(toNull),
       concat: (arrayOrString: any[] | string) => producerOfLeafStandardActions(atomicActions.CONCAT)(arrayOrString),
+      do: (callback: (leafState: any, treeState: any) => any) => producerOfLeafStandardActions(atomicActions.DO)(callback),
       drop: (n: number = 1) => producerOfLeafStandardActions(atomicActions.DROP)(n),
       filter: (callback: (element: any, index: number, array: any[]) => any[]) => producerOfLeafStandardActions(atomicActions.FILTER)(callback),
       increment: (n: number = 1) => producerOfLeafStandardActions(atomicActions.INCREMENT)(n),

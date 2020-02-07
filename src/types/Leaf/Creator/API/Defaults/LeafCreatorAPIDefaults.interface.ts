@@ -3,14 +3,14 @@ import Dict from "../../../../Dict";
 
 // export interface LeafCreatorAPIUniversal {
 //   clear: (toNull?: boolean) => LeafStandardAction
-//   // apply: (callback: (leafState: any, treeState: any) => any) => LeafStandardAction,
+// do: (callback: (leafState: any, treeState: any) => any) => LeafStandardAction,
 //   reset: () => LeafStandardAction
 //   // update: (newVal: any) => LeafStandardAction
 // }
 
 // export interface LeafCreatorAPIArray<TS extends Dict<any> = Dict<any>, E = any, LS = E[]> {
-//   apply: <O = E>(callback: (leafState: E[], treeState: TS) => O[]) => LeafStandardAction
 //   concat: (array: E[]) => LeafStandardAction
+//   do: <O = E>(callback: (leafState: E[], treeState: TS) => O[]) => LeafStandardAction
 //   drop: (n?: number) => LeafStandardAction
 //   filter: <O = E>(callback: (element: E, index: number, array: E[]) => O[]) => LeafStandardAction
 //   push: (element: E, index?: number, replace?: boolean) => LeafStandardAction
@@ -18,7 +18,7 @@ import Dict from "../../../../Dict";
 // }
 
 // export interface LeafCreatorAPIBoolean<TS extends Dict<any> = Dict<any>> {
-//   apply: (callback: (leafState: boolean, treeState: TS) => boolean) => LeafStandardAction
+//   do: (callback: (leafState: boolean, treeState: TS) => boolean) => LeafStandardAction
 //   off: () => LeafStandardAction
 //   on: () => LeafStandardAction
 //   toggle: () => LeafStandardAction
@@ -26,13 +26,13 @@ import Dict from "../../../../Dict";
 // }
 
 // export interface LeafCreatorAPINumber<TS extends Dict<any> = Dict<any>> {
-//   apply: (callback: (leafState: number, treeState: TS) => number) => LeafStandardAction
+//   do: (callback: (leafState: number, treeState: TS) => number) => LeafStandardAction
 //   increment: (n?: number) => LeafStandardAction
 //   update: (newVal: number) => LeafStandardAction
 // }
 
 // export interface LeafCreatorAPIObject<TS extends Dict<any> = Dict<any>, LS = any> {
-//   apply: (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction
+//   do: (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction
 //   assign: (sourceObject: Partial<LS>) => LeafStandardAction
 //   path: (path: (string | number)[], value: any) => LeafStandardAction
 //   pushedSet: (value: any) => LeafStandardAction
@@ -41,7 +41,7 @@ import Dict from "../../../../Dict";
 // }
 
 // export interface LeafCreatorAPIString<TS extends Dict<any> = Dict<any>, LS extends string = string> {
-//   apply: (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction
+//   do: (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction
 //   update: (newVal: LS) => LeafStandardAction
 // }
 
@@ -59,10 +59,10 @@ import Dict from "../../../../Dict";
 //     & LeafCreatorAPIObject<TS>
 
 interface LeafCreatorAPIDefaults<TS = Dict<any>, LS = any> {
-  apply: (callback: (leafState: LS, treeState: TS) => any) => LeafStandardAction,
   assign: (...sources: object[]) => LeafStandardAction,
   clear: (toNull?: boolean) => LeafStandardAction,
   concat: (arrayOrString: any[] | string) => LeafStandardAction,
+  do: (callback: (leafState: LS, treeState: TS) => any) => LeafStandardAction,
   drop: (n?: number) => LeafStandardAction,
   filter: (callback: (element: any, index: number, array: any[]) => any[]) => LeafStandardAction,
   increment: (n?: number) => LeafStandardAction
