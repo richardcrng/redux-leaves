@@ -12,6 +12,7 @@
 
 # production
 /build
+/website/build
 /dist
 
 # misc
