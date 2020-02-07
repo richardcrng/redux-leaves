@@ -13,7 +13,7 @@ import ProxiedActions from './types/Actions/Proxied';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ProxiedActions<S, D>] {
+function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ProxiedActions<S, LeafReducerDict<D>>] {
   const leafReducersDict: LeafReducerDict<D> = standardiseReducersDict<D>(reducersDict || {} as D)
 
   const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {

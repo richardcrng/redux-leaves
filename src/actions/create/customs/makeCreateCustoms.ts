@@ -14,11 +14,11 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
 type LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => LeafReducerConfigToCreator
 type LeafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string) => LeafStandardActionCreator 
 
-function makeCreateCustoms<T = LeafReducerDict>(
+function makeCreateCustoms<RD = LeafReducerDict>(
   path: (string | number)[],
-  reducersDict: T
+  reducersDict: RD
 ) {
-  return (actionType?: string | LeafActionTypeCreator): LeafCreatorAPICustoms<T> => {
+  return (actionType?: string | LeafActionTypeCreator): LeafCreatorAPICustoms<RD> => {
     const leafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = makeProducerOfLeafReducerConfigToCreator(actionType)
 
     const customEntries = Object.entries(reducersDict).map(([creatorKey, leafReducerConfig]) => ([
@@ -26,7 +26,7 @@ function makeCreateCustoms<T = LeafReducerDict>(
       leafReducerConfigToCreator(path)(leafReducerConfig, creatorKey)
     ]))
 
-    const customs: LeafCreatorAPICustoms<T> = Object.fromEntries(customEntries)
+    const customs: LeafCreatorAPICustoms<RD> = Object.fromEntries(customEntries)
 
     return customs
   }

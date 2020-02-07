@@ -1,8 +1,8 @@
 import LeafStandardActionCreator from "../../../../Actions/LSA/Creator";
 import LeafReducerDict from "../../../Reducer/Dict";
 
-type LeafCreatorAPICustoms<T = LeafReducerDict> = {
-  [K in keyof T]: LeafStandardActionCreator
+type LeafCreatorAPICustoms<RD = LeafReducerDict> = {
+  [K in keyof RD]: LeafStandardActionCreator
 }
 
 export default LeafCreatorAPICustoms

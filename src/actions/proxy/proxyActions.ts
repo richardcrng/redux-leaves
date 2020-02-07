@@ -12,9 +12,10 @@ function proxyActions<S extends Dict<any> = Dict<any>, D = LeafReducerDict>(
   
   const proxy = new Proxy<S>(stateShape, {
     get: (obj: any, prop: Extract<keyof S, string> | 'create') => {
-      if (prop === 'create') return actionsCreate<D>(actionsDict, path)
-
       const targetValue = stateShape[prop]
+
+      if (prop === 'create') return actionsCreate<D, typeof targetValue, S>(actionsDict, path)
+
       const proxySource = RA.isObjLike(targetValue)
         ? targetValue
         : {}

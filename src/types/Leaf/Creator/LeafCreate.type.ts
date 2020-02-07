@@ -1,8 +1,8 @@
 import LeafCreatorAPI from "./API";
 import LeafReducerDict from "../Reducer/Dict";
 
-export type LeafCreateFunction<D = LeafReducerDict> = (actionType?: string) => LeafCreatorAPI<D>
+export type LeafCreateFunction<RD = LeafReducerDict, LS = any> = (actionType?: string) => LeafCreatorAPI<RD, LS>
 
-type LeafCreate<D> = LeafCreateFunction<D> & LeafCreatorAPI<D>
+type LeafCreate<RD = LeafReducerDict, LS = any> = LeafCreateFunction<RD, LS> & LeafCreatorAPI<RD, LS>
 
 export default LeafCreate
