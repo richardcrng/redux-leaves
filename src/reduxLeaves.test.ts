@@ -4,7 +4,18 @@ import { createStore, Store } from "redux";
 describe("API: reduxLeaves(initialState)", () => {
 
   describe("GIVEN nested initialState with non-null values for shape { counter, foo, nested: { deep: {}, state: { manageable } } }", () => {
-    const initialState = {
+    interface State {
+      counter: number
+      foo: any[]
+      nested: {
+        deep: {}
+        state: {
+          manageable: string
+        }
+      }
+    }
+
+    const initialState: State = {
       counter: 1,
       foo: ["bar"],
       nested: {
@@ -22,16 +33,18 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof reducer).toBe("function")
       })
 
-      test("AND actions.counter is an object", () => {
+      test("AND actions.counter is an object with a create property", () => {
         expect(typeof actions.counter).toBe("object")
+        expect(typeof actions.counter.create).toBe('function')
       })
 
       test("AND actions.foo is an object", () => {
         expect(typeof actions.foo).toBe("object")
       })
 
-      test("AND actions.nested is an object", () => {
+      test("AND actions.nested is an object with a create property", () => {
         expect(typeof actions.nested).toBe("object")
+        expect(typeof actions.nested.create).toBe('function')
       })
 
       test("AND actions.nested.deep is an object", () => {

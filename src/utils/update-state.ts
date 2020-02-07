@@ -11,7 +11,7 @@ import { pathIsEmpty } from './path-utils';
 //   // @ts-ignore
 // )(path);
 
-const setValue = (obj: any, path: (string | number)[], value: any) => {
+export const setValue = (obj: any, path: (string | number)[], value: any) => {
   // let i;
   const pathTo = [...path]
   const finalProp = pathTo.pop()

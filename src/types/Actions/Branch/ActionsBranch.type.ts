@@ -1,10 +1,7 @@
-import ActionsLeaf from "../Leaf";
-import LeafCreatorAPI from "../../Leaf/Creator/API";
+import Dict from "../../Dict";
+import LeafReducerDict from "../../Leaf/Reducer/Dict";
+import LeafCreate from "../../Leaf/Creator";
 
-type ActionsBranch = ActionsLeaf & ActionsBranchDict
-
-interface ActionsBranchDict {
-  [key: string]: ActionsBranch | LeafCreatorAPI
-}
+type ActionsBranch<S extends Dict<any> = Dict<any>, D = LeafReducerDict> = S & { create: LeafCreate<D> }
 
 export default ActionsBranch

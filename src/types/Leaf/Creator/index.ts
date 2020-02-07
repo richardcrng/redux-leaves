@@ -1,3 +1,5 @@
-import { LeafCreateFunction } from './LeafCreate.type'
+import LeafCreate, { LeafCreateFunction } from './LeafCreate.type'
 
 export { LeafCreateFunction }
+
+export default LeafCreate

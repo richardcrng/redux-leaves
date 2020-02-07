@@ -3,16 +3,17 @@ import standardiseReducersDict from './reducersDict/standardise';
 import { getState, updateState } from './utils';
 import LeafStandardAction from './types/Actions/LSA';
 import { Reducer } from 'redux';
-import ActionsProxy from './actions/proxy';
+import ActionsProxy, { proxyActions } from './actions/proxy';
 import LeafCompoundAction from './types/Actions/LCA';
 import FluxStandardAction from './types/Actions/FSA';
 import LeafReducer from './types/Leaf/Reducer';
 import LeafReducerDict from './types/Leaf/Reducer/Dict';
 import Dict from './types/Dict';
+import ActionsBranch from './types/Actions/Branch';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsProxy] {
+function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsBranch<S, D>] {
   const leafReducersDict: LeafReducerDict<D> = standardiseReducersDict<D>(reducersDict || {} as D)
 
   const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {
@@ -41,7 +42,7 @@ function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer
     return updateState(state, path, newLeafState)
   }
 
-  const actions = new ActionsProxy<S, LeafReducerDict<D>>(initialState, leafReducersDict)
+  const actions = proxyActions<S, LeafReducerDict<D>>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
