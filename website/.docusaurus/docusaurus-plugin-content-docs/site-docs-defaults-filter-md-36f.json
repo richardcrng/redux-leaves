@@ -1,0 +1,17 @@
+{
+  "id": "defaults/filter",
+  "title": "filter",
+  "description": "# `filter(callback)`",
+  "source": "@site/../docs/defaults/filter.md",
+  "permalink": "/docs/defaults/filter",
+  "sidebar_label": "filter",
+  "sidebar": "docs",
+  "previous": {
+    "title": "drop",
+    "permalink": "/docs/defaults/drop"
+  },
+  "next": {
+    "title": "push",
+    "permalink": "/docs/defaults/push"
+  }
+}

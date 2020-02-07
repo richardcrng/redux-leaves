@@ -1,0 +1,17 @@
+{
+  "id": "defaults/off",
+  "title": "off",
+  "description": "# `off()`",
+  "source": "@site/../docs/defaults/off.md",
+  "permalink": "/docs/defaults/off",
+  "sidebar_label": "off",
+  "sidebar": "docs",
+  "previous": {
+    "title": "push",
+    "permalink": "/docs/defaults/push"
+  },
+  "next": {
+    "title": "on",
+    "permalink": "/docs/defaults/on"
+  }
+}

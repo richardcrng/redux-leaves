@@ -1,0 +1,13 @@
+{
+  "id": "defaults/concat",
+  "title": "concat",
+  "description": "# `concat(arrayOrString)`",
+  "source": "@site/../docs/defaults/concat.md",
+  "permalink": "/docs/defaults/concat",
+  "sidebar_label": "concat",
+  "sidebar": "docs",
+  "previous": {
+    "title": "set",
+    "permalink": "/docs/defaults/set"
+  }
+}

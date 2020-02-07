@@ -1,0 +1,17 @@
+{
+  "id": "defaults/do",
+  "title": "do",
+  "description": "# `do(callback)`",
+  "source": "@site/../docs/defaults/do.md",
+  "permalink": "/docs/defaults/do",
+  "sidebar_label": "do",
+  "sidebar": "docs",
+  "previous": {
+    "title": "clear",
+    "permalink": "/docs/defaults/clear"
+  },
+  "next": {
+    "title": "reset",
+    "permalink": "/docs/defaults/reset"
+  }
+}

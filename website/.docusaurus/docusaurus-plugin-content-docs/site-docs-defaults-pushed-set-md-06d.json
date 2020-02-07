@@ -1,0 +1,8 @@
+{
+  "id": "defaults/pushed-set",
+  "title": "pushed-set",
+  "description": "# `pushedSet(valueOrCallback)`",
+  "source": "@site/../docs/defaults/pushedSet.md",
+  "permalink": "/docs/defaults/pushed-set",
+  "sidebar_label": "pushed-set"
+}

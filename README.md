@@ -1,4 +1,4 @@
-# redux-leaves
+# Redux Leaves
 
 Write once. Reduce anywhere.
 
@@ -17,11 +17,11 @@ npm install --save redux-leaves
 [Main documentation website](https://redux-leaves.js.org)
 
 ### Getting started
-- [Overview](docs/intro/README.md)
-- [30 second demo](docs/examples/basicExample.md)
+- [Overview](https://redux-leaves.js.org/docs/intro/overview)
+- [30 second demo](https://runkit.com/richardcrng/redux-leaves-playground/)
 
 ### API reference
-- [Core: `reduxLeaves(initialState, reducers)`](docs/README.md)
+- [Core: `reduxLeaves(initialState, reducers)`](https://redux-leaves.js.org/docs/redux-leaves)
 
 ### Testing
 
