@@ -4,11 +4,16 @@ import LeafReducerDict from "../../types/Leaf/Reducer/Dict";
 import Dict from "../../types/Dict";
 import LeafCreate from "../../types/Leaf/Creator";
 
+export type ProxiedActions<S, D = LeafReducerDict> =
+  S extends object ? { create: LeafCreate<D> } & { [K in keyof S]: ProxiedActions<S[K], D> }
+  : { create: LeafCreate<D> }
+
 export function proxyActions<S extends Dict<any> = Dict<any>, D = LeafReducerDict>(
   stateShape: S,
   actionsDict: D,
   path: (string | number)[] = []
-): S & { create: LeafCreate<D> } {
+): ProxiedActions<S, D> {
+  
   const proxy = new Proxy<S>(stateShape, {
     get: (obj: any, prop: Extract<keyof S, string> | 'create') => {
       if (prop === 'create') return actionsCreate<D>(actionsDict, path)
@@ -22,7 +27,7 @@ export function proxyActions<S extends Dict<any> = Dict<any>, D = LeafReducerDic
     }
   })
 
-  return proxy as S & { create: LeafCreate<D> }
+  return proxy as ProxiedActions<S, D>
 }
 
 class ActionsProxy<S extends Dict<any> = Dict<any>, D = LeafReducerDict> {

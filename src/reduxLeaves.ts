@@ -10,10 +10,11 @@ import LeafReducer from './types/Leaf/Reducer';
 import LeafReducerDict from './types/Leaf/Reducer/Dict';
 import Dict from './types/Dict';
 import ActionsBranch from './types/Actions/Branch';
+import { ProxiedActions } from './actions/proxy/ActionsProxy.class';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ActionsBranch<S, D>] {
+function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ProxiedActions<S, D>] {
   const leafReducersDict: LeafReducerDict<D> = standardiseReducersDict<D>(reducersDict || {} as D)
 
   const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {
