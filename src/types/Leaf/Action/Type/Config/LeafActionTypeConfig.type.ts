@@ -1,5 +1,4 @@
-import LeafActionData from "../../Data";
-import LeafActionTypeConfigFunction from "./Function";
+import LeafActionTypeConfigFunction from "../Function";
 
 type LeafActionTypeConfig = string | LeafActionTypeConfigFunction
 

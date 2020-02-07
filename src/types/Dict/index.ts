@@ -1,3 +1,3 @@
-import Dict from "./Dict.interface";
+import Dict from "./Dict.type";
 
 export default Dict

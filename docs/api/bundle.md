@@ -89,11 +89,11 @@ const store = createStore(reducer)
 
 const incrementThenPush = bundle([
   actions.counter.create.increment(),
-  actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter])
+  actions.list.create.do((leafState, treeState) => [...leafState, treeState.counter])
 ])
 
 const pushThenIncrement = bundle([
-  actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter]),    actions.counter.create.increment()
+  actions.list.create.do((leafState, treeState) => [...leafState, treeState.counter]),    actions.counter.create.increment()
 ])
 
 store.dispatch(incrementThenPush)

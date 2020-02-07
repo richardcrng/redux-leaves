@@ -1,6 +1,6 @@
 {
   "name": "redux-leaves",
-  "version": "0.7.5",
+  "version": "1.0.0",
   "description": "Write once. Reduce anywhere",
   "main": "dist/index.js",
   "license": "MIT",
@@ -48,7 +48,7 @@
     "coveralls": "^3.0.9",
     "jest": "^24.7.1",
     "redux": "^4.0.5",
-    "typescript": "^3.7.4",
+    "typescript": "^3.7.5",
     "util": "^0.12.1"
   }
 }
