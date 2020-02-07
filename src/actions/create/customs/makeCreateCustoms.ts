@@ -2,11 +2,10 @@ import * as R from 'ramda'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
 import LeafStandardAction from "../../../types/Actions/LSA"
 import LeafActionData from '../../../types/Leaf/Action/Data'
-import Dict from '../../../types/Dict'
 import LeafReducerConfig from '../../../types/Leaf/Reducer/Config'
 import LeafStandardActionCreator from '../../../types/Actions/LSA/Creator'
-import { Dictionary } from 'ramda'
 import LeafCreatorAPICustoms from '../../../types/Leaf/Creator/API/Customs'
+import LeafReducerDict from '../../../types/Leaf/Reducer/Dict'
 
 const changeCase = require('change-case')
 
@@ -15,7 +14,7 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
 type LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => LeafReducerConfigToCreator
 type LeafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string) => LeafStandardActionCreator 
 
-function makeCreateCustoms<T extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>>(
+function makeCreateCustoms<T = LeafReducerDict>(
   path: (string | number)[],
   reducersDict: T
 ) {

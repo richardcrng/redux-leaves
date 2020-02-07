@@ -1,21 +1,28 @@
 import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import actionsCreate from "../create";
-import { Dictionary } from "ramda";
+import LeafReducerDict from "../../types/Leaf/Reducer/Dict";
+import Dict from "../../types/Dict";
 
-class ActionsProxy<S extends Dictionary<any> = Dictionary<any>, D extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>> {
-  // [K in S]: any;
+type PropType<TObj, TProp extends keyof TObj> = TObj[TProp];
 
+function proxyActions<S extends Dict<any> = Dict<any>>() {
+
+}
+
+class ActionsProxy<S extends Dict<any> = Dict<any>, D = LeafReducerDict> {
   constructor(stateShape: S, actionsDict: D, path: (string | number)[] = []) {
-    return new Proxy(stateShape, {
+    return new Proxy<S>(stateShape, {
       get: (obj, prop: string) => {
         switch (prop) {
           case 'create': return actionsCreate<D>(actionsDict, path)
-          default: return new ActionsProxy(stateShape, actionsDict, [...path, propForPath(prop)])
+          default: return new ActionsProxy({}, actionsDict, [...path, propForPath(prop)])
         }
       }
     })
   }
 }
+
+
 
 const propForPath = (prop: string): string | number => (
   isFixedString(prop)

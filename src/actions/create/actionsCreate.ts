@@ -1,12 +1,10 @@
-import * as R from 'ramda'
-import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
 import { LeafCreateFunction } from '../../types/Leaf/Creator';
 import LeafCreatorAPI from '../../types/Leaf/Creator/API';
-import { Dictionary } from 'ramda';
+import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
 
-function actionsCreate<D extends Dictionary<LeafReducerConfig> = Dictionary<LeafReducerConfig>>(customReducers: D, pathToLeafOrBranch: (string | number)[] = []) {
+function actionsCreate<D = LeafReducerDict>(customReducers: D, pathToLeafOrBranch: (string | number)[] = []) {
   const createDefaults = makeCreateDefaults(pathToLeafOrBranch)
   const createCustoms = makeCreateCustoms(pathToLeafOrBranch, customReducers)
 

@@ -1,8 +1,7 @@
-import { Dictionary } from "ramda";
-import LeafReducerConfig from "../../../Reducer/Config";
 import LeafStandardActionCreator from "../../../../Actions/LSA/Creator";
+import LeafReducerDict from "../../../Reducer/Dict";
 
-type LeafCreatorAPICustoms<T extends Dictionary<LeafReducerConfig>> = {
+type LeafCreatorAPICustoms<T = LeafReducerDict> = {
   [K in keyof T]: LeafStandardActionCreator
 }
 
