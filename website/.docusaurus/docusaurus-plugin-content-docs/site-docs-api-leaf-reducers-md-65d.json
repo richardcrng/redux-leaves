@@ -1,0 +1,17 @@
+{
+  "id": "api/leaf-reducers",
+  "title": "Leaf Reducers",
+  "description": "# Leaf reducers",
+  "source": "@site/../docs/api/leafReducers.md",
+  "permalink": "/docs/api/leaf-reducers",
+  "sidebar_label": "Leaf reducers",
+  "sidebar": "docs",
+  "previous": {
+    "title": "bundle",
+    "permalink": "/docs/api/bundle"
+  },
+  "next": {
+    "title": "Creator Keys",
+    "permalink": "/docs/api/creator-keys"
+  }
+}

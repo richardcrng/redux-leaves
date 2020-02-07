@@ -1,0 +1,17 @@
+{
+  "id": "redux-leaves",
+  "title": "reduxLeaves",
+  "description": "# `reduxLeaves(initialState, [reducersDict = {}])`",
+  "source": "@site/../docs/README.md",
+  "permalink": "/docs/redux-leaves",
+  "sidebar_label": "reduxLeaves",
+  "sidebar": "docs",
+  "previous": {
+    "title": "Using with useReducer instead of Redux",
+    "permalink": "/docs/examples/usereducer-example"
+  },
+  "next": {
+    "title": "bundle",
+    "permalink": "/docs/api/bundle"
+  }
+}

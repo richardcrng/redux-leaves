@@ -1,0 +1,17 @@
+{
+  "id": "defaults/increment",
+  "title": "increment",
+  "description": "# `increment([n = 1])`",
+  "source": "@site/../docs/defaults/increment.md",
+  "permalink": "/docs/defaults/increment",
+  "sidebar_label": "increment",
+  "sidebar": "docs",
+  "previous": {
+    "title": "toggle",
+    "permalink": "/docs/defaults/toggle"
+  },
+  "next": {
+    "title": "assign",
+    "permalink": "/docs/defaults/assign"
+  }
+}
