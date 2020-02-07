@@ -13,10 +13,10 @@ import ProxiedActions from './types/Actions/Proxied';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: S, reducersDict?: D): [Reducer<S, Action>, ProxiedActions<S, LeafReducerDict<D>>] {
-  const leafReducersDict: LeafReducerDict<D> = standardiseReducersDict<D>(reducersDict || {} as D)
+function reduxLeaves<TS extends Dict<any> = Dict<any>, RD extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: TS, reducersDict?: RD): [Reducer<TS, Action>, ProxiedActions<TS, LeafReducerDict<RD>>] {
+  const leafReducersDict: LeafReducerDict<RD> = standardiseReducersDict<RD>(reducersDict || {} as RD)
 
-  const reducer: Reducer<S, Action> = function(state = initialState, action: Action) {
+  const reducer: Reducer<TS, Action> = function(state = initialState, action: Action) {
 
     if (!isLeafAction(action)) return state
 
@@ -41,7 +41,7 @@ function reduxLeaves<S extends Dict<any> = Dict<any>, D extends Dict<LeafReducer
     return updateState(state, path, newLeafState)
   }
 
-  const actions = proxyActions<S, LeafReducerDict<D>>(initialState, leafReducersDict)
+  const actions = proxyActions<TS, LeafReducerDict<RD>, TS, TS>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }

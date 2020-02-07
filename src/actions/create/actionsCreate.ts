@@ -13,7 +13,7 @@ function actionsCreate<RD = LeafReducerDict, LS = any, TS = Dict<any>>(reducersD
 
   const create = Object.assign<LeafCreateFunction<RD>, LeafCreatorAPI<RD, LS>>(createFunction, createFunction())
 
-  return create as LeafCreateFunction<RD, LS> & LeafCreatorAPI<RD, LS>
+  return create as LeafCreate<RD, LS, TS>
 }
 
 export default actionsCreate

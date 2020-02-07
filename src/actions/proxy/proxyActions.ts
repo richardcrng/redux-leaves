@@ -4,23 +4,25 @@ import LeafReducerDict from "../../types/Leaf/Reducer/Dict";
 import Dict from "../../types/Dict";
 import ProxiedActions from '../../types/Actions/Proxied';
 
-function proxyActions<S extends Dict<any> = Dict<any>, D = LeafReducerDict>(
-  stateShape: S,
-  actionsDict: D,
+// PB: proxy base
+// TS: treeState
+// T: datatype in actual state shape
+function proxyActions<PB extends Dict<any> = Dict<any>, RD = LeafReducerDict, TS = Dict<any>, T = any>(
+  proxyBase: PB,
+  reducersDict: RD,
   path: (string | number)[] = []
-): ProxiedActions<S, D> {
+): ProxiedActions<PB, RD> {
   
-  const proxy = new Proxy<S>(stateShape, {
-    get: (obj: any, prop: Extract<keyof S, string> | 'create') => {
-      const targetValue = stateShape[prop]
-
-      if (prop === 'create') return actionsCreate<D, typeof targetValue, S>(actionsDict, path)
-
-      const proxySource = RA.isObjLike(targetValue)
+  const proxy = new Proxy<PB>(proxyBase, {
+    get: (obj: any, prop: Extract<keyof PB, string> | 'create') => {
+      if (prop === 'create') return actionsCreate<RD, T, PB>(reducersDict, path)
+      
+      const targetValue = proxyBase[prop]
+      const nextProxyBase = RA.isObjLike(targetValue)
         ? targetValue
         : {}
 
-      return proxyActions(proxySource, actionsDict, [...path, propForPath(prop)])
+      return proxyActions<typeof nextProxyBase, RD, TS, typeof targetValue>(nextProxyBase, reducersDict, [...path, propForPath(prop)])
     }
   })
 
