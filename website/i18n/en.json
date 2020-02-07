@@ -25,10 +25,6 @@
         "title": "Leaf Reducers",
         "sidebar_label": "Leaf reducers"
       },
-      "defaults/apply": {
-        "title": "apply",
-        "sidebar_label": "apply"
-      },
       "defaults/assign": {
         "title": "assign",
         "sidebar_label": "assign"
@@ -40,6 +36,10 @@
       "defaults/concat": {
         "title": "concat",
         "sidebar_label": "concat"
+      },
+      "defaults/do": {
+        "title": "do",
+        "sidebar_label": "do"
       },
       "defaults/drop": {
         "title": "drop",
@@ -104,6 +104,10 @@
       "examples/intermediate-example": {
         "title": "Intermediate example",
         "sidebar_label": "Intermediate example"
+      },
+      "examples/usereducer-example": {
+        "title": "Using with useReducer instead of Redux",
+        "sidebar_label": "useReducer example"
       },
       "intro/features": {
         "title": "Features"

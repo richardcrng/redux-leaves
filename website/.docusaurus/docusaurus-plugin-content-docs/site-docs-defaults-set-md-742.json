@@ -1,0 +1,17 @@
+{
+  "id": "defaults/set",
+  "title": "set",
+  "description": "# `set(key, value)`",
+  "source": "@site/../docs/defaults/set.md",
+  "permalink": "/docs/defaults/set",
+  "sidebar_label": "set",
+  "sidebar": "docs",
+  "previous": {
+    "title": "path",
+    "permalink": "/docs/defaults/path"
+  },
+  "next": {
+    "title": "concat",
+    "permalink": "/docs/defaults/concat"
+  }
+}
