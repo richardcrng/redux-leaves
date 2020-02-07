@@ -98,12 +98,7 @@ const incrementThenPush = bundle([
 ])
 
 const pushThenIncrement = bundle([
-<<<<<<< HEAD
   actions.list.create.do((leafState, treeState) => [...leafState, treeState.counter]),    actions.counter.create.increment()
-=======
-  actions.list.create.apply((leafState, treeState) => [...leafState, treeState.counter]),    
-  actions.counter.create.increment()
->>>>>>> master
 ])
 
 store.dispatch(incrementThenPush)
