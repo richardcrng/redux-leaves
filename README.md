@@ -1,4 +1,4 @@
-# redux-leaves
+# Redux Leaves
 
 Write once. Reduce anywhere.
 
