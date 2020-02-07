@@ -1,18 +1,19 @@
-import * as R from 'ramda'
-import Dict from "../../types/Dict";
-import LeafReducerConfig from "../../types/Leaf/Reducer/Config";
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
+import LeafCreate, { LeafCreateFunction } from '../../types/Leaf/Creator';
+import LeafCreatorAPI from '../../types/Leaf/Creator/API';
+import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
+import Dict from '../../types/Dict';
 
-function actionsCreate(stateShape: Dict<any>, customReducers: Dict<LeafReducerConfig>, pathToLeafOrBranch: (string | number)[] = []) {
-  const createDefaults = makeCreateDefaults(pathToLeafOrBranch)
-  const createCustoms = makeCreateCustoms(pathToLeafOrBranch, customReducers)
+function actionsCreate<RD = LeafReducerDict, LS = any, TS = Dict<any>>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): LeafCreate<RD, LS> {
+  const createDefaults = makeCreateDefaults<TS, LS>(pathToLeafOrBranch)
+  const createCustoms = makeCreateCustoms<RD>(pathToLeafOrBranch, reducersDict)
 
-  const create = (actionType?: string) => R.mergeRight(createDefaults(actionType), createCustoms(actionType))
+  const createFunction: LeafCreateFunction<RD, LS> = (actionType?: string) => Object.assign(createDefaults(actionType), createCustoms(actionType))
 
-  Object.assign(create, create())
+  const create = Object.assign<LeafCreateFunction<RD>, LeafCreatorAPI<RD, LS>>(createFunction, createFunction())
 
-  return create
+  return create as LeafCreate<RD, LS, TS>
 }
 
 export default actionsCreate

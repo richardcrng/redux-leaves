@@ -1,0 +1,17 @@
+{
+  "id": "examples/usereducer-example",
+  "title": "Using with useReducer instead of Redux",
+  "description": "# `useReducer` example, no Redux",
+  "source": "@site/../docs/examples/useReducerExample.md",
+  "permalink": "/docs/examples/usereducer-example",
+  "sidebar_label": "useReducer example",
+  "sidebar": "docs",
+  "previous": {
+    "title": "Advanced example",
+    "permalink": "/docs/examples/advanced-example"
+  },
+  "next": {
+    "title": "reduxLeaves",
+    "permalink": "/docs/redux-leaves"
+  }
+}

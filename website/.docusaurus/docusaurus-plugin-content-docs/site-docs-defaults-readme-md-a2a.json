@@ -1,0 +1,17 @@
+{
+  "id": "defaults/overview",
+  "title": "Default action creators",
+  "description": "# Default action creators",
+  "source": "@site/../docs/defaults/README.md",
+  "permalink": "/docs/defaults/overview",
+  "sidebar_label": "Overview",
+  "sidebar": "docs",
+  "previous": {
+    "title": "create",
+    "permalink": "/docs/api/create"
+  },
+  "next": {
+    "title": "clear",
+    "permalink": "/docs/defaults/clear"
+  }
+}

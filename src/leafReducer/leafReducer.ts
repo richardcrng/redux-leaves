@@ -28,9 +28,9 @@ export const leafReducer = (
 
   // Type-agnostic actions
   switch (creatorKey) {
-    case atomicActions.APPLY: return apply(payload, leafState, wholeState)
-    case atomicActions.ASSIGN: return assign(leafState, payload)
-    case atomicActions.CLEAR: return clear(leafState, payload)
+    case atomicActions.DO: return did(payload, leafState, wholeState)
+    case atomicActions.ASSIGN: return assigned(leafState, payload)
+    case atomicActions.CLEAR: return cleared(leafState, payload)
     case atomicActions.CONCAT: return concat(leafState, payload)
     case atomicActions.DROP: return drop(leafState, payload)
     case atomicActions.FILTER: return filter(leafState, payload)
@@ -48,16 +48,16 @@ export const leafReducer = (
   }
 }
 
-const apply = (callback: (leafState: any, treeState: any) => any, leafState: any, wholeState: any) => (
+const did = (callback: (leafState: any, treeState: any) => any, leafState: any, wholeState: any) => (
   callback(leafState, wholeState)
 )
 
-const assign = (state: object, sources: object[]) => Object.assign(
+const assigned = (state: object, sources: object[]) => Object.assign(
   { ...state },   // stop immer complaining
   ...sources
 )
 
-const clear = (leafState: any, toNull?: boolean) => {
+const cleared = (leafState: any, toNull?: boolean) => {
   if (toNull) {
     return null
   } else if (RA.isBoolean(leafState)) {

@@ -2,20 +2,25 @@ import { leafReducer } from './leafReducer';
 import standardiseReducersDict from './reducersDict/standardise';
 import { getState, updateState } from './utils';
 import LeafStandardAction from './types/Actions/LSA';
-import Dict from './types/Dict';
 import { Reducer } from 'redux';
-import ActionsProxy from './actions/proxy';
+import proxyActions from './actions/proxy';
 import LeafCompoundAction from './types/Actions/LCA';
 import FluxStandardAction from './types/Actions/FSA';
+import LeafReducer from './types/Leaf/Reducer';
+import LeafReducerDict from './types/Leaf/Reducer/Dict';
+import Dict from './types/Dict';
+import ProxiedActions from './types/Actions/Proxied';
 
-export const reduxLeaves = <T = Dict<any>>(initialState: T, reducersDict = {}): [Reducer<any, FluxStandardAction | LeafStandardAction | LeafCompoundAction>, ActionsProxy] => {
-  const leafReducersDict = standardiseReducersDict(reducersDict)
+type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-  const reducer: Reducer<any, FluxStandardAction | LeafStandardAction | LeafCompoundAction> = function(state = initialState, action: FluxStandardAction | LeafStandardAction | LeafCompoundAction) {
+function reduxLeaves<TS extends Dict<any> = Dict<any>, RD extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: TS, reducersDict?: RD): [Reducer<TS, Action>, ProxiedActions<TS, LeafReducerDict<RD>>] {
+  const leafReducersDict: LeafReducerDict<RD> = standardiseReducersDict<RD>(reducersDict || {} as RD)
+
+  const reducer: Reducer<TS, Action> = function(state = initialState, action: Action) {
 
     if (!isLeafAction(action)) return state
 
-    if (isLCA(action)) return action.payload.reduce(
+    if (isCompoundAction(action)) return action.payload.reduce(
       reducer,
       state
     )
@@ -23,7 +28,6 @@ export const reduxLeaves = <T = Dict<any>>(initialState: T, reducersDict = {}): 
     const { leaf } = action;
     const { path } = leaf
 
-    // const prevLeafState = getState(draftState, path)
     const prevLeafState = getState(state, path)
 
     const newLeafState = leafReducer(
@@ -37,20 +41,19 @@ export const reduxLeaves = <T = Dict<any>>(initialState: T, reducersDict = {}): 
     return updateState(state, path, newLeafState)
   }
 
-  const actions = new ActionsProxy(initialState, leafReducersDict)
+  const actions = proxyActions<TS, LeafReducerDict<RD>, TS, TS>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
 
-function isLeafAction(action: FluxStandardAction | LeafStandardAction | LeafCompoundAction): action is LeafStandardAction | LeafCompoundAction {
+function isLeafAction(action: Action): action is LeafStandardAction | LeafCompoundAction {
   // @ts-ignore
   return action.leaf
 }
 
-function isLCA(action: FluxStandardAction | LeafStandardAction | LeafCompoundAction): action is LeafCompoundAction {
+function isCompoundAction(action: Action): action is LeafCompoundAction {
   return isLeafAction(action) && action.leaf.compound
 }
 
-function isLSA(action: FluxStandardAction | LeafStandardAction | LeafCompoundAction): action is LeafStandardAction {
-  return isLeafAction(action) && !isLCA(action)
-}
+export { reduxLeaves }
+export default reduxLeaves

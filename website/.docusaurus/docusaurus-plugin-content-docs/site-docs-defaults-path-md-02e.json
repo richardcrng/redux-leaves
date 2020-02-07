@@ -1,0 +1,17 @@
+{
+  "id": "defaults/path",
+  "title": "path",
+  "description": "# `path(path, value)`",
+  "source": "@site/../docs/defaults/path.md",
+  "permalink": "/docs/defaults/path",
+  "sidebar_label": "path",
+  "sidebar": "docs",
+  "previous": {
+    "title": "assign",
+    "permalink": "/docs/defaults/assign"
+  },
+  "next": {
+    "title": "set",
+    "permalink": "/docs/defaults/set"
+  }
+}
