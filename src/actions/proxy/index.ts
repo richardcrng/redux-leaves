@@ -1,4 +1,3 @@
-import ActionsProxy, { proxyActions } from "./ActionsProxy.class";
+import proxyActions from "./proxyActions";
 
-export { proxyActions }
-export default ActionsProxy
+export default proxyActions

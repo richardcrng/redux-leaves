@@ -33,30 +33,35 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof reducer).toBe("function")
       })
 
-      test("AND actions.counter is an object with a create property", () => {
+      test("AND actions.counter is an object with a number create API", () => {
         expect(typeof actions.counter).toBe("object")
-        expect(typeof actions.counter.create).toBe('function')
+        expect(actions.counter.create).toBeDefined()
+        expect(typeof actions.counter.create.increment).toBe('function')
       })
 
-      test("AND actions.foo is an object", () => {
+      test("AND actions.foo is an object with an array create API", () => {
         expect(typeof actions.foo).toBe("object")
+        expect(actions.foo.create).toBeDefined()
+        expect(typeof actions.foo.create.push).toBe('function')
       })
 
-      test("AND actions.nested is an object with a create property", () => {
+      test("AND actions.nested is an object with an object create API", () => {
         expect(typeof actions.nested).toBe("object")
-        expect(typeof actions.nested.create).toBe('function')
+        expect(actions.nested.create).toBeDefined()
+        expect(typeof actions.nested.create.set).toBe('function')
       })
 
-      test("AND actions.nested.deep is an object", () => {
+      test("AND actions.nested.deep is an object with an object create API", () => {
         expect(typeof actions.nested.deep).toBe("object")
+        expect(actions.nested.deep.create).toBeDefined()
+        expect(typeof actions.nested.deep.create.set).toBe('function')
       })
 
-      test("AND actions.nested.state is an object", () => {
+
+      test("AND actions.nested.state.manageable is an object with a string create API", () => {
         expect(typeof actions.nested.state).toBe("object")
-      })
-
-      test("AND actions.nested.state.manageable is an object", () => {
-        expect(typeof actions.nested.state.manageable).toBe("object")
+        expect(actions.nested.state.manageable.create).toBeDefined()
+        expect(typeof actions.nested.state.manageable.create.concat).toBe('function')
       })
 
       describe("AND store = createStore(reducer)", () => {
