@@ -4,15 +4,14 @@ import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
 import LeafReducerFunction from '../../types/Leaf/Reducer/Function';
 import { Dictionary } from 'ramda';
 import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
+import objectMap from '../../utils/objectMap';
 
-const standardiseReducersDict = <T extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(reducersDict: T): LeafReducerDict<T> => {
-  const reducerEntries = Object.entries(reducersDict)
-  const reducerConfigEntries = reducerEntries.map(([creatorKey, reducer]) => ([
+const standardiseReducersDict = <RD extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(reducersDict: RD): LeafReducerDict<RD> => {
+
+  const reducerConfigDict = objectMap<keyof RD, LeafReducer, keyof RD, LeafReducerConfig>(([creatorKey, reducer]) => ([
     creatorKey,
     defineLeafReducer(reducer)
-  ]))
-
-  const reducerConfigDict: LeafReducerDict<T> = Object.fromEntries(reducerConfigEntries)
+  ]), reducersDict)
 
   return reducerConfigDict
 }
