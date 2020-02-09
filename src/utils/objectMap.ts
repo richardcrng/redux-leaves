@@ -1,4 +1,9 @@
 import Dict from "../types/Dict"
+const fromEntries = require('object.fromentries')
+
+if (!Object.fromEntries) {
+  fromEntries.shim();
+}
 
 function objectMap<KIn extends any = string, VIn = string, KOut extends any = string, VOut = any>(
   callback: ([key, val]: [string, VIn]) => [KOut, VOut],
