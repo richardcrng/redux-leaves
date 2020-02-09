@@ -6,6 +6,7 @@ import LeafReducerConfig from '../../../types/Leaf/Reducer/Config'
 import LeafStandardActionCreator from '../../../types/Actions/LSA/Creator'
 import LeafCreatorAPICustoms from '../../../types/Leaf/Creator/API/Customs'
 import LeafReducerDict from '../../../types/Leaf/Reducer/Dict'
+import objectMap from '../../../utils/objectMap'
 
 const changeCase = require('change-case')
 
@@ -21,12 +22,11 @@ function makeCreateCustoms<RD = LeafReducerDict>(
   return (actionType?: string | LeafActionTypeCreator): LeafCreatorAPICustoms<RD> => {
     const leafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = makeProducerOfLeafReducerConfigToCreator(actionType)
 
-    const customEntries = Object.entries(reducersDict).map(([creatorKey, leafReducerConfig]) => ([
-      creatorKey,
+    const customs = objectMap<keyof RD, LeafReducerConfig, keyof RD, LeafStandardActionCreator>(([creatorKey, leafReducerConfig]) => ([
+      creatorKey as keyof RD,
       leafReducerConfigToCreator(path)(leafReducerConfig, creatorKey)
-    ]))
-
-    const customs: LeafCreatorAPICustoms<RD> = Object.fromEntries(customEntries)
+      // @ts-ignore
+    ]), reducersDict)
 
     return customs
   }
