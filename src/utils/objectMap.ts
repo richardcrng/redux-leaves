@@ -1,8 +1,15 @@
-function objectMap<T = any, S = any>(
-  callback: ([key, val]: [string, T]) => [string, S],
-  object: object
-) {
-  const entries = Object.entries(object)
+import Dict from "../types/Dict"
+const fromEntries = require('object.fromentries')
+
+if (!Object.fromEntries) {
+  fromEntries.shim();
+}
+
+function objectMap<KIn extends any = string, VIn = string, KOut extends any = string, VOut = any>(
+  callback: ([key, val]: [string, VIn]) => [KOut, VOut],
+  object: Dict<VIn, KIn>
+): Dict<VOut, KOut> {
+  const entries = Object.entries<VIn>(object)
   const newEntries = entries.map(callback)
   return Object.fromEntries(newEntries)
 }
