@@ -16,6 +16,7 @@
     "change-case": "^3.1.0",
     "immer": "^3.1.2",
     "lodash": "^4.17.15",
+    "object.fromentries": "^2.0.2",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.23.0",
     "set-value": ">=2.0.1"
