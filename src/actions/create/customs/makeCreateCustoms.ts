@@ -15,7 +15,7 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
 type LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => LeafReducerConfigToCreator
 type LeafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string) => LeafStandardActionCreator 
 
-function makeCreateCustoms<RD = LeafReducerDict>(
+function makeCreateCustoms<RD>(
   path: (string | number)[],
   reducersDict: RD
 ) {
