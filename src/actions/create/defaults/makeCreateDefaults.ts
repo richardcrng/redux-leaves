@@ -1,11 +1,10 @@
+import { snakeCase } from 'change-case'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
 import LeafStandardAction from "../../../types/Actions/LSA"
 import LeafActionData from '../../../types/Leaf/Action/Data'
 import { atomicActions } from '../../atomic'
 import LeafCreatorAPIDefaults from "../../../types/Leaf/Creator/API/Defaults"
 import Dict from "../../../types/Dict"
-
-const changeCase = require('change-case')
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
@@ -39,7 +38,7 @@ function makeCreateDefaults<TS = Dict<any>, LS = any>(path: (string | number)[])
 
 const makeProducerOfLeafStandardActions = (actionType: string | LeafActionTypeCreator = leafReducerDefaults.actionType) => {
   return (path: (string | number)[]) => (creatorKey: string) => (payload?: any): LeafStandardAction => {
-    const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
+    const CREATOR_KEY = snakeCase(creatorKey).toUpperCase()
     const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, compound: false }
     const type = (typeof actionType === "function")
       ? actionType(leaf)
