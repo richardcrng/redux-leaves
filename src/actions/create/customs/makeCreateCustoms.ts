@@ -12,9 +12,6 @@ import LeafActionTypeConfig from '../../../types/Leaf/Action/Type/Config'
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-type LeafReducerConfigToCreatorMaker = (path: (string | number)[], actionType?: string | LeafActionTypeCreator) => LeafReducerConfigToCreator
-type LeafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string) => LeafStandardActionCreator 
-
 /**
  * Returns the Redux-Leaves create API function for custom reducers/creators.
  * 
@@ -29,12 +26,10 @@ function makeCreateCustoms<RD = LeafReducerDict>(
   return function createCustoms(
     actionType?: string | LeafActionTypeCreator
   ): LeafCreatorAPICustoms<RD> {
-    // const producerOfLeafReducerConfigToCreator = makeProducerOfLeafReducerConfigToCreator(actionType)
-
     const customs = objectMap<keyof RD, LeafReducerConfig, keyof RD, LeafStandardActionCreator>(
       ([creatorKey, leafReducerConfig]) => ([
         creatorKey as keyof RD,
-        producerOfLeafReducerConfigToCreator(path, actionType)(leafReducerConfig, creatorKey)
+        leafReducerConfigToCreator(leafReducerConfig, creatorKey, path, actionType)
         // @ts-ignore
     ]), reducersDict)
 
@@ -42,25 +37,23 @@ function makeCreateCustoms<RD = LeafReducerDict>(
   }
 }
 
-const producerOfLeafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = (
+const leafReducerConfigToCreator = (
+  leafReducer: LeafReducerConfig,
+  creatorKey: string,
   path: (string | number)[],
   actionType?: string | LeafActionTypeCreator
-) => {
-  const leafReducerConfigToCreator = (leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
-    const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
-    const { leaf, type } = actionPrePayload({ path, creatorKey, actionType, configType })
+): LeafStandardActionCreator => {
+  const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
+  const { leaf, type } = actionPrePayload({ path, creatorKey, actionType, configType })
 
-    return (...args: any[]): LeafStandardAction => {
-      const payload = argsToPayload(...args)
-      return {
-        leaf,
-        type,
-        payload
-      }
+  return (...args: any[]): LeafStandardAction => {
+    const payload = argsToPayload(...args)
+    return {
+      leaf,
+      type,
+      payload
     }
   }
-
-  return leafReducerConfigToCreator
 }
 
 const actionPrePayload = ({ path, creatorKey, actionType, configType }: {
