@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as changeCase from 'change-case'
+import { snakeCase } from 'change-case'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
 import LeafStandardAction from "../../../types/Actions/LSA"
 import LeafActionData from '../../../types/Leaf/Action/Data'
@@ -43,6 +43,7 @@ const leafReducerConfigToCreator = (
   path: (string | number)[],
   actionType?: string | LeafActionTypeCreator
 ): LeafStandardActionCreator => {
+  
   const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
   const { leaf, type } = actionPrePayload({ path, creatorKey, actionType, configType })
 
@@ -62,7 +63,7 @@ const actionPrePayload = ({ path, creatorKey, actionType, configType }: {
   actionType?: string | LeafActionTypeCreator
   configType: LeafActionTypeConfig
 }) => {
-  const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
+  const CREATOR_KEY = snakeCase(creatorKey).toUpperCase()
   const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, custom: true, compound: false }
   const type = determineActionType(leaf, configType, actionType)
   return { leaf, type }
