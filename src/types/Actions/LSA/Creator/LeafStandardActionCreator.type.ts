@@ -1,5 +1,5 @@
 import LeafStandardAction from "..";
 
-type LeafStandardActionCreator = (...args: any[]) => LeafStandardAction
+type LeafStandardActionCreator<P = any, A extends any[] | [] = []> = (...args: A) => LeafStandardAction<P>
 
 export default LeafStandardActionCreator

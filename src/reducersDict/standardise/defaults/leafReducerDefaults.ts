@@ -1,6 +1,6 @@
 import LeafActionData from "../../../types/Leaf/Action/Data";
 
-const argsToPayload = (first: any) => first
+const argsToPayload = (first?: any) => first
 
 const actionType = (leaf: LeafActionData) : string => {
   const { path, CREATOR_KEY } = leaf;

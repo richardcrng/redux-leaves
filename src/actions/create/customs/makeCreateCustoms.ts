@@ -34,7 +34,10 @@ function makeCreateCustoms<RD = LeafReducerDict>(
 
 const makeProducerOfLeafReducerConfigToCreator = (actionType?: string | LeafActionTypeCreator) => {
   const leafReducerConfigToCreator: LeafReducerConfigToCreatorMaker = (path: (string | number)[]) => (leafReducer: LeafReducerConfig, creatorKey: string): LeafStandardActionCreator => {
-    const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
+    const {
+      argsToPayload = leafReducerDefaults.argsToPayload,
+      type: configType = leafReducerDefaults.actionType
+    } = leafReducer;
 
     const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
     const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, custom: true, compound: false }

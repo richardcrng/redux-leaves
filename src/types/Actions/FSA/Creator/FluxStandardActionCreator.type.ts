@@ -1,5 +1,5 @@
 import FluxStandardAction from '..';
 
-type FluxStandardActionCreator<P = any, M = any> = (payload?: P, meta?: M, ...args: any[]) => FluxStandardAction
+type FluxStandardActionCreator<P = any, M = any, A extends any[] | [] = []> = (payload?: P, meta?: M, ...args: A) => FluxStandardAction<P, M>
 
 export default FluxStandardActionCreator
