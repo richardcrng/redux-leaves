@@ -9,6 +9,52 @@ Write once. Reduce anywhere.
 [![npm version](https://badge.fury.io/js/redux-leaves.svg)](https://badge.fury.io/js/redux-leaves)
 [![Maintainability](https://api.codeclimate.com/v1/badges/371605931cb9f824e25c/maintainability)](https://codeclimate.com/github/richardcrng/redux-leaves/maintainability)
 
+## Example
+
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { bundle } = from 'redux-leaves'
+
+// set up with initial state
+const initialState = {
+  counter: 0,
+  list: [],
+  props: {}
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+// setup complete! Now dispatch actions to your heart's content
+
+console.log(store.getState())
+// => { counter: 0, list: [], props: {} } 
+
+store.dispatch(actions.counter.create.increment(10))
+console.log(store.getState())
+// => { counter: 10, list: [], props: {} }
+
+store.dispatch(actions.list.create.push('foo'))
+console.log(store.getState())
+// => { counter: 10, list: ['foo'], props: {} }
+
+const compoundAction = bundle([
+  actions.counter.create.reset(),
+  actions.list[0].create.concat('bar'),
+  actions.props.at.arbitrary.path.create.update('here I am!')
+])
+
+store.dispatch(compoundAction)
+console.log(store.getState())
+/*
+  => {
+    counter: 0,
+    list: ['foobar'],
+    props: { at: { arbitrary: { path: 'here I am!' } } }
+  }
+*/
+```
+
 ## Documentation
 ```bash
 npm install --save redux-leaves
