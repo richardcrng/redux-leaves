@@ -44,3 +44,6 @@ export interface LeafActionData {
 }
 
 
+export type LeafActionTypeConfigFunction = (leaf: LeafActionData) => string
+export type LeafActionTypeConfig = string | LeafActionTypeConfigFunction
+
