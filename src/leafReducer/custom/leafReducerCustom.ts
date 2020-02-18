@@ -1,12 +1,12 @@
 import produce from 'immer'
-import LeafReducerTyped from '../../types/Leaf/Reducer/Typed';
-import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
-import LeafStandardAction from '../../types/Actions/LSA';
+import { LeafReducerConfig } from '../../types/reducer.type';
+import { LeafStandardAction } from '../../types/action.type';
 
-const leafReducerCustom: LeafReducerTyped = (leafState, action, wholeState, reducersDict = {}) => {
+function leafReducerCustom<LS, TS, RD = any>(leafState: LS, action: LeafStandardAction, wholeState: TS, reducersDict: RD) {
   const { leaf: { creatorKey } } = action;
 
   return Object.keys(reducersDict).includes(creatorKey)
+    // @ts-ignore
     ? applyReducer(reducersDict[creatorKey], leafState, action, wholeState)
     : leafState
 }
