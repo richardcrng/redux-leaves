@@ -6,7 +6,7 @@ if (!Object.fromEntries) {
   fromEntries.shim();
 }
 
-function objectMap<KIn extends any = string, VIn = string, KOut extends any = string, VOut = any>(
+function objectMap<KIn extends any = string, VIn = any, KOut extends any = string, VOut = any>(
   callback: ([key, val]: [string, VIn]) => [KOut, VOut],
   object: Dict<VIn, KIn>
 ): Dict<VOut, KOut> {

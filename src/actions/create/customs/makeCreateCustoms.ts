@@ -1,13 +1,10 @@
 import { snakeCase } from 'change-case'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
-import LeafStandardAction from "../../../types/Actions/LSA"
-import LeafActionData from '../../../types/Leaf/Action/Data'
-import LeafReducerConfig from '../../../types/Leaf/Reducer/Config'
-import LeafStandardActionCreator from '../../../types/Actions/LSA/Creator'
-import LeafCreatorAPICustoms from '../../../types/Leaf/Creator/API/Customs'
-import LeafReducerDict from '../../../types/Leaf/Reducer/Dict'
 import objectMap from '../../../utils/objectMap'
-import LeafActionTypeConfig from '../../../types/Leaf/Action/Type/Config'
+import { LeafActionData, LeafStandardAction, LeafActionTypeConfig } from '../../../types/action.type'
+import { LeafCreatorCustoms } from '../../../types/creators.type'
+import { LeafReducerConfig } from '../../../types/reducer.type'
+import { LeafStandardActionCreator } from '../../../types/creator.type'
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
@@ -18,20 +15,21 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
  * @param reducersDict - A standardised dictionary of leaf reducers
  * @returns The Redux-Leaves create API function for custom reducers/creators.
  */
-function makeCreateCustoms<RD = LeafReducerDict>(
+function makeCreateCustoms<RD>(
   path: (string | number)[],
   reducersDict: RD
 ) {
   return function createCustoms(
     actionType?: string | LeafActionTypeCreator
-  ): LeafCreatorAPICustoms<RD> {
-    const customs = objectMap<keyof RD, LeafReducerConfig, keyof RD, LeafStandardActionCreator>(
+  ): LeafCreatorCustoms<RD> {
+    const customs = objectMap(
       ([creatorKey, leafReducerConfig]) => ([
-        creatorKey as keyof RD,
+        creatorKey,
         leafReducerConfigToCreator(leafReducerConfig, creatorKey, path, actionType)
         // @ts-ignore
     ]), reducersDict)
 
+    // @ts-ignore
     return customs
   }
 }
