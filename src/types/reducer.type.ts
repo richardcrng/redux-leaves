@@ -15,7 +15,6 @@ export type LeafReducerFunction<LS = any, TS = any> = (leafState: LS, action: Le
 export type LeafReducerConfig<LS = any, TS = any, A extends any[] | [] = any[], P = any> = {
   reducer: LeafReducerFunction<LS, TS>
   argsToPayload?(...args: A): P
-  mutate?: boolean
   type?: LeafActionTypeConfig
 }
 
