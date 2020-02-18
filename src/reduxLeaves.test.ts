@@ -1,5 +1,6 @@
 import { reduxLeaves } from './reduxLeaves';
 import { createStore, Store } from "redux";
+import LeafReducer from './types/reducer.type';
 
 describe("API: reduxLeaves(initialState)", () => {
 
@@ -15,6 +16,10 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
+    type ReducersDict = {
+      capitalise: LeafReducer.Function<string, State>
+    }
+
     const initialState: State = {
       counter: 1,
       foo: ["bar"],
@@ -26,8 +31,12 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
+    const reducersDict: ReducersDict = {
+      capitalise: (leafState: string) => leafState.toUpperCase()
+    }
+
     describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
-      const [reducer, actions] = reduxLeaves(initialState)
+      const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 
       test("THEN reducer is a function", () => {
         expect(typeof reducer).toBe("function")
@@ -62,6 +71,7 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof actions.nested.state).toBe("object")
         expect(actions.nested.state.manageable.create).toBeDefined()
         expect(typeof actions.nested.state.manageable.create.concat).toBe('function')
+        expect(typeof actions.nested.state.manageable.create.capitalise).toBe('function')
       })
 
       describe("AND store = createStore(reducer)", () => {
