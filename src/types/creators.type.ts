@@ -13,11 +13,12 @@ namespace DefaultCreators {
 
   export type Clear = (toNull?: boolean) => LeafStandardAction<boolean>
 
-  export type Concat<LS> = LS extends string
-    ? (string: string) => LeafStandardAction<string>
-    : LS extends any[] | []
-    ? (arr: LS) => LeafStandardAction<LS>
-    : (arrayOrString: any[] | string) => LeafStandardAction<any[] | string>
+  export type Concat<LS> =
+    LS extends string
+      ? (string: string) => LeafStandardAction<string>
+      : LS extends any[] | []
+        ? (arr: LS) => LeafStandardAction<LS>
+        : (arrayOrString: any[] | string) => LeafStandardAction<any[] | string>
 
   export type Do<LS, TS> = (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction<(leafState: LS, treeState: TS) => LS>
 
