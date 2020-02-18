@@ -1,4 +1,5 @@
-import Dict from "../types/Dict"
+import { Dict } from "../types/util.type";
+
 const fromEntries = require('object.fromentries')
 
 if (!Object.fromEntries) {

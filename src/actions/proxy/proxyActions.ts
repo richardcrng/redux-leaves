@@ -1,21 +1,21 @@
 import * as RA from 'ramda-adjunct'
 import actionsCreate from "../create";
-import LeafReducerDict from "../../types/Leaf/Reducer/Dict";
-import Dict from "../../types/Dict";
-import ProxiedActions from '../../types/Actions/Proxied';
+import { Dict } from '../../types/util.type';
+import { LeafReducerConfig, LeafReducerDefinition } from '../../types/reducer.type';
+import { ActionsBranch } from '../../types/actions.type';
 
 // PB: proxy base
 // TS: treeState
 // T: datatype in actual state shape
-function proxyActions<PB extends Dict<any> = Dict<any>, RD = LeafReducerDict, TS = Dict<any>, T = any>(
+function proxyActions<PB extends Dict<any>, RD extends Dict<LeafReducerDefinition>, TS extends Dict<any> = Dict<any>, Target = any>(
   proxyBase: PB,
   reducersDict: RD,
   path: (string | number)[] = []
-): ProxiedActions<PB, RD> {
+): ActionsBranch<PB, TS, Target, RD> {
   
   const proxy = new Proxy<PB>(proxyBase, {
     get: (obj: any, prop: Extract<keyof PB, string> | 'create') => {
-      if (prop === 'create') return actionsCreate<RD, T, PB>(reducersDict, path)
+      if (prop === 'create') return actionsCreate<RD, Target, PB>(reducersDict, path)
       
       const targetValue = proxyBase[prop]
       const nextProxyBase = RA.isObjLike(targetValue)
@@ -27,7 +27,7 @@ function proxyActions<PB extends Dict<any> = Dict<any>, RD = LeafReducerDict, TS
   })
 
   // @ts-ignore
-  return proxy as ProxiedActions<S, D>
+  return proxy as ActionsBranch<S, D, S, S>
 }
 
 

@@ -1,5 +1,7 @@
 import { LeafStandardAction } from "./action.type";
 import { LeafStandardActionCreator } from "./creator.type";
+import { LeafReducerDefinition } from "./reducer.type";
+import { Dict } from "./util.type";
 
 namespace DefaultCreators {
   /**
@@ -63,6 +65,6 @@ export interface LeafCreatorDefaults<LS = any, TS = any> {
   update: DefaultCreators.Update<LS>
 }
 
-export type LeafCreatorCustoms<RD extends object = any> = {
+export type LeafCreatorCustoms<RD> = {
   [K in keyof RD]: LeafStandardActionCreator
 }

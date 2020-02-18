@@ -1,4 +1,5 @@
 import { LeafStandardAction, LeafActionTypeConfig } from "./action.type"
+import { Dict } from "./util.type"
 
 /**
  * @template LS - The leaf state type for the reducer function to act on
@@ -19,3 +20,14 @@ export type LeafReducerConfig<LS = any, TS = any, A extends any[] | [] = any[], 
 }
 
 export type LeafReducerDefinition<LS = any, TS = any> = LeafReducerFunction<LS, TS> | LeafReducerConfig<LS, TS>
+
+// export type ReducerDefinitions<Keys extends string[]> = Dict<LeafReducerDefinition, typeof >
+
+export type StandardisedLeafReducer<Definition extends LeafReducerDefinition> =
+  Definition extends LeafReducerConfig
+  ? Definition
+  : Definition extends LeafReducerFunction<infer LS, infer TS>
+  ? LeafReducerConfig<LS, TS>
+  : LeafReducerConfig
+
+export type StandardisedReducersDict<ReducerDefinitions extends Dict<LeafReducerDefinition>> = { [K in keyof ReducerDefinitions]: StandardisedLeafReducer<ReducerDefinitions[K]> }

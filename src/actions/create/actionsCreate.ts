@@ -1,19 +1,16 @@
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
-import LeafCreate, { LeafCreateFunction } from '../../types/Leaf/Creator';
-import LeafCreatorAPI from '../../types/Leaf/Creator/API';
-import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
-import Dict from '../../types/Dict';
+import { CreateLeafCreators, ActionsLeaf, LeafCreators } from '../../types/actions.type';
 
-function actionsCreate<RD = LeafReducerDict, LS = any, TS = Dict<any>>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): LeafCreate<RD, LS> {
+function actionsCreate<RD, LS, TS>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): ActionsLeaf<LS, TS, RD> {
   const createDefaults = makeCreateDefaults<TS, LS>(pathToLeafOrBranch)
   const createCustoms = makeCreateCustoms<RD>(pathToLeafOrBranch, reducersDict)
 
-  const createFunction: LeafCreateFunction<RD, LS> = (actionType?: string) => Object.assign(createDefaults(actionType), createCustoms(actionType))
+  const createFunction: CreateLeafCreators<LS, TS, RD> = (actionType?: string) => Object.assign(createDefaults(actionType), createCustoms(actionType))
 
-  const create = Object.assign<LeafCreateFunction<RD>, LeafCreatorAPI<RD, LS>>(createFunction, createFunction())
+  const create = Object.assign<CreateLeafCreators<LS, TS, RD>, LeafCreators<LS, TS, RD>>(createFunction, createFunction())
 
-  return create as LeafCreate<RD, LS, TS>
+  return create
 }
 
 export default actionsCreate
