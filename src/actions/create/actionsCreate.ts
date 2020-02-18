@@ -1,8 +1,8 @@
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
-import { CreateLeafCreators, ActionsLeaf, LeafCreators } from '../../types/actions.type';
+import { CreateLeafCreators, Actions, LeafCreators } from '../../types/actions.type';
 
-function actionsCreate<RD, LS, TS>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): ActionsLeaf<LS, TS, RD> {
+function actionsCreate<RD, LS, TS>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): Actions.Leaf<LS, TS, RD> {
   const createDefaults = makeCreateDefaults<TS, LS>(pathToLeafOrBranch)
   const createCustoms = makeCreateCustoms<RD>(pathToLeafOrBranch, reducersDict)
 

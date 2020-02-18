@@ -2,7 +2,7 @@ import * as RA from 'ramda-adjunct'
 import actionsCreate from "../create";
 import { Dict } from '../../types/util.type';
 import { LeafReducer } from '../../types/reducer.type';
-import { ActionsBranch } from '../../types/actions.type';
+import { Actions } from '../../types/actions.type';
 
 // PB: proxy base
 // TS: treeState
@@ -11,7 +11,7 @@ function proxyActions<PB extends Dict<any>, RD extends Dict<LeafReducer.Definiti
   proxyBase: PB,
   reducersDict: RD,
   path: (string | number)[] = []
-): ActionsBranch<PB, TS, Target, RD> {
+): Actions.Branch<PB, TS, Target, RD> {
   
   const proxy = new Proxy<PB>(proxyBase, {
     get: (obj: any, prop: Extract<keyof PB, string> | 'create') => {
