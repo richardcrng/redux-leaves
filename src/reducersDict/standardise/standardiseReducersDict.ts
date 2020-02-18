@@ -1,10 +1,10 @@
 import leafReducerDefaults from './defaults';
 import objectMap from '../../utils/objectMap';
 import { Dict } from '../../types/util.type';
-import { LeafReducerDefinition, LeafReducerConfig, LeafReducerFunction, StandardisedLeafReducer, StandardisedReducersDict } from '../../types/reducer.type';
+import { LeafReducer, StandardisedReducersDict } from '../../types/reducer.type';
 
 
-const standardiseReducersDict = <ReducersDict extends Dict<LeafReducerDefinition> = any>(reducersDict: ReducersDict): StandardisedReducersDict<ReducersDict> => {
+const standardiseReducersDict = <ReducersDict extends Dict<LeafReducer.Definition> = any>(reducersDict: ReducersDict): StandardisedReducersDict<ReducersDict> => {
 
   const reducerConfigDict = objectMap(([creatorKey, reducer]) => ([
     creatorKey,
@@ -15,18 +15,18 @@ const standardiseReducersDict = <ReducersDict extends Dict<LeafReducerDefinition
   return reducerConfigDict
 }
 
-const defineLeafReducer = (definition: LeafReducerDefinition): LeafReducerConfig => {
+const defineLeafReducer = (definition: LeafReducer.Definition): LeafReducer.Config => {
   return typeof definition === "function"
     ? defineLeafReducerFromFunction(definition)
     : defineLeafReducerFromConfig(definition)
 }
 
-const defineLeafReducerFromConfig = (config: LeafReducerConfig): LeafReducerConfig => ({
+const defineLeafReducerFromConfig = (config: LeafReducer.Config): LeafReducer.Config => ({
   ...leafReducerDefaults,
   ...config
 })
 
-const defineLeafReducerFromFunction = (reducer: LeafReducerFunction): LeafReducerConfig => (
+const defineLeafReducerFromFunction = (reducer: LeafReducer.Function): LeafReducer.Config => (
   defineLeafReducerFromConfig({ reducer })
 )
 

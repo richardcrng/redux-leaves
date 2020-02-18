@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { LeafReducerConfig } from '../../types/reducer.type';
+import LeafReducer from '../../types/reducer.type';
 import { LeafStandardAction } from '../../types/action.type';
 
 function leafReducerCustom<LS, TS, RD = any>(leafState: LS, action: LeafStandardAction, wholeState: TS, reducersDict: RD) {
@@ -11,7 +11,7 @@ function leafReducerCustom<LS, TS, RD = any>(leafState: LS, action: LeafStandard
     : leafState
 }
 
-const applyReducer = (config: LeafReducerConfig, leafState: any, action: LeafStandardAction, wholeState: any) => {
+const applyReducer = (config: LeafReducer.Config, leafState: any, action: LeafStandardAction, wholeState: any) => {
   return config.reducer(leafState, action, wholeState)
 }
 

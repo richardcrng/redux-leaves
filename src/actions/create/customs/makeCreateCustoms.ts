@@ -3,7 +3,7 @@ import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
 import objectMap from '../../../utils/objectMap'
 import { LeafActionData, LeafStandardAction, LeafActionTypeConfig } from '../../../types/action.type'
 import { LeafCreatorCustoms } from '../../../types/creators.type'
-import { LeafReducerConfig } from '../../../types/reducer.type'
+import { LeafReducer } from '../../../types/reducer.type'
 import { LeafStandardActionCreator } from '../../../types/creator.type'
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
@@ -35,7 +35,7 @@ function makeCreateCustoms<RD>(
 }
 
 const leafReducerConfigToCreator = (
-  leafReducer: LeafReducerConfig,
+  leafReducer: LeafReducer.Config,
   creatorKey: string,
   path: (string | number)[],
   actionType?: string | LeafActionTypeCreator

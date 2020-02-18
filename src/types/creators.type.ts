@@ -1,7 +1,5 @@
 import { LeafStandardAction } from "./action.type";
 import { LeafStandardActionCreator } from "./creator.type";
-import { LeafReducerDefinition } from "./reducer.type";
-import { Dict } from "./util.type";
 
 namespace DefaultCreators {
   /**

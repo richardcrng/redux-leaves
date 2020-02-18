@@ -1,5 +1,4 @@
 import { Dict } from "./util.type";
-import { LeafReducerDefinition } from "./reducer.type";
 import { LeafCreatorCustoms, LeafCreatorDefaults } from "./creators.type";
 import { LeafStandardAction } from "./action.type";
 

@@ -6,7 +6,7 @@ import { replaceAtIndex, insertAtIndex } from '../utils/array-utils';
 import { updateState } from '../utils';
 import generatePushID from '../utils/generate-pushid';
 import { Dict } from '../types/util.type';
-import { LeafReducerConfig } from '../types/reducer.type';
+import { LeafReducer } from '../types/reducer.type';
 import { LeafStandardAction, LeafActionData } from '../types/action.type';
 
 export const leafReducer = (
@@ -14,7 +14,7 @@ export const leafReducer = (
   action: LeafStandardAction,
   wholeState: any,
   initialWhole: any,
-  reducersDict: Dict<LeafReducerConfig>
+  reducersDict: Dict<LeafReducer.Config>
   ) => {
 
   const { leaf = {}, payload } = action;

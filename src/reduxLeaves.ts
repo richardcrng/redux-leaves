@@ -5,12 +5,12 @@ import { Reducer } from 'redux';
 import proxyActions from './actions/proxy';
 import { FluxStandardAction, LeafStandardAction, LeafCompoundAction } from './types/action.type';
 import { Dict } from './types/util.type';
-import { LeafReducerDefinition, StandardisedReducersDict } from './types/reducer.type';
+import { LeafReducer, StandardisedReducersDict } from './types/reducer.type';
 import { ActionsBranch } from './types/actions.type';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<TreeShape extends object = any, ReducerDefinitions extends Dict<LeafReducerDefinition> = {}>(initialState: TreeShape, reducersDict?: ReducerDefinitions): [Reducer<TreeShape, Action>, ActionsBranch<TreeShape, TreeShape, TreeShape, ReducerDefinitions>] {
+function reduxLeaves<TreeShape extends object = any, ReducerDefinitions extends Dict<LeafReducer.Definition> = {}>(initialState: TreeShape, reducersDict?: ReducerDefinitions): [Reducer<TreeShape, Action>, ActionsBranch<TreeShape, TreeShape, TreeShape, ReducerDefinitions>] {
   const leafReducersDict: StandardisedReducersDict<ReducerDefinitions> = standardiseReducersDict<ReducerDefinitions>(reducersDict || {} as ReducerDefinitions)
 
   const reducer: Reducer<TreeShape, Action> = function(state = initialState, action: Action) {
