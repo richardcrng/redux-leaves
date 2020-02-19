@@ -20,16 +20,26 @@ export namespace LeafReducer {
     type?: LeafActionTypeConfig
   }
 
+  /**
+   * @template LS - LeafState
+   * @template TS - TreeState
+   */
   export type Definition<LS = any, TS = any> = Function<LS, TS> | Config<LS, TS>
 
-  export type Standardised<Def extends Definition> =
-    Def extends Config
-    ? Def
-    : Def extends Function<infer LS, infer TS>
+  /**
+   * @template RD - ReducersDict, dictionary of LeafReducer.Definitions
+   */
+  export type Dictionary<RD extends Dict<LeafReducer.Definition>> = { [K in keyof RD]: LeafReducer.Standardised<RD[K]> }
+
+  /**
+   * @template D - LeafReducerDefinition
+   */
+  export type Standardised<D extends Definition> =
+    D extends Config
+    ? D
+    : D extends Function<infer LS, infer TS>
     ? Config<LS, TS>
     : Config
 }
-
-export type StandardisedReducersDict<ReducerDefinitions extends Dict<LeafReducer.Definition>> = { [K in keyof ReducerDefinitions]: LeafReducer.Standardised<ReducerDefinitions[K]> }
 
 export default LeafReducer

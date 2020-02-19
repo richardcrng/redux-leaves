@@ -1,10 +1,17 @@
 import leafReducerDefaults from './defaults';
 import objectMap from '../../utils/objectMap';
 import { Dict } from '../../types/util.type';
-import { LeafReducer, StandardisedReducersDict } from '../../types/reducer.type';
+import LeafReducer from '../../types/reducer.type';
 
-
-const standardiseReducersDict = <ReducersDict extends Dict<LeafReducer.Definition> = any>(reducersDict: ReducersDict): StandardisedReducersDict<ReducersDict> => {
+/**
+ * 
+ * @param reducersDict - Dictionary of leaf reducer definitions
+ * 
+ * @template RD - ReducersDict
+ */
+function standardiseReducersDict<RD extends Dict<LeafReducer.Definition> = any>(
+  reducersDict: RD
+): LeafReducer.Dictionary<RD> {
 
   const reducerConfigDict = objectMap(([creatorKey, reducer]) => ([
     creatorKey,
