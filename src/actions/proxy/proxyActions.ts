@@ -1,13 +1,12 @@
 import * as RA from 'ramda-adjunct'
 import actionsCreate from "../create";
 import { Dict } from '../../types/util.type';
-import { LeafReducer } from '../../types/reducer.type';
 import { Actions } from '../../types/actions.type';
 
 // PB: proxy base
 // TS: treeState
 // T: datatype in actual state shape
-function proxyActions<PB extends Dict<any>, RD extends Dict<LeafReducer.Definition>, TS extends Dict<any> = Dict<any>, Target = any>(
+function proxyActions<PB extends Dict<any>, RD, TS extends Dict<any> = Dict<any>, Target = any>(
   proxyBase: PB,
   reducersDict: RD,
   path: (string | number)[] = []
