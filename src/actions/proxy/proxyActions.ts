@@ -22,12 +22,16 @@ function proxyActions<PB extends Dict<any>, RD extends Dict<LeafReducer.Definiti
         ? targetValue
         : {}
 
-      return proxyActions<typeof nextProxyBase, RD, TS, typeof targetValue>(nextProxyBase, reducersDict, [...path, propForPath(prop)])
+      return proxyActions<typeof nextProxyBase, RD, TS, typeof targetValue>(
+        nextProxyBase,
+        reducersDict,
+        [...path, propForPath(prop)]
+      )
     }
   })
 
   // @ts-ignore
-  return proxy as ActionsBranch<S, D, S, S>
+  return proxy as Actions.Branch<PB, TS, Target, RD>
 }
 
 
