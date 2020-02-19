@@ -1,24 +1,44 @@
-import { Dict } from "./util.type";
 import { LeafCreatorCustoms, LeafCreatorDefaults } from "./creators.type";
 import { LeafStandardAction } from "./action.type";
 
 export namespace Actions {
-  export type Branch<BranchShape, TreeShape, LeafShape, ReducersDict> =
-    BranchShape extends Array<infer E>
-      ? { create: Leaf<LeafShape, TreeShape, ReducersDict> }
-      : BranchShape extends object
-        ? { create: Leaf<LeafShape, TreeShape, ReducersDict> }
-          & { [K in keyof BranchShape]: Branch<BranchShape[K], TreeShape, LeafShape, ReducersDict> }
-        : { create: Leaf<LeafShape, TreeShape, ReducersDict> }
+  /**
+   * @template BS - BranchShape
+   * @template TS - TreeShape
+   * @template LS - LeafShape
+   * @template RD - ReducersDict
+   */
+  export type Branch<BS, TS, LS, RD> =
+    BS extends Array<infer E>
+      ? { create: Leaf<LS, TS, RD> }
+      : BS extends object
+        ? { create: Leaf<LS, TS, RD> }
+          & { [K in keyof BS]: Branch<BS[K], TS, LS, RD> }
+        : { create: Leaf<LS, TS, RD> }
   
-  export type Leaf<LeafShape = any, TreeShape = Dict<any>, ReducersDict = any> =
-    CreateLeafCreators<LeafShape, TreeShape, ReducersDict>
-      & LeafCreators<LeafShape, TreeShape, ReducersDict>
-      & { apply: (callback: (leafState: LeafShape, treeState: TreeShape) => boolean) => LeafStandardAction<(leafState: LeafShape, treeState: TreeShape) => boolean> }
+  /**
+   * @template LS - LeafShape
+   * @template TS - TreeShape
+   * @template RD - ReducersDict
+   */
+  export type Leaf<LS, TS, RD> =
+    CreateLeafCreators<LS, TS, RD>
+      & LeafCreators<LS, TS, RD>
+      & { apply: (callback: (leafState: LS, treeState: TS) => boolean) => LeafStandardAction<(leafState: LS, treeState: TS) => boolean> }
 }
 
-export type CreateLeafCreators<LeafShape = any, TreeShape = Dict<any>, ReducersDict = Dict<any>, > = (actionType?: string) => LeafCreators<LeafShape, TreeShape, ReducersDict>
+/**
+ * @template LS - LeafShape
+ * @template TS - TreeShape
+ * @template RD - ReducersDict
+ */
+export type CreateLeafCreators<LS, TS, RD> = (actionType?: string) => LeafCreators<LS, TS, RD>
 
-export type LeafCreators<LeafShape = any, TreeShape = Dict<any>, ReducersDict = any> = LeafCreatorDefaults<LeafShape, TreeShape> & LeafCreatorCustoms<ReducersDict>
+/**
+ * @template LS - LeafShape
+ * @template TS - TreeShape
+ * @template RD - ReducersDict
+ */
+export type LeafCreators<LS, TS, RD> = LeafCreatorDefaults<LS, TS> & LeafCreatorCustoms<RD>
 
 export default Actions
