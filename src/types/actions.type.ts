@@ -22,23 +22,23 @@ export namespace Actions {
    * @template RD - ReducersDict
    */
   export type Leaf<LS, TS, RD> =
-    CreateLeafCreators<LS, TS, RD>
-      & LeafCreators<LS, TS, RD>
+    CreateFunction<LS, TS, RD>
+      & Creators<LS, TS, RD>
       & { apply: (callback: (leafState: LS, treeState: TS) => boolean) => LeafStandardAction<(leafState: LS, treeState: TS) => boolean> }
+
+  /**
+    * @template LS - LeafShape
+    * @template TS - TreeShape
+    * @template RD - ReducersDict
+    */
+  export type CreateFunction<LS, TS, RD> = (actionType?: string) => Creators<LS, TS, RD>
+  
+  /**
+   * @template LS - LeafShape
+   * @template TS - TreeShape
+   * @template RD - ReducersDict
+   */
+  export type Creators<LS, TS, RD> = LeafCreatorDefaults<LS, TS> & LeafCreatorCustoms<RD>
 }
-
-/**
- * @template LS - LeafShape
- * @template TS - TreeShape
- * @template RD - ReducersDict
- */
-export type CreateLeafCreators<LS, TS, RD> = (actionType?: string) => LeafCreators<LS, TS, RD>
-
-/**
- * @template LS - LeafShape
- * @template TS - TreeShape
- * @template RD - ReducersDict
- */
-export type LeafCreators<LS, TS, RD> = LeafCreatorDefaults<LS, TS> & LeafCreatorCustoms<RD>
 
 export default Actions
