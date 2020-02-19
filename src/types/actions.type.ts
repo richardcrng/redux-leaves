@@ -1,7 +1,7 @@
 import { LeafCreatorCustoms, LeafCreatorDefaults } from "./creators.type";
 import { LeafStandardAction } from "./action.type";
 
-export namespace Actions {
+export declare namespace Actions {
   /**
    * @template BS - BranchShape
    * @template TS - TreeShape

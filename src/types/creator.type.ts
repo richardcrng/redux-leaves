@@ -3,8 +3,8 @@ import { LeafStandardAction } from './action.type'
 /**
  * A function that returns a Leaf Standard Action
  * 
- * @template P - Payload type for the returned LSA
  * @template A - Arguments type for the LSA creator
+ * @template P - Payload type for the returned LSA
  */
-export type LeafStandardActionCreator<P = any, A extends any[] | [] = any[]> = (...args: A) => LeafStandardAction<P>
+export type LeafStandardActionCreator<A extends any[] | [] = any[], P = any> = (...args: A) => LeafStandardAction<P>
 

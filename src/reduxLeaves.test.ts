@@ -1,6 +1,5 @@
-import { reduxLeaves } from './reduxLeaves';
+import reduxLeaves, { LeafReducer, LeafStandardAction } from './';
 import { createStore, Store } from "redux";
-import LeafReducer from './types/reducer.type';
 
 describe("API: reduxLeaves(initialState)", () => {
 
@@ -16,10 +15,6 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    type ReducersDict = {
-      capitalise: LeafReducer.Function<string, State>
-    }
-
     const initialState: State = {
       counter: 1,
       foo: ["bar"],
@@ -31,8 +26,12 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    const reducersDict: ReducersDict = {
-      capitalise: (leafState: string) => leafState.toUpperCase()
+    const reducersDict: LeafReducer.Definitions<'capitalise' | 'exponentiate'> = {
+      capitalise: (leafState: string) => leafState.toUpperCase(),
+      exponentiate: {
+        reducer: (leafState: number, action: LeafStandardAction<number>) => Math.pow(leafState, action.payload),
+        argsToPayload: (index: number) => index
+      }
     }
 
     describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
@@ -46,6 +45,7 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof actions.counter).toBe("object")
         expect(actions.counter.create).toBeDefined()
         expect(typeof actions.counter.create.increment).toBe('function')
+        expect(typeof actions.counter.create.capitalise).toBe('function')
       })
 
       test("AND actions.foo is an object with an array create API", () => {

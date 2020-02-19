@@ -18,7 +18,7 @@ type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
  * @template TS - TreeShape
  * @template RD - Dictionary of LeafReducer.Definition
  */
-function reduxLeaves<TS extends object = any, RD extends Dict<LeafReducer.Definition> = {}>(
+function reduxLeaves<TS extends object = any, RD extends LeafReducer.Definitions = {}>(
   initialState: TS,
   reducersDict?: RD
 ): [Reducer<TS, Action>, Actions.Branch<TS, TS, TS, RD>] {
