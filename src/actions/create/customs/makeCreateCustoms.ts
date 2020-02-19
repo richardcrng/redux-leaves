@@ -26,7 +26,6 @@ function makeCreateCustoms<RD>(
       ([creatorKey, leafReducerConfig]) => ([
         creatorKey,
         leafReducerConfigToCreator(leafReducerConfig, creatorKey, path, actionType)
-        // @ts-ignore
     ]), reducersDict)
 
     // @ts-ignore

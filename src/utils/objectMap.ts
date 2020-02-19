@@ -12,7 +12,8 @@ function objectMap<KIn extends any = string, VIn = any, KOut extends any = strin
 ): Dict<VOut, KOut> {
   const entries = Object.entries<VIn>(object)
   const newEntries = entries.map(callback)
-  return Object.fromEntries(newEntries)
+  const res = Object.fromEntries(newEntries)
+  return res
 }
 
 export default objectMap
