@@ -10,7 +10,10 @@ import { Actions } from './types/actions.type';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<TreeShape extends object = any, ReducerDefinitions extends Dict<LeafReducer.Definition> = {}>(initialState: TreeShape, reducersDict?: ReducerDefinitions): [Reducer<TreeShape, Action>, Actions.Branch<TreeShape, TreeShape, TreeShape, ReducerDefinitions>] {
+function reduxLeaves<TreeShape extends object = any, ReducerDefinitions extends Dict<LeafReducer.Definition> = {}>(
+  initialState: TreeShape,
+  reducersDict?: ReducerDefinitions
+): [Reducer<TreeShape, Action>, Actions.Branch<TreeShape, TreeShape, TreeShape, ReducerDefinitions>] {
   const leafReducersDict: StandardisedReducersDict<ReducerDefinitions> = standardiseReducersDict<ReducerDefinitions>(reducersDict || {} as ReducerDefinitions)
 
   const reducer: Reducer<TreeShape, Action> = function(state = initialState, action: Action) {
@@ -40,7 +43,6 @@ function reduxLeaves<TreeShape extends object = any, ReducerDefinitions extends 
 
   const actions = proxyActions<TreeShape, typeof leafReducersDict, TreeShape, TreeShape>(initialState, leafReducersDict)
 
-  // @ts-ignore
   return [reducer, actions]
 }
 
