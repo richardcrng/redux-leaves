@@ -14,7 +14,7 @@ For a demo, check out this [Todo app](https://codesandbox.io/s/todo-app-with-use
 ## Example
 [CodeSandbox demo](https://codesandbox.io/s/redux-leaves-with-usereducer-5xpkz)
 
-```js
+```jsx
 import React, { useReducer } from "react";
 import reduxLeaves, { bundle } from 'redux-leaves';
 
@@ -28,6 +28,16 @@ const [reducer, actions] = reduxLeaves(initialState);
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleSave = () => {
+    // 1. push current val of state.name into state.list
+    // 2. clear state.name
+    // ... in a single dispatch
+    dispatch(bundle([
+      actions.list.create.push(state.name),
+      actions.name.create.clear()
+    ]))
+  }
+
   return (
     <>
       <h1>Hello, {state.name}!</h1>
@@ -39,18 +49,7 @@ function App() {
           }}
           value={state.name}
         />
-        <button
-          onClick={() => {
-            dispatch(
-              // use bundle to combine multiple atomic actions
-              //   into a single action for dispatch
-              bundle([
-                actions.list.create.push(state.name),
-                actions.name.create.clear()
-              ])
-            );
-          }}
-        >
+        <button onClick={handleSave} >
           Save
         </button>
       </div>
