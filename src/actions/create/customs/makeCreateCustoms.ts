@@ -14,14 +14,17 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
  * @param path - The path to the state leaf
  * @param reducersDict - A standardised dictionary of leaf reducers
  * @returns The Redux-Leaves create API function for custom reducers/creators.
+ * 
+ * @template RD - Standardised Reducer Dictionary
+ * @template LRD - Leaf Reducer Definitions
  */
-function makeCreateCustoms<RD>(
+function makeCreateCustoms<RD, LRD extends LeafReducer.Definitions>(
   path: (string | number)[],
   reducersDict: RD
 ) {
   return function createCustoms(
     actionType?: string | LeafActionTypeCreator
-  ): LeafCreatorCustoms<RD> {
+  ): LeafCreatorCustoms<LRD> {
     const customs = objectMap(
       ([creatorKey, leafReducerConfig]) => ([
         creatorKey,

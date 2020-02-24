@@ -1,5 +1,6 @@
 import { LeafStandardAction } from "./action.type";
 import { LeafStandardActionCreator } from "./creator.type";
+import LeafReducer from "./reducer.type";
 
 namespace DefaultCreators {
   /**
@@ -64,6 +65,14 @@ export interface LeafCreatorDefaults<LS = any, TS = any> {
   update: DefaultCreators.Update<LS>
 }
 
-export type LeafCreatorCustoms<RD> = {
-  [K in keyof RD]: LeafStandardActionCreator
-}
+/**
+ * @template LRD - LeafReducer.Definition of LeafReducer.Schemas
+ */
+export type LeafCreatorCustoms<LRD extends LeafReducer.Definitions> =
+  LRD extends LeafReducer.Definitions<infer Schemas>
+  ? {
+      [K in keyof Schemas]: Schemas[K] extends LeafReducer.Schema<infer LS, infer A, infer P>
+        ? LeafStandardActionCreator<A, P>
+        : LeafStandardActionCreator
+    }
+  : LeafStandardActionCreator

@@ -50,7 +50,9 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof actions.counter).toBe("object")
         expect(actions.counter.create).toBeDefined()
         expect(typeof actions.counter.create.increment).toBe('function')
-        expect(typeof actions.counter.create.capitalise).toBe('function')
+        expect(typeof actions.counter.create.increment(4)).toBeDefined()
+        expect(typeof actions.counter.create.exponentiate).toBe('function')
+        expect(typeof actions.counter.create.exponentiate(5)).toBeDefined()
       })
 
       test("AND actions.foo is an object with an array create API", () => {

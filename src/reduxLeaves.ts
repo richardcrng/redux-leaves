@@ -4,7 +4,6 @@ import { getState, updateState } from './utils';
 import { Reducer } from 'redux';
 import proxyActions from './actions/proxy';
 import { FluxStandardAction, LeafStandardAction, LeafCompoundAction } from './types/action.type';
-import { Dict } from './types/util.type';
 import LeafReducer from './types/reducer.type';
 import { Actions } from './types/actions.type';
 
@@ -49,7 +48,7 @@ function reduxLeaves<TS extends object = any, RD extends LeafReducer.Definitions
     return updateState(state, path, newLeafState)
   }
 
-  const actions = proxyActions<TS, typeof leafReducersDict, TS, TS>(initialState, leafReducersDict)
+  const actions = proxyActions<TS, typeof leafReducersDict, TS, TS, RD>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
