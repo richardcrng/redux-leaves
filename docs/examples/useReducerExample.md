@@ -28,36 +28,36 @@ const [reducer, actions] = reduxLeaves(initialState);
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleChange = e => {
+    // update state.name to be e.target.value
+    dispatch(actions.name.create.update(e.target.value));
+  };
+
   const handleSave = () => {
     // 1. push current val of state.name into state.list
     // 2. clear state.name
     // ... in a single dispatch
-    dispatch(bundle([
-      actions.list.create.push(state.name),
-      actions.name.create.clear()
-    ]))
-  }
+    dispatch(
+      bundle([
+        actions.list.create.push(state.name),
+        actions.name.create.clear()
+      ])
+    );
+  };
 
   return (
-    <>
+    <div className="App">
       <h1>Hello, {state.name}!</h1>
       <div>
         <b>Name: </b>
-        <input
-          onChange={e => {
-            dispatch(actions.name.create.update(e.target.value));
-          }}
-          value={state.name}
-        />
-        <button onClick={handleSave} >
-          Save
-        </button>
+        <input onChange={handleChange} value={state.name} />
+        <button onClick={handleSave}>Save</button>
       </div>
       <div>
         <b>Greeted: </b>
         {state.list.join(", ")}
       </div>
-    </>
+    </div>
   );
 }
 ```
