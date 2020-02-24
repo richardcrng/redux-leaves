@@ -2,7 +2,7 @@ import { LeafStandardAction } from "./action.type";
 import { LeafStandardActionCreator } from "./creator.type";
 import LeafReducer from "./reducer.type";
 
-namespace DefaultCreators {
+declare namespace DefaultCreators {
   /**
    * The default assign action creator
    * 
