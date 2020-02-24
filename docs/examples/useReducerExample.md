@@ -37,16 +37,16 @@ function App() {
     // 1. push current val of state.name into state.list
     // 2. clear state.name
     // ... in a single dispatch
-    dispatch(
-      bundle([
-        actions.list.create.push(state.name),
-        actions.name.create.clear()
-      ])
-    );
+    const actionBundle = bundle([
+      actions.list.create.push(state.name),
+      actions.name.create.clear()
+    ])
+
+    dispatch(actionBundle);
   };
 
   return (
-    <div className="App">
+    <div>
       <h1>Hello, {state.name}!</h1>
       <div>
         <b>Name: </b>
