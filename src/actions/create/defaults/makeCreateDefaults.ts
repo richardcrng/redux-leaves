@@ -1,17 +1,15 @@
+import { snakeCase } from 'change-case'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
-import LeafStandardAction from "../../../types/Actions/LSA"
-import LeafActionData from '../../../types/Leaf/Action/Data'
 import { atomicActions } from '../../atomic'
-import LeafCreatorAPIDefaults from "../../../types/Leaf/Creator/API/Defaults"
-import Dict from "../../../types/Dict"
-
-const changeCase = require('change-case')
+import { LeafCreatorDefaults } from '../../../types/creators.type'
+import { LeafActionData, LeafStandardAction } from '../../../types/action.type'
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
-function makeCreateDefaults<TS = Dict<any>, LS = any>(path: (string | number)[]) {
-  const createDefaults = (actionType?: string | LeafActionTypeCreator): LeafCreatorAPIDefaults<TS, LS> => {
+function makeCreateDefaults<TS, LS>(path: (string | number)[]) {
+  const createDefaults = (actionType?: string | LeafActionTypeCreator): LeafCreatorDefaults<LS, TS> => {
     const producerOfLeafStandardActions = makeProducerOfLeafStandardActions(actionType)(path)
+    // @ts-ignore
     return {
       assign: (...sources: object[]) => producerOfLeafStandardActions(atomicActions.ASSIGN)(sources),
       clear: (toNull: boolean = false) => producerOfLeafStandardActions(atomicActions.CLEAR)(toNull),
@@ -30,7 +28,7 @@ function makeCreateDefaults<TS = Dict<any>, LS = any>(path: (string | number)[])
       set: (key: string, value: any) => producerOfLeafStandardActions(atomicActions.SET)({ path: [key], value }),
       toggle: () => producerOfLeafStandardActions(atomicActions.TOGGLE)(),
       update: (newVal: any) => producerOfLeafStandardActions(atomicActions.UPDATE)(newVal)
-    } as LeafCreatorAPIDefaults<TS, LS>
+    } as LeafCreatorDefaults<LS, TS>
   }
 
   return createDefaults
@@ -39,7 +37,7 @@ function makeCreateDefaults<TS = Dict<any>, LS = any>(path: (string | number)[])
 
 const makeProducerOfLeafStandardActions = (actionType: string | LeafActionTypeCreator = leafReducerDefaults.actionType) => {
   return (path: (string | number)[]) => (creatorKey: string) => (payload?: any): LeafStandardAction => {
-    const CREATOR_KEY = changeCase.snakeCase(creatorKey).toUpperCase()
+    const CREATOR_KEY = snakeCase(creatorKey).toUpperCase()
     const leaf: LeafActionData = { path, creatorKey, CREATOR_KEY, compound: false }
     const type = (typeof actionType === "function")
       ? actionType(leaf)

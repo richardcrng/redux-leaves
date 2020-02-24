@@ -1,19 +1,16 @@
 import { reduxLeaves } from "./reduxLeaves";
 import bundle from './bundle';
-import LeafStandardAction from './types/Actions/LSA';
-import LeafCompoundAction from './types/Actions/LCA/LeafCompountAction.type';
-import LeafReducer from './types/Leaf/Reducer';
-import LeafReducerFunction from './types/Leaf/Reducer/Function';
-import LeafReducerConfig from './types/Leaf/Reducer/Config';
+import LeafReducer from './types/reducer.type'
+import Actions from './types/actions.type'
+import { LeafStandardAction, LeafCompoundAction } from './types/action.type'
 
 export {
   reduxLeaves,
   bundle,
-  LeafStandardAction,
-  LeafCompoundAction,
   LeafReducer,
-  LeafReducerFunction,
-  LeafReducerConfig
+  Actions,
+  LeafStandardAction,
+  LeafCompoundAction
 }
 
 export default reduxLeaves

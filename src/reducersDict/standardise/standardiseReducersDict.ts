@@ -1,33 +1,39 @@
 import leafReducerDefaults from './defaults';
-import LeafReducer from '../../types/Leaf/Reducer';
-import LeafReducerConfig from '../../types/Leaf/Reducer/Config';
-import LeafReducerFunction from '../../types/Leaf/Reducer/Function';
-import { Dictionary } from 'ramda';
-import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
 import objectMap from '../../utils/objectMap';
+import { Dict } from '../../types/util.type';
+import LeafReducer from '../../types/reducer.type';
 
-const standardiseReducersDict = <RD extends Dictionary<LeafReducer> = Dictionary<LeafReducer>>(reducersDict: RD): LeafReducerDict<RD> => {
+/**
+ * 
+ * @param reducersDict - Dictionary of leaf reducer definitions
+ * 
+ * @template RD - ReducersDict
+ */
+function standardiseReducersDict<RD extends Dict<LeafReducer.Configuration> = any>(
+  reducersDict: RD
+): LeafReducer.Dictionary<RD> {
 
-  const reducerConfigDict = objectMap<keyof RD, LeafReducer, keyof RD, LeafReducerConfig>(([creatorKey, reducer]) => ([
+  const reducerConfigDict = objectMap(([creatorKey, reducer]) => ([
     creatorKey,
     defineLeafReducer(reducer)
   ]), reducersDict)
 
+  // @ts-ignore
   return reducerConfigDict
 }
 
-const defineLeafReducer = (definition: LeafReducer): LeafReducerConfig => {
+const defineLeafReducer = (definition: LeafReducer.Configuration): LeafReducer.ConfigObj => {
   return typeof definition === "function"
     ? defineLeafReducerFromFunction(definition)
     : defineLeafReducerFromConfig(definition)
 }
 
-const defineLeafReducerFromConfig = (config: LeafReducerConfig): LeafReducerConfig => ({
+const defineLeafReducerFromConfig = (config: LeafReducer.ConfigObj): LeafReducer.ConfigObj => ({
   ...leafReducerDefaults,
   ...config
 })
 
-const defineLeafReducerFromFunction = (reducer: LeafReducerFunction): LeafReducerConfig => (
+const defineLeafReducerFromFunction = (reducer: LeafReducer.ReducerFunction): LeafReducer.ConfigObj => (
   defineLeafReducerFromConfig({ reducer })
 )
 

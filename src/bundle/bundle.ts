@@ -1,6 +1,5 @@
 import * as R from 'ramda'
-import LeafStandardAction from "../types/Actions/LSA";
-import LeafCompoundAction from "../types/Actions/LCA";
+import { LeafStandardAction, LeafCompoundAction } from '../types/action.type'
 
 function bundle(actions: (LeafStandardAction | LeafCompoundAction)[], type?: string): LeafCompoundAction {
   const actionTypes = actions.map(R.prop('type'))

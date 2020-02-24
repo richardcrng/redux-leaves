@@ -1,20 +1,27 @@
 import { leafReducer } from './leafReducer';
 import standardiseReducersDict from './reducersDict/standardise';
 import { getState, updateState } from './utils';
-import LeafStandardAction from './types/Actions/LSA';
 import { Reducer } from 'redux';
 import proxyActions from './actions/proxy';
-import LeafCompoundAction from './types/Actions/LCA';
-import FluxStandardAction from './types/Actions/FSA';
-import LeafReducer from './types/Leaf/Reducer';
-import LeafReducerDict from './types/Leaf/Reducer/Dict';
-import Dict from './types/Dict';
-import ProxiedActions from './types/Actions/Proxied';
+import { FluxStandardAction, LeafStandardAction, LeafCompoundAction } from './types/action.type';
+import LeafReducer from './types/reducer.type';
+import { Actions } from './types/actions.type';
 
 type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
 
-function reduxLeaves<TS extends Dict<any> = Dict<any>, RD extends Dict<LeafReducer> = Dict<LeafReducer>>(initialState: TS, reducersDict?: RD): [Reducer<TS, Action>, ProxiedActions<TS, LeafReducerDict<RD>>] {
-  const leafReducersDict: LeafReducerDict<RD> = standardiseReducersDict<RD>(reducersDict || {} as RD)
+/**
+ * 
+ * @param initialState - Initial state of the reducer
+ * @param reducersDict - Object of leaf reducer definitions keyed by creatorKeys
+ * 
+ * @template TS - TreeShape
+ * @template RD - Dictionary of LeafReducer.Definition
+ */
+function reduxLeaves<TS extends object = any, RD extends LeafReducer.Definitions = {}>(
+  initialState: TS,
+  reducersDict?: RD
+): [Reducer<TS, Action>, Actions.Branch<TS, TS, TS, RD>] {
+  const leafReducersDict: LeafReducer.Dictionary<RD> = standardiseReducersDict<RD>(reducersDict || {} as RD)
 
   const reducer: Reducer<TS, Action> = function(state = initialState, action: Action) {
 
@@ -41,7 +48,7 @@ function reduxLeaves<TS extends Dict<any> = Dict<any>, RD extends Dict<LeafReduc
     return updateState(state, path, newLeafState)
   }
 
-  const actions = proxyActions<TS, LeafReducerDict<RD>, TS, TS>(initialState, leafReducersDict)
+  const actions = proxyActions<TS, typeof leafReducersDict, TS, TS, RD>(initialState, leafReducersDict)
 
   return [reducer, actions]
 }
