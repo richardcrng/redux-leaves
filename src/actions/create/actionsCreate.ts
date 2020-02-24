@@ -1,19 +1,29 @@
 import makeCreateDefaults from './defaults';
 import makeCreateCustoms from './customs';
-import LeafCreate, { LeafCreateFunction } from '../../types/Leaf/Creator';
-import LeafCreatorAPI from '../../types/Leaf/Creator/API';
-import LeafReducerDict from '../../types/Leaf/Reducer/Dict';
-import Dict from '../../types/Dict';
+import { Actions } from '../../types/actions.type';
+import LeafReducer from '../../types/reducer.type';
 
-function actionsCreate<RD = LeafReducerDict, LS = any, TS = Dict<any>>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): LeafCreate<RD, LS> {
+/**
+ * Returns the core Create API
+ * @param reducersDict LeafReducer.Dictionary
+ * @param pathToLeafOrBranch 
+ * 
+ * @returns The core Create API at a given path
+ * 
+ * @template RD - Standardised Leaf Reducer Dictionary
+ * @template LS - LeafShape
+ * @template TS - TreeShape
+ * @template LRD - LeafReducer.Definitions
+ */
+function actionsCreate<RD, LS, TS, LRD extends LeafReducer.Definitions>(reducersDict: RD, pathToLeafOrBranch: (string | number)[] = []): Actions.CreateAPI<LS, TS, LRD> {
   const createDefaults = makeCreateDefaults<TS, LS>(pathToLeafOrBranch)
-  const createCustoms = makeCreateCustoms<RD>(pathToLeafOrBranch, reducersDict)
+  const createCustoms = makeCreateCustoms<RD, LRD>(pathToLeafOrBranch, reducersDict)
 
-  const createFunction: LeafCreateFunction<RD, LS> = (actionType?: string) => Object.assign(createDefaults(actionType), createCustoms(actionType))
+  const createFunction: Actions.CreateFunction<LS, TS, LRD> = (actionType?: string) => Object.assign(createDefaults(actionType), createCustoms(actionType))
 
-  const create = Object.assign<LeafCreateFunction<RD>, LeafCreatorAPI<RD, LS>>(createFunction, createFunction())
+  const create = Object.assign<Actions.CreateFunction<LS, TS, LRD>, Actions.Creators<LS, TS, LRD>>(createFunction, createFunction())
 
-  return create as LeafCreate<RD, LS, TS>
+  return create
 }
 
 export default actionsCreate

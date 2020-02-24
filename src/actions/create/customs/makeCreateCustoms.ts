@@ -1,14 +1,10 @@
-import * as R from 'ramda'
 import { snakeCase } from 'change-case'
 import leafReducerDefaults from "../../../reducersDict/standardise/defaults"
-import LeafStandardAction from "../../../types/Actions/LSA"
-import LeafActionData from '../../../types/Leaf/Action/Data'
-import LeafReducerConfig from '../../../types/Leaf/Reducer/Config'
-import LeafStandardActionCreator from '../../../types/Actions/LSA/Creator'
-import LeafCreatorAPICustoms from '../../../types/Leaf/Creator/API/Customs'
-import LeafReducerDict from '../../../types/Leaf/Reducer/Dict'
 import objectMap from '../../../utils/objectMap'
-import LeafActionTypeConfig from '../../../types/Leaf/Action/Type/Config'
+import { LeafActionData, LeafStandardAction, LeafActionTypeConfig } from '../../../types/action.type'
+import { LeafCreatorCustoms } from '../../../types/creators.type'
+import { LeafReducer } from '../../../types/reducer.type'
+import { LeafStandardActionCreator } from '../../../types/creator.type'
 
 type LeafActionTypeCreator = (data: LeafActionData) => string
 
@@ -18,37 +14,53 @@ type LeafActionTypeCreator = (data: LeafActionData) => string
  * @param path - The path to the state leaf
  * @param reducersDict - A standardised dictionary of leaf reducers
  * @returns The Redux-Leaves create API function for custom reducers/creators.
+ * 
+ * @template RD - Standardised Reducer Dictionary
+ * @template LRD - Leaf Reducer Definitions
  */
-function makeCreateCustoms<RD = LeafReducerDict>(
+function makeCreateCustoms<RD, LRD extends LeafReducer.Definitions>(
   path: (string | number)[],
   reducersDict: RD
 ) {
   return function createCustoms(
     actionType?: string | LeafActionTypeCreator
-  ): LeafCreatorAPICustoms<RD> {
-    const customs = objectMap<keyof RD, LeafReducerConfig, keyof RD, LeafStandardActionCreator>(
+  ): LeafCreatorCustoms<LRD> {
+    const customs = objectMap(
       ([creatorKey, leafReducerConfig]) => ([
-        creatorKey as keyof RD,
-        leafReducerConfigToCreator(leafReducerConfig, creatorKey, path, actionType)
-        // @ts-ignore
+        creatorKey,
+        leafReducerConfigToCreator<typeof leafReducerConfig>(leafReducerConfig, creatorKey, path, actionType)
     ]), reducersDict)
 
+    // @ts-ignore
     return customs
   }
 }
 
-const leafReducerConfigToCreator = (
-  leafReducer: LeafReducerConfig,
+/**
+ * 
+ * @param leafReducer 
+ * @param creatorKey 
+ * @param path 
+ * @param actionType 
+ * 
+ * @template C - LeafReducer.ConfigObj
+ */
+const leafReducerConfigToCreator = <C extends LeafReducer.ConfigObj = LeafReducer.ConfigObj>(
+  leafReducer: C,
   creatorKey: string,
   path: (string | number)[],
   actionType?: string | LeafActionTypeCreator
-): LeafStandardActionCreator => {
+): LeafStandardActionCreator<LeafReducer.CreatorArgs<C>, LeafReducer.CreatedPayload<C>> => {
   
-  const { argsToPayload = R.identity, type: configType = leafReducerDefaults.actionType } = leafReducer;
+  const {
+    argsToPayload = leafReducerDefaults.argsToPayload,
+    type: configType = leafReducerDefaults.actionType
+  } = leafReducer;
   const { leaf, type } = actionPrePayload({ path, creatorKey, actionType, configType })
 
-  return (...args: any[]): LeafStandardAction => {
+  return (...args: LeafReducer.CreatorArgs<C>): LeafStandardAction<LeafReducer.CreatedPayload<C>> => {
     const payload = argsToPayload(...args)
+
     return {
       leaf,
       type,

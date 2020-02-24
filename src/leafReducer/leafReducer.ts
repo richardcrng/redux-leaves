@@ -1,22 +1,20 @@
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
-import produce from 'immer'
 import { atomicActions } from '../actions/atomic';
 import leafReducerCustom from './custom';
-import LeafStandardAction from '../types/Actions/LSA';
-import Dict from '../types/Dict';
-import LeafReducerConfig from '../types/Leaf/Reducer/Config';
-import LeafActionData from '../types/Leaf/Action/Data';
 import { replaceAtIndex, insertAtIndex } from '../utils/array-utils';
 import { updateState } from '../utils';
 import generatePushID from '../utils/generate-pushid';
+import { Dict } from '../types/util.type';
+import { LeafReducer } from '../types/reducer.type';
+import { LeafStandardAction, LeafActionData } from '../types/action.type';
 
 export const leafReducer = (
   leafState: any,
   action: LeafStandardAction,
   wholeState: any,
   initialWhole: any,
-  reducersDict: Dict<LeafReducerConfig>
+  reducersDict: Dict<LeafReducer.ConfigObj>
   ) => {
 
   const { leaf = {}, payload } = action;

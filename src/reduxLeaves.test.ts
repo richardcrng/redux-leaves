@@ -1,4 +1,4 @@
-import { reduxLeaves } from './reduxLeaves';
+import reduxLeaves, { LeafReducer } from './';
 import { createStore, Store } from "redux";
 
 describe("API: reduxLeaves(initialState)", () => {
@@ -26,8 +26,21 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
+    type Schema = {
+      capitalise: string,
+      exponentiate: LeafReducer.Schema<number, [number], number>
+    }
+
+    const reducersDict: LeafReducer.Definitions<Schema, State> = {
+      capitalise: (leafState, action) => leafState.concat(action.payload),
+      exponentiate: {
+        reducer: (leafState, action) => Math.pow(leafState, action.payload),
+        argsToPayload: (index: number) => index
+      }
+    }
+
     describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
-      const [reducer, actions] = reduxLeaves(initialState)
+      const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 
       test("THEN reducer is a function", () => {
         expect(typeof reducer).toBe("function")
@@ -37,6 +50,9 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof actions.counter).toBe("object")
         expect(actions.counter.create).toBeDefined()
         expect(typeof actions.counter.create.increment).toBe('function')
+        expect(typeof actions.counter.create.increment(4)).toBeDefined()
+        expect(typeof actions.counter.create.exponentiate).toBe('function')
+        expect(typeof actions.counter.create.exponentiate(5)).toBeDefined()
       })
 
       test("AND actions.foo is an object with an array create API", () => {
@@ -62,6 +78,7 @@ describe("API: reduxLeaves(initialState)", () => {
         expect(typeof actions.nested.state).toBe("object")
         expect(actions.nested.state.manageable.create).toBeDefined()
         expect(typeof actions.nested.state.manageable.create.concat).toBe('function')
+        expect(typeof actions.nested.state.manageable.create.capitalise).toBe('function')
       })
 
       describe("AND store = createStore(reducer)", () => {
