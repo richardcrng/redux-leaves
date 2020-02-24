@@ -26,8 +26,8 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    const reducersDict: LeafReducer.Definitions<'capitalise' | 'exponentiate'> = {
-      capitalise: (leafState: string) => leafState.toUpperCase(),
+    const reducersDict: LeafReducer.Definitions<{ capitalise: string, exponentiate: number }, State> = {
+      capitalise: (leafState, action) => leafState.concat(action.payload),
       exponentiate: {
         reducer: (leafState: number, action: LeafStandardAction<number>) => Math.pow(leafState, action.payload),
         argsToPayload: (index: number) => index

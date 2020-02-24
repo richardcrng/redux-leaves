@@ -41,7 +41,10 @@ export declare namespace LeafReducer {
    */
   export type Definition<LS = any, TS = any> = Function<LS, TS> | Config<LS, TS>
 
-  export type Definitions<K extends keyof any = string> = Dict<LeafReducer.Definition, K>
+  // export type Definitions<DefInterface> = Dict<LeafReducer.Definition, keyof DefInterface>
+  export type Definitions<DefInterface = { [key: string]: any }, TS = any> = {
+    [K in keyof DefInterface]: LeafReducer.Definition<DefInterface[K], TS>
+  }
 
   /**
    * @template RD - ReducersDict, dictionary of LeafReducer.Definitions
