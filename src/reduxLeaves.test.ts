@@ -39,7 +39,7 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
+    describe("WHEN [reducer, actions] = reduxLeaves(initialState, reducersDict)", () => {
       const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 
       test("THEN reducer is a function", () => {
