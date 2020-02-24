@@ -14,11 +14,22 @@ You can bundle together actions with [`bundle`](../api/bundle.md), to produce a 
 
 [Bundling example on Runkit](https://runkit.com/richardcrng/redux-leaves-bundling-actions)
 
-```js
+```typescript
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'redux-leaves'
+import reduxLeaves, { bundle, LeafReducer } from 'redux-leaves'
 
-const initialState = {
+// Declare an interface or type for your state shape
+interface State {
+  list: string[],
+  nested: {
+    counter: number,
+    state: {
+      deep: string
+    }
+  }
+}
+
+const initialState: State = {
   list: ['a', 'b'],
   nested: {
     counter: 0,
@@ -27,6 +38,65 @@ const initialState = {
     }
   }
 }
+
+// Declare your custom ReducerSchemas
+interface ReducerSchemas {
+  /*
+    addAll:
+    1. reducer acts on number leaf state
+    2. action creator arguments is an array of numbers
+    3. action payload is an array of numbers
+  */
+  addAll: LeafReducer.Schema<number, number[], number[]>,
+
+  /*
+    insertEarliest:
+    1. reducer acts on an array of strings
+    2. action creator takes a single argument, a number
+    3. action payload is a single number
+  */
+  duplicateIndex: LeafReducer.Schema<string[], [number], number>
+
+  /*
+    exponentiate:
+    1. reducer acts on
+  */
+  exponentiate: LeafReducer.Schema<number, [number], number>,
+}
+
+const reducerDict: ReducerSchemas = {
+  addAll: {
+    reducer: (leafState, action) => {
+      // TS picks up that:
+      //  1. leafState is a number
+      //  2. action.payload is an array of numbers
+      action.payload.reducer((acc, val) => acc + val, leafState)
+    },
+    // TS picks up that the return value of argsToPayload
+    //  should be an array of numbers
+    argsToPayload: (...args) => args
+  },
+  duplicatePayload: {
+    // TS picks up that:
+    //  1. leafState is an array of strings
+    //  2. action.payload is a number
+    reducer: (leafState, action) => [...leafState, leafState[action.payload]],
+    // TS picks up that argsToPayload should
+    //  take one argument, a number, and
+    //  return a number
+    argsToPayload: (index) => index
+  },
+  exponentiate: {
+    // TS picks up that:
+    //  1. leafState is a number
+    //  2. action.payload is a number
+    reducer: (leafState, action) => Math.pow(leafState, action.payload),
+    // TS picks up that the return value of argsToPayload
+    //  should be a number
+    argsToPayload: (power) => power
+  }
+}
+
 
 const [reducer, actions] = reduxLeaves(initialState)
 const store = createStore(reducer)
@@ -51,115 +121,4 @@ console.log(store.getState())
     }
   }
 */
-```
-
-## Custom action types
-
-### Default action types
-When you create an action through Redux-Leaves - whether using a default creator or some custom reducer logic you've supplied - it gives the action an informative `type` property:
-
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
-
-const initialState = {
-  list: ['a', 'b'],
-  nested: {
-    counter: 0,
-    state: {
-      deep: 'somewhat'
-    }
-  }
-}
-
-const reducersDict = {
-  duplicate: leafState => leafState.concat(leafState)
-}
-
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
-
-const actionToPushToList = actions.list.create.push('c')
-console.log(actionToPushToList.type) // 'list/PUSH'
-
-const actionToDuplicateList = actions.list.create.duplicate()
-console.log(actionToDuplicateList.type) // 'list/DUPLICATE'
-
-const actionToUpdateDeepState = actions.nested.state.deep.create.update('could go deeper')
-console.log(actionToUpdateDeepState.payload)
-// 'nested/state/deep/UPDATE'
-```
-
-### Overriding the default action type
-You may find benefits, e.g. with Redux DevTools, to overriding the default action type.
-
-You can do this by providing a string argument to `create`:
-
-```js
-const appendLetter = actions.list.create('APPEND_LETTER').push
-console.log(appendLetter('c').type) // 'APPEND_LETTER'
-
-const duplicateList = actions.list.create('DUPLICATE_LIST').duplicate
-console.log(duplicateList().type) // 'DUPLICATE LIST'
-```
-
-Overriding the default action type won't change how the Redux-Leaves `reducer` responds to the action:
-```js
-const store = createStore(reducer)
-console.log(store.getState().list) // ['a', 'b']
-
-store.dispatch(appendLetter('c'))
-console.log(store.getState().list) // ['a', 'b', 'c']
-
-store.dispatch(duplicateList())
-console.log(store.getState().list)
-// ['a', 'b', 'c', 'a', 'b', 'c']
-```
-
-### Usage pattern
-An expected pattern that this facilitates is the defining of action creators in one file, e.g. `actions.js`:
-```js
-// import the actions object created by Redux-Leaves
-import { actions } from './some/location'
-
-export const incrementCounter = actions.counter.create('INCREMENT_COUNTER').increment
-export const updateDeepState = actions.nested.state.deep.create('UPDATE_DEEP_STATE').update
-```
-and then import these action creators into whichever file needs access to them.
-
-## Controlling payloads
-Suppose I want to create a custom creator, `addMultiple`, such that I can pass multiple numbers as arguments and have them all added to a given leaf's state.
-
-The default behaviour of a custom action creator is that only the first argument is passed as an action's payload, but we can configure that:
-
-```js
-import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
-
-const initialState = {
-  counter: 0
-}
-
-const reducersDict = {
-  // object configuration longhand
-  addMultiple: {
-    // Capture all arguments and pass them to the reducer:
-    argsToPayload: (...args) => args,
-    reducer: (leafState, { payload }) => payload.reduce((acc, val) => acc + val, leafState)
-  },
-
-  // function shorthand
-  // uses default payload behaviour
-  addFirstThing: (leafState, { payload }) => leafState + payload
-}
-
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
-const store = createStore(reducer)
-
-console.log(store.getState().counter) // 0
-
-store.dispatch(actions.counter.create.addMultiple(4, 2, 10))
-console.log(store.getState().counter) // 16
-
-store.dispatch(actions.counter.create.addFirstThing(1, 100))
-console.log(store.getState().counter) // 17
 ```
