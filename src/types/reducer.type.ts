@@ -39,9 +39,8 @@ export declare namespace LeafReducer {
    * @template LS - LeafState
    * @template TS - TreeState
    */
-  export type Definition<LS = any, TS = any> = Function<LS, TS> | Config<LS, TS>
+  export type Definition<LS = any, TS = any, A extends any[] | [] = any[], P = any> = Function<LS, TS> | Config<LS, TS, A, P>
 
-  // export type Definitions<DefInterface> = Dict<LeafReducer.Definition, keyof DefInterface>
   export type Definitions<DefInterface = { [key: string]: any }, TS = any> = {
     [K in keyof DefInterface]: LeafReducer.Definition<DefInterface[K], TS>
   }
