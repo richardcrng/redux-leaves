@@ -26,10 +26,15 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    const reducersDict: LeafReducer.Definitions<{ capitalise: string, exponentiate: number }, State> = {
+    type Definitions = {
+      capitalise: string,
+      exponentiate: LeafReducer.IDefinition<number, [number], number>
+    }
+
+    const reducersDict: LeafReducer.Definitions<Definitions, State> = {
       capitalise: (leafState, action) => leafState.concat(action.payload),
       exponentiate: {
-        reducer: (leafState: number, action: LeafStandardAction<number>) => Math.pow(leafState, action.payload),
+        reducer: (leafState, action) => Math.pow(leafState, action.payload),
         argsToPayload: (index: number) => index
       }
     }
