@@ -1,4 +1,4 @@
-import reduxLeaves, { LeafReducer, LeafStandardAction } from './';
+import reduxLeaves, { LeafReducer } from './';
 import { createStore, Store } from "redux";
 
 describe("API: reduxLeaves(initialState)", () => {
@@ -26,12 +26,12 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    type Definitions = {
+    type Schema = {
       capitalise: string,
-      exponentiate: LeafReducer.IDefinition<number, [number], number>
+      exponentiate: LeafReducer.Schema<number, [number], number>
     }
 
-    const reducersDict: LeafReducer.Definitions<Definitions, State> = {
+    const reducersDict: LeafReducer.Definitions<Schema, State> = {
       capitalise: (leafState, action) => leafState.concat(action.payload),
       exponentiate: {
         reducer: (leafState, action) => Math.pow(leafState, action.payload),

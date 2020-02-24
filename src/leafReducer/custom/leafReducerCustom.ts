@@ -11,7 +11,7 @@ function leafReducerCustom<LS, TS, RD = any>(leafState: LS, action: LeafStandard
     : leafState
 }
 
-const applyReducer = (config: LeafReducer.Config, leafState: any, action: LeafStandardAction, wholeState: any) => {
+const applyReducer = (config: LeafReducer.ConfigObj, leafState: any, action: LeafStandardAction, wholeState: any) => {
   return config.reducer(leafState, action, wholeState)
 }
 

@@ -40,22 +40,23 @@ function makeCreateCustoms<RD>(
  * @param path 
  * @param actionType 
  * 
- * @template C - LeafReducer.Config
+ * @template C - LeafReducer.ConfigObj
  */
-const leafReducerConfigToCreator = <C extends LeafReducer.Config = LeafReducer.Config>(
+const leafReducerConfigToCreator = <C extends LeafReducer.ConfigObj = LeafReducer.ConfigObj>(
   leafReducer: C,
   creatorKey: string,
   path: (string | number)[],
   actionType?: string | LeafActionTypeCreator
-): LeafStandardActionCreator<LeafReducer.CreatorArgs<C>> => {
+): LeafStandardActionCreator<LeafReducer.CreatorArgs<C>, LeafReducer.CreatedPayload<C>> => {
   
-  const { argsToPayload, type: configType = leafReducerDefaults.actionType } = leafReducer;
+  const {
+    argsToPayload = leafReducerDefaults.argsToPayload,
+    type: configType = leafReducerDefaults.actionType
+  } = leafReducer;
   const { leaf, type } = actionPrePayload({ path, creatorKey, actionType, configType })
 
   return (...args: LeafReducer.CreatorArgs<C>): LeafStandardAction<LeafReducer.CreatedPayload<C>> => {
-    const payload = argsToPayload
-      ? argsToPayload(...args)
-      : leafReducerDefaults.argsToPayload(...args)
+    const payload = argsToPayload(...args)
 
     return {
       leaf,

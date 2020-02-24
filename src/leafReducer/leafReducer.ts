@@ -14,7 +14,7 @@ export const leafReducer = (
   action: LeafStandardAction,
   wholeState: any,
   initialWhole: any,
-  reducersDict: Dict<LeafReducer.Config>
+  reducersDict: Dict<LeafReducer.ConfigObj>
   ) => {
 
   const { leaf = {}, payload } = action;
