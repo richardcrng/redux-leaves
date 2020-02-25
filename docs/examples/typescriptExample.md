@@ -7,12 +7,9 @@ sidebar_label: TypeScript example
 
 # TypeScript example
 
-## Bundling actions
-Perhaps you're worried that the atomic actions you're creating at each leaf will cause too much rerendering or clog up your Redux DevTools inspector.
+Redux-Leaves is written in TypeScript and gives most typings by default.
 
-You can bundle together actions with [`bundle`](../api/bundle.md), to produce a new compound action that will update your store's state in a single `dispatch`.
-
-[Bundling example on Runkit](https://runkit.com/richardcrng/redux-leaves-bundling-actions)
+You can help it out by being explicit in your custom reducer typings (if you have any):
 
 ```typescript
 import { createStore } from 'redux'
@@ -98,27 +95,5 @@ const reducerDict: ReducerSchemas = {
 }
 
 
-const [reducer, actions] = reduxLeaves(initialState)
-const store = createStore(reducer)
-
-const actionBundle = bundle([
-  actions.list.create.push('c'),
-  actions.nested.counter.create.increment(5),
-  actions.nested.state.create.set('arbitrary', true)
-])
-
-store.dispatch(actionBundle)
-console.log(store.getState())
-/*
-  {
-    list: ['a', 'b', 'c'],
-    nested: {
-      counter: 5,
-      state: {
-        arbitrary: true,
-        deep: 'somewhat'
-      }
-    }
-  }
-*/
+const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 ```
