@@ -105,6 +105,10 @@
         "title": "Intermediate example",
         "sidebar_label": "Intermediate example"
       },
+      "examples/typescript-example": {
+        "title": "TypeScript example",
+        "sidebar_label": "TypeScript example"
+      },
       "examples/usereducer-example": {
         "title": "Using with useReducer instead of Redux",
         "sidebar_label": "useReducer example"

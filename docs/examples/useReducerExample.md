@@ -14,7 +14,7 @@ For a demo, check out this [Todo app](https://codesandbox.io/s/todo-app-with-use
 ## Example
 [CodeSandbox demo](https://codesandbox.io/s/redux-leaves-with-usereducer-5xpkz)
 
-```js
+```jsx
 import React, { useReducer } from "react";
 import reduxLeaves, { bundle } from 'redux-leaves';
 
@@ -28,37 +28,36 @@ const [reducer, actions] = reduxLeaves(initialState);
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleChange = e => {
+    // update state.name to be e.target.value
+    dispatch(actions.name.create.update(e.target.value));
+  };
+
+  const handleSave = () => {
+    // 1. push current val of state.name into state.list
+    // 2. clear state.name
+    // ... in a single dispatch
+    const actionBundle = bundle([
+      actions.list.create.push(state.name),
+      actions.name.create.clear()
+    ])
+
+    dispatch(actionBundle);
+  };
+
   return (
-    <>
+    <div>
       <h1>Hello, {state.name}!</h1>
       <div>
         <b>Name: </b>
-        <input
-          onChange={e => {
-            dispatch(actions.name.create.update(e.target.value));
-          }}
-          value={state.name}
-        />
-        <button
-          onClick={() => {
-            dispatch(
-              // use bundle to combine multiple atomic actions
-              //   into a single action for dispatch
-              bundle([
-                actions.list.create.push(state.name),
-                actions.name.create.clear()
-              ])
-            );
-          }}
-        >
-          Save
-        </button>
+        <input onChange={handleChange} value={state.name} />
+        <button onClick={handleSave}>Save</button>
       </div>
       <div>
         <b>Greeted: </b>
         {state.list.join(", ")}
       </div>
-    </>
+    </div>
   );
 }
 ```
