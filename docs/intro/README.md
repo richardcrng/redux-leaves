@@ -47,6 +47,51 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 - [Intuitive API](features.md#intuitive-api); and
 - [Minimal boilerplate](features.md#minimal-boilerplate).
 
+#### Example
+```js
+import { createStore } from 'redux'
+import reduxLeaves, { bundle } = from 'redux-leaves'
+
+// set up with initial state
+const initialState = {
+  counter: 0,
+  list: [],
+  props: {}
+}
+
+const [reducer, actions] = reduxLeaves(initialState)
+const store = createStore(reducer)
+
+// setup complete! Now dispatch actions to your heart's content
+
+console.log(store.getState())
+// => { counter: 0, list: [], props: {} } 
+
+store.dispatch(actions.counter.create.increment(10))
+console.log(store.getState())
+// => { counter: 10, list: [], props: {} }
+
+store.dispatch(actions.list.create.push('foo'))
+console.log(store.getState())
+// => { counter: 10, list: ['foo'], props: {} }
+
+const compoundAction = bundle([
+  actions.counter.create.reset(),
+  actions.list[0].create.concat('bar'),
+  actions.props.at.arbitrary.path.create.update('here I am!')
+])
+
+store.dispatch(compoundAction)
+console.log(store.getState())
+/*
+  => {
+    counter: 0,
+    list: ['foobar'],
+    props: { at: { arbitrary: { path: 'here I am!' } } }
+  }
+*/
+```
+
 ### Bonus: `useReducer` usage
 
 Although Redux-Leaves was written to make it easier to work with Redux, [it also works great with `useReducer`](../examples/useReducerExample.md)!

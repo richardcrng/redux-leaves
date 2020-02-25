@@ -26,12 +26,12 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    type Schema = {
+    type ReducerSchemas = {
       capitalise: string,
       exponentiate: LeafReducer.Schema<number, [number], number>
     }
 
-    const reducersDict: LeafReducer.Definitions<Schema, State> = {
+    const reducersDict: LeafReducer.Definitions<ReducerSchemas, State> = {
       capitalise: (leafState, action) => leafState.concat(action.payload),
       exponentiate: {
         reducer: (leafState, action) => Math.pow(leafState, action.payload),
@@ -39,7 +39,7 @@ describe("API: reduxLeaves(initialState)", () => {
       }
     }
 
-    describe("WHEN [reducer, actions] = reduxLeaves(initialState)", () => {
+    describe("WHEN [reducer, actions] = reduxLeaves(initialState, reducersDict)", () => {
       const [reducer, actions] = reduxLeaves(initialState, reducersDict)
 
       test("THEN reducer is a function", () => {
