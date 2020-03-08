@@ -24,7 +24,7 @@
         "type": "subcategory",
         "label": "any",
         "ids": [
-          "defaults/apply",
+          "defaults/do",
           "defaults/clear",
           "defaults/reset",
           "defaults/update"

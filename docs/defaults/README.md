@@ -12,7 +12,7 @@ All of the below action creators are availble through the [`create`](../api/crea
 Some are more useful depending on the type of leaf state you are operating with:
 
 ## any
-- [`.apply(callback)`](apply.md)
+- [`.do(callback)`](do.md)
 - [`.clear([toNull = false])`](clear.md)
 - [`.reset()`](reset.md)
 - [`.update(value)`](update.md)
