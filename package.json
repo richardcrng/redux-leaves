@@ -32,7 +32,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
     "prepublishOnly": "npm run build",
-    "test": "jest --watch"
+    "test": "jest --watch --runInBand"
   },
   "eslintConfig": {
     "extends": "react-app"
