@@ -19,7 +19,7 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
 
   test("Passing a callback", () => {
     const pushedSetInBar = actions.bar.create.pushedSet
-    store.dispatch(pushedSetInBar(key => ({ id: key, text: 'my first item' })))
+    store.dispatch(pushedSetInBar((key: string) => ({ id: key, text: 'my first item' })))
     const barState = store.getState().bar
     expect(Object.values(barState)[0]).toHaveProperty('id', Object.keys(barState)[0])
     expect(Object.values(barState)[0]).toHaveProperty('text', 'my first item')

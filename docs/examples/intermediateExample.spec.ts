@@ -1,6 +1,5 @@
 import { createStore } from 'redux';
-import reduxLeaves from '../../src';
-
+import reduxLeaves, { LeafStandardAction } from '../../src';
 
 describe('Intermediate example', () => {
   const initialState = {
@@ -10,9 +9,9 @@ describe('Intermediate example', () => {
   }
 
   const reducersDict = {
-    double: leafState => leafState * 2,
-    appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
-    countTreeKeys: (leafState, action, treeState) => Object.keys(treeState).length
+    double: (leafState: number) => leafState * 2,
+    appendToEach: (leafState: string[], action: LeafStandardAction<string>) => leafState.map(str => str.concat(action.payload)),
+    countTreeKeys: (leafState: any, action: LeafStandardAction<keyof typeof initialState>, treeState: typeof initialState) => Object.keys(treeState).length
   }
 
   const [reducer, actions] = reduxLeaves(initialState, reducersDict)

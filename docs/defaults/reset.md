@@ -28,7 +28,7 @@ const initialState = {
 
 const otherState = {
   num: 11,
-  arr: ['a', 'b', 'c'],
+  arr: [4, 5, 6],
   bool: false
 }
 
@@ -38,7 +38,7 @@ const store = createStore(reducer, otherState)        // preloads otherState
 /* store.getState()
 * {
 *   num: 11,
-*   arr: ['a', 'b', 'c']
+*   arr: [4, 5, 6]
 * }
 */
 

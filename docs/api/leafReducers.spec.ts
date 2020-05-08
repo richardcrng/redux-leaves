@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { createStore, Store } from "redux";
 import reduxLeaves from '../../src';
 
 describe("Function shorthand", () => {
@@ -11,12 +11,12 @@ describe("Function shorthand", () => {
       }
 
       const customReducers = {
-        squareNumber: leafState => leafState ** 2
+        squareNumber: (leafState: number) => leafState ** 2
       }
 
       describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
         const [reducer, actions] = reduxLeaves(initialState, customReducers)
-        let store
+        let store: Store
 
         beforeEach(() => store = createStore(reducer))
 
@@ -73,13 +73,13 @@ describe("Function shorthand", () => {
       }
 
       const customReducers = {
-        exponentiate: (leafState, { payload }) => leafState ** payload,
-        remove: (leafState, { payload }, wholeState) => leafState.filter(e => e != wholeState[payload])
+        exponentiate: (leafState: number, { payload }: { payload: number }) => leafState ** payload,
+        remove: (leafState: number[], { payload }: { payload: keyof typeof initialState }, wholeState: typeof initialState) => leafState.filter(e => e !== wholeState[payload])
       }
 
       describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
         const [reducer, actions] = reduxLeaves(initialState, customReducers)
-        let store
+        let store: Store
 
         beforeEach(() => store = createStore(reducer))
 
@@ -140,15 +140,15 @@ describe("Function shorthand", () => {
 
       const customReducers = {
         remove: {
-          argsToPayload: (...values) => values,
-          reducer: (leafState, { payload }) => leafState.filter(e => !payload.includes(e)),
+          argsToPayload: (...values: any[]) => values,
+          reducer: (leafState: any, { payload }: { payload: any }) => leafState.filter((e: any) => !payload.includes(e)),
           type: '!!! HEY THERE, I DID A THING !!!'
         }
       }
 
       describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
         const [reducer, actions] = reduxLeaves(initialState, customReducers)
-        let store
+        let store: Store
 
         beforeEach(() => store = createStore(reducer))
 
@@ -191,12 +191,12 @@ describe("Object longhand", () => {
   describe("argsToPayload", () => {
     describe("GIVEN no argsToPayload defined in identity config object", () => {
       const identity = {
-        reducer: leafState => leafState
+        reducer: (leafState: any) => leafState
       }
 
       describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
         const [reducer, actions] = reduxLeaves({}, { identity })
-        let store
+        let store: Store
         beforeEach(() => {
           store = createStore(reducer)
         })
@@ -217,13 +217,13 @@ describe("Object longhand", () => {
 
     describe("GIVEN argsToPayload = (..args) => args.slice(0, 5) in the identity config object", () => {
       const identity = {
-        reducer: leafState => leafState,
-        argsToPayload: (...args) => args.slice(0, 5)
+        reducer: (leafState: any) => leafState,
+        argsToPayload: (...args: any[]) => args.slice(0, 5)
       }
 
       describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
         const [reducer, actions] = reduxLeaves({}, { identity })
-        let store
+        let store: Store
         beforeEach(() => {
           store = createStore(reducer)
         })
@@ -244,13 +244,13 @@ describe("Object longhand", () => {
 
     describe("GIVEN argsToPayload = (first, second, ...rest) => ({ first, second, rest }) in the identity config object", () => {
       const identity = {
-        reducer: leafState => leafState,
-        argsToPayload: (first, second, ...rest) => ({  first, second, rest })
+        reducer: (leafState: any) => leafState,
+        argsToPayload: (first: any, second: any, ...rest: any[]) => ({  first, second, rest })
       }
 
       describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
         const [reducer, actions] = reduxLeaves({}, { identity })
-        let store
+        let store: Store
         beforeEach(() => {
           store = createStore(reducer)
         })
