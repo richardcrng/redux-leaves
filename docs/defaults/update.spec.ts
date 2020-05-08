@@ -20,12 +20,14 @@ describe("leaf.create.update(value): returns an action that, when dispatched, up
   })
 
   test('Calling create.update on an array element', () => {
+    // @ts-ignore
     const updateFirstElementOfArr = actions.arr[1].create.update
     store.dispatch(updateFirstElementOfArr('second'))
     expect(store.getState().arr).toEqual([1, 'second', { number: 3 }])
   })
 
   test('Calling create.update within an array element', () => {
+    // @ts-ignore
     const updateSecondElementNumberProp = actions.arr[2].number.create.update
     store.dispatch(updateSecondElementNumberProp(1337))
     expect(store.getState().arr).toEqual([1, 'second', { number: 1337 }])

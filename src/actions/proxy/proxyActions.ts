@@ -16,10 +16,10 @@ function proxyActions<PB extends Dict<any>, SRD, TS extends Dict<any> = Dict<any
 ): Actions.Branch<PB, TS, Target, LRD> {
   
   const proxy = new Proxy<PB>(proxyBase, {
-    get: (obj: any, prop: Extract<keyof PB, string> | 'create') => {
+    get: (obj: PB, prop: Extract<keyof PB, string> | 'create') => {
       if (prop === 'create') return actionsCreate<SRD, Target, PB, LRD>(reducersDict, path)
       
-      const targetValue = proxyBase[prop]
+      const targetValue = obj[prop]
       const nextProxyBase = RA.isObjLike(targetValue)
         ? targetValue
         : {}
