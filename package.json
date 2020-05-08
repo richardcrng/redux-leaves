@@ -47,6 +47,7 @@
     "@babel/preset-typescript": "^7.7.7",
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.9",
+    "dts-jest": "^23.0.0",
     "jest": "^24.7.1",
     "redux": "^4.0.5",
     "typescript": "^3.7.5",

@@ -58,7 +58,17 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  // globals: {},
+  globals: {
+    _dts_jest_: {
+      "compiler_options": {
+        "module": 'commonjs',
+        "strict": true,
+        // "strictNullChecks": true,
+        "target": "es6",
+        "esModuleInterop": true
+      }
+    }
+  },
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -149,7 +159,11 @@ module.exports = {
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
+  testRegex: [
+    "^.+\\.dts-jest.ts$",
+    "^.+\\.spec.ts$",
+    "^.+\\.test.ts$"
+  ],
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: null,
@@ -164,7 +178,10 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  // transform: null,
+  transform: {
+    "^.+\\.dts-jest.ts$": "dts-jest/transform",
+    '^.+\\.ts?$': 'ts-jest'
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
