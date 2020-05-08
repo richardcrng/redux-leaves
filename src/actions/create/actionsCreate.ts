@@ -23,6 +23,7 @@ function actionsCreate<RD, LS, TS, LRD extends LeafReducer.Definitions>(reducers
 
   const create = Object.assign<Actions.CreateFunction<LS, TS, LRD>, Actions.Creators<LS, TS, LRD>>(createFunction, createFunction())
 
+  // @ts-ignore
   return create
 }
 

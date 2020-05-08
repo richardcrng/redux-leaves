@@ -50,7 +50,7 @@ describe('Advanced example', () => {
     }
 
     const reducersDict = {
-      duplicate: leafState => leafState.concat(leafState)
+      duplicate: (leafState: any[]) => leafState.concat(leafState)
     }
 
     const [reducer, actions] = reduxLeaves(initialState, reducersDict)
@@ -93,10 +93,10 @@ describe('Advanced example', () => {
 
     const reducersDict = {
       addMultiple: {
-        argsToPayload: (...args) => args,
-        reducer: (leafState, { payload }) => payload.reduce((acc, val) => acc + val, leafState)
+        argsToPayload: (...args: number[]) => args,
+        reducer: (leafState: number, { payload }: { payload: number[] }) => payload.reduce((acc, val) => acc + val, leafState)
       },
-      addFirstThing: (leafState, { payload }) => leafState + payload
+      addFirstThing: (leafState: number, { payload } : { payload: number }) => leafState + payload
     }
 
     const [reducer, actions] = reduxLeaves(initialState, reducersDict)

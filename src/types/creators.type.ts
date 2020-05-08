@@ -8,7 +8,7 @@ declare namespace DefaultCreators {
    * 
    * @template E - Source object shape
    */
-  export type Assign<E = object> = (...sources: E[]) => LeafStandardAction <E[]>
+  export type Assign<E = object> = <T = E>(...sources: unknown[]) => LeafStandardAction <unknown[]>
 
   export type Clear = (toNull?: boolean) => LeafStandardAction<boolean>
 
@@ -17,52 +17,52 @@ declare namespace DefaultCreators {
       ? (string: string) => LeafStandardAction<string>
       : LS extends any[] | []
         ? (arr: LS) => LeafStandardAction<LS>
-        : (arrayOrString: any[] | string) => LeafStandardAction<any[] | string>
+        : <T = any[] | string>(arrayOrString:T) => LeafStandardAction<T>
 
-  export type Do<LS, TS> = (callback: (leafState: LS, treeState: TS) => LS) => LeafStandardAction<(leafState: LS, treeState: TS) => LS>
+  export type Do<LS, TS> = <T = LS>(callback: (leafState: T, treeState: TS) => T) => LeafStandardAction<(leafState: T, treeState: TS) => T>
 
   export type Drop = (n?: number) => LeafStandardAction<number>
 
-  export type Filter<T = any> = (callback: (element: T, index: number, array: T[]) => T[]) => LeafStandardAction<(element: T, index: number, array: T[]) => T[]>
+  export type Filter<E = any> = <T = E>(callback: (element: T, index: number, array: T[]) => boolean) => LeafStandardAction<(element: T, index: number, array: T[]) => boolean>
 
   export type Increment = (n?: number) => LeafStandardAction<number>
 
   export type Off = () => LeafStandardAction
   export type On = () => LeafStandardAction
 
-  export type Path<LS> = (path: (string | number)[], value: LS) => LeafStandardAction<{ path: (string | number)[], value: LS }>
+  export type Path<LS> = <T = LS>(path: (string | number)[], value: T) => LeafStandardAction<{ path: (string | number)[], value: T }>
 
-  export type Push<E> = (element: E, index?: number, replace?: boolean) => LeafStandardAction<{ element: E, index?: number, replace?: boolean }>
+  export type Push<E> = <T = E>(element: T, index?: number, replace?: boolean) => LeafStandardAction<{ element: Toggle, index?: number, replace?: boolean }>
 
-  export type PushedSet<E> = (value: E) => LeafStandardAction<E>
+  export type PushedSet<E> = <T = E>(value: T) => LeafStandardAction<T>
 
   export type Reset = () => LeafStandardAction
 
-  export type Set<LS> = (key: string, value: LS) => LeafStandardAction<{ path: [string], value: LS }>
+  export type Set<LS> = <T = LS>(key: string, value: T) => LeafStandardAction<{ path: [string], value: T }>
 
   export type Toggle = () => LeafStandardAction
 
-  export type Update<LS> = (newVal: LS) => LeafStandardAction<LS>
+  export type Update<LS> = <T = LS>(newVal: T) => LeafStandardAction<T>
 } 
 
 export interface LeafCreatorDefaults<LS = any, TS = any> {
   assign: DefaultCreators.Assign<LS extends Array<infer E> ? E : any>,
   clear: DefaultCreators.Clear,
-  concat: DefaultCreators.Concat<LS>,
-  do: DefaultCreators.Do<LS, TS>,
+  concat: DefaultCreators.Concat<unknown>,
+  do: DefaultCreators.Do<unknown, TS>,
   drop: DefaultCreators.Drop,
-  filter: DefaultCreators.Filter<LS extends Array<infer E> ? E : any>,
+  filter: DefaultCreators.Filter<unknown>,
   increment: DefaultCreators.Increment
   off: DefaultCreators.Off,
   on: DefaultCreators.On,
-  path: DefaultCreators.Path<LS>,
-  push: DefaultCreators.Push<LS extends Array<infer E> ? E : any>,
+  path: DefaultCreators.Path<unknown>,
+  push: DefaultCreators.Push<unknown>,
   pushedSet: DefaultCreators.PushedSet<LS extends Array<infer E> ? E : any>,
   // replace: (pattern: string | RegExp, replacement: string) => LeafStandardAction,
   reset: DefaultCreators.Reset,
-  set: DefaultCreators.Set<LS>,
+  set: DefaultCreators.Set<unknown>,
   toggle: DefaultCreators.Toggle,
-  update: DefaultCreators.Update<LS>
+  update: DefaultCreators.Update<unknown>
 }
 
 /**

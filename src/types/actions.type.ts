@@ -25,7 +25,7 @@ export declare namespace Actions {
   export type CreateAPI<LS, TS, LRD extends LeafReducer.Definitions> =
     CreateFunction<LS, TS, LRD>
       & Creators<LS, TS, LRD>
-      & { apply: (callback: (leafState: LS, treeState: TS) => boolean) => LeafStandardAction<(leafState: LS, treeState: TS) => boolean> }
+      & { do: <T = unknown>(callback: (leafState: T, treeState: TS) => boolean) => LeafStandardAction<(leafState: T, treeState: TS) => TS> }
 
   /**
     * @template LS - LeafShape

@@ -10,7 +10,7 @@ describe("leaf.create.reset(): returns an action that, when dispatched, updates 
 
   const otherState = {
     num: 11,
-    arr: ['a', 'b', 'c'],
+    arr: [4, 5, 6],
     bool: false
   }
 
