@@ -6,7 +6,6 @@ Write once. Reduce anywhere.
 [![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons)
 [![bundle size](https://badgen.net/bundlephobia/min/redux-leaves)](https://badgen.net/bundlephobia/min/redux-leaves)
 [![npm version](https://badge.fury.io/js/redux-leaves.svg)](https://badge.fury.io/js/redux-leaves)
-[![Maintainability](https://api.codeclimate.com/v1/badges/371605931cb9f824e25c/maintainability)](https://codeclimate.com/github/richardcrng/redux-leaves/maintainability)
 
 ## Example
 
