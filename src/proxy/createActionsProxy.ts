@@ -41,6 +41,13 @@ function wrapForProxy<S, T>(
         }
       },
 
+      reset() {
+        return {
+          type: makeType(DefaultCreators.RESET),
+          leaf: { path, CREATOR_KEY: DefaultCreators.RESET, creatorKey: DefaultCreators.RESET.toLowerCase() }
+        }
+      },
+
       update(newVal: S) {
         return {
           type: makeType(DefaultCreators.DO),

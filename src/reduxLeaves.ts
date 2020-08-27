@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
-import { LeafStandardAction, DefaultCreators, creatorGuards } from './types';
+import { LeafStandardAction } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
@@ -13,7 +13,7 @@ function reduxLeaves<S>(initialState: S): ReduxLeaves<S>{
 
     const prevLeafState = getState(treeState, action.leaf.path)
 
-    const newLeafState = leafReducer(prevLeafState, treeState, action)
+    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState)
 
     return updateState(treeState, action.leaf.path, newLeafState)
   }
