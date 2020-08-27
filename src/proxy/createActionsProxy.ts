@@ -1,16 +1,4 @@
-import { Action } from 'redux'
-
-interface LeafStandardAction {
-  type: string
-}
-
-export interface LSAWithPayload<P> extends LeafStandardAction {
-  payload: P
-}
-
-type StandardCreators<S> = {
-  update(newVal: S): LSAWithPayload<S>
-}
+import { StandardCreators, LeafStandardAction, LSAWithPayload, LSATypes } from '../types'
 
 export type ActionsProxy<S> = {
   create: StandardCreators<S>
@@ -18,25 +6,32 @@ export type ActionsProxy<S> = {
   [P in keyof S]: ActionsProxy<S[P]>
 }
 
-function createActionsProxy<S>(state: S): ActionsProxy<S> {
+function createActionsProxy<S>(
+  state: S,
+  path: (string|number)[] = []
+): ActionsProxy<S> {
 
-  const proxy = new Proxy(wrapForProxy(state), {
+  const proxy = new Proxy(wrapForProxy(state, path), {
     get: (target, prop: Extract<keyof S, string> | 'create') => {
       if (prop === 'create') return target.create
 
-      return createActionsProxy(target[prop])
+      return createActionsProxy(target[prop], [...path, prop])
     }
   })
 
   return proxy as unknown as ActionsProxy<S>
 }
 
-function wrapForProxy<S>(state: S) {
+function wrapForProxy<S>(
+  state: S,
+  path: (string|number)[] = []
+) {
   const wrapping = {
     create: {
-      update(newVal: S) {
+      update(newVal: S): LSAWithPayload<S> {
         return {
-          type: 'blah',
+          type: LSATypes.UPDATE,
+          path,
           payload: newVal
         }
       }

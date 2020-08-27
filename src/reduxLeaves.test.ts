@@ -32,16 +32,25 @@ describe('Basic example', () => {
       expect(testPath.create.update).toBeDefined()
       expect(typeof testPath.create.update).toBe('function')
     }
+  })
 
-    // expect(actions.create).toBeDefined()
-    // expect(actions.create.update).toBeDefined()
-    // expect(typeof actions.create.update).toBe('function')
+  describe('State updates appropriately', () => {
+    test('Updating a boolean', () => {
+      const result = reducer(
+        initialState,
+        actions.shallow.create.update(false)
+      )
 
-    
-    // expect(actions.shallow).toBeDefined()
-    // expect(actions.list).toBeDefined()
-    // expect(actions.nested.counter).toBeDefined()
-    // expect(actions.nested.state).toBeDefined()
-    // expect(actions.nested.state.deep).toBeDefined()
+      expect(result).toStrictEqual({
+        shallow: false,
+        nested: {
+          counter: 0,
+          state: {
+            deep: 'somewhat'
+          }
+        },
+        list: [1, 2, 3]
+      })
+    })
   })
 })
