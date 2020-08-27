@@ -13,6 +13,8 @@ describe('Basic example', () => {
     list: [1, 2, 3]
   }
 
+  Object.freeze(initialState)
+
   const [reducer, actions] = reduxLeaves(initialState)
 
   test('Actions shape mirrors state shape', () => {
@@ -42,14 +44,26 @@ describe('Basic example', () => {
       )
 
       expect(result).toStrictEqual({
-        shallow: false,
+        ...initialState,
+        shallow: false
+      })
+    })
+
+    test('Updating a deeply nested string', () => {
+      const result = reducer(
+        initialState,
+        actions.nested.state.deep.create.update('banana')
+      )
+
+      expect(result).toStrictEqual({
+        ...initialState,
         nested: {
-          counter: 0,
+          ...initialState.nested,
           state: {
-            deep: 'somewhat'
+            ...initialState.nested.state,
+            deep: 'banana'
           }
-        },
-        list: [1, 2, 3]
+        }
       })
     })
   })
