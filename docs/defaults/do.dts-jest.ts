@@ -17,13 +17,13 @@ actions.str.create.do(state => state.toUpperCase())
 actions.str.create.do(state => state.push(4))
 
 // @dts-jest:pass Allows returning appropriate branch
-actions.create.obj.do(state => ({ num: 7, str: 'foo' }))
+actions.obj.create.do(state => ({ num: 7, str: 'foo' }))
 
 // @dts-jest:fail Disallows returning non-conforming branch
-actions.create.obj.do(state => ({ num: '7', str: 'foo' }))
+actions.obj.create.do(state => ({ num: '7', str: 'foo' }))
 
 // @dts-jest:pass Allows using a callback with a second argument of treeState
-actions.create.arr.do((state, treeState) => [...state, treeState.num])
+actions.arr.create.do((state, treeState) => [...state, treeState.num])
 
 // @dts-jest:fail Disallows using a callback with a non-conforming argument of treeState
-actions.create.arr.do((state, treeState) => [...state, treeState.str])
+actions.arr.create.do((state, treeState) => [...state, treeState.str])
