@@ -14,11 +14,21 @@ type StandardCreators<S> = {
 
 export type ActionsProxy<S> = {
   create: StandardCreators<S>
+} & {
+  [P in keyof S]: ActionsProxy<S[P]>
 }
 
 function createActionsProxy<S>(state: S): ActionsProxy<S> {
 
-  return new Proxy(wrapForProxy(state), {})
+  const proxy = new Proxy(wrapForProxy(state), {
+    get: (target, prop: Extract<keyof S, string> | 'create') => {
+      if (prop === 'create') return target.create
+
+      return createActionsProxy(target[prop])
+    }
+  })
+
+  return proxy as unknown as ActionsProxy<S>
 }
 
 function wrapForProxy<S>(state: S) {
@@ -32,7 +42,6 @@ function wrapForProxy<S>(state: S) {
       }
     }
   }
-
   return Object.assign(wrapping, state)
 }
 
