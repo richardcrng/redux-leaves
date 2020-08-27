@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe("leaf.create.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
+describe.skip("leaf.create.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
   const initialState = {
     bool: true,
     num: 2,

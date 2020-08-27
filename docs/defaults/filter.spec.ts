@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe("leaf.filter(callback): returns an action that, when dispatched, updates the leaf's state by filtering it with the callback", () => {
+describe.skip("leaf.filter(callback): returns an action that, when dispatched, updates the leaf's state by filtering it with the callback", () => {
   const initialState = {
     foo: [1, 2, 3, 4, 5],
     bar: ['cat', 'dog', 'bat']
