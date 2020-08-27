@@ -6,8 +6,8 @@ import updateState from './utils/update-state';
 
 export type ReduxLeaves<S> = [Reducer<S>, ActionsProxy<S>]
 
-function reduxLeaves<S>(state: S): ReduxLeaves<S>{
-  const reducer = (state: S, action: LeafStandardAction) => {
+function reduxLeaves<S>(initialState: S): ReduxLeaves<S>{
+  const reducer = (state: S = initialState, action: LeafStandardAction) => {
     if (action.type === LSATypes.UPDATE) {
       return updateState(state, action.path, action.payload)
     }
@@ -15,7 +15,7 @@ function reduxLeaves<S>(state: S): ReduxLeaves<S>{
     return state
   }
 
-  const actions = createActionsProxy(state)
+  const actions = createActionsProxy(initialState)
 
   return [reducer as Reducer<S>, actions]
 }

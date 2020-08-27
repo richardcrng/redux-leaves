@@ -12,10 +12,10 @@ function createActionsProxy<S>(
 ): ActionsProxy<S> {
 
   const proxy = new Proxy(wrapForProxy(state, path), {
-    get: (target, prop: Extract<keyof S, string> | 'create') => {
+    get: (target, prop: Extract<keyof S, string | number> | 'create') => {
       if (prop === 'create') return target.create
 
-      return createActionsProxy(target[prop], [...path, prop])
+      return createActionsProxy(target[prop], [...path, propForPath(prop)])
     }
   })
 
@@ -37,7 +37,18 @@ function wrapForProxy<S>(
       }
     }
   }
+
+  
+
   return Object.assign(wrapping, state)
 }
+
+const propForPath = (prop: string | number): string | number => (
+  isFixedString(prop)
+    ? parseInt(String(prop))
+    : prop
+)
+
+const isFixedString = (s: string | number) => !isNaN(+s) && isFinite(+s) && !/e/i.test(String(s))
 
 export default createActionsProxy
