@@ -66,6 +66,7 @@
   "exclude": [
     "website",
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "**/*.dts-jest.ts"
   ]
 }
