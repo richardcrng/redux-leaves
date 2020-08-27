@@ -1,6 +1,5 @@
 import reduxLeaves from "./"
 
-
 // @dts-jest:group Actions shape mirrors state
 {
   const initialState = {

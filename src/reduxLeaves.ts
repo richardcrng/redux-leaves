@@ -1,7 +1,9 @@
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
 
-function reduxLeaves<S>(state: S): [unknown, ActionsProxy<S>] {
+export type ReduxLeaves<S> = [string, ActionsProxy<S>]
+
+function reduxLeaves<S>(state: S): ReduxLeaves<S>{
   const reducer = ''
   const actions = createActionsProxy(state)
 
