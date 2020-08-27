@@ -1,4 +1,4 @@
-import { LSAWithPayload, DefaultCreators, CreateDefaults } from '../types'
+import { DefaultCreators, CreateDefaults, LeafStandardAction, LSAWithPayload } from '../types'
 
 export type ActionsProxy<S, T> = {
   create: CreateDefaults<S, T>
@@ -31,30 +31,21 @@ function wrapForProxy<S, T>(
     const makeType = passedType
       ? (_: string) => passedType
       : (str: string) => [...path, str].join('/')
+    
+    function creatorOfType<T>(str: string, payload: T): LSAWithPayload<T>
+    function creatorOfType(str: string): LeafStandardAction
+    function creatorOfType<T>(str: string, payload?: T) {
+      return {
+        type: makeType(str),
+        leaf: { path, CREATOR_KEY: str.toUpperCase(), creatorKey: str.toLowerCase() },
+        ...payload ? { payload } : {}
+      }
+    }
 
     return {
-      do(cb) {
-        return {
-          type: makeType(DefaultCreators.DO),
-          leaf: { path, CREATOR_KEY: DefaultCreators.DO, creatorKey: DefaultCreators.DO.toLowerCase() },
-          payload: cb
-        }
-      },
-
-      reset() {
-        return {
-          type: makeType(DefaultCreators.RESET),
-          leaf: { path, CREATOR_KEY: DefaultCreators.RESET, creatorKey: DefaultCreators.RESET.toLowerCase() }
-        }
-      },
-
-      update(newVal: S) {
-        return {
-          type: makeType(DefaultCreators.DO),
-          leaf: { path, CREATOR_KEY: DefaultCreators.UPDATE, creatorKey: DefaultCreators.UPDATE.toLowerCase() },
-          payload: newVal
-        }
-      }
+      do: (cb) => creatorOfType(DefaultCreators.DO, cb),
+      reset: () => creatorOfType(DefaultCreators.RESET),
+      update: (newVal: S) => creatorOfType(DefaultCreators.UPDATE, newVal)
     }
   }
 
