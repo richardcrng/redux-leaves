@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import reduxLeaves, { bundle } from '../../src';
 
 
-describe('Advanced example', () => {
+describe.skip('Advanced example', () => {
   describe("Bundling actions", () => {
     const initialState = {
       list: ['a', 'b'],

@@ -65,13 +65,11 @@ import reduxLeaves from "../../src"
   })
 
   // @dts-jest:fail
-  actions.nested.state.create.update({
-    randomKey: 'foobar'
-  })
+  actions.nested.state.create.update({ randomKey: 'foobar' })
 
   // @dts-jest:pass
   actions.numList.create.update([2, 4, 8])
 
   // @dts-jest:fail
-  actions.numList.create.update(['2', '4', '8'])
+  actions.numList.create.update(['2'])
 }

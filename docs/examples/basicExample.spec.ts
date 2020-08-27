@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import reduxLeaves from '../../src';
 
 
-describe('Basic example', () => {
+describe.skip('Basic example', () => {
   const initialState = {
     counterOne: 0,
     counterTwo: 0

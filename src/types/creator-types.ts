@@ -1,14 +1,17 @@
-import { LSAWithPayload } from "./action-types"
+import { LSAWithPayload, LeafStandardAction } from "./action-types"
 
 export enum DefaultCreators {
   DO = 'DO',
+  RESET = 'RESET',
   UPDATE = 'UPDATE'
 }
 
 export type CreateDefaults<S, T> = {
-  do(cb: DoCallback<S, T>): LSAWithPayload<DoCallback<S, T>, DefaultCreators.DO>
+  do(cb: DoCallback<S, T>): LSAWithPayload<DoCallback<S, T>>
+
+  reset(): LeafStandardAction
   
-  update(newVal: S): LSAWithPayload<S, DefaultCreators.UPDATE>
+  update(newVal: S): LSAWithPayload<S>
 }
 
 export type StandardActions<S, T, K extends keyof CreateDefaults<S, T>> = ReturnType<CreateDefaults<S, T>[K]>

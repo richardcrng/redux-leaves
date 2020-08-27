@@ -14,6 +14,6 @@ export interface LeafStandardAction<T extends string = string, P = unknown> {
 
 
 
-export interface LSAWithPayload<P, T extends string = string> extends LeafStandardAction<T> {
+export interface LSAWithPayload<P> extends LeafStandardAction {
   payload: P
 }

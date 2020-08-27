@@ -1,7 +1,7 @@
 import { createStore, Store } from "redux";
 import reduxLeaves from '../../src';
 
-describe("Function shorthand", () => {
+describe.skip("Function shorthand", () => {
 
   describe("Example 1: custom action creator with no arguments", () => {
     describe("GIVEN initialState and customReducers", () => {
@@ -187,7 +187,7 @@ describe("Function shorthand", () => {
   })
 })
 
-describe("Object longhand", () => {
+describe.skip("Object longhand", () => {
   describe("argsToPayload", () => {
     describe("GIVEN no argsToPayload defined in identity config object", () => {
       const identity = {
