@@ -15,7 +15,7 @@ describe("leaf.create.do(callback): returns an action that, when dispatched, upd
 
   test("Calling create.do on a leaf", () => {
     const doToString = actions.str.create.do
-    store.dispatch(doToString((state: string) => state.toUpperCase()))
+    store.dispatch(doToString((state) => state.toUpperCase()))
     expect(store.getState().str).toBe('FOO')
   })
 
@@ -27,14 +27,14 @@ describe("leaf.create.do(callback): returns an action that, when dispatched, upd
 
   test("Calling create.do on a branch", () => {
     const doToState = actions.create.do
-    store.dispatch(doToState((state: any) => ({ num: state.num, arr: state.arr })))
+    store.dispatch(doToState((state) => ({ num: state.num, arr: state.arr })))
     expect(store.getState()).toEqual({ num: 2, arr: [1, 2, 3] })
   })
 
   test("Calling create.do with two arguments", () => {
     const doToArray = actions.arr.create.do
     store.dispatch(doToArray(
-      (leafState: number[], treeState) => leafState.map(element => element * treeState.num)
+      (leafState, treeState) => leafState.map(element => element * treeState.num)
     ))
     expect(store.getState()).toEqual({ num: 2, arr: [2, 4, 6] })
   })
