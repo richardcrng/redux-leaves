@@ -1,7 +1,6 @@
 import reduxLeaves from "./reduxLeaves"
 
 describe('Basic example', () => {
-
   const initialState = {
     shallow: true,
     nested: {
@@ -36,7 +35,7 @@ describe('Basic example', () => {
     }
   })
 
-  describe('State updates appropriately', () => {
+  describe('Reducer and actions update state appropriately', () => {
     test('Updating a boolean', () => {
       const result = reducer(
         initialState,
