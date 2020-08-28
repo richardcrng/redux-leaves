@@ -1,8 +1,13 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state at an auto-generated key (that orders chronologically after previous keys) with value", () => {
-  const initialState = {
+describe.("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state at an auto-generated key (that orders chronologically after previous keys) with value", () => {
+  interface State {
+    foo: { [key: string]: string },
+    bar: { [key: string]: { id: string, text: string } }
+  }
+
+  const initialState: State = {
     foo: {},
     bar: {}
   }
