@@ -15,14 +15,11 @@ const [_, actions] = reduxLeaves(initialState)
   // @dts-jest:fail does not exist on boolean state
   actions.bool.create.drop
 
-  // @dts-jest:fail exists on array state
+  // @dts-jest:pass exists on array state
   actions.arr.create.drop
 
-  // @dts-jest:fail exists on nested array state
+  // @dts-jest:pass exists on nested array state
   actions.obj.names[0].create.drop
-
-  // @dts-jest:pass does not require an argument
-  actions.bool.create.drop()
 
   // @dts-jest:pass does not require an argument
   actions.arr.create.drop()
@@ -30,6 +27,6 @@ const [_, actions] = reduxLeaves(initialState)
   // @dts-jest:pass can take a number as an argument
   actions.arr.create.drop(2)
 
-  // @dts-jest:pass refuses non-number arguments
+  // @dts-jest:fail refuses non-number arguments
   actions.arr.create.drop('2')
 }

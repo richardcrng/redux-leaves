@@ -1,13 +1,13 @@
-import { LSAWithPayload, LeafStandardAction } from "./action-types"
+import { ArrayCreators } from '../array/array-types'
+import { UniversalCreators } from '../universal/universal-types'
+
 export * from '../array/array-types'
 export * from '../universal/universal-types'
 
 export type CreateFn<T> = (passedType?: string) => T
 
-interface TypedCreators {
-  [creatorKey: string]: (...args: any) => any
-}
+export type TypedCreators<S, T> = S extends Array<unknown> ? ArrayCreators<S, T> : {}
 
-export type CreatedAction<C extends TypedCreators, K extends keyof C, S = unknown, T = unknown> = ReturnType<C[K]>
+export type DefaultCreators<S, T> = UniversalCreators<S, T> & TypedCreators<S, T>
 
 
