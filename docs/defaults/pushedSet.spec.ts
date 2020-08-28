@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state at an auto-generated key (that orders chronologically after previous keys) with value", () => {
+describe("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state at an auto-generated key (that orders chronologically after previous keys) with value", () => {
   interface State {
     foo: { [key: string]: string },
     bar: { [key: string]: { id: string, text: string } }
@@ -26,7 +26,11 @@ describe.("leaf.create.set(path, value): returns an action that, when dispatched
     const pushedSetInBar = actions.bar.create.pushedSet
     store.dispatch(pushedSetInBar((key: string) => ({ id: key, text: 'my first item' })))
     const barState = store.getState().bar
-    expect(Object.values(barState)[0]).toHaveProperty('id', Object.keys(barState)[0])
-    expect(Object.values(barState)[0]).toHaveProperty('text', 'my first item')
+    expect(Object.values(barState)[0]).toStrictEqual({
+      id: Object.keys(barState)[0],
+      text: 'my first item'
+    })
+    // expect(Object.values(barState)[0]).toHaveProperty('id', Object.keys(barState)[0])
+    // expect(Object.values(barState)[0]).toHaveProperty('text', 'my first item')
   })
 })

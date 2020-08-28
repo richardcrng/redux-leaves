@@ -34,6 +34,6 @@ import reduxLeaves from '../../src';
   // @dts-jest:pass accepts a callback returning correct shape
   actions.bar.create.pushedSet(id => ({ id, text: 'hello world!' }))
 
-  // @dts-jest:pass refuses callback returning incorrect shape
+  // @dts-jest:fail refuses callback returning incorrect shape
   actions.bar.create.pushedSet(id => ({ id, text: 1010 }))
 }
