@@ -12,7 +12,8 @@ export type ObjectCreators<L extends {} = {}, T = unknown> = {
   pushedSet: PushedSet<L>
 }
 
-type PushedSet<L> = PushedSetWithValue<L> | PushedSetWithCallback<L>
+type PushedSet<L> = (arg: L[keyof L] | PushedSetCallback<L>) => LSAWithPayload<L[keyof L] | PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
+
 type PushedSetCallback<L> = (id: string) => L[keyof L]
 type PushedSetWithValue<L> = (val: L[keyof L]) => LSAWithPayload<L[keyof L], ObjectCreatorKeys.PUSHED_SET>
 type PushedSetWithCallback<L> = (cb: PushedSetCallback<L>) => LSAWithPayload<PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
@@ -31,6 +32,12 @@ export function isPushedSetAction<L>(action: LeafStandardAction): action is Obje
   return action.leaf.CREATOR_KEY === ObjectCreatorKeys.PUSHED_SET
 }
 
-export function isPushedSetCallbackAction<L>(action: ObjectActions<'pushedSet', L>): action is ReturnType<PushedSetWithCallback<L>> {
-  return typeof action.payload === 'function'
+export function isPushedSetValueAction<L>(action: LeafStandardAction): action is ReturnType<PushedSetWithValue<L>> {
+  return isPushedSetAction(action)
+    && typeof action.payload !== 'function'
+}
+
+export function isPushedSetCallbackAction<L>(action: LeafStandardAction): action is ReturnType<PushedSetWithCallback<L>> {
+  return isPushedSetAction(action)
+    && typeof action.payload === 'function'
 }

@@ -1,6 +1,6 @@
 import { LeafStandardAction, isClearAction } from "../types"
 import universalLeafReducer from '../universal/universalLeafReducer';
-import { isAssignAction, isPathAction, isPushedSetAction, isPushedSetCallbackAction } from './object-types';
+import { isAssignAction, isPathAction, isPushedSetAction, isPushedSetCallbackAction, isPushedSetValueAction } from './object-types';
 import updateState from "../utils/update-state";
 import generatePushID from "../utils/generatePushID";
 
@@ -16,12 +16,14 @@ function objectLeafReducer<L extends {}, T, A extends LeafStandardAction>(leafSt
     return updateState(leafState, action.payload.path, action.payload.value)
   }
 
-  if (isPushedSetAction<L>(action)) {
+  if (isPushedSetValueAction<L>(action)) {
     const id = generatePushID()
-    const newValue = isPushedSetCallbackAction(action)
-      ? action.payload(id)
-      : action.payload
-    return { ...leafState, [id]: newValue }
+    return { ...leafState, [id]: action.payload }
+  }
+
+  if (isPushedSetCallbackAction<L>(action)) {
+    const id = generatePushID()
+    return { ...leafState, [id]: action.payload(id) }
   }
 
   if (isClearAction(action)) {

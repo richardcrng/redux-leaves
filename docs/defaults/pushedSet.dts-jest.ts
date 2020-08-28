@@ -28,8 +28,11 @@ import reduxLeaves from '../../src';
   // @dts-jest:pass accepts appropriate value
   actions.foo.create.pushedSet('4')
 
-  // @dts-jest:pass accepts a callback
+  // @dts-jest:pass accepts a callback with string argument
   actions.foo.create.pushedSet(id => id.toUpperCase())
+
+  // @dts-jest:fail reject a callback with array argument
+  actions.foo.create.pushedSet((id: string[]) => id.pop())
 
   // @dts-jest:pass accepts a callback returning correct shape
   actions.bar.create.pushedSet(id => ({ id, text: 'hello world!' }))
