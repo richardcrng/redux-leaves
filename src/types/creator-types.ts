@@ -10,6 +10,8 @@ export * from '../universal/universal-types'
 
 export type CreateFn<T> = (passedType?: string) => T
 
+export type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
+
 export type TypedCreators<S, T> =
   S extends Array<unknown>
     ? ArrayCreators<S, T> :

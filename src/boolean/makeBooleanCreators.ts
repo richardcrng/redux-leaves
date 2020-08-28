@@ -7,7 +7,7 @@ function makeBooleanCreators<L extends boolean, T>(leafState: L, path: (string |
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)
     return {
-      // assign: (props: L) => creatorOfType(BooleanCreatorKeys.ASSIGN, props)
+      off: () => creatorOfType(BooleanCreatorKeys.OFF)
     }
   }
 }

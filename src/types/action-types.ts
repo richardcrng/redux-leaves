@@ -6,12 +6,12 @@ export interface LeafActionData<CK extends string = string> {
   custom?: boolean
 }
 
-export interface LeafStandardAction<P = unknown, CK extends string = string> {
+export interface LeafStandardAction<CK extends string = string, P = unknown> {
   type: string,
   leaf: LeafActionData<CK>,
   payload?: P
 }
 
-export interface LSAWithPayload<P, CK extends string = string> extends LeafStandardAction<P, CK> {
+export interface LSAWithPayload<P, CK extends string = string> extends LeafStandardAction<CK, P> {
   payload: P
 }

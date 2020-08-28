@@ -1,8 +1,8 @@
 import wrapWithCreate from './wrapWithCreate'
-import { DefaultCreators } from '../types'
+import { DefaultCreators, CreateFn } from '../types'
 
 export type ActionsProxy<S, T> = {
-  create: DefaultCreators<S, T>
+  create: DefaultCreators<S, T> & CreateFn<DefaultCreators<S, T>>
 } & {
   [P in keyof S]: ActionsProxy<S[P], T>
 }

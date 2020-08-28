@@ -1,11 +1,16 @@
 import { LSAWithPayload, LeafStandardAction } from "../types";
 
 export enum BooleanCreatorKeys {
-  // ASSIGN = 'ASSIGN'
+  OFF = 'OFF'
 }
 
 export type BooleanCreators<L extends boolean = boolean, T = unknown> = {
-  // assign(props: Partial<L>): LSAWithPayload<L, BooleanCreatorKeys.ASSIGN>
+  off(): LeafStandardAction<BooleanCreatorKeys.OFF>
 }
 
 export type BooleanActions<K extends keyof BooleanCreators, L extends boolean = boolean, T = unknown> = ReturnType<BooleanCreators<L>[K]>
+
+
+export function isOffAction(action: LeafStandardAction): action is BooleanActions<'off'> {
+  return action.leaf.CREATOR_KEY === BooleanCreatorKeys.OFF
+}
