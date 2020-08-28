@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
+describe("leaf.create.clear(toNull = false): returns an action that, when dispatched, clear's the leaf's state", () => {
   const initialState = {
     bool: true,
     num: 2,
@@ -20,7 +20,7 @@ describe.skip("leaf.create.clear(toNull = false): returns an action that, when d
       expect(store.getState().bool).toBe(false)
     })
 
-    it('Clears to null if passed true', () => {
+    it.skip('Clears to null if passed true', () => {
       store.dispatch(clearBool(true))
       expect(store.getState().bool).toBe(null)
     })
@@ -34,7 +34,7 @@ describe.skip("leaf.create.clear(toNull = false): returns an action that, when d
       expect(store.getState().num).toBe(0)
     })
 
-    it('Clears to null if passed true', () => {
+    it.skip('Clears to null if passed true', () => {
       store.dispatch(clearNum(true))
       expect(store.getState().num).toBe(null)
     })
@@ -48,7 +48,7 @@ describe.skip("leaf.create.clear(toNull = false): returns an action that, when d
       expect(store.getState().str).toBe('')
     })
 
-    it('Clears to null if passed true', () => {
+    it.skip('Clears to null if passed true', () => {
       store.dispatch(clearStr(true))
       expect(store.getState().str).toBe(null)
     })
@@ -62,7 +62,7 @@ describe.skip("leaf.create.clear(toNull = false): returns an action that, when d
       expect(store.getState().arr).toEqual([])
     })
 
-    it('Clears to null if passed true', () => {
+    it.skip('Clears to null if passed true', () => {
       store.dispatch(clearArr(true))
       expect(store.getState().arr).toBe(null)
     })
@@ -76,7 +76,7 @@ describe.skip("leaf.create.clear(toNull = false): returns an action that, when d
       expect(store.getState()).toEqual({})
     })
 
-    it('Clears to null if passed true', () => {
+    it.skip('Clears to null if passed true', () => {
       store.dispatch(clearState(true))
       expect(store.getState()).toBe(null)
     })
