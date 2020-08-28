@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.path(path, value): returns an action that, when dispatched, updates the leaf's state by setting a proprety at path as value", () => {
+describe("leaf.create.path(path, value): returns an action that, when dispatched, updates the leaf's state by setting a proprety at path as value", () => {
   const initialState = {
     foo: {},
     bar: { arbitrary: { keys: 3 } }
