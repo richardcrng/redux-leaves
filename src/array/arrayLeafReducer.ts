@@ -1,7 +1,8 @@
 import { drop, defaultTo } from 'ramda';
-import { isDropAction, isConcatActionArray, isFilterAction } from './array-types'
+import { isDropAction, isConcatActionArray, isFilterAction, isPushAction } from './array-types'
 import { LeafStandardAction, isClearAction } from "../types"
 import universalLeafReducer from '../universal/universalLeafReducer';
+import { replaceAtIndex, insertAtIndex } from '../utils/array-utils';
 
 function arrayLeafReducer<L extends unknown[], T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {
   
@@ -11,6 +12,13 @@ function arrayLeafReducer<L extends unknown[], T, A extends LeafStandardAction>(
 
   if (isConcatActionArray<L>(action)) {
     return [...leafState, ...action.payload] as L
+  }
+
+  if (isPushAction(action)) {
+    const { element, index = -1, replace = false } = action.payload
+    return replace
+      ? replaceAtIndex(leafState, index, element) as L
+      : insertAtIndex(leafState, index, element) as L
   }
 
   if (isFilterAction<L>(action)) {

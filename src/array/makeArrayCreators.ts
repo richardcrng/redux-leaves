@@ -8,7 +8,8 @@ function makeArrayCreators<L extends unknown[], T>(leafState: L, path: (string |
     return {
       concat: (arr: L) => creatorOfType(ArrayCreatorKeys.CONCAT, arr),
       drop: (n) => creatorOfType(ArrayCreatorKeys.DROP, n),
-      filter: (cb) => creatorOfType(ArrayCreatorKeys.FILTER, cb)
+      filter: (cb) => creatorOfType(ArrayCreatorKeys.FILTER, cb),
+      push: (element, index, replace) => creatorOfType(ArrayCreatorKeys.PUSH, { element, index, replace })
     }
   }
 }
