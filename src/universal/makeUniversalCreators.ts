@@ -8,6 +8,7 @@ function makeUniversalCreators<L, T>(leafState: L, path: (string | number)[]): C
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)
     return {
+      clear: () => creatorOfType(UniversalCreatorKeys.CLEAR),
       do: (cb) => creatorOfType(UniversalCreatorKeys.DO, cb),
       reset: () => creatorOfType(UniversalCreatorKeys.RESET),
       update: (newVal: L) => creatorOfType(UniversalCreatorKeys.UPDATE, newVal)

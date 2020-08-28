@@ -3,6 +3,8 @@ import makeArrayCreators from "../array/makeArrayCreators";
 import makeStringCreators from "../string/makeStringCreators";
 import { isPlainObject } from "ramda-adjunct";
 import makeObjectCreators from '../object/makeObjectCreators';
+import makeBooleanCreators from "../boolean/makeBooleanCreators";
+import makeNumberCreators from "../number/makeNumberCreators";
 
 // function makeTypedCreators<L extends Array<unknown>>(leafState: L, path: (string | number)[]): CreateFn<ArrayCreators>
 
@@ -17,6 +19,14 @@ function makeTypedCreators<L>(leafState: L, path: (string | number)[]): CreateFn
   // String creators
   if (typeof leafState === 'string') {
     return makeStringCreators(leafState, path)
+  }
+
+  if (typeof leafState === 'boolean') {
+    return makeBooleanCreators(leafState, path)
+  }
+
+  if (typeof leafState === 'number') {
+    return makeNumberCreators(leafState, path)
   }
 
   // Object creators

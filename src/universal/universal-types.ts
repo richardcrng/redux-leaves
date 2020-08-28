@@ -1,6 +1,7 @@
 import { LSAWithPayload, LeafStandardAction } from "../types"
 
 export enum UniversalCreatorKeys {
+  CLEAR = 'CLEAR',
   DO = 'DO',
   RESET = 'RESET',
   UPDATE = 'UPDATE'
@@ -9,6 +10,8 @@ export enum UniversalCreatorKeys {
 type DoCallback<L, T> = (leafState: L, treeState: T) => L
 
 export type UniversalCreators<L = unknown, T = unknown> = {
+  clear(): LeafStandardAction<UniversalCreatorKeys.CLEAR>
+
   do(cb: DoCallback<L, T>): LSAWithPayload<DoCallback<L, T>, UniversalCreatorKeys.DO>
 
   reset(): LeafStandardAction<UniversalCreatorKeys.RESET>
@@ -17,6 +20,10 @@ export type UniversalCreators<L = unknown, T = unknown> = {
 }
 
 export type UniversalActions<K extends keyof UniversalCreators<L, T>, L = unknown, T = unknown> = ReturnType<UniversalCreators<L, T>[K]>
+
+export function isClearAction<L>(action: LeafStandardAction): action is UniversalActions<'clear', L> {
+  return action.leaf.CREATOR_KEY === UniversalCreatorKeys.CLEAR
+}
 
 export function isDoAction<L, T = unknown>(action: LeafStandardAction): action is UniversalActions<'do', L, T> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.DO

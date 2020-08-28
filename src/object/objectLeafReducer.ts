@@ -1,8 +1,12 @@
-import { LeafStandardAction } from "../types"
+import { LeafStandardAction, isClearAction } from "../types"
 import universalLeafReducer from '../universal/universalLeafReducer';
 import { isAssignAction } from './object-types';
 
-function objectLeafReducer<L extends {}, T, A extends LeafStandardAction, E = unknown>(leafState: L, treeState: T, action: A, originalState: T): L {
+function objectLeafReducer<L extends {}, T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {
+
+  if (isClearAction(action)) {
+    return {} as L
+  }
   
   if (isAssignAction<L>(action)) {
     return {
