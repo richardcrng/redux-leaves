@@ -1,14 +1,18 @@
 import { LeafStandardAction } from "./action-types"
-import { StandardActions, DefaultCreators } from "./creator-types"
+import { UniversalActions, UniversalCreatorKeys, ArrayActions, ArrayCreatorKeys, CreatedAction, UniversalCreators, ArrayCreators } from "./creator-types"
 
-export function isDoAction<S, T = unknown>(action: LeafStandardAction): action is StandardActions<S, T, 'do'> {
-  return action.leaf.CREATOR_KEY === DefaultCreators.DO
+export function isDoAction<S, T = unknown>(action: LeafStandardAction): action is CreatedAction<UniversalCreators<S, T>, 'do', S, T> {
+  return action.leaf.CREATOR_KEY === UniversalCreatorKeys.DO
 }
 
-export function isResetAction(action: LeafStandardAction): action is StandardActions<unknown, unknown, 'reset'> {
-  return action.leaf.CREATOR_KEY === DefaultCreators.RESET
+export function isDropAction(action: LeafStandardAction): action is CreatedAction<ArrayCreators, 'drop'> {
+  return action.leaf.CREATOR_KEY === ArrayCreatorKeys.DROP
 }
 
-export function isUpdateAction<S, T = unknown>(action: LeafStandardAction): action is StandardActions<S, T, 'update'> {
-  return action.leaf.CREATOR_KEY === DefaultCreators.UPDATE
+export function isResetAction(action: LeafStandardAction): action is CreatedAction<UniversalCreators, 'reset'> {
+  return action.leaf.CREATOR_KEY === UniversalCreatorKeys.RESET
+}
+
+export function isUpdateAction<S>(action: LeafStandardAction): action is CreatedAction<UniversalCreators<S>, 'update', S> {
+  return action.leaf.CREATOR_KEY === UniversalCreatorKeys.UPDATE
 }

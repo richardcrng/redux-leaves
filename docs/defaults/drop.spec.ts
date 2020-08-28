@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.drop(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively dropping the first n values", () => {
+describe("leaf.create.drop(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively dropping the first n values", () => {
   const initialState = {
     foo: ['a', 'b', 'c'],
   bar: ['a', 'b', 'c']

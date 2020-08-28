@@ -1,19 +1,30 @@
 import { isNotUndefined } from 'ramda-adjunct'
-import { CreateDefaults, LSAWithPayload, LeafStandardAction, DefaultCreators } from "../types"
+import {
+  CreateDefaults,
+  LSAWithPayload,
+  LeafStandardAction,
+  UniversalCreatorKeys,
+  UniversalCreators,
+  ArrayCreators
+} from "../types"
+
+function wrapWithCreate<S extends Array<unknown>, T>(state: S, path?: (string | number)[]): UniversalCreators<S, T> & ArrayCreators
+
+function wrapWithCreate<S extends unknown, T>(state: S, path?: (string | number)[]): UniversalCreators<S, T>
 
 function wrapWithCreate<S, T>(
   state: S,
   path: (string | number)[] = []
 ) {
 
-  const makeCreators = (passedType?: string): CreateDefaults<S, T> => {
+  const makeCreatorOfType = (passedType?: string) => {
     const makeType = passedType
       ? (_: string) => passedType
       : (str: string) => [...path, str].join('/')
 
-    function creatorOfType<T>(str: string, payload: T): LSAWithPayload<T>
-    function creatorOfType(str: string): LeafStandardAction
-    function creatorOfType<T>(str: string, payload?: T) {
+    function creatorOfType<T, K extends string = string>(str: K, payload: T): LSAWithPayload<T, K>
+    function creatorOfType<T, K extends string = string>(str: K): LeafStandardAction<K>
+    function creatorOfType<T, K extends string = string>(str: K, payload?: T) {
       return {
         type: makeType(str),
         leaf: { path, CREATOR_KEY: str.toUpperCase(), creatorKey: str.toLowerCase() },
@@ -21,11 +32,32 @@ function wrapWithCreate<S, T>(
       }
     }
 
+    return creatorOfType
+  }
+
+  const makeUniversalCreators = (passedType?: string): UniversalCreators<S, T> => {
+    const creatorOfType = makeCreatorOfType(passedType)
     return {
-      do: (cb) => creatorOfType(DefaultCreators.DO, cb),
-      reset: () => creatorOfType(DefaultCreators.RESET),
-      update: (newVal: S) => creatorOfType(DefaultCreators.UPDATE, newVal)
+      do: (cb) => creatorOfType(UniversalCreatorKeys.DO, cb),
+      reset: () => creatorOfType(UniversalCreatorKeys.RESET),
+      update: (newVal: S) => creatorOfType(UniversalCreatorKeys.UPDATE, newVal)
     }
+  }
+
+  const makeArrayCreators = (passedType?: string): ArrayCreators => {
+    const creatorOfType = makeCreatorOfType(passedType)
+    return {
+      drop: (n) => creatorOfType(UniversalCreatorKeys.DROP, n)
+    }
+  }
+
+  const makeCreators = (passedType?: string) => {
+    if (Array.isArray(state)) {
+      const creators = Object.assign(makeUniversalCreators(passedType), makeArrayCreators(passedType))
+      return creators
+    }
+
+    return makeUniversalCreators(passedType)
   }
 
   const create = Object.assign(makeCreators, makeCreators())
