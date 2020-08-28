@@ -6,20 +6,14 @@ import {
   UniversalCreators,
   ArrayCreators,
   ArrayCreatorKeys,
-  CreateFn,
-  DefaultCreators
 } from "../types"
 
-type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
-
-// function wrapWithCreate<S extends Array<unknown>, T>(state: S, path?: (string | number)[]): WrappedWithCreate<S, UniversalCreators<S, T> & ArrayCreators>
-
-function wrapWithCreate<S extends unknown, T>(state: S, path?: (string | number)[]): WrappedWithCreate<S, DefaultCreators<S, T>>
+// type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
 function wrapWithCreate<S, T>(
   state: S,
   path: (string | number)[] = []
-): WrappedWithCreate<S, DefaultCreators<S, T>> {
+) {
 
   const makeCreatorOfType = (passedType?: string) => {
     const makeType = passedType
@@ -66,7 +60,7 @@ function wrapWithCreate<S, T>(
 
   const create = Object.assign(makeCreators, makeCreators())
 
-  return Object.assign({ create }, state) as unknown as WrappedWithCreate<S, DefaultCreators<S, T>>
+  return Object.assign({ create }, state)
 }
 
 export default wrapWithCreate
