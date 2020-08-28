@@ -4,7 +4,7 @@ export enum StringCreatorKeys {
   CONCAT = 'CONCAT'
 }
 
-export type StringCreators<S = unknown, T = unknown> = {
+export type StringCreators<L extends string = string, T = unknown> = {
   concat(str: string): LSAWithPayload<string, StringCreatorKeys.CONCAT>
 }
 

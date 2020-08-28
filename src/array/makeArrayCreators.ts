@@ -6,6 +6,7 @@ function makeArrayCreators<L extends Array<unknown>, T>(leafState: L, path: (str
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)
     return {
+      concat: (arr: L) => creatorOfType(ArrayCreatorKeys.CONCAT, arr),
       drop: (n) => creatorOfType(ArrayCreatorKeys.DROP, n)
     }
   }
