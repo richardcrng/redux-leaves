@@ -1,4 +1,4 @@
-import makeUniversalCreators from '../create/makeUniversalCreators'
+import makeUniversalCreators from '../universal/makeUniversalCreators'
 import makeTypedCreators from '../create/makeTypedCreators'
 
 // type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
