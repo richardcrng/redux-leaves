@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
+describe("leaf.create.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
   const initialState = {
     foo: 5,
     bar: 5

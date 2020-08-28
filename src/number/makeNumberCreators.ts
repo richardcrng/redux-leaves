@@ -7,7 +7,7 @@ function makeNumberCreators<L extends number, T>(leafState: L, path: (string | n
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)
     return {
-      // assign: (props: L) => creatorOfType(NumberCreatorKeys.ASSIGN, props)
+      increment: (n?) => creatorOfType(NumberCreatorKeys.INCREMENT, n)
     }
   }
 }
