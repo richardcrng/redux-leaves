@@ -10,6 +10,6 @@ export type StringCreators<L extends string = string, T = unknown> = {
 
 export type StringActions<K extends keyof StringCreators> = ReturnType<StringCreators[K]>
 
-export function isStringConcatAction(action: LeafStandardAction): action is StringActions<'concat'> {
+export function isConcatActionString(action: LeafStandardAction): action is StringActions<'concat'> {
   return action.leaf.CREATOR_KEY === StringCreatorKeys.CONCAT
 }

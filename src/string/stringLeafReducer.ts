@@ -1,4 +1,4 @@
-import { isStringConcatAction } from './string-types'
+import { isConcatActionString } from './string-types'
 import { LeafStandardAction, isClearAction } from "../types"
 import universalLeafReducer from '../universal/universalLeafReducer';
 
@@ -8,7 +8,7 @@ function stringLeafReducer<L extends string, T, A extends LeafStandardAction>(le
     return '' as L
   }
   
-  if (isStringConcatAction(action)) {
+  if (isConcatActionString(action)) {
     return leafState.concat(action.payload) as L
   }
 

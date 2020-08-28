@@ -25,7 +25,7 @@ const [_, actions] = reduxLeaves(initialState)
   actions.arr.create.filter()
 
   // @dts-jest:pass infers a callback argument of a numnber
-  actions.arr.create.filter(n => n % 2)
+  actions.arr.create.filter(n => (n % 2) === 0)
 
   // @dts-jest:fail refuses callback that doesn't treat as number
   actions.arr.create.filter(n => n.toLowerCase())
