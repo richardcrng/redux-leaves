@@ -1,7 +1,9 @@
+import { isPlainObject } from "ramda-adjunct";
 import { LeafStandardAction } from "../types";
 import universalLeafReducer from "../universal/universalLeafReducer";
 import arrayLeafReducer from "../array/arrayLeafReducer";
 import stringLeafReducer from "../string/stringLeafReducer";
+import objectLeafReducer from '../object/objectLeafReducer';
 
 
 function leafReducer<L, T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {
@@ -11,6 +13,10 @@ function leafReducer<L, T, A extends LeafStandardAction>(leafState: L, treeState
 
   if (typeof leafState === 'string') {
     return stringLeafReducer(leafState, treeState, action, originalState)
+  }
+
+  if (isPlainObject(leafState)) {
+    return objectLeafReducer(leafState, treeState, action, originalState)
   }
 
   return universalLeafReducer(leafState, treeState, action, originalState)
