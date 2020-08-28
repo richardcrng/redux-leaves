@@ -1,7 +1,7 @@
 import { UniversalCreators, UniversalCreatorKeys, CreateFn } from "../types";
 import makeCreatorOfTypeFromPath from './makeCreatorOfTypeFromPath';
 
-function universalCreators<L, T>(leafState: L, path: (string | number)[]): CreateFn<UniversalCreators<L, T>> {
+function makeUniversalCreators<L, T>(leafState: L, path: (string | number)[]): CreateFn<UniversalCreators<L, T>> {
   
   const makeCreatorOfType = makeCreatorOfTypeFromPath(path)
 
@@ -15,4 +15,4 @@ function universalCreators<L, T>(leafState: L, path: (string | number)[]): Creat
   }
 }
 
-export default universalCreators
+export default makeUniversalCreators

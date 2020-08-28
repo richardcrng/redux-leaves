@@ -1,9 +1,11 @@
 import { ArrayCreators, ArrayCreatorKeys, CreateFn } from "../types";
 import makeCreatorOfTypeFromPath from './makeCreatorOfTypeFromPath';
 
-function typedCreators<L extends Array<unknown>>(leafState: L, path: (string | number)[]): CreateFn<ArrayCreators>
+function makeTypedCreators<L extends Array<unknown>>(leafState: L, path: (string | number)[]): CreateFn<ArrayCreators>
 
-function typedCreators<L>(leafState: L, path: (string | number)[]): any {
+function makeTypedCreators<L extends any>(leafState: L, path: (string | number)[]): CreateFn<{}>
+
+function makeTypedCreators<L>(leafState: L, path: (string | number)[]): CreateFn<any> {
   const makeCreatorOfType = makeCreatorOfTypeFromPath(path)
 
   // Array leafState
@@ -17,6 +19,8 @@ function typedCreators<L>(leafState: L, path: (string | number)[]): any {
 
     return makeArrayCreators
   }
+
+  return (_?: string) => ({})
 }
 
-export default typedCreators
+export default makeTypedCreators
