@@ -1,7 +1,6 @@
-import { creatorGuards, LeafStandardAction } from "../types";
-import updateState, { getState } from "../utils/update-state";
-import universalLeafReducer from "./universalLeafReducer";
-import arrayLeafReducer from "./arrayLeafReducer";
+import { LeafStandardAction } from "../types";
+import universalLeafReducer from "../universal/universalLeafReducer";
+import arrayLeafReducer from "../array/arrayLeafReducer";
 
 
 function leafReducer<L, T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {

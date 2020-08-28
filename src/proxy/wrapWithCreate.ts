@@ -1,16 +1,19 @@
 import { isNotUndefined } from 'ramda-adjunct'
 import {
-  CreateDefaults,
   LSAWithPayload,
   LeafStandardAction,
   UniversalCreatorKeys,
   UniversalCreators,
-  ArrayCreators
+  ArrayCreators,
+  ArrayCreatorKeys,
+  CreateFn
 } from "../types"
 
-function wrapWithCreate<S extends Array<unknown>, T>(state: S, path?: (string | number)[]): UniversalCreators<S, T> & ArrayCreators
+type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
-function wrapWithCreate<S extends unknown, T>(state: S, path?: (string | number)[]): UniversalCreators<S, T>
+function wrapWithCreate<S extends Array<unknown>, T>(state: S, path?: (string | number)[]): WrappedWithCreate<S, UniversalCreators<S, T> & ArrayCreators>
+
+function wrapWithCreate<S extends unknown, T>(state: S, path?: (string | number)[]): WrappedWithCreate<S, UniversalCreators<S, T>>
 
 function wrapWithCreate<S, T>(
   state: S,
@@ -47,7 +50,7 @@ function wrapWithCreate<S, T>(
   const makeArrayCreators = (passedType?: string): ArrayCreators => {
     const creatorOfType = makeCreatorOfType(passedType)
     return {
-      drop: (n) => creatorOfType(UniversalCreatorKeys.DROP, n)
+      drop: (n) => creatorOfType(ArrayCreatorKeys.DROP, n)
     }
   }
 
