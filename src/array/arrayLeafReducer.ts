@@ -4,11 +4,6 @@ import { LeafStandardAction, isClearAction } from "../types"
 import universalLeafReducer from '../universal/universalLeafReducer';
 
 function arrayLeafReducer<L extends unknown[], T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {
-
-  if (isClearAction(action)) {
-    // @ts-ignore TODO fix
-    return []
-  }
   
   if (isDropAction(action)) {
     return drop(defaultTo(1, action.payload), leafState) as L
@@ -19,7 +14,13 @@ function arrayLeafReducer<L extends unknown[], T, A extends LeafStandardAction>(
   }
 
   if (isFilterAction<L>(action)) {
+    // @ts-ignore
     return leafState.filter(action.payload) as L
+  }
+
+  if (isClearAction(action)) {
+    // @ts-ignore TODO fix
+    return []
   }
 
   return universalLeafReducer(leafState, treeState, action, originalState)
