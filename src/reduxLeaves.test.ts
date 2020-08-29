@@ -141,4 +141,16 @@ describe('Custom reducers', () => {
       }
     })
   })
+
+  test('Reducer with three arguments', () => {
+    const result = reducer(
+      initialState,
+      actions.list.create.appendDoubleWithCounter(10)
+    )
+
+    expect(result).toStrictEqual({
+      ...initialState,
+      list: [...initialState.list, 20, initialState.nested.counter]
+    })
+  })
 })
