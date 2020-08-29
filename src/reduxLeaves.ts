@@ -27,7 +27,7 @@ function reduxLeaves<
     return updateState(treeState, action.leaf.path, newLeafState)
   }
 
-  const actions = createActionsProxy<TreeT, TreeT>(initialState)
+  const actions = createActionsProxy(initialState, initialState, reducersDict)
 
   return [reducer as Reducer<TreeT>, actions]
 }

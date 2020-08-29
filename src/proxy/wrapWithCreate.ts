@@ -1,10 +1,17 @@
 import makeUniversalCreators from '../universal/makeUniversalCreators'
 import makeTypedCreators from '../create/makeTypedCreators'
+import { CustomReducers } from '../types'
 
 // type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
-function wrapWithCreate<LeafT, TreeT>(
+function wrapWithCreate<
+  LeafT,
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT>
+>(
   leafState: LeafT,
+  treeState: TreeT,
+  reducersDict: CustomReducersT,
   path: (string | number)[] = []
 ) {  
   const universalCreators = makeUniversalCreators(leafState, path)
