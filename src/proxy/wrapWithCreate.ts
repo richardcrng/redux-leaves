@@ -19,7 +19,11 @@ function wrapWithCreate<
   const typedCreators = makeTypedCreators(leafState, path)
   const customCreators = makeCustomCreators(leafState, treeState, path, reducersDict)
   const makeCreators = (passedType?: string) => {
-    return Object.assign(universalCreators(passedType), typedCreators(passedType))
+    return Object.assign(
+      universalCreators(passedType),
+      typedCreators(passedType),
+      customCreators(passedType)
+    )
   }
 
   const create = Object.assign(makeCreators, makeCreators())
