@@ -10,7 +10,7 @@ export type ReduxLeaves<StateT> = [
   ActionsProxy<StateT, StateT>
 ]
 
-function reduxLeaves<StateT>(initialState: StateT): ReduxLeaves<StateT>{
+function reduxLeaves<StateT>(initialState: StateT): ReduxLeaves<StateT> {
   const reducer = (treeState: StateT = initialState, action: LeafStandardAction) => {
     if (!action.leaf) return treeState
 

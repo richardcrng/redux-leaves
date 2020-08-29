@@ -1,5 +1,6 @@
 import makeCreatorOfTypeFromPath from '../create/makeCreatorOfTypeFromPath';
-import { ArrayCreators, CreateFn, ArrayCreatorKeys } from '../types';
+import { CreateFn } from '../types';
+import { ArrayCreators, ArrayCreatorKeys } from './array-types';
 
 function makeArrayCreators<L extends unknown[], T>(leafState: L, path: (string | number)[]): CreateFn<ArrayCreators<L, T>> {
   const makeCreatorOfType = makeCreatorOfTypeFromPath(path)

@@ -6,6 +6,7 @@ import { NumberCreators } from '../number/number-types'
 import { BooleanCreators } from '../boolean/boolean-types'
 
 export * from '../universal/universal-types'
+export * from '../custom/custom-types'
 
 export type CreateFn<T> = (passedType?: string) => T
 

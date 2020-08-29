@@ -1,4 +1,5 @@
-import reduxLeaves from "./"
+import reduxLeaves, { CustomReducerLonghand } from "./"
+import { CustomReducerDefinition } from "./types"
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -95,4 +96,44 @@ import reduxLeaves from "./"
 
   // @dts-jest:fail
   actions.numList.create.update(['2'])
+}
+
+// @dts-jest:group Custom reducers
+{
+  const initialState = {
+    shallow: true,
+    nested: {
+      counter: 0,
+      state: {
+        deep: 'somewhat'
+      }
+    },
+    list: [1, 2, 3]
+  }
+
+  const multiplyBy: CustomReducerDefinition<{
+    leafState: number,
+    payload: number,
+    args: [number]
+  }> = {
+    argsToPayload: (num) => num,
+    reducer: (leafState, action) => leafState * action.payload
+  }
+
+  const [reducer, actions] = reduxLeaves(initialState)
+
+  // @dts-jest:fail does not exist on boolean state
+  actions.shallow.create.multiplyBy
+
+  // @dts-jest:pass exists on number state
+  actions.nested.counter.create.multiplyBy
+
+  // @dts-jest:fail needs an argument
+  actions.nested.counter.create.multiplyBy()
+
+  // @dts-jest:pass accepts numerical argument
+  actions.nested.counter.create.multiplyBy(2)
+
+  // @dts-jest:fail rejects string argument
+  actions.nested.counter.create.multiplyBy('2')
 }
