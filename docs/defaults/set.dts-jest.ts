@@ -45,8 +45,8 @@ import reduxLeaves from '../../src';
     num: number,
     str: string,
     arr: number[],
-    nested: { deep: boolean, here?: string },
-    obj: { num: number, names: string[][] }
+    nested: { deep: boolean },
+    obj: { num: number, names: string[][], here?: string }
   }
 
   const initialState: State = {
@@ -57,6 +57,8 @@ import reduxLeaves from '../../src';
     nested: { deep: true },
     obj: { num: 5, names: [['a', 'e'], ['b, c']] }
   }
+
+  const [_, actions] = reduxLeaves(initialState)
 
   // @dts-jest:fail does not exist on boolean state
   actions.bool.create.set

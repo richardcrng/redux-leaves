@@ -3,7 +3,8 @@ import { LSAwP, LSA } from "../types";
 export enum ObjectCreatorKeys {
   ASSIGN = 'ASSIGN',
   PATH = 'PATH',
-  PUSHED_SET = 'PUSHED_SET'
+  PUSHED_SET = 'PUSHED_SET',
+  SET = 'SET'
 }
 
 export type ObjectCreators<
@@ -12,7 +13,8 @@ export type ObjectCreators<
 > = {
   assign(props: Partial<LeafT>): LSAwP<LeafT, ObjectCreatorKeys.ASSIGN>,
   path<V = unknown>(route: (string|number)[], value: V): LSAwP<{ path: (string|number)[], value: V }, ObjectCreatorKeys.PATH>,
-  pushedSet: PushedSet<LeafT>
+  pushedSet: PushedSet<LeafT>,
+  set<KeyT extends keyof LeafT>(key: KeyT, value: LeafT[KeyT]): LSAwP<{ key: KeyT, value: LeafT[KeyT] }, ObjectCreatorKeys.SET>
 }
 
 type PushedSet<L> = (arg: L[keyof L] | PushedSetCallback<L>) => LSAwP<L[keyof L] | PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
@@ -47,4 +49,8 @@ export function isPushedSetValueAction<L>(action: LSA): action is ReturnType<Pus
 export function isPushedSetCallbackAction<L>(action: LSA): action is ReturnType<PushedSetWithCallback<L>> {
   return isPushedSetAction(action)
     && typeof action.payload === 'function'
+}
+
+export function isSetAction<L>(action: LSA): action is ObjectActions<'set', L> {
+  return action.leaf.CREATOR_KEY === ObjectCreatorKeys.SET
 }

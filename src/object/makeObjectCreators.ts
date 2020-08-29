@@ -9,7 +9,8 @@ function makeObjectCreators<L extends {}, T>(leafState: L, path: (string | numbe
     return {
       assign: (props: L) => creatorOfType(ObjectCreatorKeys.ASSIGN, props),
       path: (route, value) => creatorOfType(ObjectCreatorKeys.PATH, { path: route, value }),
-      pushedSet: (arg: any) => creatorOfType(ObjectCreatorKeys.PUSHED_SET, arg)
+      pushedSet: (arg: any) => creatorOfType(ObjectCreatorKeys.PUSHED_SET, arg),
+      set: (key, value) => creatorOfType(ObjectCreatorKeys.SET, { key, value })
     }
   }
 }
