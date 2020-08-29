@@ -11,17 +11,17 @@ export type ObjectCreators<
   LeafT extends {} = {},
   TtreeT = unknown
 > = {
-  assign(props: Partial<LeafT>): LSAwP<LeafT, ObjectCreatorKeys.ASSIGN>,
-  path<V = unknown>(route: (string|number)[], value: V): LSAwP<{ path: (string|number)[], value: V }, ObjectCreatorKeys.PATH>,
+  assign(props: Partial<LeafT>): LSAwP<LeafT>,
+  path<V = unknown>(route: (string|number)[], value: V): LSAwP<{ path: (string|number)[], value: V }>,
   pushedSet: PushedSet<LeafT>,
-  set<KeyT extends keyof LeafT>(key: KeyT, value: LeafT[KeyT]): LSAwP<{ key: KeyT, value: LeafT[KeyT] }, ObjectCreatorKeys.SET>
+  set<KeyT extends keyof LeafT>(key: KeyT, value: LeafT[KeyT]): LSAwP<{ key: KeyT, value: LeafT[KeyT] }>
 }
 
-type PushedSet<L> = (arg: L[keyof L] | PushedSetCallback<L>) => LSAwP<L[keyof L] | PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
+type PushedSet<L> = (arg: L[keyof L] | PushedSetCallback<L>) => LSAwP<L[keyof L] | PushedSetCallback<L>>
 
 type PushedSetCallback<L> = (id: string) => L[keyof L]
-type PushedSetWithValue<L> = (val: L[keyof L]) => LSAwP<L[keyof L], ObjectCreatorKeys.PUSHED_SET>
-type PushedSetWithCallback<L> = (cb: PushedSetCallback<L>) => LSAwP<PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
+type PushedSetWithValue<L> = (val: L[keyof L]) => LSAwP<L[keyof L]>
+type PushedSetWithCallback<L> = (cb: PushedSetCallback<L>) => LSAwP<PushedSetCallback<L>>
 
 export type ObjectActions<
   KeyT extends keyof ObjectCreators,

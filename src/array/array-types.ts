@@ -12,10 +12,10 @@ export type ArrayCreators<
   LeafT extends unknown[],
   TreeT = unknown
 > = {
-  concat(arr: LeafT): LSAwP<LeafT, ArrayCreatorKeys.CONCAT>
-  drop(n?: number): LSAwP<number | undefined, ArrayCreatorKeys.DROP>
-  filter(cb: FilterCallback<Unpacked<LeafT>>): LSAwP<FilterCallback<Unpacked<LeafT>>, ArrayCreatorKeys.FILTER>,
-  push(element: Unpacked<LeafT>, index?: number, replace?: boolean): LSAwP<{ element: Unpacked<LeafT>, index?: number, replace?: boolean }, ArrayCreatorKeys.PUSH>
+  concat(arr: LeafT): LSAwP<LeafT>
+  drop(n?: number): LSAwP<number | undefined>
+  filter(cb: FilterCallback<Unpacked<LeafT>>): LSAwP<FilterCallback<Unpacked<LeafT>>>,
+  push(element: Unpacked<LeafT>, index?: number, replace?: boolean): LSAwP<{ element: Unpacked<LeafT>, index?: number, replace?: boolean }>
 }
 
 type FilterCallback<E> = (element: E, index: number, source: E[]) => boolean

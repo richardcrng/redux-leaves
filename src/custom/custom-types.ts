@@ -1,8 +1,8 @@
 import { OmitByValue } from 'utility-types';
 import { LSA, LeafActionData } from "../types"
 
-export type LeafCustomAction<PayloadT = unknown> = LSA<string, PayloadT> & {
-  leaf: LeafActionData<string> & {
+export type LeafCustomAction<PayloadT = unknown> = LSA<PayloadT> & {
+  leaf: LeafActionData & {
     custom: true
   },
   payload: PayloadT

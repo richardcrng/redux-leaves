@@ -13,13 +13,13 @@ export type UniversalCreators<
   LeafT = unknown,
   TreeT = unknown
 > = {
-  clear(): LSA<UniversalCreatorKeys.CLEAR>
+  clear(): LSA
 
-  do(cb: DoCallback<LeafT, TreeT>): LSAwP<DoCallback<LeafT, TreeT>, UniversalCreatorKeys.DO>
+  do(cb: DoCallback<LeafT, TreeT>): LSAwP<DoCallback<LeafT, TreeT>>
 
-  reset(): LSA<UniversalCreatorKeys.RESET>
+  reset(): LSA
 
-  update(newVal: LeafT): LSAwP<LeafT, UniversalCreatorKeys.UPDATE>
+  update(newVal: LeafT): LSAwP<LeafT>
 }
 
 export type UniversalActions<

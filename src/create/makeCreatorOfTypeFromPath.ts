@@ -13,7 +13,7 @@ const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = 
   >(
     str: CreatorKeyT,
     payload: PayloadT
-  ): LSAwP<PayloadT, CreatorKeyT>
+  ): LSAwP<PayloadT>
 
   function creatorOfType<
     PayloadT,

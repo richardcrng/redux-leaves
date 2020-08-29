@@ -7,9 +7,9 @@ export enum BooleanCreatorKeys {
 }
 
 export type BooleanCreators<LeafT extends boolean = boolean, TreeT = unknown> = {
-  off(): LSA<BooleanCreatorKeys.OFF>,
-  on(): LSA<BooleanCreatorKeys.ON>,
-  toggle(): LSA<BooleanCreatorKeys.TOGGLE>
+  off(): LSA,
+  on(): LSA,
+  toggle(): LSA
 }
 
 export type BooleanActions<

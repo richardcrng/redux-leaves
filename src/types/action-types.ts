@@ -1,4 +1,4 @@
-export interface LeafActionData<CreatorKeyT extends string = string> {
+export interface LeafActionData {
   path: (string | number)[]
   creatorKey: string
   CREATOR_KEY: string
@@ -6,13 +6,13 @@ export interface LeafActionData<CreatorKeyT extends string = string> {
   custom: boolean
 }
 
-export interface LeafStandardAction<CreatorKeyT extends string = string, PayloadT = unknown> {
+export interface LeafStandardAction<PayloadT = unknown> {
   type: string,
-  leaf: LeafActionData<CreatorKeyT>,
+  leaf: LeafActionData,
   payload?: PayloadT
 }
 
-export interface LeafStandardActionWithPayload<PayloadT, CreatorKeyT extends string = string> extends LeafStandardAction<CreatorKeyT, PayloadT> {
+export interface LeafStandardActionWithPayload<PayloadT> extends LeafStandardAction<PayloadT> {
   payload: PayloadT
 }
 

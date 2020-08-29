@@ -8,7 +8,7 @@ export type NumberCreators<
   LeafT extends number = number,
   TreeT = unknown
 > = {
-  increment(n?: number): LSAwP<number | undefined, NumberCreatorKeys.INCREMENT>
+  increment(n?: number): LSAwP<number | undefined>
 }
 
 export type NumberActions<

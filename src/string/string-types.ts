@@ -8,7 +8,7 @@ export type StringCreators<
   LeafT extends string = string,
   TreeT = unknown
 > = {
-  concat(str: string): LSAwP<string, StringCreatorKeys.CONCAT>
+  concat(str: string): LSAwP<string>
 }
 
 export type StringActions<
