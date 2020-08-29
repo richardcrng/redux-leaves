@@ -1,4 +1,19 @@
-import { LSAwP, LSA } from "../types"
+import { LCA } from "../types"
+
+export type CustomReducerLonghand<
+  TreeT = unknown,
+  LeafT = unknown,
+  PayloadT = unknown,
+  ArgsT extends unknown[] = unknown[]
+> = {
+  argsToPayload: (...args: ArgsT) => PayloadT,
+  reducer: (leafState: LeafT, action: LCA<PayloadT>, treeState: TreeT) => LeafT
+}
+
+export type CustomReducerCreator<
+  PayloadT,
+  ArgsT extends unknown[]
+> = (...args: ArgsT) => LCA<PayloadT>
 
 export type CustomCreators<
   LeafT = unknown,

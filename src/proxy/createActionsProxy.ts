@@ -9,20 +9,20 @@ export type ActionsProxy<StateT, TreeT> = {
   [K in keyof StateT]: ActionsProxy<StateT[K], TreeT>
 }
 
-function createActionsProxy<S, T>(
-  state: S,
+function createActionsProxy<LeafT, TreeT>(
+  leafState: LeafT,
   path: (string|number)[] = []
-): ActionsProxy<S, T> {
+): ActionsProxy<LeafT, TreeT> {
 
-  const proxy = new Proxy(wrapWithCreate(state, path), {
-    get: (target, prop: Extract<keyof S, string | number> | 'create') => {
+  const proxy = new Proxy(wrapWithCreate(leafState, path), {
+    get: (target, prop: Extract<keyof LeafT, string | number> | 'create') => {
       if (prop === 'create') return target.create
 
       return createActionsProxy(target[prop], [...path, propForPath(prop)])
     }
   })
 
-  return proxy as unknown as ActionsProxy<S, T>
+  return proxy as unknown as ActionsProxy<LeafT, TreeT>
 }
 
 const propForPath = (prop: string | number): string | number => (

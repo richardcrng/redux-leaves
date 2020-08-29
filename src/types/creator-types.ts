@@ -5,7 +5,6 @@ import { ObjectCreators } from '../object/object-types'
 import { NumberCreators } from '../number/number-types'
 import { BooleanCreators } from '../boolean/boolean-types'
 
-export * from '../array/array-types'
 export * from '../universal/universal-types'
 
 export type CreateFn<T> = (passedType?: string) => T
