@@ -1,5 +1,5 @@
 import reduxLeaves from "./reduxLeaves";
-import { LeafStandardAction, CustomReducerLonghand } from './types';
+import { LeafStandardAction, CustomReducerDefinition } from './types';
 
 const bundle = {}
 
@@ -8,5 +8,5 @@ export default reduxLeaves
 export {
   bundle,
   LeafStandardAction,
-  CustomReducerLonghand
+  CustomReducerDefinition
 }

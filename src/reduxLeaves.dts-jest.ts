@@ -1,5 +1,4 @@
-import reduxLeaves, { CustomReducerLonghand } from "./"
-import { CustomReducerDefinition } from "./types"
+import reduxLeaves, { CustomReducerDefinition } from "./"
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -19,11 +18,11 @@ import { CustomReducerDefinition } from "./types"
   // @dts-jest:pass Root actions has a create
   actions.create
 
-  // @dts-jest:pass
+  // @dts-jest:pass 
   actions.create.update
 
   // @dts-jest:pass Root actions create.update takes state shape
-  actions.create.update({
+  const updateAction = actions.create.update({
     shallow: false,
     nested: {
       counter: 5,
@@ -33,6 +32,9 @@ import { CustomReducerDefinition } from "./types"
     },
     list: [4, 10, 2]
   })
+
+  // @dts-jest:pass Reducer can take this created action
+  reducer(initialState, updateAction)
 
   // @dts-jest:fail Root actions create.update requires argument
   actions.create.update()
@@ -53,7 +55,7 @@ import { CustomReducerDefinition } from "./types"
   actions.nested.string
 }
 
-// @dts-jest:group Creator update is sensitive to the leaf type
+// @dts-jest:group Creators are sensitive to the leaf type
 {
   const initialState = {
     boolState: true,
@@ -68,37 +70,34 @@ import { CustomReducerDefinition } from "./types"
 
   const [reducer, actions] = reduxLeaves(initialState)
 
-  // @dts-jest:pass
+  // @dts-jest:pass Update can be passed boolean for boolState
   actions.boolState.create.update(true)
 
-  // @dts-jest:pass
-  actions.boolState.create.update(false)
-
-  // @dts-jest:fail 
+  // @dts-jest:fail Update cannot be passed string for boolState
   actions.boolState.create.update('true')
 
-  // @dts-jest:pass
+  // @dts-jest:pass Update can be passed number for number state
   actions.nested.num.create.update(5)
 
-  // @dts-jest:fail
+  // @dts-jest:fail Update cannot be passed string for number state
   actions.nested.num.create.update('5')
 
-  // @dts-jest:pass
+  // @dts-jest:pass Update can be passed object for object state
   actions.nested.state.create.update({
     str: 'foobar'
   })
 
-  // @dts-jest:fail
+  // @dts-jest:fail Update cannot be passed bad object for object state
   actions.nested.state.create.update({ randomKey: 'foobar' })
 
-  // @dts-jest:pass
+  // @dts-jest:pass Update can be passed number[] for number[] state
   actions.numList.create.update([2, 4, 8])
 
-  // @dts-jest:fail
+  // @dts-jest:fail Update cannot be passed string[] for number[]
   actions.numList.create.update(['2'])
 }
 
-// @dts-jest:group Custom reducers
+// @dts-jest:group Custom reducers, explicitly typed
 {
   const initialState = {
     shallow: true,
