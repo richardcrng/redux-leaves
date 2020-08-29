@@ -1,20 +1,36 @@
-import { LSAWithPayload, LeafStandardAction } from "../types"
-import { isNotUndefined } from "ramda-adjunct"
+import { isNotUndefined } from "ramda-adjunct";
+import { camelCase, constantCase } from 'change-case';
+import { LSAwP, LSA } from "../types"
 
 const makeCreatorOfTypeFromPath = (path: (string | number)[]) => (passedType?: string) => {
   const makeType = passedType
     ? (_: string) => passedType
     : (str: string) => [...path, str].join('/')
 
-  function creatorOfType<T, K extends string = string>(str: K, payload: T): LSAWithPayload<T, K>
-  function creatorOfType<T, K extends string = string>(str: K): LeafStandardAction<K>
-  function creatorOfType<T, K extends string = string>(str: K, payload?: T) {
+  function creatorOfType<
+    PayloadT,
+    CreatorKeyT extends string = string
+  >(
+    str: CreatorKeyT,
+    payload: PayloadT
+  ): LSAwP<PayloadT, CreatorKeyT>
+
+  function creatorOfType<
+    PayloadT,
+    CreatorKeyT extends string = string
+  >(str: CreatorKeyT): LSA<CreatorKeyT>
+
+  function creatorOfType<
+    PayloadT,
+    CreatorKeyT extends string = string
+  >(str: CreatorKeyT, payload?: PayloadT) {
     return {
       type: makeType(str),
-      leaf: { path, CREATOR_KEY: str.toUpperCase(), creatorKey: str.toLowerCase() },
+      leaf: { path, CREATOR_KEY: constantCase(str), creatorKey: camelCase(str) },
       ...isNotUndefined(payload) ? { payload } : {}
     }
   }
+  
   return creatorOfType
 }
 

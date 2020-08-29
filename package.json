@@ -10,7 +10,7 @@
     "url": "https://github.com/richardcrng/"
   },
   "dependencies": {
-    "change-case": "^3.1.0",
+    "change-case": "^4.1.1",
     "immer": "^3.1.2",
     "lodash": "^4.17.15",
     "object.fromentries": "^2.0.2",
