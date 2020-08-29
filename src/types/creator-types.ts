@@ -12,19 +12,19 @@ export type CreateFn<T> = (passedType?: string) => T
 
 export type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
-export type TypedCreators<S, T> =
-  S extends Array<unknown>
-    ? ArrayCreators<S, T> :
-  S extends number
-    ? NumberCreators<S, T> :
-  S extends string
-    ? StringCreators<S, T> :
-  S extends boolean
-    ? BooleanCreators<S, T> :
-  S extends {}
-    ? ObjectCreators<S, T> :
+export type TypedCreators<LeafStateT, TreeStateT> =
+  LeafStateT extends Array<unknown>
+    ? ArrayCreators<LeafStateT, TreeStateT> :
+  LeafStateT extends number
+    ? NumberCreators<LeafStateT, TreeStateT> :
+  LeafStateT extends string
+    ? StringCreators<LeafStateT, TreeStateT> :
+  LeafStateT extends boolean
+    ? BooleanCreators<LeafStateT, TreeStateT> :
+  LeafStateT extends {}
+    ? ObjectCreators<LeafStateT, TreeStateT> :
   {}
 
-export type DefaultCreators<S, T> = UniversalCreators<S, T> & TypedCreators<S, T>
+export type DefaultCreators<LeafStateT, TreeStateT> = UniversalCreators<LeafStateT, TreeStateT> & TypedCreators<LeafStateT, TreeStateT>
 
 

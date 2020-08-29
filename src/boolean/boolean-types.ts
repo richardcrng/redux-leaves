@@ -1,4 +1,4 @@
-import { LSAWithPayload, LeafStandardAction } from "../types";
+import { LSAwP, LSA } from "../types";
 
 export enum BooleanCreatorKeys {
   OFF = 'OFF',
@@ -6,17 +6,17 @@ export enum BooleanCreatorKeys {
 }
 
 export type BooleanCreators<L extends boolean = boolean, T = unknown> = {
-  off(): LeafStandardAction<BooleanCreatorKeys.OFF>,
-  on(): LeafStandardAction<BooleanCreatorKeys.ON>
+  off(): LSA<BooleanCreatorKeys.OFF>,
+  on(): LSA<BooleanCreatorKeys.ON>
 }
 
 export type BooleanActions<K extends keyof BooleanCreators, L extends boolean = boolean, T = unknown> = ReturnType<BooleanCreators<L>[K]>
 
 
-export function isOffAction(action: LeafStandardAction): action is BooleanActions<'off'> {
+export function isOffAction(action: LSA): action is BooleanActions<'off'> {
   return action.leaf.CREATOR_KEY === BooleanCreatorKeys.OFF
 }
 
-export function isOnAction(action: LeafStandardAction): action is BooleanActions<'on'> {
+export function isOnAction(action: LSA): action is BooleanActions<'on'> {
   return action.leaf.CREATOR_KEY === BooleanCreatorKeys.ON
 }

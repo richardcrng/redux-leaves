@@ -1,1 +1,1 @@
-export type Unpacked<T> = T extends (infer U)[] ? U : unknown;
+export type Unpacked<IsArrayT> = IsArrayT extends (infer U)[] ? U : unknown;

@@ -1,4 +1,4 @@
-import { LSAWithPayload, LeafStandardAction } from "../types"
+import { LSAwP, LSA } from "../types"
 
 export enum UniversalCreatorKeys {
   CLEAR = 'CLEAR',
@@ -10,29 +10,29 @@ export enum UniversalCreatorKeys {
 type DoCallback<L, T> = (leafState: L, treeState: T) => L
 
 export type UniversalCreators<L = unknown, T = unknown> = {
-  clear(): LeafStandardAction<UniversalCreatorKeys.CLEAR>
+  clear(): LSA<UniversalCreatorKeys.CLEAR>
 
-  do(cb: DoCallback<L, T>): LSAWithPayload<DoCallback<L, T>, UniversalCreatorKeys.DO>
+  do(cb: DoCallback<L, T>): LSAwP<DoCallback<L, T>, UniversalCreatorKeys.DO>
 
-  reset(): LeafStandardAction<UniversalCreatorKeys.RESET>
+  reset(): LSA<UniversalCreatorKeys.RESET>
 
-  update(newVal: L): LSAWithPayload<L, UniversalCreatorKeys.UPDATE>
+  update(newVal: L): LSAwP<L, UniversalCreatorKeys.UPDATE>
 }
 
 export type UniversalActions<K extends keyof UniversalCreators<L, T>, L = unknown, T = unknown> = ReturnType<UniversalCreators<L, T>[K]>
 
-export function isClearAction<L>(action: LeafStandardAction): action is UniversalActions<'clear', L> {
+export function isClearAction<L>(action: LSA): action is UniversalActions<'clear', L> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.CLEAR
 }
 
-export function isDoAction<L, T = unknown>(action: LeafStandardAction): action is UniversalActions<'do', L, T> {
+export function isDoAction<L, T = unknown>(action: LSA): action is UniversalActions<'do', L, T> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.DO
 }
 
-export function isResetAction(action: LeafStandardAction): action is UniversalActions<'reset'> {
+export function isResetAction(action: LSA): action is UniversalActions<'reset'> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.RESET
 }
 
-export function isUpdateAction<L>(action: LeafStandardAction): action is UniversalActions<'update', L> {
+export function isUpdateAction<L>(action: LSA): action is UniversalActions<'update', L> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.UPDATE
 }
