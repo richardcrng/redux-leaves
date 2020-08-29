@@ -1,7 +1,7 @@
 import { createStore, Store } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("Function shorthand", () => {
+describe("Function shorthand", () => {
 
   describe("Example 1: custom action creator with no arguments", () => {
     describe("GIVEN initialState and customReducers", () => {
@@ -97,6 +97,7 @@ describe.skip("Function shorthand", () => {
 
         describe("AND we pass arguments to custom.exponentiate before dispatching", () => {
           const expWithOneArg = actions.foo.create.exponentiate(2)
+          // @ts-ignore
           const expWithTwoArgs = actions.foo.create.exponentiate(3, 4)
 
           beforeEach(() => {
@@ -190,9 +191,7 @@ describe.skip("Function shorthand", () => {
 describe.skip("Object longhand", () => {
   describe("argsToPayload", () => {
     describe("GIVEN no argsToPayload defined in identity config object", () => {
-      const identity = {
-        reducer: (leafState: any) => leafState
-      }
+      const identity = (leafState: any) => leafState
 
       describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
         const [reducer, actions] = reduxLeaves({}, { identity })
@@ -206,6 +205,7 @@ describe.skip("Object longhand", () => {
         })
 
         describe("AND we create action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)", () => {
+          // @ts-ignore
           const action = actions.create.identity(1, 2, 3, 4, 5, 6, 7)
 
           test("THEN action.payload is 1", () => {

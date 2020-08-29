@@ -22,10 +22,10 @@ function makeCustomCreators<
     const creators = entries.reduce(
       (acc, [key, definition]) => {
         if (isLonghandReducer(definition)) {
-          const { argsToPayload } = definition
+          const { argsToPayload, type } = definition
           return {
             ...acc,
-            [key]: (...args: Parameters<typeof argsToPayload>) => creatorOfType(key, argsToPayload(...args))
+            [key]: (...args: Parameters<typeof argsToPayload>) => creatorOfType(key, argsToPayload(...args), type)
           }
         } else {
           const argsToPayload = (first: any) => first

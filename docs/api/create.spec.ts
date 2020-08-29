@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import reduxLeaves from '../../src';
 
-describe.skip('create has action creators keyed by default and custom creatorKeys', () => {
+describe('create has action creators keyed by default and custom creatorKeys', () => {
   const initialState = {
     counter: 0,
     arbitrary: {

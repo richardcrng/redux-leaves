@@ -1,6 +1,6 @@
 import reduxLeaves from '../../src';
 
-describe.skip('actions can take an arbitrary path of properties after it', () => {
+describe('actions can take an arbitrary path of properties after it', () => {
   const initialState = {
     counter: 0,
     arbitrary: {

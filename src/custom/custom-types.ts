@@ -40,7 +40,9 @@ export type LonghandReducerDefinition<T extends ReducerDefinitionG = {
     T['treeState'],
     T['leafState'],
     T['payload']
-  >
+  >,
+
+  type?: string
 }
 
 export type ShorthandReducerDefaultDefinition<TreeT> =

@@ -12,7 +12,8 @@ const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = 
     CreatorKeyT extends string = string
   >(
     str: CreatorKeyT,
-    payload: PayloadT
+    payload: PayloadT,
+    typeOverload?: string
   ): LSAwP<PayloadT>
 
   function creatorOfType<
@@ -23,9 +24,9 @@ const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = 
   function creatorOfType<
     PayloadT,
     CreatorKeyT extends string = string
-  >(str: CreatorKeyT, payload?: PayloadT) {
+  >(str: CreatorKeyT, payload?: PayloadT, typeOverload?: string) {
     return {
-      type: makeType(str),
+      type: typeOverload || makeType(str),
       leaf: {
         path,
         CREATOR_KEY: constantCase(str),
