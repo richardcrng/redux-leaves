@@ -1,5 +1,6 @@
 import reduxLeaves from "./reduxLeaves";
-export { LeafStandardAction, LeafCustomAction, CustomReducers, ReducerDefinition, ReducerDefaultDefinition, ShorthandReducerDefinition, LonghandReducerDefinition } from './types';
+export { LeafStandardAction, LeafCustomAction, LSAWithPayload } from './types'
+export { CustomReducers, ReducerDefinition, ReducerDefaultDefinition, ShorthandReducerDefinition, LonghandReducerDefinition } from './types';
 
 const bundle = {}
 

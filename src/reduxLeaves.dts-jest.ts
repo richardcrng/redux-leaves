@@ -1,4 +1,4 @@
-import reduxLeaves, { ReducerLonghand, CustomAction } from "./"
+import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -110,7 +110,7 @@ import reduxLeaves, { ReducerLonghand, CustomAction } from "./"
     list: [1, 2, 3]
   }
 
-  const multiplyBy: ReducerLonghand<{
+  const multiplyBy: ReducerDefinition<{
     leafState: number,
     payload: number,
     args: [number]
@@ -152,7 +152,7 @@ import reduxLeaves, { ReducerLonghand, CustomAction } from "./"
 
   const multiplyBy = {
     argsToPayload: (num: number) => num,
-    reducer: (leafState: number, action: CustomAction<number> ) => leafState * action.payload
+    reducer: (leafState: number, action: LSAWithPayload<number> ) => leafState * action.payload
   }
 
   const [reducer, actions] = reduxLeaves(initialState, { multiplyBy })
