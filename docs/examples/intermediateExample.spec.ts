@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import reduxLeaves, { LeafStandardAction } from '../../src';
 
-describe.skip('Intermediate example', () => {
+describe('Intermediate example', () => {
   const initialState = {
     counter: 2,
     list: ['first', 'second'],
