@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.toggle(): returns an action that, when dispatched, updates the leaf's state to false", () => {
+describe("leaf.create.toggle(): returns an action that, when dispatched, updates the leaf's state to false", () => {
 
   describe("GIVEN initialState is an object", () => {
     const initialState = {

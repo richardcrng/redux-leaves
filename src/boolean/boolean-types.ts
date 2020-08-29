@@ -2,12 +2,14 @@ import { LSAwP, LSA } from "../types";
 
 export enum BooleanCreatorKeys {
   OFF = 'OFF',
-  ON = 'ON'
+  ON = 'ON',
+  TOGGLE = 'TOGGLE'
 }
 
 export type BooleanCreators<LeafT extends boolean = boolean, TreeT = unknown> = {
   off(): LSA<BooleanCreatorKeys.OFF>,
-  on(): LSA<BooleanCreatorKeys.ON>
+  on(): LSA<BooleanCreatorKeys.ON>,
+  toggle(): LSA<BooleanCreatorKeys.TOGGLE>
 }
 
 export type BooleanActions<
@@ -23,4 +25,8 @@ export function isOffAction(action: LSA): action is BooleanActions<'off'> {
 
 export function isOnAction(action: LSA): action is BooleanActions<'on'> {
   return action.leaf.CREATOR_KEY === BooleanCreatorKeys.ON
+}
+
+export function isToggleAction(action: LSA): action is BooleanActions<'toggle'> {
+  return action.leaf.CREATOR_KEY === BooleanCreatorKeys.TOGGLE
 }
