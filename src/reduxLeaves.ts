@@ -10,9 +10,12 @@ export type ReduxLeaves<TreeT> = [
   ActionsProxy<TreeT, TreeT>
 ]
 
-function reduxLeaves<TreeT>(
+function reduxLeaves<
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT> = {}
+>(
   initialState: TreeT,
-  reducersDict: CustomReducers<TreeT>
+  reducersDict: CustomReducersT
 ): ReduxLeaves<TreeT> {
   const reducer = (treeState: TreeT = initialState, action: LeafStandardAction) => {
     if (!action.leaf) return treeState

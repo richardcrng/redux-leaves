@@ -11,20 +11,53 @@ export type CustomArgsToPayload<PayloadT = any, ArgsT extends any[] = any[]> = (
 
 export type CustomReducerLogic<TreeT = any, LeafT = any, PayloadT = any> = (leafState: LeafT, action: LeafCustomAction<PayloadT>, treeState: TreeT) => LeafT
 
-export interface CustomReducers<TreeT> {
-  [creatorKey: string]: CustomReducerDefinition<{
+// export type Definitions<Schemas = { [key: string]: any }, TS = any> = {
+//   [K in keyof Schemas]: Schemas[K] extends Schema<infer LS, infer A, infer P>
+//   ? Configuration<LS, TS, A, P>
+//   : Configuration<Schemas[K], TS>
+// }
+
+export type CustomReducers<TreeT, DefinitionsT = { [creatorKey: string]: CustomReducerDefaultDefinition<TreeT> }> = {
+  [K in keyof DefinitionsT]: CustomReducerDefaultDefinition<TreeT>
+}
+
+// export interface CustomReducers<TreeT> {
+//   [creatorKey: string]: CustomReducerDefinition<{
+//     treeState: TreeT, leafState: any, payload: any, args: any[]
+//   }>
+// }
+
+export type CustomReducerDefaultDefinition<TreeT> =
+  CustomReducerDefinition<{
     treeState: TreeT, leafState: any, payload: any, args: any[]
   }>
-}
 
 export type CustomReducerDefinition<T extends CustomReducerDefinitionGeneric = {
   treeState: any, leafState: any, args: any[], payload: any
 }> = {
-  argsToPayload: CustomArgsToPayload<T['payload'], T['args'] extends unknown[] ? T['args'] : unknown[]>,
-  reducer: CustomReducerLogic<T['treeState'], T['leafState'], T['payload']>
+
+  argsToPayload: CustomArgsToPayload<
+    T['payload'],
+    T['args'] extends unknown[] ? T['args'] : unknown[]
+  >,
+
+  reducer: CustomReducerLogic<
+    T['treeState'],
+    T['leafState'],
+    T['payload']
+  >
 }
 
-interface CustomReducerDefinitionGeneric<
+// export type CustomReducerCreator<T extends CustomReducerDefinitionGeneric = {
+
+// }> = 
+
+export type CustomReducerCreator<
+  PayloadT,
+  ArgsT extends unknown[]
+> = (...args: ArgsT) => LeafCustomAction<PayloadT>
+
+export interface CustomReducerDefinitionGeneric<
   TreeT = unknown,
   LeafT = unknown,
   PayloadT = unknown,
@@ -53,23 +86,11 @@ export type CustomReducerLonghand<
 //   [creatorKey: string]: CustomReducerLonghand
 // }
 
-export type CustomReducerCreator<
-  PayloadT,
-  ArgsT extends unknown[]
-> = (...args: ArgsT) => LeafCustomAction<PayloadT>
-
-export type CustomCreators<
-  LeafT = unknown,
-  TreeT = unknown
-> = {
-
-}
-
-export type CustomActions<
-  KeyT extends keyof CustomCreators<LeafT, TreeT>,
-  LeafT = unknown,
-  TreeT = unknown
-> = ReturnType<CustomCreators<LeafT, TreeT>[KeyT]>
+// export type CustomActions<
+//   KeyT extends keyof CustomCreators<LeafT, TreeT>,
+//   LeafT = unknown,
+//   TreeT = unknown
+// > = ReturnType<CustomCreators<LeafT, TreeT>[KeyT]>
 
 export function isCustomAction(action: LSA): action is LeafCustomAction {
   return !!action.leaf.custom

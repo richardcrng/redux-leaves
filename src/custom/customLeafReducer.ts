@@ -1,4 +1,15 @@
-import { LCA, CustomReducerDefinition } from "../types";
+import { LCA, CustomReducerDefinition, CustomReducerCreator } from "../types";
+import makeCreatorOfTypeFromPath from "../create/makeCreatorOfTypeFromPath";
+
+function customLeafCreator<PayloadT, ArgsT extends unknown[]>(
+  path: (string | number)[],
+  reducerDefinition: CustomReducerDefinition
+) {
+  const makeCreatorOfType = makeCreatorOfTypeFromPath(path)
+
+
+
+}
 
 function customLeafReducer<
   LeafT,
