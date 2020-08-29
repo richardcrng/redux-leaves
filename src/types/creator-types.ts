@@ -13,6 +13,12 @@ export type CreateFn<T> = (passedType?: string) => T
 
 export type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
+export type CreateAPI<
+  LeafT,
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT>
+> = DefaultCreators<LeafT, TreeT, CustomReducersT> & CreateFn<DefaultCreators<LeafT, TreeT, CustomReducersT>>
+
 export type TypedCreators<LeafT, TreeT> =
   LeafT extends Array<unknown>
     ? ArrayCreators<LeafT, TreeT> :

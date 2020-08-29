@@ -3,4 +3,3 @@ export type KnownKeys<T> = {
 } extends { [_ in keyof T]: infer U } ? U : never;
 
 export type Unpacked<IsArrayT> = IsArrayT extends (infer U)[] ? U : unknown;
-

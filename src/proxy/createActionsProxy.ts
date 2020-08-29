@@ -1,18 +1,12 @@
 import wrapWithCreate from './wrapWithCreate'
-import { DefaultCreators, CreateFn, CustomReducers } from '../types'
-
-type CreateT<
-  LeafT,
-  TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
-> = DefaultCreators<LeafT, TreeT, CustomReducersT> & CreateFn<DefaultCreators<LeafT, TreeT, CustomReducersT>>
+import { DefaultCreators, CreateFn, CustomReducers, CreateAPI } from '../types'
 
 export type ActionsProxy<
   LeafT,
   TreeT,
   CustomReducersT extends CustomReducers<TreeT>
 > = {
-  create: CreateT<LeafT, TreeT, CustomReducersT>
+  create: CreateAPI<LeafT, TreeT, CustomReducersT>
 } & {
   [K in keyof LeafT]: ActionsProxy<LeafT[K], TreeT, CustomReducersT>
 }

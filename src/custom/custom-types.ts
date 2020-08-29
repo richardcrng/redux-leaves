@@ -1,3 +1,4 @@
+import { OmitByValue } from 'utility-types';
 import { LSA, LeafActionData } from "../types"
 
 export type LeafCustomAction<PayloadT = unknown> = LSA<string, PayloadT> & {
@@ -84,19 +85,17 @@ export type CustomCreators<
   LeafT,
   TreeT,
   CustomReducersT extends CustomReducers<TreeT>
+> = OmitByValue<CustomCreatorsAll<LeafT, TreeT, CustomReducersT>, never>
+
+export type CustomCreatorsAll<
+  LeafT,
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT>
 > = {
-  [K in keyof CustomReducersT]: CustomReducerCreator<CustomReducersT[K]>
+  [K in keyof CustomReducersT]: Parameters<CustomReducersT[K]['reducer']>[0] extends LeafT
+  ? CustomReducerCreator<CustomReducersT[K]>
+  : never
 }
-
-// export interface CustomReducerDefinitions {
-//   [creatorKey: string]: CustomReducerLonghand
-// }
-
-// export type CustomActions<
-//   KeyT extends keyof CustomCreators<LeafT, TreeT>,
-//   LeafT = unknown,
-//   TreeT = unknown
-// > = ReturnType<CustomCreators<LeafT, TreeT>[KeyT]>
 
 export function isCustomAction(action: LSA): action is LeafCustomAction {
   return !!action.leaf.custom
