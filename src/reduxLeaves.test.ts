@@ -109,7 +109,7 @@ describe('Custom reducers', () => {
     shout
   })
 
-  describe('Reducer with one argument', () => {
+  test('Reducer with one argument', () => {
     const result = reducer(
       initialState,
       actions.nested.state.deep.create.shout()
@@ -123,6 +123,21 @@ describe('Custom reducers', () => {
           ...initialState.nested.state,
           deep: initialState.nested.state.deep.toUpperCase()
         }
+      }
+    })
+  })
+
+  test('Reducer with two argument', () => {
+    const result = reducer(
+      initialState,
+      actions.nested.counter.create.multiplyBy(4)
+    )
+
+    expect(result).toStrictEqual({
+      ...initialState,
+      nested: {
+        ...initialState.nested,
+        counter: initialState.nested.counter * 4
       }
     })
   })
