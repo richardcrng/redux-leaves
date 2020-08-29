@@ -3,8 +3,6 @@ import makeTypedCreators from '../create/makeTypedCreators'
 import { CustomReducers } from '../types'
 import makeCustomCreators from '../custom/makeCustomCreators'
 
-// type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
-
 function wrapWithCreate<
   LeafT,
   TreeT,

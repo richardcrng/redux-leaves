@@ -1,5 +1,5 @@
 import wrapWithCreate from './wrapWithCreate'
-import { DefaultCreators, CreateFn, CustomReducers, CreateAPI } from '../types'
+import { CustomReducers, CreateAPI } from '../types'
 
 export type ActionsProxy<
   LeafT,
