@@ -8,29 +8,36 @@ export enum ArrayCreatorKeys {
   PUSH = 'PUSH'
 }
 
-export type ArrayCreators<L extends unknown[], T = unknown> = {
-  concat(arr: L): LSAwP<L, ArrayCreatorKeys.CONCAT>
+export type ArrayCreators<
+  LeafT extends unknown[],
+  TreeT = unknown
+> = {
+  concat(arr: LeafT): LSAwP<LeafT, ArrayCreatorKeys.CONCAT>
   drop(n?: number): LSAwP<number | undefined, ArrayCreatorKeys.DROP>
-  filter(cb: FilterCallback<Unpacked<L>>): LSAwP<FilterCallback<Unpacked<L>>, ArrayCreatorKeys.FILTER>,
-  push(element: Unpacked<L>, index?: number, replace?: boolean): LSAwP<{ element: Unpacked<L>, index?: number, replace?: boolean }, ArrayCreatorKeys.PUSH>
+  filter(cb: FilterCallback<Unpacked<LeafT>>): LSAwP<FilterCallback<Unpacked<LeafT>>, ArrayCreatorKeys.FILTER>,
+  push(element: Unpacked<LeafT>, index?: number, replace?: boolean): LSAwP<{ element: Unpacked<LeafT>, index?: number, replace?: boolean }, ArrayCreatorKeys.PUSH>
 }
 
 type FilterCallback<E> = (element: E, index: number, source: E[]) => boolean
 
-export type ArrayActions<K extends keyof ArrayCreators<L>, L extends unknown[] = unknown[], T = unknown> = ReturnType<ArrayCreators<L, T>[K]>
+export type ArrayActions<
+  KeyT extends keyof ArrayCreators<LeafT>,
+  LeafT extends unknown[] = unknown[],
+  TreeT = unknown
+> = ReturnType<ArrayCreators<LeafT, TreeT>[KeyT]>
 
 export function isDropAction(action: LSA): action is ArrayActions<'drop'> {
   return action.leaf.CREATOR_KEY === ArrayCreatorKeys.DROP
 }
 
-export function isConcatActionArray<L extends unknown[]>(action: LSA): action is ArrayActions<'concat', L, unknown> {
+export function isConcatActionArray<LeafT extends unknown[]>(action: LSA): action is ArrayActions<'concat', LeafT, unknown> {
   return action.leaf.CREATOR_KEY === ArrayCreatorKeys.CONCAT
 }
 
-export function isFilterAction<L extends unknown[]>(action: LSA): action is ArrayActions<'filter', L, unknown> {
+export function isFilterAction<LeafT extends unknown[]>(action: LSA): action is ArrayActions<'filter', LeafT, unknown> {
   return action.leaf.CREATOR_KEY === ArrayCreatorKeys.FILTER
 }
 
-export function isPushAction<L extends unknown[]>(action: LSA): action is ArrayActions<'push', L, unknown> {
+export function isPushAction<LeafT extends unknown[]>(action: LSA): action is ArrayActions<'push', LeafT, unknown> {
   return action.leaf.CREATOR_KEY === ArrayCreatorKeys.PUSH
 }

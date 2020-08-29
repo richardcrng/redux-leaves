@@ -5,12 +5,16 @@ export enum BooleanCreatorKeys {
   ON = 'ON'
 }
 
-export type BooleanCreators<L extends boolean = boolean, T = unknown> = {
+export type BooleanCreators<LeafT extends boolean = boolean, TreeT = unknown> = {
   off(): LSA<BooleanCreatorKeys.OFF>,
   on(): LSA<BooleanCreatorKeys.ON>
 }
 
-export type BooleanActions<K extends keyof BooleanCreators, L extends boolean = boolean, T = unknown> = ReturnType<BooleanCreators<L>[K]>
+export type BooleanActions<
+  KeyT extends keyof BooleanCreators,
+  LeafT extends boolean = boolean,
+  TreeT = unknown
+> = ReturnType<BooleanCreators<LeafT, TreeT>[KeyT]>
 
 
 export function isOffAction(action: LSA): action is BooleanActions<'off'> {

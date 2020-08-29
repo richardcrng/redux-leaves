@@ -6,10 +6,13 @@ export enum ObjectCreatorKeys {
   PUSHED_SET = 'PUSHED_SET'
 }
 
-export type ObjectCreators<L extends {} = {}, T = unknown> = {
-  assign(props: Partial<L>): LSAwP<L, ObjectCreatorKeys.ASSIGN>,
+export type ObjectCreators<
+  LeafT extends {} = {},
+  TtreeT = unknown
+> = {
+  assign(props: Partial<LeafT>): LSAwP<LeafT, ObjectCreatorKeys.ASSIGN>,
   path<V = unknown>(route: (string|number)[], value: V): LSAwP<{ path: (string|number)[], value: V }, ObjectCreatorKeys.PATH>,
-  pushedSet: PushedSet<L>
+  pushedSet: PushedSet<LeafT>
 }
 
 type PushedSet<L> = (arg: L[keyof L] | PushedSetCallback<L>) => LSAwP<L[keyof L] | PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
@@ -18,7 +21,11 @@ type PushedSetCallback<L> = (id: string) => L[keyof L]
 type PushedSetWithValue<L> = (val: L[keyof L]) => LSAwP<L[keyof L], ObjectCreatorKeys.PUSHED_SET>
 type PushedSetWithCallback<L> = (cb: PushedSetCallback<L>) => LSAwP<PushedSetCallback<L>, ObjectCreatorKeys.PUSHED_SET>
 
-export type ObjectActions<K extends keyof ObjectCreators, L = unknown, T = unknown> = ReturnType<ObjectCreators<L>[K]>
+export type ObjectActions<
+  KeyT extends keyof ObjectCreators,
+  LeafT = unknown,
+  TreeT = unknown
+> = ReturnType<ObjectCreators<LeafT, TreeT>[KeyT]>
 
 export function isAssignAction<L>(action: LSA): action is ObjectActions<'assign', L> {
   return action.leaf.CREATOR_KEY === ObjectCreatorKeys.ASSIGN

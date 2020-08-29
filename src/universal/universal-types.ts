@@ -9,17 +9,24 @@ export enum UniversalCreatorKeys {
 
 type DoCallback<L, T> = (leafState: L, treeState: T) => L
 
-export type UniversalCreators<L = unknown, T = unknown> = {
+export type UniversalCreators<
+  LeafT = unknown,
+  TreeT = unknown
+> = {
   clear(): LSA<UniversalCreatorKeys.CLEAR>
 
-  do(cb: DoCallback<L, T>): LSAwP<DoCallback<L, T>, UniversalCreatorKeys.DO>
+  do(cb: DoCallback<LeafT, TreeT>): LSAwP<DoCallback<LeafT, TreeT>, UniversalCreatorKeys.DO>
 
   reset(): LSA<UniversalCreatorKeys.RESET>
 
-  update(newVal: L): LSAwP<L, UniversalCreatorKeys.UPDATE>
+  update(newVal: LeafT): LSAwP<LeafT, UniversalCreatorKeys.UPDATE>
 }
 
-export type UniversalActions<K extends keyof UniversalCreators<L, T>, L = unknown, T = unknown> = ReturnType<UniversalCreators<L, T>[K]>
+export type UniversalActions<
+  KeyT extends keyof UniversalCreators<LeafT, TreeT>,
+  LeafT = unknown,
+  TreeT = unknown
+> = ReturnType<UniversalCreators<LeafT, TreeT>[KeyT]>
 
 export function isClearAction<L>(action: LSA): action is UniversalActions<'clear', L> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.CLEAR
