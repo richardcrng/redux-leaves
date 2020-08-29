@@ -32,7 +32,7 @@ export type CustomReducerDefaultDefinition<TreeT> =
     treeState: TreeT, leafState: any, payload: any, args: any[]
   }>
 
-export type CustomReducerDefinition<T extends CustomReducerDefinitionGeneric = {
+export type CustomReducerDefinition<T extends ICustomReducerDefinitionGeneric = {
   treeState: any, leafState: any, args: any[], payload: any
 }> = {
 
@@ -48,16 +48,14 @@ export type CustomReducerDefinition<T extends CustomReducerDefinitionGeneric = {
   >
 }
 
-// export type CustomReducerCreator<T extends CustomReducerDefinitionGeneric = {
+export type CustomReducerCreator<T extends CustomReducerDefinition> = (...args: Parameters<T['argsToPayload']>) => LeafCustomAction<ReturnType<T['argsToPayload']>>
 
-// }> = 
+// export type CustomReducerCreator<
+//   PayloadT,
+//   ArgsT extends unknown[]
+// > = (...args: ArgsT) => LeafCustomAction<PayloadT>
 
-export type CustomReducerCreator<
-  PayloadT,
-  ArgsT extends unknown[]
-> = (...args: ArgsT) => LeafCustomAction<PayloadT>
-
-export interface CustomReducerDefinitionGeneric<
+export interface ICustomReducerDefinitionGeneric<
   TreeT = unknown,
   LeafT = unknown,
   PayloadT = unknown,
@@ -81,6 +79,14 @@ export type CustomReducerLonghand<
   reducer: CustomReducerLogicT
 }
 
+
+export type CustomCreators<
+  LeafT,
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT>
+> = {
+  [K in keyof CustomReducersT]: CustomReducerCreator<CustomReducersT[K]>
+}
 
 // export interface CustomReducerDefinitions {
 //   [creatorKey: string]: CustomReducerLonghand

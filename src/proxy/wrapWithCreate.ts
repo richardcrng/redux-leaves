@@ -1,6 +1,7 @@
 import makeUniversalCreators from '../universal/makeUniversalCreators'
 import makeTypedCreators from '../create/makeTypedCreators'
 import { CustomReducers } from '../types'
+import makeCustomCreators from '../custom/makeCustomCreators'
 
 // type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
@@ -16,6 +17,7 @@ function wrapWithCreate<
 ) {  
   const universalCreators = makeUniversalCreators(leafState, path)
   const typedCreators = makeTypedCreators(leafState, path)
+  const customCreators = makeCustomCreators(leafState, treeState, path, reducersDict)
   const makeCreators = (passedType?: string) => {
     return Object.assign(universalCreators(passedType), typedCreators(passedType))
   }

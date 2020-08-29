@@ -4,6 +4,7 @@ import { StringCreators } from '../string/string-types'
 import { ObjectCreators } from '../object/object-types'
 import { NumberCreators } from '../number/number-types'
 import { BooleanCreators } from '../boolean/boolean-types'
+import { CustomReducers, CustomCreators } from '../custom/custom-types'
 
 export * from '../universal/universal-types'
 export * from '../custom/custom-types'
@@ -25,6 +26,13 @@ export type TypedCreators<LeafT, TreeT> =
     ? ObjectCreators<LeafT, TreeT> :
   {}
 
-export type DefaultCreators<LeafT, TreeT> = UniversalCreators<LeafT, TreeT> & TypedCreators<LeafT, TreeT>
+export type DefaultCreators<
+  LeafT,
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT>
+> =
+  UniversalCreators<LeafT, TreeT>
+    & TypedCreators<LeafT, TreeT>
+    & CustomCreators<LeafT, TreeT, CustomReducersT>
 
 
