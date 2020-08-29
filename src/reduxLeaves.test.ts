@@ -1,4 +1,4 @@
-import reduxLeaves, { ReducerLonghand } from "./"
+import reduxLeaves, { ReducerDefinition } from "./"
 
 describe('Basic example', () => {
   const initialState = {
@@ -80,14 +80,14 @@ describe('Custom reducers', () => {
     list: [1, 2, 3]
   }
 
-  const multiplyBy: ReducerLonghand<{
+  const multiplyBy: ReducerDefinition<{
     args: [number], payload: number, leafState: number
   }> = {
     argsToPayload: (num) => num,
     reducer: (leafState, action) => leafState * action.payload
   }
 
-  const appendDoubleWithCounter: ReducerLonghand<{
+  const appendDoubleWithCounter: ReducerDefinition<{
     args: [number], payload: number, leafState: number[], treeState: typeof initialState
   }> = {
     argsToPayload: (num) => num * 2,
@@ -98,10 +98,7 @@ describe('Custom reducers', () => {
     ]
   }
 
-  const shout = {
-    argsToPayload: () => undefined,
-    reducer: (leafState: string) => leafState.toUpperCase()
-  }
+  const shout = (leafState: string) => leafState.toUpperCase()
 
   const [reducer, actions] = reduxLeaves(initialState, {
     multiplyBy,

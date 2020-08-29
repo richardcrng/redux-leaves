@@ -1,5 +1,5 @@
 import { isPlainObject } from "ramda-adjunct";
-import { LeafStandardAction, isCustomAction, CustomReducers } from "../types";
+import { LeafStandardAction, isCustomAction, CustomReducers, isLonghandReducer } from "../types";
 import universalLeafReducer from "../universal/universalLeafReducer";
 import arrayLeafReducer from "../array/arrayLeafReducer";
 import stringLeafReducer from "../string/stringLeafReducer";
@@ -26,9 +26,13 @@ function leafReducer<
       [action.leaf.creatorKey]: matchingDefinition
     } = reducersDict
 
-    return matchingDefinition
-      ? matchingDefinition.reducer(leafState, action, treeState)
-      : leafState
+    if (matchingDefinition) {
+      return isLonghandReducer(matchingDefinition)
+        ? matchingDefinition.reducer(leafState, action, treeState)
+        : matchingDefinition(leafState, action, treeState)
+    } else {
+      return leafState
+    }
   }
 
   if (Array.isArray(leafState)) {

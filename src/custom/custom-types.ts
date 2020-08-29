@@ -12,16 +12,22 @@ export type CustomArgsToPayload<PayloadT = any, ArgsT extends any[] = any[]> = (
 
 export type CustomReducerLogic<TreeT = any, LeafT = any, PayloadT = any> = (leafState: LeafT, action: LeafCustomAction<PayloadT>, treeState: TreeT) => LeafT
 
-export type CustomReducers<TreeT, DefinitionsT = { [creatorKey: string]: CustomReducerDefaultDefinition<TreeT> }> = {
-  [K in keyof DefinitionsT]: CustomReducerDefaultDefinition<TreeT>
+export type ReducerDefaultDefinition<TreeT = unknown> = ShorthandReducerDefaultDefinition<TreeT> | LonghandReducerDefaultDefinition<TreeT>
+
+export type ReducerDefinition<T extends ReducerDefinitionG = {
+  treeState: any, leafState: any, args: any[], payload: any
+}> = LonghandReducerDefinition<T> | ShorthandReducerDefinition<T>
+
+export type CustomReducers<TreeT, DefinitionsT = { [creatorKey: string]: LonghandReducerDefaultDefinition<TreeT> }> = {
+  [K in keyof DefinitionsT]: ReducerDefaultDefinition<TreeT>
 }
 
-export type CustomReducerDefaultDefinition<TreeT> =
-  CustomReducerDefinition<{
+export type LonghandReducerDefaultDefinition<TreeT> =
+  LonghandReducerDefinition<{
     treeState: TreeT, leafState: any, payload: any, args: any[]
   }>
 
-export type CustomReducerDefinition<T extends ICustomReducerDefinitionGeneric = {
+export type LonghandReducerDefinition<T extends ReducerDefinitionG = {
   treeState: any, leafState: any, args: any[], payload: any
 }> = {
 
@@ -37,9 +43,20 @@ export type CustomReducerDefinition<T extends ICustomReducerDefinitionGeneric = 
   >
 }
 
-export type CustomReducerCreator<T extends CustomReducerDefinition> = (...args: Parameters<T['argsToPayload']>) => LeafCustomAction<ReturnType<T['argsToPayload']>>
+export type ShorthandReducerDefaultDefinition<TreeT> =
+  ShorthandReducerDefinition<{
+    treeState: TreeT, leafState: any, payload: any, args: any[]
+  }>
 
-export interface ICustomReducerDefinitionGeneric<
+export type ShorthandReducerDefinition<T extends ReducerDefinitionG = {
+  treeState: any, leafState: any, args: any[], payload: any
+}> = LonghandReducerDefinition<T>['reducer']
+
+export type LonghandCreator<T extends LonghandReducerDefinition> = (...args: Parameters<T['argsToPayload']>) => LeafCustomAction<ReturnType<T['argsToPayload']>>
+
+export type ShorthandCreator<T extends LonghandReducerDefinition['reducer'], PayloadT = any> = (payload?: PayloadT) => LeafCustomAction<PayloadT>
+
+export interface ReducerDefinitionG<
   TreeT = unknown,
   LeafT = unknown,
   PayloadT = unknown,
@@ -62,13 +79,28 @@ export type CustomCreatorsAll<
   TreeT,
   CustomReducersT extends CustomReducers<TreeT>
 > = {
-  [K in keyof CustomReducersT]: Parameters<CustomReducersT[K]['reducer']>[0] extends LeafT
-  ? CustomReducerCreator<CustomReducersT[K]>
-  : never
+  [K in keyof CustomReducersT]:
+    CustomReducersT[K] extends LonghandReducerDefaultDefinition<TreeT>
+      ? Parameters<CustomReducersT[K]['reducer']>[0] extends LeafT
+        ? LonghandCreator<CustomReducersT[K]>
+        : never :
+    CustomReducersT[K] extends LonghandReducerDefaultDefinition<TreeT>['reducer']
+      ? Parameters<CustomReducersT[K]>[0] extends LeafT
+        ? ShorthandCreator<CustomReducersT[K]>
+        : never
+    : never
 }
 
 export function isCustomAction(action: LSA): action is LeafCustomAction {
   return !!action.leaf.custom
+}
+
+export function isShorthandReducer<T extends ReducerDefinitionG>(definition: ReducerDefinition<T>): definition is ShorthandReducerDefinition<T> {
+  return typeof definition === 'function'
+}
+
+export function isLonghandReducer<T extends ReducerDefinitionG>(definition: ReducerDefinition<T>): definition is LonghandReducerDefinition<T> {
+  return !isShorthandReducer(definition)
 }
 
 export {

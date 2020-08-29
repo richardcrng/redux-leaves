@@ -1,5 +1,5 @@
 import makeCreatorOfTypeFromPath from '../create/makeCreatorOfTypeFromPath';
-import { CreateFn, CustomReducers, CustomCreators } from '../types';
+import { CreateFn, CustomReducers, CustomCreators, isLonghandReducer } from '../types';
 
 function makeCustomCreators<
   LeafT,
@@ -20,10 +20,21 @@ function makeCustomCreators<
     const entries = Object.entries(reducersDict)
 
     const creators = entries.reduce(
-      (acc, [key, { argsToPayload }]) => ({
-        ...acc,
-        [key]: (...args: Parameters<typeof argsToPayload>) => creatorOfType(key, argsToPayload(args))
-      }),
+      (acc, [key, definition]) => {
+        if (isLonghandReducer(definition)) {
+          const { argsToPayload } = definition
+          return {
+            ...acc,
+            [key]: (...args: Parameters<typeof argsToPayload>) => creatorOfType(key, argsToPayload(...args))
+          }
+        } else {
+          const argsToPayload = (first: any) => first
+          return {
+            ...acc,
+            [key]: (...args: Parameters<typeof argsToPayload>) => creatorOfType(key, argsToPayload(...args))
+          }
+        }
+      },
       {}
     )
 
