@@ -1,4 +1,4 @@
-import reduxLeaves from "./reduxLeaves"
+import reduxLeaves, { ReducerLonghand } from "./"
 
 describe('Basic example', () => {
   const initialState = {
@@ -64,6 +64,66 @@ describe('Basic example', () => {
           }
         }
       })
+    })
+  })
+})
+
+describe('Custom reducers', () => {
+  const initialState = {
+    shallow: true,
+    nested: {
+      counter: 4,
+      state: {
+        deep: 'somewhat'
+      }
+    },
+    list: [1, 2, 3]
+  }
+
+  const multiplyBy: ReducerLonghand<{
+    args: [number], payload: number, leafState: number
+  }> = {
+    argsToPayload: (num) => num,
+    reducer: (leafState, action) => leafState * action.payload
+  }
+
+  const appendDoubleWithCounter: ReducerLonghand<{
+    args: [number], payload: number, leafState: number[], treeState: typeof initialState
+  }> = {
+    argsToPayload: (num) => num * 2,
+    reducer: (leafState, action, treeState) => [
+      ...leafState,
+      action.payload,
+      treeState.nested.counter
+    ]
+  }
+
+  const shout = {
+    argsToPayload: () => undefined,
+    reducer: (leafState: string) => leafState.toUpperCase()
+  }
+
+  const [reducer, actions] = reduxLeaves(initialState, {
+    multiplyBy,
+    appendDoubleWithCounter,
+    shout
+  })
+
+  describe('Reducer with one argument', () => {
+    const result = reducer(
+      initialState,
+      actions.nested.state.deep.create.shout()
+    )
+
+    expect(result).toStrictEqual({
+      ...initialState,
+      nested: {
+        ...initialState.nested,
+        state: {
+          ...initialState.nested.state,
+          deep: initialState.nested.state.deep.toUpperCase()
+        }
+      }
     })
   })
 })
