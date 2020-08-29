@@ -37,7 +37,7 @@ function reduxLeaves<
 
     const prevLeafState = getState(treeState, action.leaf.path)
 
-    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState)
+    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState, reducersDict)
 
     return updateState(treeState, action.leaf.path, newLeafState)
   }

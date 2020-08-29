@@ -3,7 +3,7 @@ export interface LeafActionData<CreatorKeyT extends string = string> {
   creatorKey: string
   CREATOR_KEY: string
   compound?: false
-  custom?: boolean
+  custom: boolean
 }
 
 export interface LeafStandardAction<CreatorKeyT extends string = string, PayloadT = unknown> {

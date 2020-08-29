@@ -2,10 +2,10 @@ import { isNotUndefined } from "ramda-adjunct";
 import { camelCase, constantCase } from 'change-case';
 import { LSAwP, LSA } from "../types"
 
-const makeCreatorOfTypeFromPath = (path: (string | number)[]) => (passedType?: string) => {
+const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = false) => (passedType?: string) => {
   const makeType = passedType
     ? (_: string) => passedType
-    : (str: string) => [...path, str].join('/')
+    : (str: string) => [...path, constantCase(str)].join('/')
 
   function creatorOfType<
     PayloadT,
@@ -26,7 +26,12 @@ const makeCreatorOfTypeFromPath = (path: (string | number)[]) => (passedType?: s
   >(str: CreatorKeyT, payload?: PayloadT) {
     return {
       type: makeType(str),
-      leaf: { path, CREATOR_KEY: constantCase(str), creatorKey: camelCase(str) },
+      leaf: {
+        path,
+        CREATOR_KEY: constantCase(str),
+        creatorKey: camelCase(str),
+        custom
+      },
       ...isNotUndefined(payload) ? { payload } : {}
     }
   }

@@ -12,7 +12,7 @@ function makeCustomCreators<
   reducersDict: CustomReducersT
 ): CreateFn<CustomCreators<LeafT, TreeT, CustomReducersT>> {
   
-  const makeCreatorOfType = makeCreatorOfTypeFromPath(path)
+  const makeCreatorOfType = makeCreatorOfTypeFromPath(path, true)
 
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)

@@ -1,5 +1,5 @@
 import { isPlainObject } from "ramda-adjunct";
-import { LeafStandardAction } from "../types";
+import { LeafStandardAction, isCustomAction, CustomReducers } from "../types";
 import universalLeafReducer from "../universal/universalLeafReducer";
 import arrayLeafReducer from "../array/arrayLeafReducer";
 import stringLeafReducer from "../string/stringLeafReducer";
@@ -7,7 +7,29 @@ import objectLeafReducer from '../object/objectLeafReducer';
 import numberLeafReducer from "../number/numberLeafReducer";
 import booleanLeafReducer from "../boolean/booleanLeafReducer";
 
-function leafReducer<L, T, A extends LeafStandardAction>(leafState: L, treeState: T, action: A, originalState: T): L {
+function leafReducer<
+  LeafT,
+  TreeT,
+  ActionT extends LeafStandardAction,
+  CustomReducersT extends CustomReducers<TreeT>
+>(
+  leafState: LeafT,
+  treeState: TreeT,
+  action: ActionT,
+  originalState: TreeT,
+  reducersDict: CustomReducersT
+): LeafT {
+
+  if (isCustomAction(action)) {
+
+    const {
+      [action.leaf.creatorKey]: matchingDefinition
+    } = reducersDict
+
+    return matchingDefinition
+      ? matchingDefinition.reducer(leafState, action, treeState)
+      : leafState
+  }
 
   if (Array.isArray(leafState)) {
     return arrayLeafReducer(leafState, treeState, action, originalState)
