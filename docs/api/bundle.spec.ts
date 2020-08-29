@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import reduxLeaves, { bundle } from '../../src';
 
-describe.skip('bundle bundles together actions into a single one', () => {
+describe('bundle bundles together actions into a single one', () => {
   describe("Actions array, no type", () => {
     const initialState = {
       counter: 0,
@@ -67,10 +67,10 @@ describe.skip('bundle bundles together actions into a single one', () => {
       ])
 
       store.dispatch(incrementThenPush)
-      expect(store.getState()).toEqual({ counter: 1, list: ['a', 1] })
+      expect(store.getState()).toEqual({ counter: 1, list: [5, 1] })
 
       store.dispatch(pushThenIncrement)
-      expect(store.getState()).toEqual({ counter: 2, list: ['a', 1, 1] })
+      expect(store.getState()).toEqual({ counter: 2, list: [5, 1, 1] })
     })
   })
 

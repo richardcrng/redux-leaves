@@ -1,8 +1,13 @@
 import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
-describe.skip("leaf.create.concat(array): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with array", () => {
-  const initialState = {
+describe("leaf.create.concat(array): returns an action that, when dispatched, updates the leaf's state by non-mutatively concatenating it with array", () => {
+  interface State {
+    arr: (string|number)[],
+    str: string
+  }
+
+  const initialState: State = {
     arr: [1, 2, 3],
     str: 'foo'
   }

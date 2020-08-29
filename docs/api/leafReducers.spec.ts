@@ -188,7 +188,7 @@ describe("Function shorthand", () => {
   })
 })
 
-describe.skip("Object longhand", () => {
+describe("Object longhand", () => {
   describe("argsToPayload", () => {
     describe("GIVEN no argsToPayload defined in identity config object", () => {
       const identity = (leafState: any) => leafState
