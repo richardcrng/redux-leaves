@@ -1,5 +1,4 @@
-import { LCA } from "../types";
-import { getState } from "../utils/update-state";
+import { LCA, CustomReducerDefinition } from "../types";
 
 
 function customLeafReducer<
@@ -10,13 +9,12 @@ function customLeafReducer<
   leafState: LeafT,
   treeState: TreeT,
   action: ActionT,
-  originalState: TreeT
+  reducerDefinition: CustomReducerDefinition<{
+    leafState: LeafT,
+    treeState: TreeT,
+  }>
 ): LeafT {
-
-  
-
-
-  return leafState
+  return reducerDefinition.reducer(leafState, action, treeState)
 }
 
 export default customLeafReducer

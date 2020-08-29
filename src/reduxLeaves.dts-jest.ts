@@ -120,7 +120,7 @@ import { CustomReducerDefinition } from "./types"
     reducer: (leafState, action) => leafState * action.payload
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = reduxLeaves(initialState, { multiplyBy })
 
   // @dts-jest:fail does not exist on boolean state
   actions.shallow.create.multiplyBy

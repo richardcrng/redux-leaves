@@ -16,16 +16,8 @@ export interface LeafStandardActionWithPayload<PayloadT, CreatorKeyT extends str
   payload: PayloadT
 }
 
-export type LeafCustomAction<PayloadT = unknown> = LeafStandardAction<string, PayloadT> & {
-  leaf: LeafActionData<string> & {
-    custom: true
-  },
-  payload: PayloadT
-}
-
 export {
   LeafStandardAction as LSA,
   LeafStandardActionWithPayload as LSAWithPayload,
   LeafStandardActionWithPayload as LSAwP,
-  LeafCustomAction as LCA
 }

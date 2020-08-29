@@ -16,7 +16,8 @@
     "object.fromentries": "^2.0.2",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.23.0",
-    "set-value": ">=2.0.1"
+    "set-value": ">=2.0.1",
+    "utility-types": "^3.10.0"
   },
   "repository": {
     "type": "git",

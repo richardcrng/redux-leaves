@@ -1,17 +1,20 @@
 import { Reducer } from 'redux'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
-import { LeafStandardAction } from './types';
+import { LeafStandardAction, CustomReducers } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
-export type ReduxLeaves<StateT> = [
-  Reducer<StateT>,
-  ActionsProxy<StateT, StateT>
+export type ReduxLeaves<TreeT> = [
+  Reducer<TreeT>,
+  ActionsProxy<TreeT, TreeT>
 ]
 
-function reduxLeaves<StateT>(initialState: StateT): ReduxLeaves<StateT> {
-  const reducer = (treeState: StateT = initialState, action: LeafStandardAction) => {
+function reduxLeaves<TreeT>(
+  initialState: TreeT,
+  reducersDict: CustomReducers<TreeT>
+): ReduxLeaves<TreeT> {
+  const reducer = (treeState: TreeT = initialState, action: LeafStandardAction) => {
     if (!action.leaf) return treeState
 
     const prevLeafState = getState(treeState, action.leaf.path)
@@ -21,9 +24,9 @@ function reduxLeaves<StateT>(initialState: StateT): ReduxLeaves<StateT> {
     return updateState(treeState, action.leaf.path, newLeafState)
   }
 
-  const actions = createActionsProxy<StateT, StateT>(initialState)
+  const actions = createActionsProxy<TreeT, TreeT>(initialState)
 
-  return [reducer as Reducer<StateT>, actions]
+  return [reducer as Reducer<TreeT>, actions]
 }
 
 export default reduxLeaves
