@@ -1,10 +1,12 @@
 import wrapWithCreate from './wrapWithCreate'
 import { DefaultCreators, CreateFn } from '../types'
 
-export type ActionsProxy<S, T> = {
-  create: DefaultCreators<S, T> & CreateFn<DefaultCreators<S, T>>
+type CreateT<StateT, TreeT> = DefaultCreators<StateT, TreeT> & CreateFn<DefaultCreators<StateT, TreeT>>
+
+export type ActionsProxy<StateT, TreeT> = {
+  create: CreateT<StateT, TreeT>
 } & {
-  [P in keyof S]: ActionsProxy<S[P], T>
+  [K in keyof StateT]: ActionsProxy<StateT[K], TreeT>
 }
 
 function createActionsProxy<S, T>(

@@ -3,8 +3,8 @@ import makeTypedCreators from '../create/makeTypedCreators'
 
 // type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 
-function wrapWithCreate<S, T>(
-  state: S,
+function wrapWithCreate<StateT, TreeT>(
+  state: StateT,
   path: (string | number)[] = []
 ) {  
   const universalCreators = makeUniversalCreators(state, path)

@@ -5,10 +5,13 @@ import { LeafStandardAction } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
-export type ReduxLeaves<S> = [Reducer<S>, ActionsProxy<S, S>]
+export type ReduxLeaves<StateT> = [
+  Reducer<StateT>,
+  ActionsProxy<StateT, StateT>
+]
 
-function reduxLeaves<S>(initialState: S): ReduxLeaves<S>{
-  const reducer = (treeState: S = initialState, action: LeafStandardAction) => {
+function reduxLeaves<StateT>(initialState: StateT): ReduxLeaves<StateT>{
+  const reducer = (treeState: StateT = initialState, action: LeafStandardAction) => {
     if (!action.leaf) return treeState
 
     const prevLeafState = getState(treeState, action.leaf.path)
@@ -18,9 +21,9 @@ function reduxLeaves<S>(initialState: S): ReduxLeaves<S>{
     return updateState(treeState, action.leaf.path, newLeafState)
   }
 
-  const actions = createActionsProxy<S, S>(initialState)
+  const actions = createActionsProxy<StateT, StateT>(initialState)
 
-  return [reducer as Reducer<S>, actions]
+  return [reducer as Reducer<StateT>, actions]
 }
 
 export default reduxLeaves
