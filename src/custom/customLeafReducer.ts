@@ -1,6 +1,5 @@
 import { LCA, CustomReducerDefinition } from "../types";
 
-
 function customLeafReducer<
   LeafT,
   TreeT,

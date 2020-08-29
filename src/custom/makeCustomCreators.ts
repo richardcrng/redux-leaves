@@ -2,7 +2,10 @@ import { CustomCreators } from './custom-types';
 import makeCreatorOfTypeFromPath from '../create/makeCreatorOfTypeFromPath';
 import { CreateFn } from '../types';
 
-function makeCustomCreators<L, T>(leafState: L, path: (string | number)[]): CreateFn<CustomCreators<L, T>> {
+function makeCustomCreators<LeafT, TreeT>(
+  leafState: LeafT,
+  path: (string | number)[]
+): CreateFn<CustomCreators<LeafT, TreeT>> {
   
   const makeCreatorOfType = makeCreatorOfTypeFromPath(path)
 
