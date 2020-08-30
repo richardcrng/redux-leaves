@@ -1,96 +1,153 @@
-import reduxLeaves, { LeafReducer } from './';
-import { createStore, Store } from "redux";
+import reduxLeaves, { ReducerDefinition } from "./"
 
-describe("API: reduxLeaves(initialState)", () => {
+describe('Basic example', () => {
+  const initialState = {
+    shallow: true,
+    nested: {
+      counter: 0,
+      state: {
+        deep: 'somewhat'
+      }
+    },
+    list: [1, 2, 3]
+  }
 
-  describe("GIVEN nested initialState with non-null values for shape { counter, foo, nested: { deep: {}, state: { manageable } } }", () => {
-    interface State {
-      counter: number
-      foo: any[]
+  Object.freeze(initialState)
+
+  const [reducer, actions] = reduxLeaves(initialState)
+
+  test('Actions shape mirrors state shape', () => {
+    const toTest = [
+      actions,
+      actions.shallow,
+      actions.nested,
+      actions.nested.counter,
+      actions.nested.state,
+      actions.nested.state.deep,
+      actions.list
+    ]
+
+    for (let testPath of toTest) {
+      expect(testPath).toBeDefined()
+      expect(testPath.create).toBeDefined()
+      expect(testPath.create.update).toBeDefined()
+      expect(typeof testPath.create.update).toBe('function')
+    }
+  })
+
+  describe('Reducer and actions update state appropriately', () => {
+    test('Updating a boolean', () => {
+      const result = reducer(
+        initialState,
+        actions.shallow.create.update(false)
+      )
+
+      expect(result).toStrictEqual({
+        ...initialState,
+        shallow: false
+      })
+    })
+
+    test('Updating a deeply nested string', () => {
+      const result = reducer(
+        initialState,
+        actions.nested.state.deep.create.update('banana')
+      )
+
+      expect(result).toStrictEqual({
+        ...initialState,
+        nested: {
+          ...initialState.nested,
+          state: {
+            ...initialState.nested.state,
+            deep: 'banana'
+          }
+        }
+      })
+    })
+  })
+})
+
+describe('Custom reducers', () => {
+  const initialState = {
+    shallow: true,
+    nested: {
+      counter: 4,
+      state: {
+        deep: 'somewhat'
+      }
+    },
+    list: [1, 2, 3]
+  }
+
+  const multiplyBy: ReducerDefinition<{
+    args: [number], payload: number, leafState: number
+  }> = {
+    argsToPayload: (num) => num,
+    reducer: (leafState, action) => leafState * action.payload
+  }
+
+  const appendDoubleWithCounter: ReducerDefinition<{
+    args: [number], payload: number, leafState: number[], treeState: typeof initialState
+  }> = {
+    argsToPayload: (num) => num * 2,
+    reducer: (leafState, action, treeState) => [
+      ...leafState,
+      action.payload,
+      treeState.nested.counter
+    ]
+  }
+
+  const shout = (leafState: string) => leafState.toUpperCase()
+
+  const [reducer, actions] = reduxLeaves(initialState, {
+    multiplyBy,
+    appendDoubleWithCounter,
+    shout
+  })
+
+  test('Reducer with one argument', () => {
+    const result = reducer(
+      initialState,
+      actions.nested.state.deep.create.shout()
+    )
+
+    expect(result).toStrictEqual({
+      ...initialState,
       nested: {
-        deep: {}
+        ...initialState.nested,
         state: {
-          manageable: string
+          ...initialState.nested.state,
+          deep: initialState.nested.state.deep.toUpperCase()
         }
       }
-    }
+    })
+  })
 
-    const initialState: State = {
-      counter: 1,
-      foo: ["bar"],
+  test('Reducer with two argument', () => {
+    const result = reducer(
+      initialState,
+      actions.nested.counter.create.multiplyBy(4)
+    )
+
+    expect(result).toStrictEqual({
+      ...initialState,
       nested: {
-        deep: {},
-        state: {
-          manageable: "maybe...?"
-        }
+        ...initialState.nested,
+        counter: initialState.nested.counter * 4
       }
-    }
+    })
+  })
 
-    type ReducerSchemas = {
-      capitalise: string,
-      exponentiate: LeafReducer.Schema<number, [number], number>
-    }
+  test('Reducer with three arguments', () => {
+    const result = reducer(
+      initialState,
+      actions.list.create.appendDoubleWithCounter(10)
+    )
 
-    const reducersDict: LeafReducer.Definitions<ReducerSchemas, State> = {
-      capitalise: (leafState, action) => leafState.concat(action.payload),
-      exponentiate: {
-        reducer: (leafState, action) => Math.pow(leafState, action.payload),
-        argsToPayload: (index: number) => index
-      }
-    }
-
-    describe("WHEN [reducer, actions] = reduxLeaves(initialState, reducersDict)", () => {
-      const [reducer, actions] = reduxLeaves(initialState, reducersDict)
-
-      test("THEN reducer is a function", () => {
-        expect(typeof reducer).toBe("function")
-      })
-
-      test("AND actions.counter is an object with a number create API", () => {
-        expect(typeof actions.counter).toBe("object")
-        expect(actions.counter.create).toBeDefined()
-        expect(typeof actions.counter.create.increment).toBe('function')
-        expect(typeof actions.counter.create.increment(4)).toBeDefined()
-        expect(typeof actions.counter.create.exponentiate).toBe('function')
-        expect(typeof actions.counter.create.exponentiate(5)).toBeDefined()
-      })
-
-      test("AND actions.foo is an object with an array create API", () => {
-        expect(typeof actions.foo).toBe("object")
-        expect(actions.foo.create).toBeDefined()
-        expect(typeof actions.foo.create.push).toBe('function')
-      })
-
-      test("AND actions.nested is an object with an object create API", () => {
-        expect(typeof actions.nested).toBe("object")
-        expect(actions.nested.create).toBeDefined()
-        expect(typeof actions.nested.create.set).toBe('function')
-      })
-
-      test("AND actions.nested.deep is an object with an object create API", () => {
-        expect(typeof actions.nested.deep).toBe("object")
-        expect(actions.nested.deep.create).toBeDefined()
-        expect(typeof actions.nested.deep.create.set).toBe('function')
-      })
-
-
-      test("AND actions.nested.state.manageable is an object with a string create API", () => {
-        expect(typeof actions.nested.state).toBe("object")
-        expect(actions.nested.state.manageable.create).toBeDefined()
-        expect(typeof actions.nested.state.manageable.create.concat).toBe('function')
-        expect(typeof actions.nested.state.manageable.create.capitalise).toBe('function')
-      })
-
-      describe("AND store = createStore(reducer)", () => {
-        let store: Store
-        beforeEach(() => {
-          store = createStore(reducer)
-        })
-
-        test("THEN store is initialised with state = initialState", () => {
-          expect(store.getState()).toEqual(initialState)
-        })
-      })
+    expect(result).toStrictEqual({
+      ...initialState,
+      list: [...initialState.list, 20, initialState.nested.counter]
     })
   })
 })

@@ -2,7 +2,12 @@ import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
 describe("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
-  const initialState = {
+  interface State {
+    foo: { accessed?: boolean },
+    bar: { props: boolean }
+  }
+
+  const initialState: State = {
     foo: {},
     bar: { props: true }
   }

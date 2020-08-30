@@ -50,7 +50,7 @@ describe('bundle bundles together actions into a single one', () => {
   describe("Order matters", () => {
     const initialState = {
       counter: 0,
-      list: ['a']
+      list: [5]
     }
 
     const [reducer, actions] = reduxLeaves(initialState)
@@ -59,18 +59,18 @@ describe('bundle bundles together actions into a single one', () => {
     test('Processes actions in the order passed into the array', () => {
       const incrementThenPush = bundle([
         actions.counter.create.increment(),
-        actions.list.create.do((leafState: (string | number)[], treeState) => [...leafState, treeState.counter])
+        actions.list.create.do((leafState, treeState) => [...leafState, treeState.counter])
       ])
 
       const pushThenIncrement = bundle([
-        actions.list.create.do((leafState: (string | number)[], treeState) => [...leafState, treeState.counter]), actions.counter.create.increment()
+        actions.list.create.do((leafState, treeState) => [...leafState, treeState.counter]), actions.counter.create.increment()
       ])
 
       store.dispatch(incrementThenPush)
-      expect(store.getState()).toEqual({ counter: 1, list: ['a', 1] })
+      expect(store.getState()).toEqual({ counter: 1, list: [5, 1] })
 
       store.dispatch(pushThenIncrement)
-      expect(store.getState()).toEqual({ counter: 2, list: ['a', 1, 1] })
+      expect(store.getState()).toEqual({ counter: 2, list: [5, 1, 1] })
     })
   })
 

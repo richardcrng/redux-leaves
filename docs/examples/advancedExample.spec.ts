@@ -9,7 +9,8 @@ describe('Advanced example', () => {
       nested: {
         counter: 0,
         state: {
-          deep: 'somewhat'
+          deep: 'somewhat',
+          arbitrary: false
         }
       }
     }
@@ -111,7 +112,7 @@ describe('Advanced example', () => {
 
     test("If we don't configure, it uses only the first argument as payload", () => {
       expect(store.getState().counter).toBe(16)
-
+      // @ts-ignore
       store.dispatch(actions.counter.create.addFirstThing(1, 100))
       expect(store.getState().counter).toBe(17)
     })

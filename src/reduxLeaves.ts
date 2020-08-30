@@ -1,66 +1,43 @@
-import { leafReducer } from './leafReducer';
-import standardiseReducersDict from './reducersDict/standardise';
-import { getState, updateState } from './utils';
-import { Reducer } from 'redux';
-import proxyActions from './actions/proxy';
-import { FluxStandardAction, LeafStandardAction, LeafCompoundAction } from './types/action.type';
-import LeafReducer from './types/reducer.type';
-import { Actions } from './types/actions.type';
+import { Reducer } from 'redux'
+import { createActionsProxy } from "./proxy"
+import { ActionsProxy } from "./proxy/createActionsProxy"
+import { LeafStandardAction, CustomReducers, isLeafCompoundAction } from './types';
+import updateState, { getState } from './utils/update-state';
+import leafReducer from './leafReducer';
 
-type Action = FluxStandardAction | LeafStandardAction | LeafCompoundAction
+export type ReduxLeaves<
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT> = {}
+> = [
+  Reducer<TreeT>,
+  ActionsProxy<TreeT, TreeT, CustomReducersT>
+]
 
-/**
- * 
- * @param initialState - Initial state of the reducer
- * @param reducersDict - Object of leaf reducer definitions keyed by creatorKeys
- * 
- * @template TS - TreeShape
- * @template RD - Dictionary of LeafReducer.Definition
- */
-function reduxLeaves<TS extends object = any, RD extends LeafReducer.Definitions = {}>(
-  initialState: TS,
-  reducersDict?: RD
-): [Reducer<TS, Action>, Actions.Branch<TS, TS, TS, RD>] {
-  const leafReducersDict: LeafReducer.Dictionary<RD> = standardiseReducersDict<RD>(reducersDict || {} as RD)
+function reduxLeaves<
+  TreeT,
+  CustomReducersT extends CustomReducers<TreeT> = {}
+>(
+  initialState: TreeT,
+  reducersDict: CustomReducersT = {} as CustomReducersT
+): ReduxLeaves<TreeT, CustomReducersT> {
+  const reducer = (treeState: TreeT = initialState, action: LeafStandardAction): TreeT => {
+    
+    if (!action.leaf) return treeState
 
-  const reducer: Reducer<TS, Action> = function(state = initialState, action: Action) {
+    if (isLeafCompoundAction(action)) {
+      return action.payload.reduce(reducer, treeState)
+    }
 
-    if (!isLeafAction(action)) return state
+    const prevLeafState = getState(treeState, action.leaf.path)
 
-    if (isCompoundAction(action)) return action.payload.reduce(
-      reducer,
-      state
-    )
+    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState, reducersDict)
 
-    const { leaf } = action;
-    const { path } = leaf
-
-    const prevLeafState = getState(state, path)
-
-    const newLeafState = leafReducer(
-      prevLeafState,
-      action,
-      state,
-      initialState,
-      leafReducersDict
-    )
-
-    return updateState(state, path, newLeafState)
+    return updateState(treeState, action.leaf.path, newLeafState)
   }
 
-  const actions = proxyActions<TS, typeof leafReducersDict, TS, TS, RD>(initialState, leafReducersDict)
+  const actions = createActionsProxy(initialState, initialState, reducersDict)
 
-  return [reducer, actions]
+  return [reducer as Reducer<TreeT>, actions]
 }
 
-function isLeafAction(action: Action): action is LeafStandardAction | LeafCompoundAction {
-  // @ts-ignore
-  return action.leaf
-}
-
-function isCompoundAction(action: Action): action is LeafCompoundAction {
-  return isLeafAction(action) && action.leaf.compound
-}
-
-export { reduxLeaves }
 export default reduxLeaves

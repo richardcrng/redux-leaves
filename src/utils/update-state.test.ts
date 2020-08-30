@@ -1,4 +1,4 @@
-import { updateState } from "."
+import { updateState } from "./update-state"
 
 describe('updateState', () => {
   test("Handles nested state pointing to an array", () => {

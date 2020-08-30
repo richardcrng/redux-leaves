@@ -2,7 +2,12 @@ import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
 describe("leaf.create.assign(...sources): returns an action that, when dispatched, updates the leaf's state by non-mutatively copying over properties from the sources", () => {
-  const initialState = {
+  interface State {
+    foo: { props: boolean, count?: number },
+    bar: { props: boolean }
+  }
+
+  const initialState: State = {
     foo: { props: true },
     bar: { props: false }
   }

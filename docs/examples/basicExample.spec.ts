@@ -1,7 +1,6 @@
 import { createStore } from 'redux';
 import reduxLeaves from '../../src';
 
-
 describe('Basic example', () => {
   const initialState = {
     counterOne: 0,
@@ -9,20 +8,20 @@ describe('Basic example', () => {
   }
 
   const [reducer, actions] = reduxLeaves(initialState)
-  const store = createStore(reducer)
+  const { dispatch, getState } = createStore(reducer)
 
   test("Store initialises with the provided initialState", () => {
-    expect(store.getState()).toEqual({ counterOne: 0, counterTwo: 0 })
+    expect(getState()).toEqual({ counterOne: 0, counterTwo: 0 })
   })
 
   test("We can increment counterOne by 3", () => {
     const actionToIncrementCounterOneByThree = actions.counterOne.create.increment(3)
-    store.dispatch(actionToIncrementCounterOneByThree)
-    expect(store.getState()).toEqual({ counterOne: 3, counterTwo: 0 })
+    dispatch(actionToIncrementCounterOneByThree)
+    expect(getState()).toEqual({ counterOne: 3, counterTwo: 0 })
   })
 
   test("We can increment counterTwo by 10", () => {
-    store.dispatch(actions.counterTwo.create.increment(10))
-    expect(store.getState()).toEqual({ counterOne: 3, counterTwo: 10 })
+    dispatch(actions.counterTwo.create.increment(10))
+    expect(getState()).toEqual({ counterOne: 3, counterTwo: 10 })
   })
 })

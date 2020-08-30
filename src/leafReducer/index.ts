@@ -1,5 +1,3 @@
-import { leafReducer } from './leafReducer';
+import leafReducer from './leafReducer';
 
-export {
-  leafReducer
-}
+export default leafReducer

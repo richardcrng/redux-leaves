@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reduxLeaves, { LeafStandardAction } from '../../src';
+import reduxLeaves, { LeafStandardAction, LSAWithPayload } from '../../src';
 
 describe('Intermediate example', () => {
   const initialState = {
@@ -10,8 +10,8 @@ describe('Intermediate example', () => {
 
   const reducersDict = {
     double: (leafState: number) => leafState * 2,
-    appendToEach: (leafState: string[], action: LeafStandardAction<string>) => leafState.map(str => str.concat(action.payload)),
-    countTreeKeys: (leafState: any, action: LeafStandardAction<keyof typeof initialState>, treeState: typeof initialState) => Object.keys(treeState).length
+    appendToEach: (leafState: string[], action: LSAWithPayload<string>) => leafState.map(str => str.concat(action.payload)),
+    countTreeKeys: (_: any, __: LeafStandardAction, treeState: typeof initialState) => Object.keys(treeState).length
   }
 
   const [reducer, actions] = reduxLeaves(initialState, reducersDict)
@@ -42,6 +42,7 @@ describe('Intermediate example', () => {
   })
 
   test("By default, when providing arguments, the first becomes the payload", () => {
+    // @ts-ignore
     const actionToAppend = actions.list.create.appendToEach('foo', 'bar')
     expect(actionToAppend.payload).toBe('foo')
   })
