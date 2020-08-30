@@ -273,6 +273,48 @@ getState().visitor.guestbook
 */
 ```
 
+### Control action types
+Any time you are calling `create`, you can pass an optional string argument to it. This will be the `type` of any resulting action that gets created. (The `riduce` reducer will still deal with it in the same way.)
+
+If you are using `bundle`, you can pass a second argument of a string to control the type instead.
+
+```ts
+import riduce, { bundle } from 'riduce'
+import { createStore } from 'redux'
+
+const initialState = {
+  counter: 0,
+  nums: [4]
+}
+
+const double = (leafState: number) => 2 * leafState
+
+const [reducer, actions] = riduce(initialState, { double })
+const { getState, dispatch } = createStore(reducer)
+
+const incrementCounter = actions.counter.create('INCREMENTED_COUNTER').increment(5)
+incrementCounter.type // => 'INCREMENTED_COUNTER'
+
+dispatch(incrementCounter)
+getState().counter // => 5
+
+const doubleCounter = actions.counter.create('DOUBLED_COUNTER').double()
+doubleCounter.type // => 'DOUBLED_COUNTER'
+
+dispatch(doubleCounter)
+getState().counter // => 10
+
+const storeCountThenIncrement = bundle([
+  actions.nums.create.do((leafState, treeState) => [...leafState, treeState.counter]),
+  actions.counter.create.increment()
+], 'STORED_AND_INCREMENTED')
+
+storeCountThenIncrement.type // => 'STORED AND INCREMENTED'
+dispatch(storeCountThenIncrement)
+getState() // => { counter: 11, nums: [4, 10] }
+
+```
+
 ## Get started
 You may wish to check out the following:
 - [Riduce with `useReducer`: CodeSandbox demo](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t)

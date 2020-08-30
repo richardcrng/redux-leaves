@@ -36,7 +36,7 @@ That's it! Now you've got a type-safe `reducer` and arbitrary `actions`, with ze
 
 Let's see it in use!
 
-## Introductory Example
+# Introductory Example
 For a `useReducer` example, [see this CodeSandbox](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t).
 
 [![Edit Riduce example - MadLibs for Developers](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t?fontsize=14&hidenavigation=1&theme=dark&view=preview)
@@ -49,7 +49,7 @@ For a `redux` example, keep reading on for:
 
 You can also run this code in [Repl.it](https://repl.it/@richardcrng/Riduce-with-Redux).
 
-### Zero hassle setup
+## Zero hassle setup
 Let's imagine we're controlling the state for a museum.
 ```ts
 import { createStore } from 'redux'
@@ -68,7 +68,7 @@ const { getState, dispatch } = createStore(reducer)
 ```
 **And that's it.** Those two lines replace *all* of our reducer boilerplate.
 
-### Scalable state management
+## Scalable state management
 Continuing on from [above](#zero-hassle-setup), let's:
 1. Open our museum;
 2. Add to the visitor counter;
@@ -112,7 +112,7 @@ All this is possible because Riduce's `actions` gives you **loads of convenient 
 
 It's also possible to add your own in. *(TODO: add documentation for this.)*
 
-### Typesafe action creators
+## Typesafe action creators
 Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
 
 It's written in TypeScript, so it's helpfully typed right out of the box as well!
@@ -135,7 +135,7 @@ actions.visitor.guestbook.create.push(10)
 actions.visitor.guestbook.create.push('10')
 ```
 
-## Get started
+# Get started
 You may wish to check out the following:
 - [Riduce with `useReducer`: CodeSandbox demo](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t)
 - [Riduce with Redux: Repl.it demo](https://repl.it/@richardcrng/Riduce-with-Redux)

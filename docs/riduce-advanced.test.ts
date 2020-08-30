@@ -200,4 +200,37 @@ describe('Advanced usage', () => {
       '5 stars for JavaScript for Dummies! so great!!'
     ])
   })
+
+  test('Control action type', () => {
+    const initialState = {
+      counter: 0,
+      nums: [4]
+    }
+
+    const double = (leafState: number) => 2 * leafState
+
+    const [reducer, actions] = riduce(initialState, { double })
+    const { getState, dispatch } = createStore(reducer)
+
+    const incrementCounter = actions.counter.create('INCREMENTED_COUNTER').increment(5)
+    expect(incrementCounter.type).toBe('INCREMENTED_COUNTER')
+
+    dispatch(incrementCounter)
+    expect(getState().counter).toBe(5)
+
+    const doubleCounter = actions.counter.create('DOUBLED_COUNTER').double()
+    expect(doubleCounter.type).toBe('DOUBLED_COUNTER')
+
+    dispatch(doubleCounter)
+    expect(getState().counter).toBe(10)
+
+    const storeCountThenIncrement = bundle([
+      actions.nums.create.do((leafState, treeState) => [...leafState, treeState.counter]),
+      actions.counter.create.increment()
+    ], 'STORED_AND_INCREMENTED')
+
+    expect(storeCountThenIncrement.type).toBe('STORED_AND_INCREMENTED') // => 'STORED AND INCREMENTED'
+    dispatch(storeCountThenIncrement)
+    expect(getState()).toStrictEqual({ counter: 11, nums: [4, 10] })
+  })
 })
