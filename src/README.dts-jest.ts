@@ -1,4 +1,4 @@
-import { createStore } from "redux"
+import { createStore, Reducer } from "redux"
 import riduce from "."
 
 const museumState = {
@@ -10,7 +10,7 @@ const museumState = {
 }
 
 const [reducer, actions] = riduce(museumState)
-const { getState, dispatch } = createStore(reducer)
+const { getState, dispatch } = createStore(reducer as Reducer)
 
 // @dts-jest:group Typed actions
 {
