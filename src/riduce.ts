@@ -1,4 +1,4 @@
-import { Reducer } from 'redux'
+import { Reducer } from 'react'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
 import { LeafStandardAction, CustomReducers, isLeafCompoundAction } from './types';
@@ -9,7 +9,7 @@ export type ReduxLeaves<
   TreeT,
   CustomReducersT extends CustomReducers<TreeT> = {}
 > = [
-  Reducer<TreeT>,
+  Reducer<TreeT, LeafStandardAction>,
   ActionsProxy<TreeT, TreeT, CustomReducersT>
 ]
 
@@ -37,7 +37,7 @@ function riduce<
 
   const actions = createActionsProxy(initialState, initialState, reducersDict)
 
-  return [reducer as Reducer<TreeT>, actions]
+  return [reducer as Reducer<TreeT, LeafStandardAction>, actions]
 }
 
 export default riduce
