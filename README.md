@@ -1,23 +1,46 @@
-# Redux Leaves
+# Riduce
 
-Write once. Reduce anywhere.
+**Get rid of your reducer boilerplate!**
 
-![Travis (.org)](https://img.shields.io/travis/richardcrng/redux-leaves.svg)
-[![Coverage Status](https://coveralls.io/repos/github/richardcrng/redux-leaves/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/redux-leaves?branch=buttons)
-[![bundle size](https://badgen.net/bundlephobia/min/redux-leaves)](https://badgen.net/bundlephobia/min/redux-leaves)
-[![npm version](https://badge.fury.io/js/redux-leaves.svg)](https://badge.fury.io/js/redux-leaves)
+*Typesafe reducers. Arbitrary actions. Zero hassle.*
+
+![Travis (.org)](https://img.shields.io/travis/richardcrng/riduce.svg)
+[![Coverage Status](https://coveralls.io/repos/github/richardcrng/riduce/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/riduce?branch=buttons)
+[![bundle size](https://badgen.net/bundlephobia/min/riduce)](https://badgen.net/bundlephobia/min/riduce)
+[![npm version](https://badge.fury.io/js/riduce.svg)](https://badge.fury.io/js/riduce)
+
+Whether you're using `useReducer` or `redux`, reducer boilerplate is boring, time-consuming and messy.
+
+What if type-safe state management was quicker, easier and more scalable?
+
+`riduce` is a library written for developers who want:
+- **Typesafe reducers**, so your state stays predictable
+- **Arbitrary actions**, without all the boilerplate
+- **Zero hassle**, with *just two lines of setup...*
+
+*... and one of those lines is an import.*
+
+```ts
+import riduce from 'riduce'
+
+const [reducer, actions] = riduce(initialState)
+```
+
+and that's it! Now you've got a type-safe `reducer` and arbitrary `actions`, with zero hassle.
+
+Let's see it in use!
 
 ## Example
+We'll use Redux here, but `riduce` works just as well with 
 
 ```js
+import riduce from 'riduce'
 import { createStore } from 'redux'
-import riduce, { bundle } = from 'redux-leaves'
 
-// set up with initial state
 const initialState = {
-  counter: 0,
-  list: [],
-  props: {}
+  rating: 10,
+  adjectives: ['quick', 'easy'],
+  
 }
 
 const [reducer, actions] = riduce(initialState)
@@ -55,25 +78,25 @@ console.log(store.getState())
 
 ## Documentation
 ```bash
-npm install --save redux-leaves
+npm install --save riduce
 ```
 
-[Main documentation website](https://redux-leaves.js.org)
+[Main documentation website](https://riduce.js.org)
 
 ### Getting started
-- [Overview](https://redux-leaves.js.org/docs/intro/overview)
-- [30 second demo](https://runkit.com/richardcrng/redux-leaves-playground/)
+- [Overview](https://riduce.js.org/docs/intro/overview)
+- [30 second demo](https://runkit.com/richardcrng/riduce-playground/)
 
 ### API reference
-- [Core: `riduce(initialState, reducers)`](https://redux-leaves.js.org/docs/redux-leaves)
+- [Core: `riduce(initialState, reducers)`](https://riduce.js.org/docs/riduce)
 
 ### Testing
 
 To run all tests locally:
 
 ```bash
-git clone git@github.com:richardcrng/redux-leaves.git
-cd redux-leaves && npm run test a
+git clone git@github.com:richardcrng/riduce.git
+cd riduce && npm run test a
 ```
 
 Most tests are located alongside their relevant API documentation in the [docs](/docs) folder.
