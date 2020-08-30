@@ -1,7 +1,6 @@
-import { Reducer } from 'react'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
-import { Action, CustomReducers, isBundledAction } from './types';
+import { Action, Reducer, CustomReducers, isBundledAction } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
