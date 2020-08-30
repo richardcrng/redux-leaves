@@ -8,7 +8,7 @@ export const getState = <S>(state: S, propPath: (string | number)[]) => (
 )
 
 export const pathIsEmpty = (propPath: string | (string | number)[]) => (
-  ['', null, undefined].includes(propPath as string) || path.length === 0
+  ['', null, undefined].includes(propPath as string) || propPath.length === 0
 )
 
 export const setValue = <S, V = unknown>(obj: S, propPath: (string | number)[], value: V) => {
@@ -32,7 +32,6 @@ export const setValue = <S, V = unknown>(obj: S, propPath: (string | number)[], 
 
 export const updateState = <S, V = unknown>(state: S, propPath: (string | number)[], val: V): S => {
   if (pathIsEmpty(propPath)) return val as unknown as S
-
   return produce(state, (draftState) => {
     setValue(draftState, propPath, val)
   })
