@@ -43,7 +43,7 @@ For a `redux` example, keep reading on:
 3. [Typed action creators](#typed-action-creators) to mirror your state's shape.
 
 ### Zero hassle setup
-Let's imagine we're controlling the state for a museum.
+💭 Let's imagine we're controlling the state for a museum.
 ```ts
 import { createStore } from 'redux'
 import riduce from 'riduce' // <<< 1 line to import
@@ -59,20 +59,20 @@ const museumState = {
 const [reducer, actions] = riduce(museumState) // <<< 1 line to setup
 const { getState, dispatch } = createStore(reducer)
 ```
-**And that's it.** Those two lines replace *all* of our reducer boilerplate.
+🏎️ **And that's it.** Those two lines replace *all* of our reducer boilerplate.
 
 ### Scalable state management
 Continuing on from [above](#zero-hassle-setup), let's:
 1. Open our museum;
 2. Add to the visitor counter;
 3. Sign the guestbook; and
-4. Ammend a guestbook entry.
+4. Amend a guestbook entry.
 
-Previously, you might create 4 x reducer branches, action types and action creators.
+🤮 Previously, you might create 4 x reducer branches, action types and action creators.
 
-**Riducer gets rid of all that boilerplate.**
+😍 **Riducer gets rid of all that boilerplate.**
 
-Now, it's as simple as describing the changes we want to see!
+😎 Now, it's as simple as describing the changes we want to see!
 
 ```ts
 // at `state.isOpen`, create an action to toggle the boolean
@@ -103,12 +103,12 @@ getState()
 ```
 All this is possible because Riduce's `actions` gives you **loads of convenient action creators out of the box**, which you can *use liberally throughout your state tree:* `update`, `set`, `filter`, `reset`, and many more...
 
-It's also possible to add your own in. *(TODO: add documentation for this.)*
+🧠 It's also possible to add your own in. *(TODO: add documentation for this.)*
 
 ### Typed action creators
-Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
+🤓 Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
 
-It's written in TypeScript, so it's helpfully typed right out of the box as well!
+💪 It's written in TypeScript, so it's helpfully typed right out of the box as well!
 
 ```ts
 // ❌ can we push to a boolean? no!
