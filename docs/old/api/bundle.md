@@ -109,7 +109,7 @@ console.log(store.getState()) // { counter: 2, list: ['a', 1, 1] }
 ```
 
 ### Compound bundling
-You can `bundle` together actions that have already been bundled (a 'compound bundling'):
+You can `bundle` together actions that have already been bundled (a 'bundle bundling'):
 
 ```js
 import { createStore } from 'redux'

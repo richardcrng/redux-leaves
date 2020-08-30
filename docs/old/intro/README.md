@@ -75,13 +75,13 @@ store.dispatch(actions.list.create.push('foo'))
 console.log(store.getState())
 // => { counter: 10, list: ['foo'], props: {} }
 
-const compoundAction = bundle([
+const bundleAction = bundle([
   actions.counter.create.reset(),
   actions.list[0].create.concat('bar'),
   actions.props.at.arbitrary.path.create.update('here I am!')
 ])
 
-store.dispatch(compoundAction)
+store.dispatch(bundleAction)
 console.log(store.getState())
 /*
   => {

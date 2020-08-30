@@ -11,7 +11,6 @@ function bundle(actions: (Action | BundledAction)[], type?: string): BundledActi
       creatorKey: 'bundle',
       CREATOR_KEY: 'bundle',
       custom: false,
-      compound: true,
       bundled: actionTypes,
       path: []
     }

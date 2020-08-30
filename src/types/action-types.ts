@@ -2,8 +2,8 @@ export interface LeafData {
   path: (string | number)[]
   creatorKey: string
   CREATOR_KEY: string
-  compound?: boolean
-  custom: boolean
+  custom: boolean,
+  bundled?: string[]
 }
 
 export interface Action<PayloadT = unknown> {
@@ -18,11 +18,10 @@ export interface ActionWithPayload<PayloadT> extends Action<PayloadT> {
 
 export interface BundledAction extends ActionWithPayload<(Action | BundledAction)[]> {
   leaf: LeafData & {
-    compound: true,
     bundled: string[]
   }
 }
 
 export function isBundledAction(action: Action): action is BundledAction {
-  return !!action.leaf.compound
+  return !!action.leaf.bundled
 }
