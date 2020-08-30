@@ -1,8 +1,8 @@
 import { OmitByValue } from 'utility-types';
-import { Action, ActionData } from "../types"
+import { Action, LeafData } from "../types"
 
-export type LeafCustomAction<PayloadT = unknown> = Action<PayloadT> & {
-  leaf: ActionData & {
+export type CustomAction<PayloadT = unknown> = Action<PayloadT> & {
+  leaf: LeafData & {
     custom: true
   },
   payload: PayloadT
@@ -10,7 +10,7 @@ export type LeafCustomAction<PayloadT = unknown> = Action<PayloadT> & {
 
 export type CustomArgsToPayload<PayloadT = any, ArgsT extends any[] = any[]> = (...args: ArgsT) => PayloadT
 
-export type CustomReducerLogic<TreeT = any, LeafT = any, PayloadT = any> = (leafState: LeafT, action: LeafCustomAction<PayloadT>, treeState: TreeT) => LeafT
+export type CustomReducerLogic<TreeT = any, LeafT = any, PayloadT = any> = (leafState: LeafT, action: CustomAction<PayloadT>, treeState: TreeT) => LeafT
 
 export type ReducerDefaultDefinition<TreeT = unknown> = ShorthandReducerDefaultDefinition<TreeT> | LonghandReducerDefaultDefinition<TreeT>
 
@@ -54,9 +54,9 @@ export type ShorthandReducerDefinition<T extends ReducerDefinitionG = {
   treeState: any, leafState: any, args: any[], payload: any
 }> = LonghandReducerDefinition<T>['reducer']
 
-export type LonghandCreator<T extends LonghandReducerDefinition> = (...args: Parameters<T['argsToPayload']>) => LeafCustomAction<ReturnType<T['argsToPayload']>>
+export type LonghandCreator<T extends LonghandReducerDefinition> = (...args: Parameters<T['argsToPayload']>) => CustomAction<ReturnType<T['argsToPayload']>>
 
-export type ShorthandCreator<T extends LonghandReducerDefinition['reducer'], PayloadT = any> = (payload?: PayloadT) => LeafCustomAction<PayloadT>
+export type ShorthandCreator<T extends LonghandReducerDefinition['reducer'], PayloadT = any> = (payload?: PayloadT) => CustomAction<PayloadT>
 
 export interface ReducerDefinitionG<
   TreeT = unknown,
@@ -93,7 +93,7 @@ export type CustomCreatorsAll<
     : never
 }
 
-export function isCustomAction(action: Action): action is LeafCustomAction {
+export function isCustomAction(action: Action): action is CustomAction {
   return !!action.leaf.custom
 }
 
@@ -103,8 +103,4 @@ export function isShorthandReducer<T extends ReducerDefinitionG>(definition: Red
 
 export function isLonghandReducer<T extends ReducerDefinitionG>(definition: ReducerDefinition<T>): definition is LonghandReducerDefinition<T> {
   return !isShorthandReducer(definition)
-}
-
-export {
-  LeafCustomAction as LCA
 }
