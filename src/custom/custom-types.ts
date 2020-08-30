@@ -83,11 +83,11 @@ export type CustomCreatorsAll<
 > = {
   [K in keyof CustomReducersT]:
     CustomReducersT[K] extends LonghandReducerDefaultDefinition<TreeT>
-      ? Parameters<CustomReducersT[K]['reducer']>[0] extends LeafT
+      ? LeafT extends Parameters<CustomReducersT[K]['reducer']>[0]
         ? LonghandCreator<CustomReducersT[K]>
         : never :
     CustomReducersT[K] extends LonghandReducerDefaultDefinition<TreeT>['reducer']
-      ? Parameters<CustomReducersT[K]>[0] extends LeafT
+      ? LeafT extends Parameters<CustomReducersT[K]>[0]
         ? ShorthandCreator<CustomReducersT[K]>
         : never
     : never
