@@ -25,7 +25,7 @@ However, there are three pain points that at least one developer has encountered
 
 1. **Pleasingly little boilerplate**: set up your reducer and actions in one line
 ```js
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 ```
 
 2. **Precise updates**: easily increment that counter, no matter how deeply you nested it

@@ -13,7 +13,7 @@ You can help it out by being explicit in your custom reducer typings (if you hav
 
 ```typescript
 import { createStore } from 'redux'
-import reduxLeaves, { bundle, LeafReducer } from 'redux-leaves'
+import riduce, { bundle, LeafReducer } from 'redux-leaves'
 
 // Declare an interface or type for your state shape
 interface State {
@@ -95,5 +95,5 @@ const reducerDict: ReducerSchemas = {
 }
 
 
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, reducersDict)
 ```

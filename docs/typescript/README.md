@@ -10,7 +10,7 @@ Redux-Leaves provides typings out of the box.
 Actions is typed to keep to your provided state structure.
 
 ```ts
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   shallow: true,
@@ -22,7 +22,7 @@ const initialState = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 
 actions.shallow // compiles
 actions.foobar // (ts 2339) Property 'foobar' does not exist on type...

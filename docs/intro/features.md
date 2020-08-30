@@ -9,17 +9,17 @@ hide_title: true
 ## Quick setup
 It takes just 30 seconds to set up your reducer, actions and store with Redux-Leaves!
 
-1. Pass some initial state to `reduxLeaves`
+1. Pass some initial state to `riduce`
 2. Grab the returned `reducer` and `actions`
 3. Create your store and dispatch away!
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
-// 1. Pass some initial state to reduxLeaves; and
+// 1. Pass some initial state to riduce; and
 // 2. Grab the returned reducer and actions
-const [reducer, actions] = reduxLeaves({
+const [reducer, actions] = riduce({
   counter: 0,
   list: [],
   arbitrary: {  nested: { property: false } }
@@ -76,11 +76,11 @@ console.log(store.getState().arbitrary.nested.deep) // false
 
 ## Minimal boilerplate
 
-If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `reduxLeaves` in a [`reducersDict`](../README.md#reducersdict).
+If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `riduce` in a [`reducersDict`](../README.md#reducersdict).
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   title: 'foobar',
@@ -90,8 +90,8 @@ const initialState = {
 // Reducer logic: capitalise some leaf state
 const capitalise = (leafState) => leafState.toUpperCase()
 
-// Second optional argument of reduxLeaves is a reducersDict
-const [reducer, actions] = reduxLeaves(initialState, { capitalise })
+// Second optional argument of riduce is a reducersDict
+const [reducer, actions] = riduce(initialState, { capitalise })
 const store = createStore(reducer)
 
 // Access the action creator by the same key

@@ -11,7 +11,7 @@ Write once. Reduce anywhere.
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } = from 'redux-leaves'
+import riduce, { bundle } = from 'redux-leaves'
 
 // set up with initial state
 const initialState = {
@@ -20,7 +20,7 @@ const initialState = {
   props: {}
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 // setup complete! Now dispatch actions to your heart's content
@@ -65,7 +65,7 @@ npm install --save redux-leaves
 - [30 second demo](https://runkit.com/richardcrng/redux-leaves-playground/)
 
 ### API reference
-- [Core: `reduxLeaves(initialState, reducers)`](https://redux-leaves.js.org/docs/redux-leaves)
+- [Core: `riduce(initialState, reducers)`](https://redux-leaves.js.org/docs/redux-leaves)
 
 ### Testing
 

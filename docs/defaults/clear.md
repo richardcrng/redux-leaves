@@ -10,7 +10,7 @@ sidebar_label: clear
 **`create(actionType).clear`**
 *Appropriate leaf state: any*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to clears the leaf's state.
+Returns an (action) object that the [riduce](../README.md) reducer uses to clears the leaf's state.
 
 If `toNull === true`, then it updates it to `null`, otherwise it follows the type of the leaf's state:
 - *number* clears to `0`
@@ -28,7 +28,7 @@ If `toNull === true`, then it updates it to `null`, otherwise it follows the typ
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   bool: true,
@@ -37,7 +37,7 @@ const initialState = {
   arr: [1, 2, 3]
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 ### Boolean state

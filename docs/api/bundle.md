@@ -7,7 +7,7 @@ sidebar_label: bundle
 
 # `bundle(actions[, type])`
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to process the individual actions in the `actions` array sequentially (but, through the store, one dispatch).
+Returns an (action) object that the [riduce](../README.md) reducer uses to process the individual actions in the `actions` array sequentially (but, through the store, one dispatch).
 
 **See the [30 second demo](../examples/basicExample.md)** for usage.
 
@@ -25,14 +25,14 @@ When provided a single argument, an array of actions created through the [`creat
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'reduxLeaves'
+import riduce, { bundle } from 'riduce'
 
 const initialState = {
   counter: 0,
   list: ['a']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 const incrementAndPush = bundle([
@@ -52,14 +52,14 @@ When provided a second argument of a string, `bundle` returns an action with tha
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'reduxLeaves'
+import riduce, { bundle } from 'riduce'
 
 const initialState = {
   counter: 0,
   list: ['a']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 const incrementAndPush = bundle([
@@ -82,14 +82,14 @@ Since `bundle` effectively runs through actions in the ordered provided, the ord
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'reduxLeaves'
+import riduce, { bundle } from 'riduce'
 
 const initialState = {
   counter: 0,
   list: ['a']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 const incrementThenPush = bundle([
@@ -113,14 +113,14 @@ You can `bundle` together actions that have already been bundled (a 'compound bu
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'reduxLeaves'
+import riduce, { bundle } from 'riduce'
 
 const initialState = {
   counter: 0,
   list: ['a']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 const incrementAndPush = bundle([

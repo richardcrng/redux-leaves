@@ -14,7 +14,7 @@ const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
 const source = `// Runkit doesn't support import
-const { reduxLeaves, bundle } = require('redux-leaves')
+const { riduce, bundle } = require('redux-leaves')
 const { createStore } = require('redux')
 
 // set up with initial state
@@ -24,7 +24,7 @@ const initialState = {
   props: {}
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 // setup complete! Now dispatch actions to your heart's content

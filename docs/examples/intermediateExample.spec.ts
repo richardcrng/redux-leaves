@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reduxLeaves, { LeafStandardAction, LSAWithPayload } from '../../src';
+import riduce, { LeafStandardAction, LSAWithPayload } from '../../src';
 
 describe('Intermediate example', () => {
   const initialState = {
@@ -14,7 +14,7 @@ describe('Intermediate example', () => {
     countTreeKeys: (_: any, __: LeafStandardAction, treeState: typeof initialState) => Object.keys(treeState).length
   }
 
-  const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+  const [reducer, actions] = riduce(initialState, reducersDict)
   const store = createStore(reducer)
 
   test("We can double the counter's state", () => {

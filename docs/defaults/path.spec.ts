@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.create.path(path, value): returns an action that, when dispatched, updates the leaf's state by setting a proprety at path as value", () => {
   const initialState = {
@@ -7,7 +7,7 @@ describe("leaf.create.path(path, value): returns an action that, when dispatched
     bar: { arbitrary: { keys: 3 } }
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const store = createStore(reducer)
   
   test("Setting a new property", () => {

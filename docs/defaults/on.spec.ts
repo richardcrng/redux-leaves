@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.create.on(): returns an action that, when dispatched, updates the leaf's state to false", () => {
 
@@ -9,7 +9,7 @@ describe("leaf.create.on(): returns an action that, when dispatched, updates the
       bar: false
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test('Calling create.on', () => {

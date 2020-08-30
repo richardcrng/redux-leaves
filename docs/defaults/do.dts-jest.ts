@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 const initialState = {
   bool: false,
@@ -8,7 +8,7 @@ const initialState = {
   obj: { num: 5, str: 'bar' }
 }
 
-const [_, actions] = reduxLeaves(initialState)
+const [_, actions] = riduce(initialState)
 
 // @dts-jest:pass Allows string callback for string state
 actions.str.create.do(state => state.toUpperCase())

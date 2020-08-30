@@ -1,11 +1,11 @@
 ---
 id: redux-leaves
-title: reduxLeaves
+title: riduce
 hide_title: true
-sidebar_label: reduxLeaves
+sidebar_label: riduce
 ---
 
-# `reduxLeaves(initialState, [reducersDict = {}])`
+# `riduce(initialState, [reducersDict = {}])`
 
 Returns a reducer function and an actions object.
 

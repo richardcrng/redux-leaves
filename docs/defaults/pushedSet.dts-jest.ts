@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 // @dts-jest:group Explicitly typed state
 {
@@ -14,7 +14,7 @@ import reduxLeaves from '../../src';
     bar: {}
   }
 
-  const [_, actions] = reduxLeaves(initialState)
+  const [_, actions] = riduce(initialState)
 
   // @dts-jest:fail does not exist on number state
   actions.num.create.pushedSet

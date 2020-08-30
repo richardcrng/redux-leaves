@@ -1,4 +1,4 @@
-import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
+import riduce, { ReducerDefinition, LSAWithPayload } from "."
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -13,7 +13,7 @@ import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
     list: [1, 2, 3]
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   // @dts-jest:pass Root actions has a create
   actions.create
@@ -68,7 +68,7 @@ import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
     numList: [1, 2, 3]
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   // @dts-jest:pass Update can be passed boolean for boolState
   actions.boolState.create.update(true)
@@ -119,7 +119,7 @@ import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
     reducer: (leafState, action) => leafState * action.payload
   }
 
-  const [reducer, actions] = reduxLeaves(initialState, { multiplyBy })
+  const [reducer, actions] = riduce(initialState, { multiplyBy })
 
   // @dts-jest:fail does not exist on boolean state
   actions.shallow.create.multiplyBy
@@ -155,7 +155,7 @@ import reduxLeaves, { ReducerDefinition, LSAWithPayload } from "./"
     reducer: (leafState: number, action: LSAWithPayload<number> ) => leafState * action.payload
   }
 
-  const [reducer, actions] = reduxLeaves(initialState, { multiplyBy })
+  const [reducer, actions] = riduce(initialState, { multiplyBy })
 
   // @dts-jest:fail does not exist on boolean state
   actions.shallow.create.multiplyBy

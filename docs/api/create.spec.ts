@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe('create has action creators keyed by default and custom creatorKeys', () => {
   const initialState = {
@@ -16,7 +16,7 @@ describe('create has action creators keyed by default and custom creatorKeys', (
     convertToFoobar: (_: string) => 'foobar'
   }
 
-  const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+  const [reducer, actions] = riduce(initialState, reducersDict)
 
   test('All creates have default creatorKeys like update, set and push', () => {
     expect(typeof actions.counter.create.update).toBe('function')

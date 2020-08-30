@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.create.increment(n = 1): returns an action that, when dispatched, updates the leaf's state by non-mutatively incrementing it by n", () => {
   const initialState = {
@@ -7,7 +7,7 @@ describe("leaf.create.increment(n = 1): returns an action that, when dispatched,
     bar: 5
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const store = createStore(reducer)
 
   test("No argument provided", () => {

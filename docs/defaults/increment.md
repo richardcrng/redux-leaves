@@ -10,7 +10,7 @@ sidebar_label: increment
 **`create(actionType).increment`**
 *Appropriate leaf state: number*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to increment the leaf's state by `n`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to increment the leaf's state by `n`.
 
 ## Parameters
 - `n` *(number, optional)*: the number to increment the leaf's state by, defaulting to 1
@@ -21,14 +21,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: 5,
   bar: 5
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 ### No argument provided

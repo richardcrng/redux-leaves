@@ -9,10 +9,10 @@ sidebar_label: actions
 
 ## Arbitrary property paths
 
-The `actions` object returned by [`reduxLeaves`](../README.md) can take an arbitrary path of properties after it, which typically correspond to a 'leaf' at the corresponding path from your state.
+The `actions` object returned by [`riduce`](../README.md) can take an arbitrary path of properties after it, which typically correspond to a 'leaf' at the corresponding path from your state.
 
 ```js
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   counter: 0,
@@ -23,7 +23,7 @@ const initialState = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 
 // state.counter
 console.log(typeof actions.counter) // 'object'

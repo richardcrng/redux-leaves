@@ -10,7 +10,7 @@ sidebar_label: drop
 **`create(actionType).drop`**
 *Appropriate leaf state: array*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively drop the first `n` elements from the leaf's state.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively drop the first `n` elements from the leaf's state.
 
 ## Parameters
 - `n` *(number, optional)*: the number of elements to drop
@@ -21,14 +21,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: ['a', 'b', 'c'],
   bar: ['a', 'b', 'c']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 ### No argument provided

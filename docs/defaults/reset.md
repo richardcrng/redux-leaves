@@ -10,7 +10,7 @@ sidebar_label: reset
 **`create(actionType).reset`**
 *Appropriate leaf state: any*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively reset the leaf's state to its initial state as passed into `reduxLeaves`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively reset the leaf's state to its initial state as passed into `riduce`.
 
 ## Returns
 `action` *(object)*: an object to dispatch to the store
@@ -18,7 +18,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   num: 2,
@@ -32,7 +32,7 @@ const otherState = {
   bool: false
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer, otherState)        // preloads otherState
 
 /* store.getState()

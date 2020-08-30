@@ -9,7 +9,7 @@ sidebar_label: assign
 **`create.assign`**
 **`create(actionType).assign`**
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively copy all properties from `sources` into the leaf's state.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively copy all properties from `sources` into the leaf's state.
 
 (This is essentially a convenience wrapper on top of the vanilla JavaScript [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).)
 
@@ -22,14 +22,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: { props: true },
   bar: { props: false }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

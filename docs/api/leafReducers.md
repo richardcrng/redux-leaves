@@ -10,7 +10,7 @@ sidebar_label: Leaf reducers
 A leaf reducer is a function or configuration object that updates the state of an arbitrary leaf in your state tree.
 
 They are:
-- passed into [`reduxLeaves`](../README.md) with a unique [`creatorKey`](creatorKeys.md) as part of [`reducersDict`](README.md#reducersdict); and
+- passed into [`riduce`](../README.md) with a unique [`creatorKey`](creatorKeys.md) as part of [`reducersDict`](README.md#reducersdict); and
 - triggered at an arbitrary leaf only by dispatching an action created by the leaf's [`create[creatorKey]`](create.md#createcreatorkey) method.
 
 ## Syntax
@@ -84,7 +84,7 @@ const spreadArgsToObjectPayload = (first, second, ...rest) => ({ first, second, 
 
 We can check that these are behaving as expected:
 ```js
-// Test them out by creating actions using reduxLeaves
+// Test them out by creating actions using riduce
 const returnPayload = (leafState, { payload }) => payload
 [
   firstArgToPayload,
@@ -96,7 +96,7 @@ const returnPayload = (leafState, { payload }) => payload
     reducer: (leafState, { payload }) => payload,
     argsToPayload
   }
-  const [reducer, actions] = reduxLeaves({}, { returnPayload })
+  const [reducer, actions] = riduce({}, { returnPayload })
   // log out the payload for an action passed seven arguments
   console.log(actions.create.returnPayload(1, 2, 3, 4, 5, 6, 7).payload)
 })

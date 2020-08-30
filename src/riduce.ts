@@ -13,7 +13,7 @@ export type ReduxLeaves<
   ActionsProxy<TreeT, TreeT, CustomReducersT>
 ]
 
-function reduxLeaves<
+function riduce<
   TreeT,
   CustomReducersT extends CustomReducers<TreeT> = {}
 >(
@@ -40,4 +40,4 @@ function reduxLeaves<
   return [reducer as Reducer<TreeT>, actions]
 }
 
-export default reduxLeaves
+export default riduce

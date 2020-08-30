@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 // @dts-jest:group Inferred state
 {
@@ -11,7 +11,7 @@ import reduxLeaves from '../../src';
     obj: { num: 5, names: [['a', 'e'], ['b, c']] }
   }
 
-  const [_, actions] = reduxLeaves(initialState)
+  const [_, actions] = riduce(initialState)
 
   // @dts-jest:fail does not exist on boolean state
   actions.bool.create.set
@@ -58,7 +58,7 @@ import reduxLeaves from '../../src';
     obj: { num: 5, names: [['a', 'e'], ['b, c']] }
   }
 
-  const [_, actions] = reduxLeaves(initialState)
+  const [_, actions] = riduce(initialState)
 
   // @dts-jest:fail does not exist on boolean state
   actions.bool.create.set

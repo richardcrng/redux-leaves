@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.create.set(path, value): returns an action that, when dispatched, updates the leaf's state by non-mutatively setting value at state object's path", () => {
   interface State {
@@ -12,7 +12,7 @@ describe("leaf.create.set(path, value): returns an action that, when dispatched,
     bar: { props: true }
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const store = createStore(reducer)
 
   test("Setting a new property", () => {

@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe('Basic example', () => {
   const initialState = {
@@ -7,7 +7,7 @@ describe('Basic example', () => {
     counterTwo: 0
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const { dispatch, getState } = createStore(reducer)
 
   test("Store initialises with the provided initialState", () => {

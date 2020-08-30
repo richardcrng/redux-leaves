@@ -1,5 +1,5 @@
 {
-  "name": "riducer",
+  "name": "riduce",
   "version": "0.0.1",
   "description": "Get rid of your reducer boilerplate. Typesafe reducers, arbitrary actions, no boilerplate.",
   "main": "dist/index.js",

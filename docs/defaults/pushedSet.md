@@ -10,7 +10,7 @@ sidebar_label: pushed-set
 **`create(actionType).pushedSet`**
 *Appropriate leaf type: object*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state at an auto-generated key (that orders chronologically after previous keys) with `value`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively update the leaf's state at an auto-generated key (that orders chronologically after previous keys) with `value`.
 
 (This is inspired by the [Firebase Real-Time Database .push](https://firebase.google.com/docs/database/web/lists-of-data#append_to_a_list_of_data) and uses [their method for auto-generating keys](https://firebase.googleblog.com/2015/02/the-2120-ways-to-ensure-unique_68.html).)
 
@@ -25,14 +25,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: {},
   bar: {}
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

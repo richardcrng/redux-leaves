@@ -16,7 +16,7 @@ You can bundle together actions with [`bundle`](../api/bundle.md), to produce a 
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'redux-leaves'
+import riduce, { bundle } from 'redux-leaves'
 
 const initialState = {
   list: ['a', 'b'],
@@ -28,7 +28,7 @@ const initialState = {
   }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 const actionBundle = bundle([
@@ -60,7 +60,7 @@ When you create an action through Redux-Leaves - whether using a default creator
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   list: ['a', 'b'],
@@ -76,7 +76,7 @@ const reducersDict = {
   duplicate: leafState => leafState.concat(leafState)
 }
 
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, reducersDict)
 
 const actionToPushToList = actions.list.create.push('c')
 console.log(actionToPushToList.type) // 'list/PUSH'
@@ -133,7 +133,7 @@ The default behaviour of a custom action creator is that only the first argument
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   counter: 0
@@ -152,7 +152,7 @@ const reducersDict = {
   addFirstThing: (leafState, { payload }) => leafState + payload
 }
 
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, reducersDict)
 const store = createStore(reducer)
 
 console.log(store.getState().counter) // 0

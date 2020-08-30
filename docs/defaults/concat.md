@@ -10,7 +10,7 @@ sidebar_label: concat
 **`create(actionType).concat`**
 *Appropriate leaf state: array | string*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to update the leaf's state by concatening it with `arrayOrString`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to update the leaf's state by concatening it with `arrayOrString`.
 
 ## Parameters
 - `arrayOrString` *(array | string)*: the array to concatenate
@@ -21,14 +21,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   arr: [1, 2, 3],
   str: 'foo'
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

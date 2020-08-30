@@ -10,7 +10,7 @@ sidebar_label: update
 **`create(actionType).update`**
 *Appropriate leaf state: any*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to update the leaf's state to `value`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to update the leaf's state to `value`.
 
 ## Parameters
 - `value` *(any)*: the new value for the leaf's state
@@ -21,7 +21,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   bool: false,
@@ -30,7 +30,7 @@ const initialState = {
   arr: [1, 2, { number: 3 }]
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

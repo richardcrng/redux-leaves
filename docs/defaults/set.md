@@ -10,7 +10,7 @@ sidebar_label: set
 **`create(actionType).set`**
 *Appropriate leaf type: object*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state at the property `key` with `value`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively update the leaf's state at the property `key` with `value`.
 
 ## Parameters
 - `key` *(string)*: the path of the property to set
@@ -22,14 +22,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: {},
   bar: { props: true }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

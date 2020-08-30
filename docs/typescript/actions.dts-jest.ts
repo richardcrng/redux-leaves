@@ -1,4 +1,4 @@
-import reduxLeaves from "../../src"
+import riduce from "../../src"
 
 
 // @dts-jest:group Actions shape mirrors state
@@ -14,7 +14,7 @@ import reduxLeaves from "../../src"
     list: [1, 2, 3]
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   // @dts-jest:pass
   actions.shallow
@@ -42,7 +42,7 @@ import reduxLeaves from "../../src"
     numList: [1, 2, 3]
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   // @dts-jest:pass
   actions.boolState.create.update(true)

@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reduxLeaves, { bundle } from '../../src';
+import riduce, { bundle } from '../../src';
 
 
 describe('Advanced example', () => {
@@ -15,7 +15,7 @@ describe('Advanced example', () => {
       }
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test("Actions get bundled into a single action which updates multiple leaves of state", () => {
@@ -54,7 +54,7 @@ describe('Advanced example', () => {
       duplicate: (leafState: any[]) => leafState.concat(leafState)
     }
 
-    const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+    const [reducer, actions] = riduce(initialState, reducersDict)
 
     it('Creates informative action types by default', () => {
       const actionToPushToList = actions.list.create.push('c')
@@ -100,7 +100,7 @@ describe('Advanced example', () => {
       addFirstThing: (leafState: number, { payload } : { payload: number }) => leafState + payload
     }
 
-    const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+    const [reducer, actions] = riduce(initialState, reducersDict)
     const store = createStore(reducer)
 
     test('We can configure to use custom argsToPayload', () => {

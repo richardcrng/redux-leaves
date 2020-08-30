@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 const initialState = {
   num: 2,
@@ -6,7 +6,7 @@ const initialState = {
   bool: true
 }
 
-const [_, actions] = reduxLeaves(initialState)
+const [_, actions] = riduce(initialState)
 
 // @dts-jest:pass Allows clear on an array branch
 actions.arr.create.clear()

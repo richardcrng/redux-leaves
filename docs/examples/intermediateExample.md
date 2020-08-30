@@ -22,7 +22,7 @@ Answer: no! Just provide Redux-Leaves once with your custom reducer logic, and y
 ### Set up with your custom reducer logic
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   counter: 2,
@@ -37,8 +37,8 @@ const reducersDict = {
   countTreeKeys: (leafState, action, treeState) => Object.keys(treeState).length
 }
 
-// Provide the dictionary of your reducer logic to reduxLeaves
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+// Provide the dictionary of your reducer logic to riduce
+const [reducer, actions] = riduce(initialState, reducersDict)
 const store = createStore(reducer)
 ```
 
@@ -59,7 +59,7 @@ console.log(store.getState().nested.arbitrarily.deep) // 6
 ```
 
 ## Default handling of arguments
-When you supply `reduxLeaves` with custom reducer logic, it provides the corresponding action creators, e.g. `actions.list.create.appendToEach` used above.
+When you supply `riduce` with custom reducer logic, it provides the corresponding action creators, e.g. `actions.list.create.appendToEach` used above.
 
 The *default behaviour* of these action creators is that, if they receive any arguments, *only the first argument* is passed to the created action as a payload:
 

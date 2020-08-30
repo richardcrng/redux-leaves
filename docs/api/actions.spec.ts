@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe('actions can take an arbitrary path of properties after it', () => {
   const initialState = {
@@ -10,7 +10,7 @@ describe('actions can take an arbitrary path of properties after it', () => {
     }
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   test('Any arbitrary path returns an object', () => {
     expect(typeof actions.counter).toBe('object')

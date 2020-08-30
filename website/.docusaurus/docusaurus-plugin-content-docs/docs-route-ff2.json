@@ -49,7 +49,7 @@
         "items": [
           {
             "type": "link",
-            "label": "reduxLeaves",
+            "label": "riduce",
             "href": "/docs/redux-leaves"
           },
           {

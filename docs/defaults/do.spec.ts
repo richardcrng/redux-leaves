@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.create.do(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state, entireState)", () => {
   interface State {
@@ -21,7 +21,7 @@ describe("leaf.create.do(callback): returns an action that, when dispatched, upd
     obj: {}
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const store = createStore(reducer)
 
   test("Calling create.do on a leaf", () => {

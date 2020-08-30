@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from '../../src';
+import riduce, { bundle } from '../../src';
 
 describe('bundle bundles together actions into a single one', () => {
   describe("Actions array, no type", () => {
@@ -8,7 +8,7 @@ describe('bundle bundles together actions into a single one', () => {
       list: ['a']
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test('Group bundles actions together into a single update with default type provided', () => {
@@ -30,7 +30,7 @@ describe('bundle bundles together actions into a single one', () => {
       list: ['a']
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test('Returns an action of appropriate type and effect in reducer', () => {
@@ -53,7 +53,7 @@ describe('bundle bundles together actions into a single one', () => {
       list: [5]
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test('Processes actions in the order passed into the array', () => {
@@ -80,7 +80,7 @@ describe('bundle bundles together actions into a single one', () => {
       list: ['a']
     }
 
-    const [reducer, actions] = reduxLeaves(initialState)
+    const [reducer, actions] = riduce(initialState)
     const store = createStore(reducer)
 
     test('Bundle bundles actions together into a single update', () => {

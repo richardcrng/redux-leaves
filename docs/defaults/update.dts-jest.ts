@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 
 // @dts-jest:group Explicit state typing
@@ -18,7 +18,7 @@ import reduxLeaves from '../../src';
     arr: [{ number: 4 }, { number: 2 }, { number: 7 }]
   }
 
-  const [_, actions] = reduxLeaves(initialState)
+  const [_, actions] = riduce(initialState)
 
   // @dts-jest:pass Root state can take state shape and doesn't need optional properties
   actions.create.update({
@@ -50,7 +50,7 @@ import reduxLeaves from '../../src';
     arr: [{ number: 4 }, { number: 2 }, { number: 7 }]
   }
 
-  const [_, actions] = reduxLeaves(initialState)
+  const [_, actions] = riduce(initialState)
 
   // @dts-jest:pass Root state can take state shape
   actions.create.update({

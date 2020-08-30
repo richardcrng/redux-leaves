@@ -23,7 +23,7 @@ In the below code:
 ### Setup
 
 ```js
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 import { createStore } from 'redux'
 
 const initialState = {
@@ -44,8 +44,8 @@ const reducersDict = {
 ### Creating actions
 
 ```js
-// Grab the actions object using reduxLeaves
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+// Grab the actions object using riduce
+const [reducer, actions] = riduce(initialState, reducersDict)
 const store = createStore(reducer)
 
 // Use the creator keys at a chosen leaf's create property:

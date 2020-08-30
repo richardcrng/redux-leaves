@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("leaf.filter(callback): returns an action that, when dispatched, updates the leaf's state by filtering it with the callback", () => {
   const initialState = {
@@ -7,7 +7,7 @@ describe("leaf.filter(callback): returns an action that, when dispatched, update
     bar: ['cat', 'dog', 'bat']
   }
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
   const store = createStore(reducer)
 
   test('Calling create.filter', () => {

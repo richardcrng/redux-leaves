@@ -10,7 +10,7 @@ sidebar_label: filter
 **`create(actionType).filter`**
 *Appropriate leaf state: array*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state by selecting elements that return true when passed to `callback`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively update the leaf's state by selecting elements that return true when passed to `callback`.
 
 (Effectively, this uses the vanilla javascript [`Array.prototype.filter(callback)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) API.)
 
@@ -23,14 +23,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: [1, 2, 3, 4, 5],
   bar: ['cat', 'dog', 'bat']
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

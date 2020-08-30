@@ -1,4 +1,4 @@
-import reduxLeaves, { ReducerDefinition } from "./"
+import riduce, { ReducerDefinition } from "."
 
 describe('Basic example', () => {
   const initialState = {
@@ -14,7 +14,7 @@ describe('Basic example', () => {
 
   Object.freeze(initialState)
 
-  const [reducer, actions] = reduxLeaves(initialState)
+  const [reducer, actions] = riduce(initialState)
 
   test('Actions shape mirrors state shape', () => {
     const toTest = [
@@ -100,7 +100,7 @@ describe('Custom reducers', () => {
 
   const shout = (leafState: string) => leafState.toUpperCase()
 
-  const [reducer, actions] = reduxLeaves(initialState, {
+  const [reducer, actions] = riduce(initialState, {
     multiplyBy,
     appendDoubleWithCounter,
     shout

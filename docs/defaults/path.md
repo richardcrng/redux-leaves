@@ -10,7 +10,7 @@ sidebar_label: path
 **`create(actionType).path`**
 *Appropriate leaf type: object*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively set a property at `path` from the leaf as `value`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively set a property at `path` from the leaf as `value`.
 
 ## Parameters
 - `path` *(string[])*: an array of strings which represent the property path to set at
@@ -22,14 +22,14 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: {}
   bar: { arbitrary: { keys: 3 } }
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

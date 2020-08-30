@@ -1,5 +1,5 @@
 import { createStore, Store } from "redux";
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 describe("Function shorthand", () => {
 
@@ -14,8 +14,8 @@ describe("Function shorthand", () => {
         squareNumber: (leafState: number) => leafState ** 2
       }
 
-      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customReducers)
+      describe("WHEN we pass initialState and customReducers to riduce", () => {
+        const [reducer, actions] = riduce(initialState, customReducers)
         let store: Store
 
         beforeEach(() => store = createStore(reducer))
@@ -77,8 +77,8 @@ describe("Function shorthand", () => {
         remove: (leafState: number[], { payload }: { payload: keyof typeof initialState }, wholeState: typeof initialState) => leafState.filter(e => e !== wholeState[payload])
       }
 
-      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customReducers)
+      describe("WHEN we pass initialState and customReducers to riduce", () => {
+        const [reducer, actions] = riduce(initialState, customReducers)
         let store: Store
 
         beforeEach(() => store = createStore(reducer))
@@ -147,8 +147,8 @@ describe("Function shorthand", () => {
         }
       }
 
-      describe("WHEN we pass initialState and customReducers to reduxLeaves", () => {
-        const [reducer, actions] = reduxLeaves(initialState, customReducers)
+      describe("WHEN we pass initialState and customReducers to riduce", () => {
+        const [reducer, actions] = riduce(initialState, customReducers)
         let store: Store
 
         beforeEach(() => store = createStore(reducer))
@@ -193,8 +193,8 @@ describe("Object longhand", () => {
     describe("GIVEN no argsToPayload defined in identity config object", () => {
       const identity = (leafState: any) => leafState
 
-      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
-        const [reducer, actions] = reduxLeaves({}, { identity })
+      describe("WHEN we initialise riduce with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = riduce({}, { identity })
         let store: Store
         beforeEach(() => {
           store = createStore(reducer)
@@ -221,8 +221,8 @@ describe("Object longhand", () => {
         argsToPayload: (...args: any[]) => args.slice(0, 5)
       }
 
-      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
-        const [reducer, actions] = reduxLeaves({}, { identity })
+      describe("WHEN we initialise riduce with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = riduce({}, { identity })
         let store: Store
         beforeEach(() => {
           store = createStore(reducer)
@@ -248,8 +248,8 @@ describe("Object longhand", () => {
         argsToPayload: (first: any, second: any, ...rest: any[]) => ({  first, second, rest })
       }
 
-      describe("WHEN we initialise reduxLeaves with empty state and identity in the dictionary", () => {
-        const [reducer, actions] = reduxLeaves({}, { identity })
+      describe("WHEN we initialise riduce with empty state and identity in the dictionary", () => {
+        const [reducer, actions] = riduce({}, { identity })
         let store: Store
         beforeEach(() => {
           store = createStore(reducer)

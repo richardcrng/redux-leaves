@@ -12,7 +12,7 @@ When you access the `create` property from any arbitrary path from the [`actions
 Consider the `actions` object returned below.
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 const initialState = {
   counter: 0,
@@ -27,7 +27,7 @@ const reducersDict = {
   convertToFoobar: () => 'foobar'
 }
 
-const [reducer, actions] = reduxLeaves(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, reducersDict)
 ```
 
 * `actions.counter.create` corresponds to creating actions at `state.counter`;
@@ -53,7 +53,7 @@ console.log(typeof actions.arbitrary.nested.path.create.convertToFoobar) // 'fun
 Executing these functions then create the actions that you should dispatch to your Redux store.
 
 ```js
-const store = createStore(reducer) // using reducer from reduxLeaves
+const store = createStore(reducer) // using reducer from riduce
 console.log(store.getState().counter) // 0
 
 const updateCounter = actions.counter.create.update

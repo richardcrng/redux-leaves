@@ -7,23 +7,23 @@ sidebar_label: useReducer example
 
 # `useReducer` example, no Redux
 
-Because [`reduxLeaves`](../README.md) returns a `reducer` and `actions`, it can be used with the React [`useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer) hook instead of Redux if desired.
+Because [`riduce`](../README.md) returns a `reducer` and `actions`, it can be used with the React [`useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer) hook instead of Redux if desired.
 
-For a demo, check out this [Todo app](https://codesandbox.io/s/todo-app-with-usereducer-react-testing-library-and-redux-leaves-inziu) modelled on the React-Redux tutorial example, refactored to use the `useReducer` hook in combination with `reduxLeaves`.
+For a demo, check out this [Todo app](https://codesandbox.io/s/todo-app-with-usereducer-react-testing-library-and-redux-leaves-inziu) modelled on the React-Redux tutorial example, refactored to use the `useReducer` hook in combination with `riduce`.
 
 ## Example
 [CodeSandbox demo](https://codesandbox.io/s/redux-leaves-with-usereducer-5xpkz)
 
 ```jsx
 import React, { useReducer } from "react";
-import reduxLeaves, { bundle } from 'redux-leaves';
+import riduce, { bundle } from 'redux-leaves';
 
 const initialState = {
   name: "user",
   list: []
 };
 
-const [reducer, actions] = reduxLeaves(initialState);
+const [reducer, actions] = riduce(initialState);
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);

@@ -10,7 +10,7 @@ sidebar_label: do
 **`create(actionType).do`**
 *Appropriate leaf state: any*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively update the leaf's state to the return value of `callback(leafState, treeState)`.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively update the leaf's state to the return value of `callback(leafState, treeState)`.
 
 *Note: creating an action using `do(callback)` does not follow Redux's non-enforced recommendation that [actions should always be serializable](https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants), since the resultant action will have the function `callback` as its `payload`.*
 
@@ -23,7 +23,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   bool: false,
@@ -32,7 +32,7 @@ const initialState = {
   arr: [1, 2, 3]
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 

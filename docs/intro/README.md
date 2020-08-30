@@ -50,7 +50,7 @@ Redux-Leaves lets you *write once, reduce anywhere* with:
 #### Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } = from 'redux-leaves'
+import riduce, { bundle } = from 'redux-leaves'
 
 // set up with initial state
 const initialState = {
@@ -59,7 +59,7 @@ const initialState = {
   props: {}
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 
 // setup complete! Now dispatch actions to your heart's content

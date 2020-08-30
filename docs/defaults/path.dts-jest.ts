@@ -1,4 +1,4 @@
-import reduxLeaves from '../../src';
+import riduce from '../../src';
 
 const initialState = {
   bool: false,
@@ -9,7 +9,7 @@ const initialState = {
   obj: { num: 5, names: [['a', 'e'], ['b, c']] }
 }
 
-const [_, actions] = reduxLeaves(initialState)
+const [_, actions] = riduce(initialState)
 
 // @dts-jest:fail does not exist on boolean state
 actions.bool.create.path

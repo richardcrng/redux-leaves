@@ -23,7 +23,7 @@ Answer: no! Just provide Redux-Leaves with your state shape, i.e. the two counte
 ```js
 // Imports for Redux and Redux-Leaves
 import { createStore } from 'redux'
-import reduxLeaves from 'redux-leaves'
+import riduce from 'redux-leaves'
 
 // Your job: provide some initial state
 const initialState = {
@@ -32,7 +32,7 @@ const initialState = {
 }
 
 // Redux-Leaves's job: to write your reducer and actions for you
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 
 // Create your Redux store using the given reducer
 const store = createStore(reducer)

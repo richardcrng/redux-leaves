@@ -10,7 +10,7 @@ sidebar_label: push
 **`create(actionType).push`**
 *Appropriate leaf type: array*
 
-Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to non-mutatively push `element` to the leaf's state at index `index`. If `replace` is `true`, then `element` replaces the existing element with that index.
+Returns an (action) object that the [riduce](../README.md) reducer uses to non-mutatively push `element` to the leaf's state at index `index`. If `replace` is `true`, then `element` replaces the existing element with that index.
 
 ## Parameters
 - `element` *(any)*: the element to insert to the leaf's state
@@ -23,7 +23,7 @@ Returns an (action) object that the [reduxLeaves](../README.md) reducer uses to 
 ## Example
 ```js
 import { createStore } from 'redux'
-import reduxLeaves from 'reduxLeaves'
+import riduce from 'riduce'
 
 const initialState = {
   foo: [1, 2, 3],
@@ -31,7 +31,7 @@ const initialState = {
   foobar: [1, 2, 3]
 }
 
-const [reducer, actions] = reduxLeaves(initialState)
+const [reducer, actions] = riduce(initialState)
 const store = createStore(reducer)
 ```
 ### Providing element
