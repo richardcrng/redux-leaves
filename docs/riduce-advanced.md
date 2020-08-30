@@ -62,6 +62,47 @@ getState()
 */
 ```
 
+### Execute arbitrary reducer logic
+Sometimes the simple atomic action creators - `update`, `set`, `clear`... - won't feel sufficient.
+
+The general purpose `do` can help with flexibility: it takes a callback which lets you transform the state of a leaf in your tree however you wish.
+
+```ts
+const pizzaShopState = {
+  stock: {
+    margherita: 1,
+    pepperoni: 100
+  },
+  isOpen: {
+    forEatIn: false,
+    forTakeOut: true
+  }
+}
+
+const [reducer, actions] = riduce(pizzaShopState)
+const { getState, dispatch } = createStore(reducer)
+
+const swapStock = actions.stock.create.do(leafState => ({
+  margherita: leafState.pepperoni,
+  pepperoni: leafState.margherita
+}))
+
+dispatch(swapStock)
+getState().stock // => { margherita: 100, pepperoni: 1 }
+
+const openIfSurplusStock = actions.isOpen.create.do(
+  (leafState, treeState) => {
+    const hasEnoughStock = treeState.stock.margherita > 10
+    return {
+      forEatIn: leafState.forEatIn || hasEnoughStock,
+      forTakeOut: leafState.forTakeOut || hasEnoughStock
+    }
+  }
+)
+
+getState().isOpen // => { forEatIn: true, forTakeOut: true }
+```
+
 
 ## Get started
 You may wish to check out the following:
