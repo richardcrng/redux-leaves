@@ -19,12 +19,12 @@ Whether you're using `useReducer` or `redux`, reducer boilerplate is tedious to 
 
 What if type-safe state management was quicker, easier and simpler?
 
-Riduce is a library written for developers to be:
+Riduce is a library written to be:
 - **Strongly-typed**, so your state stays predictable
 - **Trivial to scale** as your state grows more complex
 - **Zero hassle**, with *just two lines of code...*
 
-... and one of the 2 lines to setup is an `import`.
+*... and one of the 2 lines to setup is an `import`.*
 
 ```ts
 import riduce from 'riduce'
@@ -139,6 +139,13 @@ actions.visitor.guestbook.create.push('10')
 You may wish to check out the following:
 - [Riduce with `useReducer`: CodeSandbox demo](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t)
 - [Riduce with Redux: Repl.it demo](https://repl.it/@richardcrng/Riduce-with-Redux)
+- [Advanced example](./docs/riduce-advanced.md)
+
+The advanced example shows how you can also:
+1. [Bundle multiple actions](./docs/riduce-advanced.md#bundle-multiple-actions) into a single dispatch;
+2. [Execute arbitrary reducer logic](./docs/riduce-advanced.md#execute-arbitrary-reducer-logic) for extendability;
+3. [Add custom reducers](./docs/riduce-advanced.md#add-custom-reducers) for reusability; and
+4. [Control action type](./docs/riduce-advanced.md#control-action-type) for debugging (e.g. Redux DevTools).
 
 Have fun adding it to your project!
 

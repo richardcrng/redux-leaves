@@ -1,10 +1,9 @@
-# Riduce 👻
+# Riduce 👻: advanced usage
 
 **Get *rid* of your reducer boilerplate!**
 
 *Zero hassle state management that's typed, flexible and scalable.*
 
-## Advanced usage
 You've seen how Riduce provides [zero hassle setup, scalable state management and typesafe action creators](../README.md).
 
 There's *even more* that you can do with Riduce:
@@ -13,7 +12,7 @@ There's *even more* that you can do with Riduce:
 3. [Add custom reducers](#add-custom-reducers) for reusability; and
 4. [Control action type](#control-action-type) for debugging (e.g. Redux DevTools).
 
-### Bundle multiple actions
+## Bundle multiple actions
 ```ts
 import { createStore } from 'redux'
 import riduce from 'riduce'
@@ -62,7 +61,7 @@ getState()
 */
 ```
 
-### Execute arbitrary reducer logic
+## Execute arbitrary reducer logic
 Sometimes the simple atomic action creators - `update`, `set`, `clear`... - won't feel sufficient.
 
 The general purpose `do` can help with flexibility: it takes a callback of `(leafState, treeState) => newLeafState`.
@@ -100,14 +99,14 @@ const openIfSurplusStock = actions.isOpen.create.do(
 getState().isOpen // => { forEatIn: true, forTakeOut: true }
 ```
 
-### Add custom reducers
+## Add custom reducers
 For reusability, sometimes you might want to abstract out some custom reducer logic which can then be executed at arbitrary leaf state.
 
 This can be done in two ways:
 1. [Shorthand riducers](#shorthand-riducers)
 2. [Longhand riducers](#longhand-riducers)
 
-#### Shorthand riducers
+### Shorthand riducers
 Shorthand 'riducers' are functions with the signature `(leafState, action, treeState) => leafState`.
 
 When you pass a dictionary of these to `riduce` as a second argument, it automatically makes a corresponding action creator available.
@@ -191,7 +190,7 @@ getState().stock.sushi // => { nigiri: 6, sashimi: 0 }
 actions.tables.create.decreaseValuesBy()
 ```
 
-#### Longhand riducers
+### Longhand riducers
 Longhand riducer definitions benefit from being more strongly typed.
 
 ```ts
