@@ -1,4 +1,4 @@
-# Riduce
+# Riduce 👻
 
 **Get *rid* of your reducer boilerplate!**
 
@@ -53,7 +53,7 @@ You can also run this code in [Repl.it](https://repl.it/@richardcrng/Riduce-with
 Let's imagine we're controlling the state for a museum.
 ```ts
 import { createStore } from 'redux'
-import riduce from 'riduce' // <<< 1 line to import
+import riduce from 'riduce' // 1st line: import
 
 const museumState = {
   isOpen: false,
@@ -63,7 +63,7 @@ const museumState = {
   }
 }
 
-const [reducer, actions] = riduce(museumState) // <<< 1 line to setup
+const [reducer, actions] = riduce(museumState) // 2nd line: setup
 const { getState, dispatch } = createStore(reducer)
 ```
 **And that's it.** Those two lines replace *all* of our reducer boilerplate.
@@ -96,16 +96,16 @@ dispatch(actions.visitor.guestbook[0].create.concat('!!!'))
 
 getState()
 /*
-  {
-    isOpen: true,
-    visitor: {
-      counter: 5,
-      guestbook: [
-        'richard woz here!!!',
-        'LOL from js fan'
-      ]
-    }
+{
+  isOpen: true,
+  visitor: {
+    counter: 5,
+    guestbook: [
+      'richard woz here!!!',
+      'LOL from js fan'
+    ]
   }
+}
 */
 ```
 All this is possible because Riduce's `actions` gives you **loads of convenient action creators out of the box**, which you can *use liberally throughout your state tree:* `update`, `set`, `filter`, `reset`, and many more...
