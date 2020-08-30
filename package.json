@@ -1,6 +1,6 @@
 {
   "name": "riduce",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Get rid of your reducer boilerplate. Typesafe reducers, arbitrary actions, no boilerplate.",
   "main": "dist/index.js",
   "license": "MIT",
