@@ -1,24 +1,28 @@
 # Riduce
 
-**Get rid of your reducer boilerplate!**
+**Get *rid* of your reducer boilerplate!**
 
-*Typesafe reducers. Arbitrary actions. Zero hassle.*
+*Zero hassle state management that's typed, flexible and scalable.*
+
+```bash
+npm install riduce
+```
 
 ![Travis (.org)](https://img.shields.io/travis/richardcrng/riduce.svg)
 [![Coverage Status](https://coveralls.io/repos/github/richardcrng/riduce/badge.svg?branch=buttons)](https://coveralls.io/github/richardcrng/riduce?branch=buttons)
 [![bundle size](https://badgen.net/bundlephobia/min/riduce)](https://badgen.net/bundlephobia/min/riduce)
 [![npm version](https://badge.fury.io/js/riduce.svg)](https://badge.fury.io/js/riduce)
 
-Whether you're using `useReducer` or `redux`, reducer boilerplate is boring, time-consuming and messy.
+Whether you're using `useReducer` or `redux`, reducer boilerplate is tedious to learn, setup and maintain.
 
-What if type-safe state management was quicker, easier and more scalable?
+What if type-safe state management was quicker, easier and simpler?
 
-`riduce` is a library written for developers who want:
-- **Typesafe reducers**, so your state stays predictable
-- **Arbitrary actions**, without all the boilerplate
-- **Zero hassle**, with *just two lines of setup...*
+Riduce is a library written for developers to be:
+- **Strongly-typed**, so your state stays predictable
+- **Trivial to scale** as your state grows more complex
+- **Zero hassle**, with *just two lines of code...*
 
-*... and one of those lines is an import.*
+... and one of the 2 lines to setup is an `import`.
 
 ```ts
 import riduce from 'riduce'
@@ -31,72 +35,63 @@ and that's it! Now you've got a type-safe `reducer` and arbitrary `actions`, wit
 Let's see it in use!
 
 ## Example
-We'll use Redux here, but `riduce` works just as well with 
+For a `useReducer` example, [see this CodeSandbox](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t).
 
-```js
-import riduce from 'riduce'
+For a `redux` example, keep reading on:
+1. [Zero hassle setup](#zero-hassle-setup) with 2 lines of code;
+2. [Scalable state management](#scalable-state-management) with arbitrary actions; and
+3. [Typed action creators](#typed-action-creators) to mirror your state's shape.
+
+### Zero hassle setup
+Let's imagine we're controlling the state for a museum.
+```ts
 import { createStore } from 'redux'
+import riduce from 'riduce' // <<< 1 line to import
 
-const initialState = {
-  rating: 10,
-  adjectives: ['quick', 'easy'],
-  
+const museumState = {
+  isOpen: false,
+  visitor: {
+    counter: 0,
+    guestbook: ['richard woz here']
+  }
 }
 
-const [reducer, actions] = riduce(initialState)
-const store = createStore(reducer)
+const [reducer, actions] = riduce(museumState) // <<< 1 line to setup
+const { getState, dispatch } = createStore(reducer)
+```
+**And that's it.** Those two lines replace *all* of our reducer boilerplate.
 
-// setup complete! Now dispatch actions to your heart's content
+### Scalable state management
+Continuing on from [above](#zero-hassle-setup), let's:
+1. Open our museum;
+2. Add to the visitor counter;
+3. Sign the guestbook; and
+4. Ammend a guestbook entry.
 
-console.log(store.getState())
-// => { counter: 0, list: [], props: {} } 
+```ts
+// at `state.isOpen`, create an action to toggle the boolean
+dispatch(actions.isOpen.create.toggle())
 
-store.dispatch(actions.counter.create.increment(10))
-console.log(store.getState())
-// => { counter: 10, list: [], props: {} }
+// at `state.visitor.counter`, create an action to add 5
+dispatch(actions.visitor.counter.create.increment(5))
 
-store.dispatch(actions.list.create.push('foo'))
-console.log(store.getState())
-// => { counter: 10, list: ['foo'], props: {} }
+// at `state.visitor.guestbook`, create an action to push a string
+dispatch(actions.visitor.guestbook.create.push('LOL from js fan'))
 
-const compoundAction = bundle([
-  actions.counter.create.reset(),
-  actions.list[0].create.concat('bar'),
-  actions.props.at.arbitrary.path.create.update('here I am!')
-])
+// at `state.visitor.guestbook[0]`, create an action to concat a string
+dispatch(actions.visitor.guestbook[0].create.concat('!!!'))
 
-store.dispatch(compoundAction)
-console.log(store.getState())
+getState()
 /*
-  => {
-    counter: 0,
-    list: ['foobar'],
-    props: { at: { arbitrary: { path: 'here I am!' } } }
+  {
+    isOpen: true,
+    visitor: {
+      counter: 5,
+      guestbook: [
+        'richard woz here!!!',
+        'LOL from js fan'
+      ]
+    }
   }
 */
 ```
-
-## Documentation
-```bash
-npm install --save riduce
-```
-
-[Main documentation website](https://riduce.js.org)
-
-### Getting started
-- [Overview](https://riduce.js.org/docs/intro/overview)
-- [30 second demo](https://runkit.com/richardcrng/riduce-playground/)
-
-### API reference
-- [Core: `riduce(initialState, reducers)`](https://riduce.js.org/docs/riduce)
-
-### Testing
-
-To run all tests locally:
-
-```bash
-git clone git@github.com:richardcrng/riduce.git
-cd riduce && npm run test a
-```
-
-Most tests are located alongside their relevant API documentation in the [docs](/docs) folder.
