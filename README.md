@@ -30,7 +30,7 @@ import riduce from 'riduce'
 const [reducer, actions] = riduce(initialState)
 ```
 
-That's it!# Now you've got a type-safe `reducer` and arbitrary `actions`, with zero hassle.
+That's it! Now you've got a type-safe `reducer` and arbitrary `actions`, with zero hassle.
 
 Let's see it in use!
 
