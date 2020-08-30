@@ -13,18 +13,6 @@ export type ReduxLeaves<
   ActionsProxy<TreeT, TreeT, CustomReducersT>
 ]
 
-// function reduxLeaves<TreeT>(
-//   initialState: TreeT
-// ): ReduxLeaves<TreeT>
-
-// function reduxLeaves<
-//   TreeT,
-//   CustomReducersT extends CustomReducers<TreeT> = {}
-// >(
-//   initialState: TreeT,
-//   reducersDict: CustomReducersT
-// ): ReduxLeaves<TreeT, CustomReducersT>
-
 function reduxLeaves<
   TreeT,
   CustomReducersT extends CustomReducers<TreeT> = {}
@@ -33,13 +21,11 @@ function reduxLeaves<
   reducersDict: CustomReducersT = {} as CustomReducersT
 ): ReduxLeaves<TreeT, CustomReducersT> {
   const reducer = (treeState: TreeT = initialState, action: LeafStandardAction): TreeT => {
+    
     if (!action.leaf) return treeState
 
     if (isLeafCompoundAction(action)) {
-      return action.payload.reduce(
-        reducer,
-        treeState
-      )
+      return action.payload.reduce(reducer, treeState)
     }
 
     const prevLeafState = getState(treeState, action.leaf.path)
