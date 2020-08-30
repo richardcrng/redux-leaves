@@ -118,19 +118,20 @@ Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbit
 It's written in TypeScript, so it's helpfully typed right out of the box as well!
 
 ```ts
-// ❌ can we push to a boolean? no!
-// (ts 2339) Property 'push' does not exist on type...
+// can we push to a boolean? no!
+// ❌ TypeError: (ts 2339) Property 'push' does not exist on type...
 actions.isOpen.create.push()
 
-// ❌ can we push to an array without an argument? no!
-// (ts 2554) Expected 1-3 arguments, but got 0.
+// can we push to an array without an argument? no!
+// ❌ TypeError: (ts 2554) Expected 1-3 arguments, but got 0.
 actions.visitor.guestbook.create.push()
 
-// ❌ can we push a number to an inferred string[]? no!
-// (ts 2345) Argument of type '10' is not assignable to parameter of type 'string'.
+// can we push a number to an inferred string[]? no!
+// ❌ TypeError: (ts 2345) Argument of type '10' is not assignable to parameter of type 'string'.
 actions.visitor.guestbook.create.push(10)
 
-// ✅ can we push a string to an inferred string[]? yeah, okay then.
+// can we push a string to an inferred string[]? yeah, okay then.
+// ✅ compiles!
 actions.visitor.guestbook.create.push('10')
 ```
 

@@ -76,7 +76,7 @@ describe('Advanced usage', () => {
 
   test('Add custom reducers', () => {
     const restaurantState = {
-      table: [
+      tables: [
         { persons: 4, hasOrdered: false, hasPaid: false },
         { persons: 3, hasOrdered: true, hasPaid: false }
       ],
@@ -92,7 +92,7 @@ describe('Advanced usage', () => {
       }
     }
 
-    type Table = typeof restaurantState['table'][0]
+    type Table = typeof restaurantState['tables'][0]
 
     const finishTable = (tableState: Table) => ({
       ...tableState,
@@ -100,40 +100,40 @@ describe('Advanced usage', () => {
       hasPaid: true
     })
 
-    const setAllValuesTo = (leafState: Record<string, any>, action) => {
+    const decreaseValuesBy = (leafState: Record<string, number>, action) => {
       const keys = Object.keys(leafState)
       return keys.reduce((acc, key) => ({
         ...acc,
-        [key]: action.payload
+        [key]: leafState[key] - action.payload
       }), {})
     }
 
     const [reducer, actions] = riduce(restaurantState, {
       finishTable,
-      setAllValuesTo
+      decreaseValuesBy
     })
 
     const { getState, dispatch } = createStore(reducer)
 
-    dispatch(actions.table[0].create.finishTable())
-    expect(getState().table[0]).toStrictEqual(
+    dispatch(actions.tables[0].create.finishTable())
+    expect(getState().tables[0]).toStrictEqual(
       { persons: 4, hasOrdered: true, hasPaid: true }
     )
      // => 
 
-    dispatch(actions.table[1].create.finishTable())
-    expect(getState().table[1]).toStrictEqual(
+    dispatch(actions.tables[1].create.finishTable())
+    expect(getState().tables[1]).toStrictEqual(
       { persons: 3, hasOrdered: true, hasPaid: true }
     )
 
-    dispatch(actions.stock.ramen.create.setAllValuesTo(1))
+    dispatch(actions.stock.ramen.create.decreaseValuesBy(1))
     expect(getState().stock.ramen).toStrictEqual({
-      beef: 1, veg: 1
+      beef: 4, veg: 1
     })
 
-    dispatch(actions.stock.sushi.create.setAllValuesTo(0))
+    dispatch(actions.stock.sushi.create.decreaseValuesBy(4))
     expect(getState().stock.sushi).toStrictEqual({
-      nigiri: 0, sashimi: 0
+      nigiri: 6, sashimi: 0
     })
   })
 })

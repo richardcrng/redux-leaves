@@ -10,8 +10,8 @@ You've seen how Riduce provides [zero hassle setup, scalable state management an
 There's *even more* that you can do with Riduce:
 1. [Bundle multiple actions](#bundle-multiple-actions) into a single dispatch;
 2. [Execute arbitrary reducer logic](#execute-arbitrary-reducer-logic) for extendability;
-3. [Add custom reducers](#scalable-state-management) for reusability; and
-4. [Control action type](#typed-action-creators) for debugging (e.g. Redux DevTools).
+3. [Add custom reducers](#add-custom-reducers) for reusability; and
+4. [Control action type](#control-action-type) for debugging (e.g. Redux DevTools).
 
 ### Bundle multiple actions
 ```ts
@@ -103,18 +103,13 @@ getState().isOpen // => { forEatIn: true, forTakeOut: true }
 ### Add custom reducers
 For reusability, sometimes you might want to abstract out some custom reducer logic which can then be executed at arbitrary leaf state.
 
+#### Shorthand examples
 ```ts
-interface Table {
-  persons: number,
-  hasOrdered: boolean,
-  hasPaid: boolean
-}
-
 const restaurantState = {
-  table: {
-    front: { persons: 4, haveOrdered: false, hasPaid: false },
-    back: { persons: 3, haveOrdered: true, hasPaid: false }
-  },
+  tables: [
+    { persons: 4, hasOrdered: false, hasPaid: false },
+    { persons: 3, hasOrdered: true, hasPaid: false }
+  ],
   stock: {
     ramen: {
       beef: 5,
@@ -127,38 +122,53 @@ const restaurantState = {
   }
 }
 
+/*
+ * Note: I'm typing in a slightly unorthodox way
+ *  in the hope that this is more friendly for
+ *  non-TypeScript users.
+ * 
+ * (I suggest explicitly typing state.)
+ */
+type Table = typeof restaurantState['tables'][0]
+
 const finishTable = (tableState: Table) => ({
   ...tableState,
   hasOrdered: true,
   hasPaid: true
 })
 
-const setAllValuesTo = (leafState: { [key: string]: number }, action) => {
+const decreaseValuesBy = (leafState: Record<string, number>, action) => {
   const keys = Object.keys(leafState)
   return keys.reduce((acc, key) => ({
     ...acc,
-    [key]: action.payload
+    [key]: leafState[key] - action.payload
   }), {})
 }
 
 const [reducer, actions] = riduce(restaurantState, {
   finishTable,
-  setAllValuesTo
+  decreaseValuesBy
 })
 
 const { getState, dispatch } = createStore(reducer)
 
-dispatch(actions.table[0].create.finishTable())
-getState().table[0] // => { persons: 4, haveOrdered: true, havePaid: true }
+dispatch(actions.tables[0].create.finishTable())
+getState().tables[0] // => { persons: 4, haveOrdered: true, havePaid: true }
 
-dispatch(actions.table[1].create.finishTable())
-getState().table[1] // => { persons: 3, haveOrdered: true, havePaid: true }
+dispatch(actions.tables[1].create.finishTable())
+getState().tables[1] // => { persons: 3, haveOrdered: true, havePaid: true }
 
-dispatch(actions.stock.ramen.create.setAllValuesTo(1))
+// ❌ TypeError: (ts 2339) Property 'finishTable' does not exist on type...
+actions.stock.ramen.create.finishTable()
+
+dispatch(actions.stock.ramen.create.decreaseValuesBy(1))
 getState().stock.ramen // => { beef: 1, veg: 1 }
 
-dispatch(actions.stock.sushi.create.setAllValuesTo(0))
+dispatch(actions.stock.sushi.create.decreaseValuesBy(0))
 getState().stock.sushi // => { nigiri: 0, sashimi: 0 }
+
+// ❌ TypeError: (ts 2339) Property 'decreaseValuesBy' does not exist on type...
+actions.tables.create.decreaseValuesBy()
 ```
 
 
