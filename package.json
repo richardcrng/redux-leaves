@@ -1,7 +1,7 @@
 {
-  "name": "redux-leaves",
-  "version": "2.0.0",
-  "description": "Write once. Reduce anywhere",
+  "name": "riducer",
+  "version": "0.0.1",
+  "description": "Get rid of your reducer boilerplate. Typesafe reducers, arbitrary actions, no boilerplate.",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
