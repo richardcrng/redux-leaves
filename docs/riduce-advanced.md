@@ -107,7 +107,13 @@ This can be done in two ways:
 1. [Shorthand riducers](#shorthand-riducers)
 2. [Longhand riducers](#longhand-riducers)
 
-#### Shorthand examples
+#### Shorthand riducers
+Shorthand 'riducers' are functions with the signature `(leafState, action, treeState) => leafState`.
+
+When you pass a dictionary of these to `riduce` as a second argument, it automatically makes a corresponding action creator available.
+
+By default, the action creator will take an optional single argument, that gets passed to your riducer logic as `action.payload`.
+
 ```ts
 import { Action, Riducer } from 'riduce'
 

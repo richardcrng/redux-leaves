@@ -8,14 +8,14 @@ export type CustomAction<PayloadT = unknown> = Action<PayloadT> & {
   payload: PayloadT
 }
 
-export type RiducerArgsToPayoad<PayloadT = any, ArgsT extends any[] = any[]> = (...args: ArgsT) => PayloadT
+export type RiducerArgsToPayoad<PayloadT = any, ArgsT extends any[] = [any]> = (...args: ArgsT) => PayloadT
 
 export type RiducerReducer<TreeT = any, LeafT = any, PayloadT = any> = (leafState: LeafT, action: CustomAction<PayloadT>, treeState: TreeT) => LeafT
 
 export type PermissiveRiducer<TreeT = unknown> = ShorthandPermissiveRiducer<TreeT> | LonghandPermissiveRiducer<TreeT>
 
 export type Riducer<T extends RiducerGeneric = {
-  treeState: any, leafState: any, args: any[], payload: any
+  treeState: any, leafState: any, args: [any], payload: any
 }> = LonghandRiducer<T> | ShorthandRiducer<T>
 
 export type RiducerDict<TreeT, DefinitionsT = { [creatorKey: string]: LonghandPermissiveRiducer<TreeT> }> = {
@@ -24,11 +24,11 @@ export type RiducerDict<TreeT, DefinitionsT = { [creatorKey: string]: LonghandPe
 
 export type LonghandPermissiveRiducer<TreeT> =
   LonghandRiducer<{
-    treeState: TreeT, leafState: any, payload: any, args: any[]
+    treeState: TreeT, leafState: any, payload: any, args: [any]
   }>
 
 export type LonghandRiducer<T extends RiducerGeneric = {
-  treeState: any, leafState: any, args: any[], payload: any
+  treeState: any, leafState: any, args: [any], payload: any
 }> = {
 
   argsToPayload: RiducerArgsToPayoad<
@@ -47,11 +47,11 @@ export type LonghandRiducer<T extends RiducerGeneric = {
 
 export type ShorthandPermissiveRiducer<TreeT> =
   ShorthandRiducer<{
-    treeState: TreeT, leafState: any, payload: any, args: any[]
+    treeState: TreeT, leafState: any, payload: any, args: [any]
   }>
 
 export type ShorthandRiducer<T extends RiducerGeneric = {
-  treeState: any, leafState: any, args: any[], payload: any
+  treeState: any, leafState: any, args: [any], payload: any
 }> = LonghandRiducer<T>['reducer']
 
 export type LonghandCreator<T extends LonghandRiducer> = (...args: Parameters<T['argsToPayload']>) => CustomAction<ReturnType<T['argsToPayload']>>
