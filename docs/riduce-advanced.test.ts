@@ -74,7 +74,7 @@ describe('Advanced usage', () => {
     })
   })
 
-  test('Add custom reducers', () => {
+  test('Shorthand riducers', () => {
     const restaurantState = {
       tables: [
         { persons: 4, hasOrdered: false, hasPaid: false },
@@ -135,5 +135,69 @@ describe('Advanced usage', () => {
     expect(getState().stock.sushi).toStrictEqual({
       nigiri: 6, sashimi: 0
     })
+  })
+
+  test('Longhand riducers', () => {
+
+    const bookstoreState = {
+      books: {
+        9780007925568: {
+          title: 'Moby Dick',
+          authorName: 'Herman Melville',
+          stock: 7
+        },
+        9780486280615: {
+          title: 'The Adventures of Huckleberry Finn',
+          authorName: 'Mark Twain',
+          stock: 10
+        },
+        9780764502231: {
+          title: 'JavaScript for Dummies',
+          authorName: 'Emily A. Vander Veer',
+          stock: 5
+        }
+      },
+      visitor: {
+        count: 2,
+        guestbook: []
+      }
+    }
+
+    type BookstoreState = typeof bookstoreState
+
+    interface BookReview {
+      id: keyof BookstoreState['books'],
+      stars: number,
+      comment?: string
+    }
+
+    const addBookReviews: Riducer<{
+      treeState: BookstoreState,
+      leafState: string[],
+      args: BookReview[],
+      payload: BookReview[]
+    }> = {
+      argsToPayload: (...reviews) => reviews,
+      reducer: (leafState, { payload: reviews = [] }, treeState) => {
+        return reviews.reduce((acc, { stars, id, comment = '' }) => ([
+          ...acc,
+          `${stars} stars for ${treeState.books[id].title}! ${comment}`
+        ]), leafState)
+      }
+    }
+
+    const [reducer, actions] = riduce(bookstoreState, { addBookReviews })
+
+    const { getState, dispatch } = createStore(reducer)
+
+    dispatch(actions.visitor.guestbook.create.addBookReviews(
+      { id: 9780007925568, stars: 4.5 },
+      { id: 9780764502231, stars: 5, comment: 'so great!!' }
+    ))
+
+    expect(getState().visitor.guestbook).toStrictEqual([
+      '4.5 stars for Moby Dick! ',
+      '5 stars for JavaScript for Dummies! so great!!'
+    ])
   })
 })

@@ -114,8 +114,11 @@ When you pass a dictionary of these to `riduce` as a second argument, it automat
 
 By default, the action creator will take an optional single argument, that gets passed to your riducer logic as `action.payload`.
 
+(This behaviour can be changed in a [longhand riducer](#longhand-riducers).)
+
 ```ts
-import { Action, Riducer } from 'riduce'
+import riduce, { Action } from 'riduce'
+import { createStore } from 'redux'
 
 const restaurantState = {
   tables: [
@@ -177,19 +180,99 @@ getState().tables[1] // => { persons: 3, haveOrdered: true, havePaid: true }
 // ❌ TypeError: (ts 2339) Property 'finishTable' does not exist on type...
 actions.stock.ramen.create.finishTable()
 
-// The action creator argument becomes payload
+// By default, the first argument passed becomes action.payload
 dispatch(actions.stock.ramen.create.decreaseValuesBy(1))
-getState().stock.ramen // => { beef: 1, veg: 1 }
+getState().stock.ramen // => { beef: 4, veg: 1 }
 
-dispatch(actions.stock.sushi.create.decreaseValuesBy(0))
-getState().stock.sushi // => { nigiri: 0, sashimi: 0 }
+dispatch(actions.stock.sushi.create.decreaseValuesBy(4))
+getState().stock.sushi // => { nigiri: 6, sashimi: 0 }
 
 // ❌ TypeError: (ts 2339) Property 'decreaseValuesBy' does not exist on type...
 actions.tables.create.decreaseValuesBy()
 ```
 
+#### Longhand riducers
+Longhand riducer definitions benefit from being more strongly typed.
 
+```ts
+import riduce, { Riducer } from 'riduce'
+import { createStore } from 'redux'
 
+const bookstoreState = {
+  books: {
+    9780007925568: {
+      title: 'Moby Dick',
+      authorName: 'Herman Melville',
+      stock: 7
+    },
+    9780486280615: {
+      title: 'The Adventures of Huckleberry Finn',
+      authorName: 'Mark Twain',
+      stock: 10
+    },
+    9780764502231: {
+      title: 'JavaScript for Dummies',
+      authorName: 'Emily A. Vander Veer',
+      stock: 5
+    }
+  },
+  visitor: {
+    count: 2,
+    guestbook: []
+  }
+}
+
+type BookstoreState = typeof bookstoreState
+
+interface BookReview {
+  id: keyof BookstoreState['books'],
+  stars: number,
+  comment?: string
+}
+
+const addBookReviews: Riducer<{
+  treeState: BookstoreState,
+  leafState: string[],
+  args: BookReview[],
+  payload: BookReview[]
+}> = {
+  // pass all arguments through as payload
+  argsToPayload: (...reviews) => reviews,
+
+  // push into the string[] a formatted review for each book
+  reducer: (leafState, { payload: reviews = [] }, treeState) => {
+    return reviews.reduce((acc, { stars, id, comment = '' }) => ([
+      ...acc,
+      `${stars} stars for ${treeState.books[id].title}! ${comment}`
+    ]), leafState)
+  }
+}
+
+const [reducer, actions] = riduce(bookstoreState, { addBookReviews })
+
+const { getState, dispatch } = createStore(reducer)
+
+// ❌ TypeError: (ts 2339) Property 'addBookReviews' does not exist on type...
+actions.create.addBookReviews([])
+
+// ❌ TypeError: (ts 2332) Type 'string' is not assignable to type '9780007925568 | 9780486280615 | 9780764502231'
+actions.visitor.guestbook.create.addBookReviews(
+  { id: '9780007925568', stars: 4.5 }
+)
+
+dispatch(actions.visitor.guestbook.create.addBookReviews(
+  { id: 9780007925568, stars: 4.5 },
+  { id: 9780764502231, stars: 5, comment: 'so great!!' }
+)
+
+getState().visitor.guestbook
+/*
+[
+  '4.5 stars for Moby Dick! ',
+  '5 stars for JavaScript for Dummies! so great!!'
+]
+*/
+```
 
 ## Get started
 You may wish to check out the following:
