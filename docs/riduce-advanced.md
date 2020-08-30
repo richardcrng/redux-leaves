@@ -65,13 +65,13 @@ getState()
 ### Execute arbitrary reducer logic
 Sometimes the simple atomic action creators - `update`, `set`, `clear`... - won't feel sufficient.
 
-The general purpose `do` can help with flexibility: it takes a callback which lets you transform the state of a leaf in your tree however you wish.
+The general purpose `do` can help with flexibility: it takes a callback of `(leafState, treeState) => newLeafState`.
 
 ```ts
 const pizzaShopState = {
   stock: {
-    margherita: 1,
-    pepperoni: 100
+    margherita: 10,
+    pepperoni: 20
   },
   isOpen: {
     forEatIn: false,
@@ -82,13 +82,10 @@ const pizzaShopState = {
 const [reducer, actions] = riduce(pizzaShopState)
 const { getState, dispatch } = createStore(reducer)
 
-const swapStock = actions.stock.create.do(leafState => ({
-  margherita: leafState.pepperoni,
-  pepperoni: leafState.margherita
-}))
+const squareMargheritaStock = actions.stock.margherita.create.do(leafState => leafState ** 2)
 
-dispatch(swapStock)
-getState().stock // => { margherita: 100, pepperoni: 1 }
+dispatch(squareMargheritaStock)
+getState().stock // => { margherita: 100, pepperoni: 20 }
 
 const openIfSurplusStock = actions.isOpen.create.do(
   (leafState, treeState) => {
@@ -102,6 +99,69 @@ const openIfSurplusStock = actions.isOpen.create.do(
 
 getState().isOpen // => { forEatIn: true, forTakeOut: true }
 ```
+
+### Add custom reducers
+For reusability, sometimes you might want to abstract out some custom reducer logic which can then be executed at arbitrary leaf state.
+
+```ts
+interface Table {
+  persons: number,
+  hasOrdered: boolean,
+  hasPaid: boolean
+}
+
+const restaurantState = {
+  table: {
+    front: { persons: 4, haveOrdered: false, hasPaid: false },
+    back: { persons: 3, haveOrdered: true, hasPaid: false }
+  },
+  stock: {
+    ramen: {
+      beef: 5,
+      veg: 2
+    },
+    sushi: {
+      nigiri: 10,
+      sashimi: 4
+    }
+  }
+}
+
+const finishTable = (tableState: Table) => ({
+  ...tableState,
+  hasOrdered: true,
+  hasPaid: true
+})
+
+const setAllValuesTo = (leafState: { [key: string]: number }, action) => {
+  const keys = Object.keys(leafState)
+  return keys.reduce((acc, key) => ({
+    ...acc,
+    [key]: action.payload
+  }), {})
+}
+
+const [reducer, actions] = riduce(restaurantState, {
+  finishTable,
+  setAllValuesTo
+})
+
+const { getState, dispatch } = createStore(reducer)
+
+dispatch(actions.table[0].create.finishTable())
+getState().table[0] // => { persons: 4, haveOrdered: true, havePaid: true }
+
+dispatch(actions.table[1].create.finishTable())
+getState().table[1] // => { persons: 3, haveOrdered: true, havePaid: true }
+
+dispatch(actions.stock.ramen.create.setAllValuesTo(1))
+getState().stock.ramen // => { beef: 1, veg: 1 }
+
+dispatch(actions.stock.sushi.create.setAllValuesTo(0))
+getState().stock.sushi // => { nigiri: 0, sashimi: 0 }
+```
+
+
 
 
 ## Get started
