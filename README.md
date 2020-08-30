@@ -13,6 +13,8 @@ npm install riduce
 [![bundle size](https://badgen.net/bundlephobia/min/riduce)](https://badgen.net/bundlephobia/min/riduce)
 [![npm version](https://badge.fury.io/js/riduce.svg)](https://badge.fury.io/js/riduce)
 
+[![Edit Riduce example - MadLibs for Developers](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t?fontsize=14&hidenavigation=1&theme=dark&view=preview)
+
 Whether you're using `useReducer` or `redux`, reducer boilerplate is tedious to learn, setup and maintain.
 
 What if type-safe state management was quicker, easier and simpler?
@@ -37,13 +39,18 @@ Let's see it in use!
 ## Example
 For a `useReducer` example, [see this CodeSandbox](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t).
 
-For a `redux` example, keep reading on:
+[![Edit Riduce example - MadLibs for Developers](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t?fontsize=14&hidenavigation=1&theme=dark&view=preview)
+
+
+For a `redux` example, keep reading on for:
 1. [Zero hassle setup](#zero-hassle-setup) with 2 lines of code;
 2. [Scalable state management](#scalable-state-management) with arbitrary actions; and
 3. [Typed action creators](#typed-action-creators) to mirror your state's shape.
 
+You can also run this code in [Repl.it](https://repl.it/@richardcrng/Riduce-with-Redux).
+
 ### Zero hassle setup
-💭 Let's imagine we're controlling the state for a museum.
+Let's imagine we're controlling the state for a museum.
 ```ts
 import { createStore } from 'redux'
 import riduce from 'riduce' // <<< 1 line to import
@@ -59,7 +66,7 @@ const museumState = {
 const [reducer, actions] = riduce(museumState) // <<< 1 line to setup
 const { getState, dispatch } = createStore(reducer)
 ```
-🏎️ **And that's it.** Those two lines replace *all* of our reducer boilerplate.
+**And that's it.** Those two lines replace *all* of our reducer boilerplate.
 
 ### Scalable state management
 Continuing on from [above](#zero-hassle-setup), let's:
@@ -68,11 +75,11 @@ Continuing on from [above](#zero-hassle-setup), let's:
 3. Sign the guestbook; and
 4. Amend a guestbook entry.
 
-🤮 Previously, you might create 4 x reducer branches, action types and action creators.
+Previously, you might create 4 x reducer branches, action types and action creators.
 
-😍 **Riducer gets rid of all that boilerplate.**
+**Riducer gets rid of all that boilerplate.**
 
-😎 Now, it's as simple as describing the changes we want to see!
+Now, it's as simple as describing the changes we want to see!
 
 ```ts
 // at `state.isOpen`, create an action to toggle the boolean
@@ -103,12 +110,12 @@ getState()
 ```
 All this is possible because Riduce's `actions` gives you **loads of convenient action creators out of the box**, which you can *use liberally throughout your state tree:* `update`, `set`, `filter`, `reset`, and many more...
 
-🧠 It's also possible to add your own in. *(TODO: add documentation for this.)*
+It's also possible to add your own in. *(TODO: add documentation for this.)*
 
 ### Typed action creators
-🤓 Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
+Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
 
-💪 It's written in TypeScript, so it's helpfully typed right out of the box as well!
+It's written in TypeScript, so it's helpfully typed right out of the box as well!
 
 ```ts
 // ❌ can we push to a boolean? no!
