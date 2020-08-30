@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: riduce
 ---
 
-# `riduce(initialState, [reducersDict = {}])`
+# `riduce(initialState, [riducerDict = {}])`
 
 Returns a reducer function and an actions object.
 
@@ -13,7 +13,7 @@ Returns a reducer function and an actions object.
 
 ## Parameters
 - [`initialState`](#initialstate) *(object)*: the state shape and initial values for your Redux store
-- [`reducersDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](api/leafReducers.md) keyed by their [creator keys](api/creatorKeys.md)
+- [`riducerDict`](#reducersdict) *(object, optional)*: a collection of [leaf reducers](api/leafReducers.md) keyed by their [creator keys](api/creatorKeys.md)
 
 ### `initialState`
 *(object)*
@@ -34,7 +34,7 @@ const initialState = {
 }
 ```
 
-### `reducersDict`
+### `riducerDict`
 *(object)*
 
 This is an object where every `key`-`value` pair is such that:
@@ -44,7 +44,7 @@ This is an object where every `key`-`value` pair is such that:
 #### Example
 
 ```js
-const reducersDict = {
+const riducerDict = {
   increment: (state, { payload }) => state + payload,
   slice: {
     argsToPayload: (begin, end) => [begin, end]

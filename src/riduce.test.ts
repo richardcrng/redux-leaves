@@ -1,4 +1,4 @@
-import riduce, { ReducerDefinition } from "."
+import riduce, { Riducer } from "."
 
 describe('Basic example', () => {
   const initialState = {
@@ -80,14 +80,14 @@ describe('Custom reducers', () => {
     list: [1, 2, 3]
   }
 
-  const multiplyBy: ReducerDefinition<{
+  const multiplyBy: Riducer<{
     args: [number], payload: number, leafState: number
   }> = {
     argsToPayload: (num) => num,
     reducer: (leafState, action) => leafState * action.payload
   }
 
-  const appendDoubleWithCounter: ReducerDefinition<{
+  const appendDoubleWithCounter: Riducer<{
     args: [number], payload: number, leafState: number[], treeState: typeof initialState
   }> = {
     argsToPayload: (num) => num * 2,

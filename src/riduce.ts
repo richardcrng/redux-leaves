@@ -1,24 +1,26 @@
+import { Reducer as ReactReducer } from 'react'
+import { Reducer as ReduxReducer } from 'redux'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
-import { Action, Reducer, CustomReducers, isBundledAction } from './types';
+import { Action, RiducerDict, isBundledAction } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
 export type ReduxLeaves<
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT> = {}
+  RiducerDictT extends RiducerDict<TreeT> = {}
 > = [
-  Reducer<TreeT, Action>,
-  ActionsProxy<TreeT, TreeT, CustomReducersT>
+  ReactReducer<TreeT, Action>,
+  ActionsProxy<TreeT, TreeT, RiducerDictT>
 ]
 
 function riduce<
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT> = {}
+  RiducerDictT extends RiducerDict<TreeT> = {}
 >(
   initialState: TreeT,
-  reducersDict: CustomReducersT = {} as CustomReducersT
-): ReduxLeaves<TreeT, CustomReducersT> {
+  riducerDict: RiducerDictT = {} as RiducerDictT
+): ReduxLeaves<TreeT, RiducerDictT> {
   const reducer = (treeState: TreeT = initialState, action: Action): TreeT => {
     
     if (!action.leaf) return treeState
@@ -29,14 +31,14 @@ function riduce<
 
     const prevLeafState = getState(treeState, action.leaf.path)
 
-    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState, reducersDict)
+    const newLeafState = leafReducer(prevLeafState, treeState, action, initialState, riducerDict)
 
     return updateState(treeState, action.leaf.path, newLeafState)
   }
 
-  const actions = createActionsProxy(initialState, initialState, reducersDict)
+  const actions = createActionsProxy(initialState, initialState, riducerDict)
 
-  return [reducer as Reducer<TreeT, Action>, actions]
+  return [reducer as ReactReducer<TreeT, Action>, actions]
 }
 
 export default riduce

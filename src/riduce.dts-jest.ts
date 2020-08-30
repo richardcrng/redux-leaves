@@ -1,4 +1,4 @@
-import riduce, { ReducerDefinition, ActionWithPayload } from "."
+import riduce, { Riducer, ActionWithPayload } from "."
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -110,7 +110,7 @@ import riduce, { ReducerDefinition, ActionWithPayload } from "."
     list: [1, 2, 3]
   }
 
-  const multiplyBy: ReducerDefinition<{
+  const multiplyBy: Riducer<{
     leafState: number,
     payload: number,
     args: [number]

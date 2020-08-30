@@ -1,41 +1,41 @@
 import wrapWithCreate from './wrapWithCreate'
-import { CustomReducers, CreateAPI } from '../types'
+import { RiducerDict, CreateAPI } from '../types'
 
 export type ActionsProxy<
   LeafT,
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
+  RiducerDictT extends RiducerDict<TreeT>
 > = {
-  create: CreateAPI<LeafT, TreeT, CustomReducersT>
+  create: CreateAPI<LeafT, TreeT, RiducerDictT>
 } & {
-  [K in keyof LeafT]: ActionsProxy<LeafT[K], TreeT, CustomReducersT>
+  [K in keyof LeafT]: ActionsProxy<LeafT[K], TreeT, RiducerDictT>
 }
 
 function createActionsProxy<
   LeafT,
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
+  RiducerDictT extends RiducerDict<TreeT>
 >(
   leafState: LeafT,
   treeState: TreeT,
-  reducersDict: CustomReducersT,
+  riducerDict: RiducerDictT,
   path: (string|number)[] = []
-): ActionsProxy<LeafT, TreeT, CustomReducersT> {
+): ActionsProxy<LeafT, TreeT, RiducerDictT> {
 
-  const proxy = new Proxy(wrapWithCreate(leafState, treeState, reducersDict, path), {
+  const proxy = new Proxy(wrapWithCreate(leafState, treeState, riducerDict, path), {
     get: (target, prop: Extract<keyof LeafT, string | number> | 'create') => {
       if (prop === 'create') return target.create
 
       return createActionsProxy(
         target[prop],
         treeState,
-        reducersDict,
+        riducerDict,
         [...path, propForPath(prop)]
       )
     }
   })
 
-  return proxy as unknown as ActionsProxy<LeafT, TreeT, CustomReducersT>
+  return proxy as unknown as ActionsProxy<LeafT, TreeT, RiducerDictT>
 }
 
 const propForPath = (prop: string | number): string | number => (

@@ -9,7 +9,7 @@ sidebar_label: Creator keys
 
 A creator key (`creatorKey`) serves two roles:
 
-1. In a [`reducersDict`](../README.md#reducersdict), it uniquely identifies a given [leaf reducer](leafReducers.md); and
+1. In a [`riducerDict`](../README.md#reducersdict), it uniquely identifies a given [leaf reducer](leafReducers.md); and
 2. In the `actions` API, it:
   - is an action creator available at a given leaf through [`.create[creatorKey]`](create.md), that
   - triggers the corresponding leaf reducer logic (when said action creator is called and its resultant action is dispatched).
@@ -35,7 +35,7 @@ const initialState = {
 ### Identifying leaf reducers
 ```js
 // Use the creator keys to uniquely identify leaf reducers
-const reducersDict = {
+const riducerDict = {
   addOne: leafState => leafState + 1,
   doubleEach: leafState => leafState.map(n => 2 * n)
 }
@@ -45,7 +45,7 @@ const reducersDict = {
 
 ```js
 // Grab the actions object using riduce
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 const store = createStore(reducer)
 
 // Use the creator keys at a chosen leaf's create property:

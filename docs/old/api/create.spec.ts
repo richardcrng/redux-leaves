@@ -12,11 +12,11 @@ describe('create has action creators keyed by default and custom creatorKeys', (
     str: 'hello world'
   }
 
-  const reducersDict = {
+  const riducerDict = {
     convertToFoobar: (_: string) => 'foobar'
   }
 
-  const [reducer, actions] = riduce(initialState, reducersDict)
+  const [reducer, actions] = riduce(initialState, riducerDict)
 
   test('All creates have default creatorKeys like update, set and push', () => {
     expect(typeof actions.counter.create.update).toBe('function')

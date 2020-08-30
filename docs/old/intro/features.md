@@ -76,7 +76,7 @@ console.log(store.getState().arbitrary.nested.deep) // false
 
 ## Minimal boilerplate
 
-If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `riduce` in a [`reducersDict`](../README.md#reducersdict).
+If you want to extend the action creators available, you can define some reducer logic and access it at any arbitrary slice of state by passing it into `riduce` in a [`riducerDict`](../README.md#reducersdict).
 
 ```js
 import { createStore } from 'redux'
@@ -90,7 +90,7 @@ const initialState = {
 // Reducer logic: capitalise some leaf state
 const capitalise = (leafState) => leafState.toUpperCase()
 
-// Second optional argument of riduce is a reducersDict
+// Second optional argument of riduce is a riducerDict
 const [reducer, actions] = riduce(initialState, { capitalise })
 const store = createStore(reducer)
 

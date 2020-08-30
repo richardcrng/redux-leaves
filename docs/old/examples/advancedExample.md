@@ -72,11 +72,11 @@ const initialState = {
   }
 }
 
-const reducersDict = {
+const riducerDict = {
   duplicate: leafState => leafState.concat(leafState)
 }
 
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 
 const actionToPushToList = actions.list.create.push('c')
 console.log(actionToPushToList.type) // 'list/PUSH'
@@ -139,7 +139,7 @@ const initialState = {
   counter: 0
 }
 
-const reducersDict = {
+const riducerDict = {
   // object configuration longhand
   addMultiple: {
     // Capture all arguments and pass them to the reducer:
@@ -152,7 +152,7 @@ const reducersDict = {
   addFirstThing: (leafState, { payload }) => leafState + payload
 }
 
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 const store = createStore(reducer)
 
 console.log(store.getState().counter) // 0

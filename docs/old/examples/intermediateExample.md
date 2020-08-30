@@ -31,14 +31,14 @@ const initialState = {
 }
 
 // Key your reducer logic by a descriptive verb
-const reducersDict = {
+const riducerDict = {
   double: leafState => leafState * 2,
   appendToEach: (leafState, action) => leafState.map(str => str.concat(action.payload)),
   countTreeKeys: (leafState, action, treeState) => Object.keys(treeState).length
 }
 
 // Provide the dictionary of your reducer logic to riduce
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 const store = createStore(reducer)
 ```
 

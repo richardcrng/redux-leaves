@@ -23,11 +23,11 @@ const initialState = {
   }
 }
 
-const reducersDict = {
+const riducerDict = {
   convertToFoobar: () => 'foobar'
 }
 
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 ```
 
 * `actions.counter.create` corresponds to creating actions at `state.counter`;

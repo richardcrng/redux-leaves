@@ -1,23 +1,23 @@
 import makeCreatorOfTypeFromPath from '../create/makeCreatorOfTypeFromPath';
-import { CreateFn, CustomReducers, CustomCreators, isLonghandReducer } from '../types';
+import { CreateFn, RiducerDict, CustomCreators, isLonghandReducer } from '../types';
 
 function makeCustomCreators<
   LeafT,
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
+  RiducerDictT extends RiducerDict<TreeT>
 >(
   leafState: LeafT,
   treeState: TreeT,
   path: (string | number)[],
-  reducersDict: CustomReducersT
-): CreateFn<CustomCreators<LeafT, TreeT, CustomReducersT>> {
+  riducerDict: RiducerDictT
+): CreateFn<CustomCreators<LeafT, TreeT, RiducerDictT>> {
   
   const makeCreatorOfType = makeCreatorOfTypeFromPath(path, true)
 
   return (passedType?: string) => {
     const creatorOfType = makeCreatorOfType(passedType)
     
-    const entries = Object.entries(reducersDict)
+    const entries = Object.entries(riducerDict)
 
     const creators = entries.reduce(
       (acc, [key, definition]) => {
@@ -38,7 +38,7 @@ function makeCustomCreators<
       {}
     )
 
-    return creators as CustomCreators<LeafT, TreeT, CustomReducersT>
+    return creators as CustomCreators<LeafT, TreeT, RiducerDictT>
   }
 }
 

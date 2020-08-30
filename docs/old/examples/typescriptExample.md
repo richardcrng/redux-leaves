@@ -95,5 +95,5 @@ const reducerDict: ReducerSchemas = {
 }
 
 
-const [reducer, actions] = riduce(initialState, reducersDict)
+const [reducer, actions] = riduce(initialState, riducerDict)
 ```

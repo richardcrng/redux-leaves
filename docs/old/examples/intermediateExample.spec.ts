@@ -8,13 +8,13 @@ describe('Intermediate example', () => {
     nested: { arbitrarily: { deep: 0 } }
   }
 
-  const reducersDict = {
+  const riducerDict = {
     double: (leafState: number) => leafState * 2,
     appendToEach: (leafState: string[], action: ActionWithPayload<string>) => leafState.map(str => str.concat(action.payload)),
     countTreeKeys: (_: any, __: Action, treeState: typeof initialState) => Object.keys(treeState).length
   }
 
-  const [reducer, actions] = riduce(initialState, reducersDict)
+  const [reducer, actions] = riduce(initialState, riducerDict)
   const store = createStore(reducer)
 
   test("We can double the counter's state", () => {

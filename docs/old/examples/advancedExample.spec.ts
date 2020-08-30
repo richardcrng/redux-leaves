@@ -50,11 +50,11 @@ describe('Advanced example', () => {
       }
     }
 
-    const reducersDict = {
+    const riducerDict = {
       duplicate: (leafState: any[]) => leafState.concat(leafState)
     }
 
-    const [reducer, actions] = riduce(initialState, reducersDict)
+    const [reducer, actions] = riduce(initialState, riducerDict)
 
     it('Creates informative action types by default', () => {
       const actionToPushToList = actions.list.create.push('c')
@@ -92,7 +92,7 @@ describe('Advanced example', () => {
       counter: 0
     }
 
-    const reducersDict = {
+    const riducerDict = {
       addMultiple: {
         argsToPayload: (...args: number[]) => args,
         reducer: (leafState: number, { payload }: { payload: number[] }) => payload.reduce((acc, val) => acc + val, leafState)
@@ -100,7 +100,7 @@ describe('Advanced example', () => {
       addFirstThing: (leafState: number, { payload } : { payload: number }) => leafState + payload
     }
 
-    const [reducer, actions] = riduce(initialState, reducersDict)
+    const [reducer, actions] = riduce(initialState, riducerDict)
     const store = createStore(reducer)
 
     test('We can configure to use custom argsToPayload', () => {

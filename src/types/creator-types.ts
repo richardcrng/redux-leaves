@@ -4,7 +4,7 @@ import { StringCreators } from '../string/string-types'
 import { ObjectCreators } from '../object/object-types'
 import { NumberCreators } from '../number/number-types'
 import { BooleanCreators } from '../boolean/boolean-types'
-import { CustomReducers, CustomCreators } from '../custom/custom-types'
+import { RiducerDict, CustomCreators } from '../custom/custom-types'
 
 export * from '../universal/universal-types'
 export * from '../custom/custom-types'
@@ -16,8 +16,8 @@ export type WrappedWithCreate<T, C> = T & { create: CreateFn<C> }
 export type CreateAPI<
   LeafT,
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
-> = DefaultCreators<LeafT, TreeT, CustomReducersT> & CreateFn<DefaultCreators<LeafT, TreeT, CustomReducersT>>
+  RiducerDictT extends RiducerDict<TreeT>
+> = DefaultCreators<LeafT, TreeT, RiducerDictT> & CreateFn<DefaultCreators<LeafT, TreeT, RiducerDictT>>
 
 export type TypedCreators<LeafT, TreeT> =
   LeafT extends Array<unknown>
@@ -35,10 +35,10 @@ export type TypedCreators<LeafT, TreeT> =
 export type DefaultCreators<
   LeafT,
   TreeT,
-  CustomReducersT extends CustomReducers<TreeT>
+  RiducerDictT extends RiducerDict<TreeT>
 > =
   UniversalCreators<LeafT, TreeT>
     & TypedCreators<LeafT, TreeT>
-    & CustomCreators<LeafT, TreeT, CustomReducersT>
+    & CustomCreators<LeafT, TreeT, RiducerDictT>
 
 
