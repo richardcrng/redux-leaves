@@ -1,18 +1,18 @@
-import R from 'ramda'
+import { path } from 'ramda'
 import produce from 'immer'
 
-export const getState = <S>(state: S, path: (string | number)[]) => (
-  (pathIsEmpty(path))
+export const getState = <S>(state: S, propPath: (string | number)[]) => (
+  (pathIsEmpty(propPath))
     ? state
-    : R.path(path, state)
+    : path(propPath, state)
 )
 
-export const pathIsEmpty = (path: string | (string | number)[]) => (
-  ['', null, undefined].includes(path as string) || path.length === 0
+export const pathIsEmpty = (propPath: string | (string | number)[]) => (
+  ['', null, undefined].includes(propPath as string) || path.length === 0
 )
 
-export const setValue = <S, V = unknown>(obj: S, path: (string | number)[], value: V) => {
-  const pathTo = [...path]
+export const setValue = <S, V = unknown>(obj: S, propPath: (string | number)[], value: V) => {
+  const pathTo = [...propPath]
   const finalProp = pathTo.pop()
   let currentObj = obj
 
@@ -30,11 +30,11 @@ export const setValue = <S, V = unknown>(obj: S, path: (string | number)[], valu
   currentObj[finalProp as string | number] = value;
 }
 
-export const updateState = <S, V = unknown>(state: S, path: (string | number)[], val: V): S => {
-  if (pathIsEmpty(path)) return val as unknown as S
+export const updateState = <S, V = unknown>(state: S, propPath: (string | number)[], val: V): S => {
+  if (pathIsEmpty(propPath)) return val as unknown as S
 
   return produce(state, (draftState) => {
-    setValue(draftState, path, val)
+    setValue(draftState, propPath, val)
   })
 }
 
