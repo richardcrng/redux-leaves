@@ -45,7 +45,7 @@ For a `useReducer` example, [see this CodeSandbox](https://codesandbox.io/s/ridu
 For a `redux` example, keep reading on for:
 1. [Zero hassle setup](#zero-hassle-setup) with 2 lines of code;
 2. [Scalable state management](#scalable-state-management) with arbitrary actions; and
-3. [Typed action creators](#typed-action-creators) to mirror your state's shape.
+3. [Typesafe action creators](#typesafe-action-creators) to mirror your state's shape.
 
 You can also run this code in [Repl.it](https://repl.it/@richardcrng/Riduce-with-Redux).
 
@@ -112,7 +112,7 @@ All this is possible because Riduce's `actions` gives you **loads of convenient 
 
 It's also possible to add your own in. *(TODO: add documentation for this.)*
 
-### Typed action creators
+### Typesafe action creators
 Now we've seen that Riduce is [zero-hassle setup](#zero-hassle-setup) for [arbitrary action creators without the reducer boilerplate](#scalable-state-management). 
 
 It's written in TypeScript, so it's helpfully typed right out of the box as well!
