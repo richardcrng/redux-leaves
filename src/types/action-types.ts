@@ -1,4 +1,4 @@
-export interface LeafActionData {
+export interface LeafData {
   path: (string | number)[]
   creatorKey: string
   CREATOR_KEY: string
@@ -6,29 +6,23 @@ export interface LeafActionData {
   custom: boolean
 }
 
-export interface LeafStandardAction<PayloadT = unknown> {
+export interface Action<PayloadT = unknown> {
   type: string,
-  leaf: LeafActionData,
+  leaf: LeafData,
   payload?: PayloadT
 }
 
-export interface LeafStandardActionWithPayload<PayloadT> extends LeafStandardAction<PayloadT> {
+export interface ActionWithPayload<PayloadT> extends Action<PayloadT> {
   payload: PayloadT
 }
 
-export interface LeafCompoundAction extends LeafStandardActionWithPayload<(LeafStandardAction | LeafCompoundAction)[]> {
-  leaf: LeafActionData & {
+export interface BundledAction extends ActionWithPayload<(Action | BundledAction)[]> {
+  leaf: LeafData & {
     compound: true,
     bundled: string[]
   }
 }
 
-export function isLeafCompoundAction(action: LeafStandardAction): action is LeafCompoundAction {
+export function isBundledAction(action: Action): action is BundledAction {
   return !!action.leaf.compound
-}
-
-export {
-  LeafStandardAction as LSA,
-  LeafStandardActionWithPayload as LSAWithPayload,
-  LeafStandardActionWithPayload as LSAwP,
 }

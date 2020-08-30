@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import riduce, { LeafStandardAction, LSAWithPayload } from '../../../src';
+import riduce, { Action, ActionWithPayload } from '../../../src';
 
 describe('Intermediate example', () => {
   const initialState = {
@@ -10,8 +10,8 @@ describe('Intermediate example', () => {
 
   const reducersDict = {
     double: (leafState: number) => leafState * 2,
-    appendToEach: (leafState: string[], action: LSAWithPayload<string>) => leafState.map(str => str.concat(action.payload)),
-    countTreeKeys: (_: any, __: LeafStandardAction, treeState: typeof initialState) => Object.keys(treeState).length
+    appendToEach: (leafState: string[], action: ActionWithPayload<string>) => leafState.map(str => str.concat(action.payload)),
+    countTreeKeys: (_: any, __: Action, treeState: typeof initialState) => Object.keys(treeState).length
   }
 
   const [reducer, actions] = riduce(initialState, reducersDict)

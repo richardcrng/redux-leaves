@@ -1,5 +1,5 @@
 import { isPlainObject } from "ramda-adjunct";
-import { LeafStandardAction, isCustomAction, CustomReducers, isLonghandReducer } from "../types";
+import { Action, isCustomAction, CustomReducers, isLonghandReducer } from "../types";
 import universalLeafReducer from "../universal/universalLeafReducer";
 import arrayLeafReducer from "../array/arrayLeafReducer";
 import stringLeafReducer from "../string/stringLeafReducer";
@@ -10,7 +10,7 @@ import booleanLeafReducer from "../boolean/booleanLeafReducer";
 function leafReducer<
   LeafT,
   TreeT,
-  ActionT extends LeafStandardAction,
+  ActionT extends Action,
   CustomReducersT extends CustomReducers<TreeT>
 >(
   leafState: LeafT,

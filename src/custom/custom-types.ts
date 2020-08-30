@@ -1,8 +1,8 @@
 import { OmitByValue } from 'utility-types';
-import { LSA, LeafActionData } from "../types"
+import { Action, ActionData } from "../types"
 
-export type LeafCustomAction<PayloadT = unknown> = LSA<PayloadT> & {
-  leaf: LeafActionData & {
+export type LeafCustomAction<PayloadT = unknown> = Action<PayloadT> & {
+  leaf: ActionData & {
     custom: true
   },
   payload: PayloadT
@@ -93,7 +93,7 @@ export type CustomCreatorsAll<
     : never
 }
 
-export function isCustomAction(action: LSA): action is LeafCustomAction {
+export function isCustomAction(action: Action): action is LeafCustomAction {
   return !!action.leaf.custom
 }
 

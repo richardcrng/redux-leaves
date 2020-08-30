@@ -1,4 +1,4 @@
-import { LSAwP, LSA } from "../types"
+import { ActionWithPayload, Action } from "../types"
 
 export enum UniversalCreatorKeys {
   CLEAR = 'CLEAR',
@@ -13,13 +13,13 @@ export type UniversalCreators<
   LeafT = unknown,
   TreeT = unknown
 > = {
-  clear(): LSA
+  clear(): Action
 
-  do(cb: DoCallback<LeafT, TreeT>): LSAwP<DoCallback<LeafT, TreeT>>
+  do(cb: DoCallback<LeafT, TreeT>): ActionWithPayload<DoCallback<LeafT, TreeT>>
 
-  reset(): LSA
+  reset(): Action
 
-  update(newVal: LeafT): LSAwP<LeafT>
+  update(newVal: LeafT): ActionWithPayload<LeafT>
 }
 
 export type UniversalActions<
@@ -28,18 +28,18 @@ export type UniversalActions<
   TreeT = unknown
 > = ReturnType<UniversalCreators<LeafT, TreeT>[KeyT]>
 
-export function isClearAction<L>(action: LSA): action is UniversalActions<'clear', L> {
+export function isClearAction<L>(action: Action): action is UniversalActions<'clear', L> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.CLEAR
 }
 
-export function isDoAction<L, T = unknown>(action: LSA): action is UniversalActions<'do', L, T> {
+export function isDoAction<L, T = unknown>(action: Action): action is UniversalActions<'do', L, T> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.DO
 }
 
-export function isResetAction(action: LSA): action is UniversalActions<'reset'> {
+export function isResetAction(action: Action): action is UniversalActions<'reset'> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.RESET
 }
 
-export function isUpdateAction<L>(action: LSA): action is UniversalActions<'update', L> {
+export function isUpdateAction<L>(action: Action): action is UniversalActions<'update', L> {
   return action.leaf.CREATOR_KEY === UniversalCreatorKeys.UPDATE
 }

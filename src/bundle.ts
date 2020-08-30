@@ -1,7 +1,7 @@
 import { prop } from 'ramda';
-import { LeafStandardAction, LeafCompoundAction } from "./types"
+import { Action, BundledAction } from "./types"
 
-function bundle(actions: (LeafStandardAction | LeafCompoundAction)[], type?: string): LeafCompoundAction {
+function bundle(actions: (Action | BundledAction)[], type?: string): BundledAction {
   const actionTypes = actions.map(prop('type'))
 
   return {

@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 import { createActionsProxy } from "./proxy"
 import { ActionsProxy } from "./proxy/createActionsProxy"
-import { LeafStandardAction, CustomReducers, isLeafCompoundAction } from './types';
+import { Action, CustomReducers, isBundledAction } from './types';
 import updateState, { getState } from './utils/update-state';
 import leafReducer from './leafReducer';
 
@@ -20,11 +20,11 @@ function riduce<
   initialState: TreeT,
   reducersDict: CustomReducersT = {} as CustomReducersT
 ): ReduxLeaves<TreeT, CustomReducersT> {
-  const reducer = (treeState: TreeT = initialState, action: LeafStandardAction): TreeT => {
+  const reducer = (treeState: TreeT = initialState, action: Action): TreeT => {
     
     if (!action.leaf) return treeState
 
-    if (isLeafCompoundAction(action)) {
+    if (isBundledAction(action)) {
       return action.payload.reduce(reducer, treeState)
     }
 

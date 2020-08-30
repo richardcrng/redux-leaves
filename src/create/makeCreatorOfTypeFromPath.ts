@@ -1,6 +1,6 @@
 import { isNotUndefined } from "ramda-adjunct";
 import { camelCase, constantCase } from 'change-case';
-import { LSAwP, LSA } from "../types"
+import { ActionWithPayload, Action } from "../types"
 
 const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = false) => (passedType?: string) => {
   const makeType = passedType
@@ -14,12 +14,12 @@ const makeCreatorOfTypeFromPath = (path: (string | number)[], custom: boolean = 
     str: CreatorKeyT,
     payload: PayloadT,
     typeOverload?: string
-  ): LSAwP<PayloadT>
+  ): ActionWithPayload<PayloadT>
 
   function creatorOfType<
     PayloadT,
     CreatorKeyT extends string = string
-  >(str: CreatorKeyT): LSA<CreatorKeyT>
+  >(str: CreatorKeyT): Action<CreatorKeyT>
 
   function creatorOfType<
     PayloadT,

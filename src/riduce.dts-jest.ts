@@ -1,4 +1,4 @@
-import riduce, { ReducerDefinition, LSAWithPayload } from "."
+import riduce, { ReducerDefinition, ActionWithPayload } from "."
 
 // @dts-jest:group Actions shape mirrors state
 {
@@ -152,7 +152,7 @@ import riduce, { ReducerDefinition, LSAWithPayload } from "."
 
   const multiplyBy = {
     argsToPayload: (num: number) => num,
-    reducer: (leafState: number, action: LSAWithPayload<number> ) => leafState * action.payload
+    reducer: (leafState: number, action: ActionWithPayload<number> ) => leafState * action.payload
   }
 
   const [reducer, actions] = riduce(initialState, { multiplyBy })
