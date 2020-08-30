@@ -8,11 +8,12 @@ describe('create has action creators keyed by default and custom creatorKeys', (
       nested: {
         path: ['hi!']
       }
-    }
+    },
+    str: 'hello world'
   }
 
   const reducersDict = {
-    convertToFoobar: () => 'foobar'
+    convertToFoobar: (_: string) => 'foobar'
   }
 
   const [reducer, actions] = reduxLeaves(initialState, reducersDict)
@@ -24,8 +25,8 @@ describe('create has action creators keyed by default and custom creatorKeys', (
   })
 
   test('All creates also have supplied custom creatorKeys', () => {
-    expect(typeof actions.create.convertToFoobar).toBe('function')
-    expect(typeof actions.arbitrary.nested.path.create.convertToFoobar).toBe('function')
+    expect(typeof actions.str.create.convertToFoobar).toBe('function')
+    expect(typeof actions.arbitrary.nested.path[0].create.convertToFoobar).toBe('function')
   })
 
   const store = createStore(reducer)
@@ -43,7 +44,7 @@ describe('create has action creators keyed by default and custom creatorKeys', (
   describe('create can take a string argument as actionType', () => {
     test('If given this argument, it still has properties corresponding to default and custom provided creators', () => {
       expect(typeof actions.counter.create('UPDATE_COUNTER').update).toBe('function')
-      expect(typeof actions.create('CONVERT_TO_FOOBAR').convertToFoobar).toBe('function')
+      expect(typeof actions.str.create('CONVERT_TO_FOOBAR').convertToFoobar).toBe('function')
     })
 
     test('The created actions have the supplied actionType as type', () => {

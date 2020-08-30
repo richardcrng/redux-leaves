@@ -2,7 +2,18 @@ import { createStore } from "redux";
 import reduxLeaves from '../../src';
 
 describe("leaf.create.do(callback): returns an action that, when dispatched, updates the leaf's state to the return value of callback(state, entireState)", () => {
-  const initialState = {
+  interface State {
+    bool: boolean,
+    num: number,
+    str: string,
+    arr: number[],
+    obj: {
+      num?: number,
+      arr?: number[]
+    }
+  }
+
+  const initialState: State = {
     bool: false,
     num: 2,
     str: 'foo',
@@ -26,9 +37,9 @@ describe("leaf.create.do(callback): returns an action that, when dispatched, upd
   })
 
   test("Calling create.do on a branch", () => {
-    const doToState = actions.create.do
-    store.dispatch(doToState((state) => ({ num: state.num, arr: state.arr })))
-    expect(store.getState()).toEqual({ num: 2, arr: [1, 2, 3] })
+    const doToState = actions.obj.create.do
+    store.dispatch(doToState((_, treeState) => ({ num: treeState.num, arr: treeState.arr })))
+    expect(store.getState().obj).toEqual({ num: 2, arr: [1, 2, 3] })
   })
 
   test("Calling create.do with two arguments", () => {
@@ -36,6 +47,6 @@ describe("leaf.create.do(callback): returns an action that, when dispatched, upd
     store.dispatch(doToArray(
       (leafState, treeState) => leafState.map(element => element * treeState.num)
     ))
-    expect(store.getState()).toEqual({ num: 2, arr: [2, 4, 6] })
+    expect(store.getState().arr).toEqual([2, 4, 6])
   })
 })
