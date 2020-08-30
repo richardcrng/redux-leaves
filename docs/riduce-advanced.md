@@ -37,7 +37,7 @@ Riduce's `actions` gives us access to lots of atomic action creators at any node
 We can build a single complex action out of these atomic actions using `bundle`:
 
 ```ts
-import { bundle } from 'redux-leaves'
+import { bundle } from 'riduce'
 
 const actionsBundle = bundle([
   actions.isOpen.create.toggle(),
@@ -103,8 +103,14 @@ getState().isOpen // => { forEatIn: true, forTakeOut: true }
 ### Add custom reducers
 For reusability, sometimes you might want to abstract out some custom reducer logic which can then be executed at arbitrary leaf state.
 
+This can be done in two ways:
+1. [Shorthand riducers](#shorthand-riducers)
+2. [Longhand riducers](#longhand-riducers)
+
 #### Shorthand examples
 ```ts
+import { Action, Riducer } from 'riduce'
+
 const restaurantState = {
   tables: [
     { persons: 4, hasOrdered: false, hasPaid: false },
@@ -123,11 +129,11 @@ const restaurantState = {
 }
 
 /*
- * Note: I'm typing in a slightly unorthodox way
- *  in the hope that this is more friendly for
- *  non-TypeScript users.
+ *  Note: I'm typing in a slightly unorthodox way
+ *    in the hope that this is more friendly for
+ *    non-TypeScript users.
  * 
- * (I suggest explicitly typing state.)
+ *  (I suggest explicitly typing state.)
  */
 type Table = typeof restaurantState['tables'][0]
 
@@ -137,7 +143,11 @@ const finishTable = (tableState: Table) => ({
   hasPaid: true
 })
 
-const decreaseValuesBy = (leafState: Record<string, number>, action) => {
+/*
+ *  Take an object with number values, and decrease each
+ *    value by a given argument (the action payload).
+ */
+const decreaseValuesBy = (leafState: Record<string, number>, action: Action<number>) => {
   const keys = Object.keys(leafState)
   return keys.reduce((acc, key) => ({
     ...acc,
@@ -161,6 +171,7 @@ getState().tables[1] // => { persons: 3, haveOrdered: true, havePaid: true }
 // ❌ TypeError: (ts 2339) Property 'finishTable' does not exist on type...
 actions.stock.ramen.create.finishTable()
 
+// The action creator argument becomes payload
 dispatch(actions.stock.ramen.create.decreaseValuesBy(1))
 getState().stock.ramen // => { beef: 1, veg: 1 }
 

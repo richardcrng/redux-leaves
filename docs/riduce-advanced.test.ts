@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import riduce, { bundle } from '../src'
+import riduce, { bundle, Action, Riducer } from '../src'
 
 describe('Advanced usage', () => {
   test('Bundle multiple actions', () => {
@@ -100,7 +100,7 @@ describe('Advanced usage', () => {
       hasPaid: true
     })
 
-    const decreaseValuesBy = (leafState: Record<string, number>, action) => {
+    const decreaseValuesBy = (leafState: Record<string, number>, action: Action<number>) => {
       const keys = Object.keys(leafState)
       return keys.reduce((acc, key) => ({
         ...acc,

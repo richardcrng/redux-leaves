@@ -1,4 +1,4 @@
-import riduce from '../src'
+import riduce from '../src/riduce'
 
 // @dts-jest:group shorthand examples
 {
