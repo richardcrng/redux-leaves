@@ -36,7 +36,7 @@ That's it! Now you've got a type-safe `reducer` and arbitrary `actions`, with ze
 
 Let's see it in use!
 
-## Example
+## Introductory Example
 For a `useReducer` example, [see this CodeSandbox](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t).
 
 [![Edit Riduce example - MadLibs for Developers](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t?fontsize=14&hidenavigation=1&theme=dark&view=preview)
@@ -132,4 +132,15 @@ actions.visitor.guestbook.create.push(10)
 
 // ✅ can we push a string to an inferred string[]? yeah, okay then.
 actions.visitor.guestbook.create.push('10')
+```
+
+## Get started
+You may wish to check out the following:
+- [Riduce with `useReducer`: CodeSandbox demo](https://codesandbox.io/s/riduce-example-madlibs-for-developers-njo9t)
+- [Riduce with Redux: Repl.it demo](https://repl.it/@richardcrng/Riduce-with-Redux)
+
+Have fun adding it to your project!
+
+```bash
+npm install riduce
 ```
