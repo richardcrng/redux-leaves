@@ -11,7 +11,7 @@ Write once. Reduce anywhere.
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } = from 'redux-leaves'
+import reduxLeaves, { bundle } from 'redux-leaves'
 
 // set up with initial state
 const initialState = {
