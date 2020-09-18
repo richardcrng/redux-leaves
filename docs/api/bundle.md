@@ -25,7 +25,7 @@ When provided a single argument, an array of actions created through the [`creat
 
 ```js
 import { createStore } from 'redux'
-import reduxLeaves, { bundle } from 'reduxLeaves'
+import reduxLeaves, { bundle } from 'redux-leaves'
 
 const initialState = {
   counter: 0,
